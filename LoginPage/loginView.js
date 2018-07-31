@@ -30,15 +30,11 @@ LoginPage.LoginView = new function(options){
 	}
 
 	function handleLogin(){
-		let stayLoggedIn = getStayLoggedIn(),
+		let stayLoggedIn = stayLoggedInBox.checked;
 			event = new Event("tryLogin");
 			event.details = {};
 			event.deatils.stayLoggedIn = stayLoggedIn;
 			loginView.dispatchEvent(event);
-	}
-
-	function getStayLoggedIn(){
-
 	}
 
 	function handleNewUser(){
@@ -47,7 +43,7 @@ LoginPage.LoginView = new function(options){
 	}	
 
 	function showNegativeFeedback(){
-		feedBackBox.innerHTML = NEGATIVE_HINT,
+		feedBackBox.innerHTML = NEGATIVE_HINT;
 	}
 
 
