@@ -1,6 +1,6 @@
-var HorseApp = HorseApp || {};
+var List = List || {};
 
-HorseApp.ListElement = class ListElement extends EventTarget{
+List.ListElement = class ListElement extends EventTarget{
 
 	constructor(domElement, elementId){
 		super();
