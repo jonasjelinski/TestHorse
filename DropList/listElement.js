@@ -1,6 +1,6 @@
-var List = List || {};
+var DropList = DropList || {};
 
-List.ListElement = class ListElement extends EventTarget{
+DropList.ListElement = class ListElement extends EventTarget{
 
 	constructor(domElement, elementId){
 		super();
@@ -13,7 +13,6 @@ List.ListElement = class ListElement extends EventTarget{
 		this.dragEvent = "onDrag";
 		this.dropEvent = "onDrop";
 		this.clickEvent = "onClick";		
-		
 	}
 
 	handleDragStart(event) { 

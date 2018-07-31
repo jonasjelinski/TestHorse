@@ -1,17 +1,26 @@
-var List = List || {};
+var DropList = DropList || {};
 
-List.ListView = class ListView extends EventTarget{
+DropList.ListView = class ListView extends EventTarget{
 
-	constructor(domElement){
+	constructor(domElement, elementTemplateString){
 		super();
 		this.unsortedList = domElement;
-		this.onClick = "onClick";
+		this.onElementClick = "onElementClick";
+		this.onInserted = "inserted";
+		this.elementTemplateString = elementTemplateString;
 	}
 
-	addNewElement(li, id){
-		let listElement = new listElement(li, id);
+	addNewElement(data, id){
+		let li =  createNewElement(data),
+			listElement = new ListElement(li, id);
 		addListeners(listElement);
 		this.unsortedList.appendChild(li):
+	}
+
+	createNewElement(data){
+    	let templateFunction = _.template(this.elementTemplateString),
+    	element = templateFunction(data);
+    	return element;
 	}
 
 	deleteElementById(id){
@@ -55,7 +64,8 @@ List.ListView = class ListView extends EventTarget{
 
 	insertDroppedElement(element, droppedElement){           
 	  removeDroppedElementFromPreviousPosition(droppedElement);
-	  insertDroppedElementIntoNewPosition(element, droppedElement);       
+	  insertDroppedElementIntoNewPosition(element, droppedElement);
+	  sendInsertedEvent();       
 	}
 
 	removeDroppedElementFromPreviousPosition(droppedElement){
@@ -68,8 +78,13 @@ List.ListView = class ListView extends EventTarget{
 		element.insertBefore(li);
 	}
 
+	sendInsertedEvent(){
+		let event = new Event(this.onInserted);
+		this.dispatchEvent(event);
+	}
+
 	handleElementClick(ev){
-		let event = new Event(this.onClick);
+		let event = new Event(this.onElementClick);
 		event.details = {};
 		event.details.elementId = ev.details.elementId;
 		this.dispatchEvent(event);
