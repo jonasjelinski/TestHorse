@@ -1,6 +1,6 @@
 var LoginPage = LoginPage || {};
 
-LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBackBoxId, negativeFeedbackClass){
+LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBackBoxId){
 	let loginPage = new EventTarget(),
 		loginView,
 		loginModel,
@@ -30,7 +30,6 @@ LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBack
 				newUserButton: newUserButton,
 				stayLoggedInBox : stayLoggedInBox,
 				feedBackBox : feedBackBox,
-				negativeFeedbackClass : negativeFeedbackClass,
 			};
 			loginView = new LoginView(options);
 			loginView.init();			
@@ -49,7 +48,7 @@ LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBack
 		}
 
 		function handleIsValid(ev){
-			let userId =  event.details.userId;
+			let userId = event.details.userId,
 			sendChangePageEvent(userId);
 		}
 
@@ -65,9 +64,10 @@ LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBack
 		}
 
 		function handleLoginTry(event){
-			let userId = event.details.userId
+			let stayLoggedIn = event.details.stayLoggedIn,
+				userId = event.details.userId,				
 				pw = event.details.pw;
-			loginModel.tryLogin(userId, pw);
+			loginModel.tryLogin(stayLoggedIn, userId, pw);
 		}
 
 		function handleNewUser(){

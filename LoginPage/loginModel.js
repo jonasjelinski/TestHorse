@@ -16,20 +16,23 @@ LoginPage.LoginModul = function(){
 		}
 
 		function handleIsInvalid(){
-			sendEvent("isInvalid");
-		}
-
-		function sendEvent(type){
-			let event = new Event(type);
-			loginModul.sendEvent(event);
+			let data = {};
+			sendEvent("isInvalid", data);
 		}
 
 		function handleIsValid(){
-			sendEvent("isValid");
+			let data = {userID : userID};
+			sendEvent("isValid", data);
 		}
 
-		function tryLogin(userID, pw){
-			dbRequester.tryLogin(userID, pw);
+		function sendEvent(type, data){
+			let event = new Event(type);
+			event.details = data;
+			loginModul.sendEvent(event);
+		}
+
+		function tryLogin(stayLoggedIn, userID, pw){
+			dbRequester.tryLogin(stayLoggedIn, userID, pw);
 		}
 
 		loginModul.tryLogin = tryLogin;
