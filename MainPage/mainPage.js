@@ -6,7 +6,7 @@ MainPage = function(){
 
 	init(){
 		mainPage = new EventTarget(),
-		hamburgerMenu = new HamburgerMenu();
-		
+		hamburgerMenu = new HamburgerMenu(menuElements,menuId, newEntryTemplate, inVisibleClass, visibleClass);
+		dropList = new DropList(domElementId, listElementsData, elementTemplateString);
 	}
 }
