@@ -14,7 +14,7 @@ DropList.ListView = class ListView extends EventTarget{
 		let li =  createNewElement(data),
 			listElement = new ListElement(li, id);
 		addListeners(listElement);
-		this.unsortedList.appendChild(li):
+		this.unsortedList.appendChild(li);
 	}
 
 	createNewElement(data){

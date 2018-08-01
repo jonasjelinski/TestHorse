@@ -33,7 +33,8 @@ DropList.ListModel = function(listElements){
 		});
 		elements.sort(function (a, b) {
 		  return newOrder[a.id] - newOrder[b.id];
-	});
+		});
+	}
 
 	function getElements(){
 		return elements;
