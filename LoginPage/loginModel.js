@@ -1,6 +1,7 @@
 var LoginPage = LoginPage || {};
 
 /**
+ * Test von Chris!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  * @namespace LoginModul
  * @memberOf! LoginPage
  * @description contains the logic of the LoginPage
