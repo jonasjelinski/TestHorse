@@ -12,7 +12,7 @@ MainPage = function(){
 		elementTemplateString = document.getElementById("ul-element").innerHTML
 		//hamburgerMenu = new HamburgerMenu(menuElements,menuId, newEntryTemplate, inVisibleClass, visibleClass);
 		dropList = new DropList(dropListId, listElementsData, elementTemplateString);
-		//dropList.init();
+		dropList.init();
 	}
 
 	mainPage.init = init;
