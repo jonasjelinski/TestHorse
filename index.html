@@ -10,15 +10,15 @@
     
 
     <script src="libs/underscore/underscore-min.js"></script> 
-    <script src="Pages/pageChanger.js"></script>  
-    <script src="Pages/pages.js"></script>    
+    <script src="MainPage/mainPage.js"></script>  
+    <script src="Pages/pages.js"></script>  
+    <script src="Pages/pageContent.js"></script>    
     <script src="Pages/pageCreator.js"></script>
+    <script src="Pages/pageChanger.js"></script>
        
     <script>  
-      let domElement = document.getElementById("parentPage"),
-        pageChanger = Pages.PageChanger(domElement);
-        pageChanger.init();
-        pageChanger.switchPage("MAIN");
+     let pages = new Pages();     
+     pages.init();
     </script>
    
   </body>

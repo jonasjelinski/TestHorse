@@ -1,19 +1,30 @@
 var Pages = Pages || {};
 
-Pages.PageContent = function (){
-	let that = {};
-	const MAIN_PAGE = ' <content>'+
-						'<ul id="horseList" class="frames">'+
-						'</ul>'+
- 					'</content>'+
+Pages = function(){
+	let that = {},
+		domElement,
+		pageChanger,
+		mainPage;
 
-'<script type="text/template" id="ul-element">'+
-'<li draggable="true" id = <%= id %>>'+
-	'<p ><%= name %></p>'+
-'</li>'+
-'</script> '
-	
-	that.MAIN_PAGE = MAIN_PAGE;
+	function init(){
+		domElement = document.getElementById("parentPage"),
+		pageChanger = Pages.PageChanger(domElement);
+		pageChanger.init();
+		mainPage = new MainPage();		
+	}
+
+	function showLoginPage(){
+		pageChanger.switchPage("LOGIN");
+	}
+
+	function showMainPage(){
+		pageChanger.switchPage("MAIN");
+		mainPage.init();
+	}
+
+	that.showMainPage = showMainPage;
+	that.init = init;
 	return that;
-};
- 
+}
+
+
