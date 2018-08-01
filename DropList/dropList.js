@@ -10,6 +10,7 @@ DropList = (function(domElementId, listElementsData, elementTemplateString){
 		listDomElement = document.getElementById(domElementId);
 		listView = new ListView(listDomElement, elementTemplateString);;
 		listModel = new DropList.ListModel(listElementsData);
+		listModel.init();
 		addListElementsToView(listElementsData);
 		addListeners();
 	}

@@ -39,6 +39,7 @@ DropList.ListModel = (function(listElements){
 		return elements;
 	}
 
+	that.init = init;
 	that.addNewElement = addNewElement;
 	that.removeElementById = removeElementById;
 	that.updateElementOrder = updateElementOrder;

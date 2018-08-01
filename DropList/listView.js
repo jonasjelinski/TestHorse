@@ -32,35 +32,38 @@ class ListView extends EventTarget{
 		li.remove(li);
 	}
 
+	addListeners(listElement){  
+		listElement.addEventListener(listElement.dropEvent, this.handleElementDrop.bind(this), false);
+		listElement.addEventListener(listElement.clickEvent, this.handleElementClick.bind(this), false);    
+	}
+
+	handleElementDrop(event){
+		let details = event.details,    		
+			id = event.details.id,
+			droppedElement = this.getLiElementyById(id),    		
+			element = event.target.element;
+		if(!this.isDroppingOnItsself(element, droppedElement)){
+			this.insertDroppedElement(element, droppedElement);
+		}    		
+	}
+
 	getLiElementyById(id){
-		let listElement;
+		let listElements = this.unsortedList.children,
+			listElement;
 		for(let i = 0; i < listElements.length; i++){
-		//let liId = listElements[i].getElementsByTagName("img")[0].getAttribute("frame");
+		let li = listElements[i],
+			lid = li.id;
 			if(lid === id){
-				listElement = listElements[i];
+				listElement = li;
 			}
 		}
 		return listElement;	
 	}
 
-	addListeners(listElement){  
-		//listElement.addEventListener(listElement.dropEvent, this.handleElementDrop.bind(this), false);
-		//listElement.addEventListener(listElement.clickEvent, this.handleElementClick.bind(this), false);    
-	}
-
-	handleElementDrop(event){
-		let details = event.details,    		
-			droppedElement = event.details.droppedElement,    		
-			element = that.element;
-		if(!this.isDroppingOnItsself(this, droppedElement)){
-			this.insertDroppedElement(element, droppedElement);
-		}    		
-	}
-
 	isDroppingOnItsself(self, droppedElement){
-		let selfId = self.elementId,
-			droppedId = droppedElement.elementId;
-		if(droppedId === selfId){
+		let selfId = self.id,
+			id = droppedElement.id;
+		if(id === selfId){
 			return true;
 		}
 		return false;
@@ -73,13 +76,13 @@ class ListView extends EventTarget{
 	}
 
 	removeDroppedElementFromPreviousPosition(droppedElement){
-		let li = droppedElement.element;
+		let li = droppedElement;
 		this.unsortedList.removeChild(li);
 	}
 
 	insertDroppedElementIntoNewPosition(element, droppedElement){
-		let li = droppedElement.element;
-		element.insertBefore(li);
+		let li = droppedElement;
+		element.parentElement.insertBefore(li, element);
 	}
 
 	sendInsertedEvent(){
@@ -94,12 +97,12 @@ class ListView extends EventTarget{
 		this.dispatchEvent(event);
 	}
 
-	getCurrentListOrder(){
+	getCurrentOrder(){
 		let listElements = this.unsortedList.children,
 		ids = [];
 		for(let i = 0; i < listElements.length; i++){
-		//let id = listElements[i].getElementsByTagName("img")[0].getAttribute("frame");
-		//ids.push(id);
+		let id = listElements[i].id;
+			ids.push(id);
 		}
 		return ids; 
 	}
