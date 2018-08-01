@@ -16,14 +16,12 @@ class ListElement extends EventTarget{
 	}
 
 	handleDragStart(event) { 
-		console.log("start");
-		let data = JSON.stringify(this);
+		let data = this.elementId;
         event.dataTransfer.effectAllowed = "move";
         event.dataTransfer.setData("text/html", data);
 	}
 
 	handleDragOver(event) {
-		console.log("drag");
         if (event.preventDefault) {
             event.preventDefault();
         }
@@ -32,23 +30,21 @@ class ListElement extends EventTarget{
 	}
 
   	handleDrop(event) {
-  		console.log("drop");
 		if( event.preventDefault){
 			event.preventDefault();
 		}
 		if (event.stopPropagation) {
 		  event.stopPropagation(); 
 		}	
-      	let data = event.dataTransfer.getData("text"),
-      		droppedElement = JSON.parse(data);
-        this.dispatchDroppedElement(droppedElement);
+      	let id = event.dataTransfer.getData("text/html");
+        this.dispatchDroppedElement(id);
       return false;
 	}
 
-	dispatchDroppedElement(droppedElement){
+	dispatchDroppedElement(id){
 		let event = new Event(this.dropEvent);
 		event.details = {};
-		event.details.droppedElement = this.droppedElement;
+		event.details.id = id;
 		this.dispatchEvent(event);
 	}
 
