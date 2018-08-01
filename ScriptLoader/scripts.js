@@ -14,16 +14,17 @@ ScriptLoader.Scripts = (function(){
 	"./DropList/listElement.js",
 	"./DropList/listModel.js",
 	"./DropList/listView.js",
+	"./MainPage/mainPage.js",
 	"./HamburgerMenu/hamburgerMenu.js",
 	"./HamburgerMenu/hamburgerMenuModel.js",	
 	"./HamburgerMenu/hamburgerMenuView.js",
 	"./LoginPage/loginPage.js",
 	"./LoginPage/loginModel.js",	
 	"./LoginPage/loginView.js",
+	"./Pages/pages.js",
 	"./Pages/pageChanger.js",
 	"./Pages/pageContent.js",
-	"./Pages/pageCreator.js",
-	"./Pages/pages.js",
+	"./Pages/pageCreator.js",	
 	];
 
 	return scripts;
