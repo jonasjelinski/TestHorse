@@ -106,7 +106,7 @@ LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBack
 		* @description Reads the userId from the event and send this usedId with sendChangePageEvent
 		*/ 
 		function handleIsValid(event){
-			let userId = event.details.userId,
+			let userId = event.details.userId;
 			sendChangePageEvent(userId);
 		}
 
@@ -164,5 +164,5 @@ LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBack
 		}
 
 		loginPage.init = init;
-		return loginPage:
+		return loginPage;
 }

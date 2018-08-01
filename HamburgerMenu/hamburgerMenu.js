@@ -6,33 +6,33 @@ HamburgerMenu = function(menuElements,menuId, newEntryTemplate, inVisibleClass, 
 		hamburgerMenuModel,
 		menuDomElement;
 
-	init(){
+	function init(){
 		initView();
 		initModel();
 		addListeners();
 	}
 
-	initView(){
+	function initView(){
 		menuDomElement = d3.selectElementById(menuId);
 		hamburgerMenuView = new HamburgerMenuView(menuDomElement, newEntryTemplate, inVisibleClass, visibleClass);	
 	}
 
-	addMenuElements(){
+	function addMenuElements(){
 		for(let i = 0; i < menuElements.length; i++){
 			let data = menuElements[i];
 			hamburgerMenuView.addNewEntry(data);
 		}
 	}
 
-	initModel(){		
+	function initModel(){		
 		hamburgerMenuModel = new HamburgerMenuModel(menuElements);
 	}
 
-	addListeners(){
+	function addListeners(){
 		hamburgerMenuView.addEventListener("onClick", handleMenuClick);
 	}
 
-	handleMenuClick(ev){
+	function handleMenuClick(ev){
 		let event = Event("onClick");
 		event.details = {};
 		event.details.elementId = ev.details.elementId;
