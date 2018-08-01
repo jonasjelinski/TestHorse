@@ -1,11 +1,10 @@
 var DropList = DropList || {};
 
-DropList.ListModel = function(listElements){
-	let that,
+DropList.ListModel = (function(listElements){
+	let that = new EventTarget(),
 		elements;
 
-	function init(){
-		that = new EventTarget();
+	function init(){		
 		elements = listElements;
 	}
 
@@ -45,4 +44,4 @@ DropList.ListModel = function(listElements){
 	that.updateElementOrder = updateElementOrder;
 	that.getElements = elements;	
 	return that;
-}
+});

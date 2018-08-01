@@ -1,6 +1,6 @@
 var DropList = DropList || {};
 
-DropList.ListView = class ListView extends EventTarget{
+class ListView extends EventTarget{
 
 	constructor(domElement, elementTemplateString){
 		super();
@@ -11,15 +11,19 @@ DropList.ListView = class ListView extends EventTarget{
 	}
 
 	addNewElement(data, id){
-		let li =  createNewElement(data),
+		let li =  this.createNewElement(data),
 			listElement = new ListElement(li, id);
-		addListeners(listElement);
+		this.addListeners(listElement);
 		this.unsortedList.appendChild(li);
 	}
 
 	createNewElement(data){
-    	let templateFunction = _.template(this.elementTemplateString),
-    	element = templateFunction(data);
+    	let element = {},
+			div =  document.createElement("div"),
+			templateFunction = _.template(this.elementTemplateString),
+			elementHTML = templateFunction(data);
+    	div.innerHTML = elementHTML;
+    	element = div.children[0];
     	return element;
 	}
 
@@ -40,16 +44,16 @@ DropList.ListView = class ListView extends EventTarget{
 	}
 
 	addListeners(listElement){  
-		listElement.addEventListener(listElement.dropEvent, handleElementDrop, false);
-		listElement.addEventListener(listElement.clickEvent, handleElementClick, false);    
+		//listElement.addEventListener(listElement.dropEvent, this.handleElementDrop.bind(this), false);
+		//listElement.addEventListener(listElement.clickEvent, this.handleElementClick.bind(this), false);    
 	}
 
 	handleElementDrop(event){
 		let details = event.details,    		
 			droppedElement = event.details.droppedElement,    		
 			element = that.element;
-		if(!isDroppingOnItsself(this, droppedElement)){
-			insertDroppedElement(element, droppedElement);
+		if(!this.isDroppingOnItsself(this, droppedElement)){
+			this.insertDroppedElement(element, droppedElement);
 		}    		
 	}
 
@@ -63,9 +67,9 @@ DropList.ListView = class ListView extends EventTarget{
 	}	
 
 	insertDroppedElement(element, droppedElement){           
-	  removeDroppedElementFromPreviousPosition(droppedElement);
-	  insertDroppedElementIntoNewPosition(element, droppedElement);
-	  sendInsertedEvent();       
+	  this.removeDroppedElementFromPreviousPosition(droppedElement);
+	  this.insertDroppedElementIntoNewPosition(element, droppedElement);
+	  this.sendInsertedEvent();       
 	}
 
 	removeDroppedElementFromPreviousPosition(droppedElement){

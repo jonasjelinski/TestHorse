@@ -6,10 +6,26 @@
     <title>Titel</title>
   </head>
   <body>
-  	 <script src="DropList/dropList.js"></script>
+  	<content>
+  	 <ul id="horseList" class="frames">
+
+     </ul>
+ </content>
+       <script type="text/template" id="ul-element">
+        <li draggable="true" id = <%= id %>>
+        	<p ><%= name %></p>
+        </li>
+     </script>
+    <script src="libs/underscore/underscore-min.js"></script>
+  	<script src="DropList/dropList.js"></script>  
     <script src="DropList/listElement.js"></script>
     <script src="DropList/listModel.js"></script>
-    <script src="DropList/listView.js"></script>
+    <script src="DropList/listView.js"></script>   
+    <script src="MainPage/mainPage.js"></script>
+    <script> 
+    let mainPage = new MainPage();
+    mainPage.init();
+ 	</script >
 
   </body>
 </html>

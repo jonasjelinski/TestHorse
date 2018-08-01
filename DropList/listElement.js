@@ -1,6 +1,6 @@
 var DropList = DropList || {};
 
-DropList.ListElement = class ListElement extends EventTarget{
+class ListElement extends EventTarget{
 
 	constructor(domElement, elementId){
 		super();
@@ -9,19 +9,21 @@ DropList.ListElement = class ListElement extends EventTarget{
 	   	this.element.addEventListener("dragstart", this.handleDragStart.bind(this), false);
 	    this.element.addEventListener("dragover", this.handleDragOver.bind(this), false);
 	    this.element.addEventListener("drop", this.handleDrop.bind(this), false);
-	    this.element.addEventListener("onClick", this.handleClick(this), false);
+	    //this.element.addEventListener("onClick", this.handleClick(this), false);
 		this.dragEvent = "onDrag";
 		this.dropEvent = "onDrop";
 		this.clickEvent = "onClick";		
 	}
 
 	handleDragStart(event) { 
+		console.log("start");
 		let data = JSON.stringify(this);
         event.dataTransfer.effectAllowed = "move";
-        event.dataTransfer.setData("text", data);
+        event.dataTransfer.setData("text/html", data);
 	}
 
 	handleDragOver(event) {
+		console.log("drag");
         if (event.preventDefault) {
             event.preventDefault();
         }
@@ -30,15 +32,16 @@ DropList.ListElement = class ListElement extends EventTarget{
 	}
 
   	handleDrop(event) {
-		if( ev.preventDefault){
-			ev.preventDefault();
+  		console.log("drop");
+		if( event.preventDefault){
+			event.preventDefault();
 		}
 		if (event.stopPropagation) {
 		  event.stopPropagation(); 
 		}	
       	let data = event.dataTransfer.getData("text"),
       		droppedElement = JSON.parse(data);
-        dispatchDroppedElement(droppedElement);
+        this.dispatchDroppedElement(droppedElement);
       return false;
 	}
 
@@ -52,7 +55,7 @@ DropList.ListElement = class ListElement extends EventTarget{
 	handleClick(){
 		let event = new Event(this.clickEvent);
 		event.details = {};
-		event.details.elementId = elementId;
+		event.details.elementId = this.elementId;
 		this.dispatchEvent(event);
 	}
 

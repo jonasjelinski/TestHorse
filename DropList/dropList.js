@@ -1,16 +1,15 @@
 var DropList = DropList || {};
 
-DropList = function(domElementId, listElementsData, elementTemplateString){
-	let dropList,
+DropList = (function(domElementId, listElementsData, elementTemplateString){
+	let dropList = new EventTarget(),
 		listDomElement,
 		listView,
 		listModel; 
 
 	function init(){
-		list = new EventTarget();
 		listDomElement = document.getElementById(domElementId);
-		listView = new listView(listDomElement, elementTemplateString);
-		listModel = new ListModel(listElementsData);
+		listView = new ListView(listDomElement, elementTemplateString);;
+		listModel = new DropList.ListModel(listElementsData);
 		addListElementsToView(listElementsData);
 		addListeners();
 	}
@@ -23,8 +22,8 @@ DropList = function(domElementId, listElementsData, elementTemplateString){
 		}
 	}
 
-	function addNewElement(elementData){
-		listView.addNewElement(elementData);
+	function addNewElement(elementData, id){
+		listView.addNewElement(elementData, id);
 		listModel.addNewElement(elementData);
 	}
 
@@ -57,9 +56,10 @@ DropList = function(domElementId, listElementsData, elementTemplateString){
 		addNewElement(elementData);
 	}
 
+	dropList.init = init;
 	dropList.addNewElement = addNewElement;
 	dropList.removeElementById = removeElementById;
 	dropList.updateElementById = updateElementById;
 	dropList.getElements = getElements;
 	return dropList;
-}
+});
