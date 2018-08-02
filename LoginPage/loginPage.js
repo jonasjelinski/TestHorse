@@ -13,6 +13,7 @@ var LoginPage = LoginPage || {};
  * @param {string} newUserButtonId id of the newUserButton DOM-Element
  * @param {string} stayLoggedInBoxId id of the stayLoggedInBox DOM-Element
  * @param {string} feedBackBoxId id of the feedBackBox DOM-Element
+ * </p>
  */
 
 LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBackBoxId){

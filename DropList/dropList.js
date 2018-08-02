@@ -4,10 +4,11 @@ var DropList = DropList || {};
  * @namespace DropList
  * @memberOf! DropList
  * @description Communication center of the DropList
- * <p><DropList</code> handles the communication between the unsorted list <code>listDomElement</code> and its li-elements
+ * <p><code><DropList</code> handles the communication between the unsorted list <code>listDomElement</code> and its li-elements
  * @param {string} domElementId id of the unsorted list DOM-Element
  * @param {Array} listElementsData array containing objects which contain the data for the li-eLements 
  * @param {string} elementTemplateString Template which is used to create new li-elements with the listElementsData
+ * </p>
  */
 DropList = (function(domElementId, listElementsData, elementTemplateString){
 	let dropList = new EventTarget(),

@@ -4,8 +4,9 @@ var DropList = DropList || {};
  * @namespace ListModel
  * @memberOf! DropList
  * @description Model of the ListModel containing and handling the data.
- * <p><ListModel</code> contains and handles the data of the DropList-Modul
+ * <p><code><ListModel</code> contains and handles the data of the DropList-Modul
  * @param {Array} listElementsData array containing objects which contain the data for the li-eLements of the DropList-Modul
+ * </p>
  */
 DropList.ListModel = (function(listElementsData){
 	let that = new EventTarget(),

@@ -3,9 +3,10 @@ var DropList = DropList || {};
 /**
  * @class ListView
  * @description Class for a new ul-List extends EventTarget
- * <p><ListElement</code> handles the communication between the unsorted list <code>listDomElement</code> and its li-elements
+ * <p><code><ListElement</code> handles the communication between the unsorted list <code>listDomElement</code> and its li-elements
  * @param {html-object} domElement an unsorted list ul
  * @param {string} elementTemplateString Template which is used to create new li-elements with the listElementsData
+ * </p>
  */
 class ListView extends EventTarget{
 

@@ -17,6 +17,7 @@ var LoginPage = LoginPage || {};
  * <li><code>options.pwInputBox</code> DOM-reference on the hand of the pwInputBox</li>
  * </ul>
  * <p>the movement of the hand of the clock can be started and stopped here.</p>
+ * </p>
  */
 
 LoginPage.LoginView = new function(options){
