@@ -27,7 +27,7 @@ class ListView extends EventTarget{
     	return element;
 	}
 
-	deleteElementById(id){
+	removeElementById(id){
 		let li = getLiElementyById(li);
 		li.remove(li);
 	}
