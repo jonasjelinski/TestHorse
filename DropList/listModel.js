@@ -1,17 +1,47 @@
 var DropList = DropList || {};
 
-DropList.ListModel = (function(listElements){
+/*
+ * @namespace ListModel
+ * @memberOf! DropList
+ * @description Model of the ListModel containing and handling the data.
+ * <p><ListModel</code> contains and handles the data of the DropList-Modul
+ * @param {Array} listElementsData array containing objects which contain the data for the li-eLements of the DropList-Modul
+ */
+DropList.ListModel = (function(listElementsData){
 	let that = new EventTarget(),
 		elements;
 
+	/**
+	* @function init
+	* @public
+	* @memberof! ListModel  
+	* @instance
+	* @description Initialize this model. Saves the array data of the listElementsData in the variable elements.
+	*/ 	
 	function init(){		
-		elements = listElements;
+		elements = listElementsData;
 	}
 
+	/**
+	* @function addNewElement
+	* @public
+	* @memberof! ListModel  
+	* @instance
+	* @param {Object} element
+	* @description Adds a new array to elements.
+	*/ 	
 	function addNewElement(element){
 		elements.push(element);
 	}
 
+	/**
+	* @function removeElementById
+	* @public
+	* @memberof! ListModel  
+	* @instance
+	* @param {id} id of the element
+	* @description Removes an element of the array elements by its id.
+	*/ 	
 	function removeElementById(id){
 		let numberOfElementsToDelete = 1;
 		for(let i = 0; i < elements.length; i++){
@@ -25,6 +55,14 @@ DropList.ListModel = (function(listElements){
 		}
 	}
 
+	/**
+	* @function updateElementOrder
+	* @public
+	* @memberof! ListModel  
+	* @instance
+	* @param {currentOrder} Array of ids, containing the correct order of the elements.
+	* @description Sorts the elements by the ids of the array currentOrder
+	*/ 	
 	function updateElementOrder(currentOrder){ 
 		let newOrder = {};            
 		currentOrder.forEach(function (a, i) { 
@@ -35,6 +73,13 @@ DropList.ListModel = (function(listElements){
 		});
 	}
 
+	/**
+	* @function getElements
+	* @public
+	* @memberof! ListModel  
+	* @instance
+	* @description Returns the array elements.
+	*/ 	
 	function getElements(){
 		return elements;
 	}
