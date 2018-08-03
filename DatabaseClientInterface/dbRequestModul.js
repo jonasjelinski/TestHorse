@@ -54,4 +54,10 @@ DatabaseClientInterface.RequestModul = function () {
 		let requestData = createRequestDataObject(ACTIONS.DELETE, data);
 		requestModul.request(setResult, null, METHODS.DELETE, url, requestData);
 	}
+
+	that.getDataFromDB = getDataFromDB;
+	that.setDataIntoDB = setDataIntoDB;
+	that.updateDataInDB = updateDataInDB;
+	that.delteDataFromDB = delteDataFromDB;
+	return that;
 }
