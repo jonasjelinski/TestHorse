@@ -33,6 +33,17 @@ DatabaseClientInterface.RequestModul = function () {
 		let requestData = {};
 			requestData.action = action;
 			requestData = Object.assign(requestData, data);
+			requestData = convertAllValuesToTypeString(requestData);
+		return requestData;
+	}
+
+	function convertAllValuesToTypeString(requestData){
+		Object.keys(requestData).forEach( function(i){
+			if (typeof requestData[i] === "object") {
+				return convertAllValuesToTypeString(requestData[k]);
+			}
+			requestData[i] = '' + requestData[i];
+		});
 		return requestData;
 	}
 
