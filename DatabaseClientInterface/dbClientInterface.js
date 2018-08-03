@@ -11,6 +11,11 @@ DatabaseClientInterface = function(){
 		ALL_REMINDERS: "",
 		SINGLE_REMINDER: "",
 		USER_DATA:"",
+		SET_USER : "",
+		SET_HORSE : "",
+		SET_DATE : "",
+		SET_REMINDER : "",
+		SET_APPOINTMENT : "",
 	}
 
 	let that = new EventTarget(),
@@ -33,11 +38,13 @@ DatabaseClientInterface = function(){
 				data.stayLoggedIn = wantsToStayLoggedIn;
 				data.userId = userId;
 				data.password;
-			requestModul.getDataFromDB(URLS.TRY_LOGIN, data);
+			requestModul.tryLogin(URLS.TRY_LOGIN, data);
 		}
 
 		function logoutUser(userId){
-
+			let data = {};
+				data.userId = userId;
+			requestModul.tryLogout(URLS.LOGOUT, data);
 		}
 
 
@@ -87,21 +94,65 @@ DatabaseClientInterface = function(){
 
 		//SET DATA
 
-		function setHorseIntoDB(){
-
+		function setUserIntoDB(name, email, dateOfBirth, password){
+			let data = {
+				name: name,
+				email: email,
+				dateOfBirth: dateOfBirth,
+				password : password,
+			};
+			requestModul.setDataIntoDB(URLS.SET_USER, data);
 		}
 
-		function setDateIntoDB(){
-
+		function setHorseIntoDB(name, owner, race, dateOfBirth, photoSrc, sex, height, grower){
+			let data = {
+				name: name,
+				owner: owner,
+				race: race,
+				dateOfBirth : dateOfBirth,
+				photo: photoSrc,
+				sex : sex, 
+				height: height, 
+				grower: grower,
+			};
+			requestModul.setDataIntoDB(URLS.SET_HORSE, data);
 		}
 
-		function setReminderIntoDB(){
-
+		function setDateIntoDB(title, date, time, location, regular, reminder){
+			let data = {
+				title: title,
+				date: date,
+				time: time,
+				location : location,
+				regular: regular,
+				reminder : reminder, 
+			};
+			requestModul.setDataIntoDB(URLS.SET_DATE, data);
 		}
 
-		function setUserIntoDB(){
-
+		function setReminderIntoDB(title, date, time, location, parentDate){
+			let data = {
+				title: title,
+				date: date,
+				time: time,
+				location : location,
+				parentDate: dateId,
+			};
+			requestModul.setDataIntoDB(URLS.SET_REMINDER, data);
 		}
+
+		function setAppointmentIntoDB(title, dateToShow, timeToShow, dateOfFutureDate, timeOfFutureDate){
+			let data = {
+				title: title,
+				dateToShow: date,
+				timeToShow: time,
+				dateOfFutureDate : location,
+				timeOfFutureDate: dateId,
+			};
+			requestModul.setDataIntoDB(URLS.SET_APPOINTMENT, data);
+		}
+
+
 
 		//DELETE ENTITY
 
