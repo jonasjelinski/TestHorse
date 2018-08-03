@@ -22,9 +22,13 @@
             pages.init();
             pages.showMainPage();
         }*/
+
+        function loaded(){
+        	console.log("loaded");
+        }
      
       let scriptLoader = new ScriptLoader();
-      scriptLoader.addEventListener("onLoaded", showMainPage);             
+      scriptLoader.addEventListener("onLoaded", loaded);             
       scriptLoader.loadScripts();
    </script>   
     <script>
