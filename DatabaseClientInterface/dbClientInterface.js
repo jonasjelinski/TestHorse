@@ -16,6 +16,11 @@ DatabaseClientInterface = function(){
 		SET_DATE : "",
 		SET_REMINDER : "",
 		SET_APPOINTMENT : "",
+		DELETE_USER : "",
+		DELETE_HORSE : "",
+		DELETE_DATE : "",
+		DELETE_REMINDER : "",
+		DELETE_APPOINTMENT : "",
 	}
 
 	let that = new EventTarget(),
@@ -156,30 +161,42 @@ DatabaseClientInterface = function(){
 
 		//DELETE ENTITY
 
-		function deleteHorseFromDB(){
-
+		function deleteUserFromDB(userId){
+			deleteEntityFromDB(URLS.DELETE_USER, id);
 		}
 
-		function deleteDateFromDB(){
-
+		function deleteEntityFromDB(url, id){
+			let data = {};
+			data.userId;
+			requestModul.delteDataFromDB(url, data);
 		}
 
-		function deleteReminderFromDB(){
-
+		function deleteHorseFromDB(horseId){
+			deleteEntityFromDB(URLS.DELETE_HORSE, horseId);
 		}
 
-		function deleteAgreementFromDB(){
-
+		function deleteDateFromDB(dateId){
+			deleteEntityFromDB(URLS.DELETE_DATE, dateId);
 		}
 
-		function deleteUserFromDB(){
+		function deleteReminderFromDB(reminderId){
+			deleteEntityFromDB(URLS.DELETE_REMINDER, reminderId);
+		}
 
+		function deleteAgreementFromDB(agreementId){
+			deleteEntityFromDB(URLS.DELETE_AGREEMENT, agreementId);
 		}
 
 		//UPDATE 
 
 		function updateHorse(){
 
+		}
+
+		function updateEntity(id, valueObject){
+			data = {};
+			data.id = id;
+			data = Object.assign(data, valueObject);
 		}
 
 		function updateDate(){
