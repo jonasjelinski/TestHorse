@@ -13,24 +13,20 @@ DatabaseClientInterface.RequestModul = function () {
     };
 
     const ACTIONS = {
+    	LOGIN: "LOGIN",
+    	LOGOUT : "LOGOUT",
     	GET: "GET",
     	SET: "SET",
     	UPDATE: "UPDATE",
     	DELETE: "DELETE",
     }
 
-	that = {},
-	requestModul = new AJAXModul();	
+	that = new EventTarget(),
+	requestModul = new AJAXModul();
 
-	function getDataFromDB(url, data){
-		let resultData,
-			requestData = createRequestDataObject(ACTIONS.GET, data);
-
-		function setData(requestResult){
-			resultData = requestResult;
-		}
-		requestModul.request(setData, null, METHODS.POST, url, requestData);
-		return resultData;
+	function askDataBase(url, data, action){
+		let requestData = createRequestDataObject(action, data);
+		requestModul.request(getDBAnswer, null, METHODS.POST, url, requestData);
 	}
 
 	function createRequestDataObject(action, data){
@@ -40,21 +36,39 @@ DatabaseClientInterface.RequestModul = function () {
 		return requestData;
 	}
 
+	function getDBAnswer(requestResult){
+		let event = new Event("onResult");
+		event.details = {};
+		event.details.result = requestResult;
+		that.dispatchEvent(event);		
+	}
+
+	function tryLogin(url, data){
+		askDataBase(url, data, ACTION.LOGIN);
+	}
+
+	function tryLogout(url, data){
+		askDataBase(url, data, ACTIONS.LOGOUT),
+	}	
+
+	function getDataFromDB(url, data){
+		askDataBase(url, data, ACTION.GET);
+	}
+
 	function setDataIntoDB(url, data){
-		let requestData = createRequestDataObject(ACTIONS.SET, data);
-		requestModul.request(setResult, null, METHODS.POST, url, requestData);
+		askDataBase(url, data, ACTIONS.SET);
 	}
 
 	function updateDataInDB(url, data){
-		let requestData = createRequestDataObject(ACTIONS.UPDATE, data);
-		requestModul.request(setResult, null, METHODS.UPDATE, url, requestData);
+		askDataBase(url, data, ACTIONS.UPDATE);
 	}
 
 	function delteDataFromDB(url, data){
-		let requestData = createRequestDataObject(ACTIONS.DELETE, data);
-		requestModul.request(setResult, null, METHODS.DELETE, url, requestData);
+		askDataBase(url, data, ACTIONS.DELETE);
 	}
 
+	that.tryLogin = tryLogin;
+	that.tryLogout = tryLogout;
 	that.getDataFromDB = getDataFromDB;
 	that.setDataIntoDB = setDataIntoDB;
 	that.updateDataInDB = updateDataInDB;
