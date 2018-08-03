@@ -48,7 +48,7 @@ DatabaseClientInterface.RequestModul = function () {
 	}
 
 	function tryLogout(url, data){
-		askDataBase(url, data, ACTIONS.LOGOUT),
+		askDataBase(url, data, ACTIONS.LOGOUT);
 	}	
 
 	function getDataFromDB(url, data){
