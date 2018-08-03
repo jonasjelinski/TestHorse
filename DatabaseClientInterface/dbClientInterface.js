@@ -3,6 +3,7 @@ var DatabaseClientInterface = DatabaseClientInterface || {};
 DatabaseClientInterface = function(){
 	const URLS = {
 		TRY_LOGIN: "",
+		LOGOUT: "",
 		ALL_HORSES: "",
 		SINGLE_HORSE: "",
 		ALL_DATES: "",
@@ -12,11 +13,17 @@ DatabaseClientInterface = function(){
 		USER_DATA:"",
 	}
 
-	let that = {},
+	let that = new EventTarget(),
 		requestModul;
 
 		function init(){
 			requestModul = new RequestModul();
+			requestModul.addEventListener("onResult", sendResultData);
+		}
+
+		function sendResultData(){
+			let event = new Event("onResult");
+			that.dispatchEvent(event);
 		}
 
 		//LOGIN AND LOGOUT
