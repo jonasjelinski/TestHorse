@@ -12,12 +12,16 @@
     <script src="ScriptLoader/scriptLoader.js"></script> 
     <script src="ScriptLoader/scripts.js"></script> 
     <script >  
-
+    	/*
+    	//Zeigt die HauptSeite an
+    	// auskommentiert, um automatisches laden zu verhindern
+    	//bitte schlechten Programmierstil zu entschuldigen
+    	//wird geändert sobald das passende Modul erstellt wurde 
        function showMainPage(){
         let pages = new Pages();     
-            //pages.init();
-            //pages.showMainPage();
-        }
+            pages.init();
+            pages.showMainPage();
+        }*/
      
       let scriptLoader = new ScriptLoader();
       scriptLoader.addEventListener("onLoaded", showMainPage);             
