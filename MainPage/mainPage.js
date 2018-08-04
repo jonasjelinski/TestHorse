@@ -13,13 +13,15 @@ MainPage = function(){
 		dropList,
 		dropListId = "horseList",
 		listElementsData = [{id: "1", name: "hans"}, {id: "2", name: "max"},{id: "3", name: "moritz"}],
+		profileViewData = {userProfileName:"Hans", userProfileMail: "h@h", userProfilePassword: "123"},
 		elementTemplateString,
 		slideShow,
 		forwardButtonId = "forward",
 		backwardsButtonId = "backwards",
 		progressBoxId = "textBox",
 		numberOfPages = 9,
-		profileControll;
+		profileControll,
+		profileView;
 
 	/**
 	* @function init
@@ -30,6 +32,9 @@ MainPage = function(){
 	*/ 
 	function init(){
 		elementTemplateString = document.getElementById("ul-element").innerHTML;
+		profilViewTemplateString = document.getElementById("userProfileTemplate").innerHTML;
+		viewDomElement = document.getElementById("mainpage");
+		
 		//profileControll = ProfileControll.UserProfileControll();
 		//profileControll.init();
 		//hamburgerMenu = new HamburgerMenu(menuElements,menuId, newEntryTemplate, inVisibleClass, visibleClass);
@@ -37,6 +42,8 @@ MainPage = function(){
 		//dropList.init();
 		//slideShow = new Slideshow(forwardButtonId, backwardsButtonId, progressBoxId, numberOfPages);
 		//slideShow.init(); 
+		//profileView = new Profil.ProfilView(viewDomElement, profilViewTemplateString, profileViewData);
+		//profileView.init();
 	}
 
 	mainPage.init = init;

@@ -5,22 +5,25 @@ Profil.ProfilView = function(domElement, templateString, data){
 	let that = new EventTarget();
 
 	function init(){
-		filledForm();
+		fillView();
 	}
 
 	function fillView(){
-		let filledForm = createFilledForms();	
-		domElement.appendChild(filledForm);
+		let filledForms = createFilledForms();
+		for(let i = 0; i < filledForms.length; i++){
+			let form = filledForms[i];
+			domElement.appendChild(form);
+		}		
 	}
 
 	function createFilledForms(){
-    	let element = {},
+    	let filledForms = [],
 			div =  document.createElement("div"),
 			templateFunction = _.template(templateString),
 			elementHTML = templateFunction(data);
     	div.innerHTML = elementHTML;
-    	element = div.children[0];
-    	return element;
+    	filledForms = div.children;
+    	return filledForms;
 	}
 
 	function sendFilledEvent(){
