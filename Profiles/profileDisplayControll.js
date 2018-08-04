@@ -1,17 +1,14 @@
-var ProfileControll = ProfileControll || {};
+var Profil = Profil || {};
 
-ProfileControll.ProfileDisplayControll = function(changeButtonId, okayButtonId, delteButtonId){
+Profil.ProfileDisplayControll = function(changeButtonId, okayButtonId, delteButtonId){
 	let that = new EventTarget(),
-		userProfile,
-		//changeButtonId = "userProfileChange";
-		//okayButtonId = "userProfileOk";
-		//delteButtonId = "userProfileDelete",
+		userProfile,	
 		changeEventType = "onChange",
 		okayEventType = "onOkay",
 		deleteEventType = "onDelete";
 
 	function init(){
-		userProfile = ProfileControll(changeButtonId, okayButtonId, delteButtonId, changeEventType, okayEventType, deleteEventType);
+		userProfile = Profil.ProfileControll(changeButtonId, okayButtonId, delteButtonId, changeEventType, okayEventType, deleteEventType);
 		userProfile.init();
 		addEventListeners();	
 	}

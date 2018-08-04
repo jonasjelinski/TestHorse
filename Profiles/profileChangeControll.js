@@ -1,6 +1,6 @@
-var ProfileControll = ProfileControll || {};
+var Profil = Profil || {};
 
-ProfileControll.ProfileDisplayControll = function(changeButtonId, saveButtonId, delteButtonId){
+Profil.ProfileChangeControll = function(changeButtonId, saveButtonId, delteButtonId){
 	let that = new EventTarget(),
 		userProfile,
 		changeEventType = "onChange",
@@ -8,7 +8,7 @@ ProfileControll.ProfileDisplayControll = function(changeButtonId, saveButtonId, 
 		deleteEventType = "onDelete";
 
 	function init(){
-		userProfile = ProfileControll(changeButtonId, saveButtonId, delteButtonId, changeEventType, saveEventType, deleteEventType);
+		userProfile = Profil.ProfileControll(changeButtonId, saveButtonId, delteButtonId, changeEventType, saveEventType, deleteEventType);
 		userProfile.init();
 		addEventListeners();	
 	}

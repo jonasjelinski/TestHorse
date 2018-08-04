@@ -1,6 +1,6 @@
-var ProfileControll = ProfileControll || {};
+var Profil = Profil || {};
 
-ProfileControll = function(firstButtonId, secondButtonId, thirdButtonId, firstEventType, secondEventType, thirdEventType){
+Profil.ProfileControll = function(firstButtonId, secondButtonId, thirdButtonId, firstEventType, secondEventType, thirdEventType){
 	let that = new EventTarget(),
 		firstButton,
 		secondButton,
