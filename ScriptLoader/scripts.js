@@ -13,6 +13,7 @@ ScriptLoader.Scripts = (function(){
 	"./DatabaseClientInterface/dbClientInterface.js",
 	"./libs/underscore/underscore.js",
 	"./libs/underscore/underscore-min.js",
+	"./Profile/showProfile.js",	
 	"./HorseBox/horsebox.js",	
 	"./DropList/dropList.js",
 	"./DropList/listElement.js",
