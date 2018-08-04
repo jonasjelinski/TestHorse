@@ -39,7 +39,7 @@ UserProfilPage.UserProfilPageModel = function(userID){
 		function handleResult(event){
 			let data = event.details.data;
 			userData = data;
-			sendEvent("onDataReceived");
+			sendEvent("onDataReceived", userData);
 		}	
 
 		/**
