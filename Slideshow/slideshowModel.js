@@ -15,8 +15,7 @@ Slideshow.SlideshowModel = function(numberOfPages){
 		}
 		else{
 			sendSlideShowOverEvent();
-		}
-		
+		}		
 	}
 
 	function sendSlideShowOverEvent(){
@@ -34,8 +33,7 @@ Slideshow.SlideshowModel = function(numberOfPages){
 		if(!isFirstPage()){
 			pageNumber--;
 			sendPageNumber();			
-		}
-		
+		}		
 	}
 
 	function isFirstPage(){

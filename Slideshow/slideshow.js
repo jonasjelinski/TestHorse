@@ -33,7 +33,6 @@ Slideshow = function(forwardButtonId, backwardsButtonId, progressBoxId, numberOf
 			progressBox: progressBox,
 			numberOfPages: numberOfPages,
 		}
-		console.log("domElements", domElements);
 		slideshowView = new Slideshow.SlideshowView(domElements);
 		slideshowView.init();
 	}	

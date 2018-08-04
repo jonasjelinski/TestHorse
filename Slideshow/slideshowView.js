@@ -22,7 +22,6 @@ Slideshow.SlideshowView = function(domElements){
 
 	function sendBackEvent(){
 		sendEvent("onBackwards");
-		console.log("back");
 	}
 
 	function sendEvent(type){
@@ -32,7 +31,6 @@ Slideshow.SlideshowView = function(domElements){
 
 	function sendForwardEvent(){
 		sendEvent("onForward");
-		console.log("onForward");
 	}
 
 	function setPageNumber(number){
