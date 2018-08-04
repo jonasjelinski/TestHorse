@@ -6,26 +6,35 @@
     <title>Titel</title>
   </head>
   <body>
-  	<content>
-  	 <ul id="horseList" class="frames">
+    <div id = "parentPage"></div>
+    
 
-     </ul>
- </content>
-       <script type="text/template" id="ul-element">
-        <li draggable="true" id = <%= id %>>
-        	<p ><%= name %></p>
-        </li>
-     </script>
-    <script src="libs/underscore/underscore-min.js"></script>
-  	<script src="DropList/dropList.js"></script>  
-    <script src="DropList/listElement.js"></script>
-    <script src="DropList/listModel.js"></script>
-    <script src="DropList/listView.js"></script>   
-    <script src="MainPage/mainPage.js"></script>
-    <script> 
-    let mainPage = new MainPage();
-    mainPage.init();
- 	</script >
+    <script src="ScriptLoader/scriptLoader.js"></script> 
+    <script src="ScriptLoader/scripts.js"></script> 
+    <script >  
+    	/*
+    	//Zeigt die HauptSeite an
+    	// auskommentiert, um automatisches laden zu verhindern
+    	//bitte schlechten Programmierstil zu entschuldigen
+    	//wird geändert sobald das passende Modul erstellt wurde 
+       function showMainPage(){
+        let pages = new Pages();     
+            pages.init();
+            pages.showMainPage();
+        }*/
 
+        function loaded(){
+        	console.log("loaded");
+        }
+     
+      let scriptLoader = new ScriptLoader();
+      scriptLoader.addEventListener("onLoaded", loaded);             
+      scriptLoader.loadScripts();
+   </script>   
+    <script>
+
+     
+    </script>
+   
   </body>
 </html>
