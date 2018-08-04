@@ -1,41 +1,6 @@
 var Profil = Profil || {};
 
 Profil.ProfileChangeControll = function(changeButtonId, saveButtonId, delteButtonId){
-	let that = new EventTarget(),
-		userProfile,
-		changeEventType = "onChange",
-		saveEventType = "onSave",
-		deleteEventType = "onDelete";
-
-	function init(){
-		userProfile = Profil.ProfileControll(changeButtonId, saveButtonId, delteButtonId, changeEventType, saveEventType, deleteEventType);
-		userProfile.init();
-		addEventListeners();	
-	}
-
-	function addEventListeners(){
-		userProfile.addEventListener(changeEventType, handleChange);
-		userProfile.addEventListener(saveEventType, handleOkay);
-		userProfile.addEventListener(deleteEventType, handleDelete);
-	}
-
-	function handleChange(){		
-		sendEvent(changeEventType);
-	}
-
-	function sendEvent(type){
-		let event = new Event(type);
-		that.dispatchEvent(event);
-	}
-
-	function handleOkay(){		
-		sendEvent(saveEventType);
-	}
-
-	function handleDelete(){		
-		sendEvent(deleteEventType);
-	}
-
-	that.init = init;
-	return that;
+	const SAVE_EVENT_TYPE = "onSave";
+	return Profil.ProfilControllTypes(changeButtonId, saveButtonId, delteButtonId, SAVE_EVENT_TYPE);
 }
