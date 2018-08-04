@@ -10,8 +10,9 @@ Pages.PageContent = function (){
 	const MAIN_PAGE = ' <content>'+
 						'<ul id="horseList" class="frames">'+
 						'</ul>'+
-						' <button id= "forward" type="button">forward</button> '+
-						' <button id= "backwards" type="button">backwards</button> '+
+						' <button id= "userProfileChange" type="button">userProfileChange</button> '+
+						' <button id= "userProfileOk" type="button">userProfileOk</button> '+
+						' <button id= "userProfileDelete" type="button">userProfileDelete</button> '+
 						'<div id= "textBox">textBox</div> '+
  					'</content>'+
 

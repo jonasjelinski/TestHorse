@@ -1,6 +1,6 @@
-var Profile = Profile || {};
+var ProfileControll = ProfileControll || {};
 
-Profile = function(firstButtonId, secondButtonId, thirdButtonId, firstEventType, secondEventType, thirdEventType){
+ProfileControll = function(firstButtonId, secondButtonId, thirdButtonId, firstEventType, secondEventType, thirdEventType){
 	let that = new EventTarget(),
 		firstButton,
 		secondButton,
@@ -14,13 +14,13 @@ Profile = function(firstButtonId, secondButtonId, thirdButtonId, firstEventType,
 	function getDomElements(){
 		firstButton = document.getElementById(firstButtonId);
 		secondButton = document.getElementById(secondButtonId);
-		delteButton = document.getElementById(thirdButtonId);		
+		thirdButton = document.getElementById(thirdButtonId);		
 	}
 
 	function addListeners(){
-		firstButton.addEventListner("click", handleFirstButtonClicked);
-		secondButton.addEventListner("click", handleSecondButtonClicked);
-		thirdButton.addEventListner("click", handleThirdButtonClicked);
+		firstButton.addEventListener("click", handleFirstButtonClicked);
+		secondButton.addEventListener("click", handleSecondButtonClicked);
+		thirdButton.addEventListener("click", handleThirdButtonClicked);
 	}
 
 	function handleFirstButtonClicked(){
@@ -40,5 +40,6 @@ Profile = function(firstButtonId, secondButtonId, thirdButtonId, firstEventType,
 		sendEvent(thirdEventType);
 	}
 
+	that.init = init;
 	return that;
 }

@@ -18,7 +18,8 @@ MainPage = function(){
 		forwardButtonId = "forward",
 		backwardsButtonId = "backwards",
 		progressBoxId = "textBox",
-		numberOfPages = 9;
+		numberOfPages = 9,
+		profileControll;
 
 	/**
 	* @function init
@@ -28,7 +29,9 @@ MainPage = function(){
 	* @description Initialize this model. Sets the elementTemplateString, the hamburgerMenu and the dropList
 	*/ 
 	function init(){
-		elementTemplateString = document.getElementById("ul-element").innerHTML
+		elementTemplateString = document.getElementById("ul-element").innerHTML;
+		//profileControll = ProfileControll.UserProfileControll();
+		//profileControll.init();
 		//hamburgerMenu = new HamburgerMenu(menuElements,menuId, newEntryTemplate, inVisibleClass, visibleClass);
 		//dropList = new DropList(dropListId, listElementsData, elementTemplateString, "tid");
 		//dropList.init();
