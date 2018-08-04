@@ -32,8 +32,8 @@ MainPage = function(){
 		//hamburgerMenu = new HamburgerMenu(menuElements,menuId, newEntryTemplate, inVisibleClass, visibleClass);
 		//dropList = new DropList(dropListId, listElementsData, elementTemplateString, "tid");
 		//dropList.init();
-		slideShow = new Slideshow(forwardButtonId, backwardsButtonId, progressBoxId, numberOfPages);
-		slideShow.init(); 
+		//slideShow = new Slideshow(forwardButtonId, backwardsButtonId, progressBoxId, numberOfPages);
+		//slideShow.init(); 
 	}
 
 	mainPage.init = init;
