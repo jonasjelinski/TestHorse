@@ -20,8 +20,8 @@ MainPage = function(){
 		backwardsButtonId = "backwards",
 		progressBoxId = "textBox",
 		numberOfPages = 9,
-		profilePage;
-
+		profileControll,
+		profileView;
 
 	/**
 	* @function init
@@ -33,15 +33,14 @@ MainPage = function(){
 	function init(){
 		elementTemplateString = document.getElementById("ul-element").innerHTML;
 		profilViewTemplateString = document.getElementById("userProfileTemplate").innerHTML;
-		viewDomElement = document.getElementById("mainpage");		
+		viewDomElement = document.getElementById("mainpage");
+		
 
 		//hamburgerMenu = new HamburgerMenu(menuElements,menuId, newEntryTemplate, inVisibleClass, visibleClass);
 		//dropList = new DropList(dropListId, listElementsData, elementTemplateString, "tid");
 		//dropList.init();
 		//slideShow = new Slideshow(forwardButtonId, backwardsButtonId, progressBoxId, numberOfPages);
-		//slideShow.init();
-		//profilePage = new UserProfilPage.UserProfilPageViewControll("mainpage", profilViewTemplateString, profileViewData);
-		//profilePage.init();
+		//slideShow.init(); 
 	}
 
 	mainPage.init = init;

@@ -28,7 +28,7 @@ Pages = function(){
 	*/ 
 	function init(){
 		initPageChanger();
-		initPageVariables();				
+		initPages();				
 	}
 
 	/**
@@ -47,14 +47,15 @@ Pages = function(){
 	}
 
 	/**
-	* @function initPageVariables
+	* @function initPages
 	* @private
 	* @memberof! Pages.PageChanger  
 	* @instance
 	* @description sets the variables of this modul which contain the moduls of the different pages.
 	*/ 
-	function initPageVariables(){
+	function initPages(){
 		mainPage = new MainPage();
+		userProfilPage = new UserProfilPage();
 	}
 
 	/**
@@ -80,7 +81,21 @@ Pages = function(){
 		mainPage.init();
 	}
 
+
+	/**
+	* @function showUserProfilPage
+	* @private
+	* @memberof! Pages.PageChanger  
+	* @instance
+	* @description shows the mainPage to the user
+	*/ 
+	function showUserProfilPage(){
+		pageChanger.switchPage("MAIN");
+		userProfilPage.init();
+	}
+
 	that.showMainPage = showMainPage;
+	that.showUserProfilPage = showUserProfilPage;
 	that.init = init;
 	return that;
 }
