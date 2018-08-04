@@ -1,11 +1,11 @@
 var ProfileControll = ProfileControll || {};
 
-ProfileControll.UserProfileControll = function(){
+ProfileControll.ProfileDisplayControll = function(changeButtonId, okayButtonId, delteButtonId){
 	let that = new EventTarget(),
 		userProfile,
-		changeButtonId = "userProfileChange";
-		okayButtonId = "userProfileOk";
-		delteButtonId = "userProfileDelete",
+		//changeButtonId = "userProfileChange";
+		//okayButtonId = "userProfileOk";
+		//delteButtonId = "userProfileDelete",
 		changeEventType = "onChange",
 		okayEventType = "onOkay",
 		deleteEventType = "onDelete";
