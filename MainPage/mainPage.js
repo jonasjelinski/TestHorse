@@ -13,7 +13,12 @@ MainPage = function(){
 		dropList,
 		dropListId = "horseList",
 		listElementsData = [{id: "1", name: "hans"}, {id: "2", name: "max"},{id: "3", name: "moritz"}],
-		elementTemplateString;
+		elementTemplateString,
+		slideShow,
+		forwardButtonId = "forward",
+		backwardsButtonId = "backwards",
+		progressBoxId = "textBox",
+		numberOfPages = 9;
 
 	/**
 	* @function init
@@ -25,8 +30,10 @@ MainPage = function(){
 	function init(){
 		elementTemplateString = document.getElementById("ul-element").innerHTML
 		//hamburgerMenu = new HamburgerMenu(menuElements,menuId, newEntryTemplate, inVisibleClass, visibleClass);
-		dropList = new DropList(dropListId, listElementsData, elementTemplateString, "tid");
-		dropList.init();
+		//dropList = new DropList(dropListId, listElementsData, elementTemplateString, "tid");
+		//dropList.init();
+		slideShow = new Slideshow(forwardButtonId, backwardsButtonId, progressBoxId, numberOfPages);
+		slideShow.init(); 
 	}
 
 	mainPage.init = init;

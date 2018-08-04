@@ -1,7 +1,7 @@
 var Slideshow = Slideshow ||{};
 
 Slideshow = function(forwardButtonId, backwardsButtonId, progressBoxId, numberOfPages){
-	let that = new EventListener(),
+	let that = new EventTarget(),
 		slideshowModel,
 		slideshowView,
 		forwardButton,
@@ -16,13 +16,14 @@ Slideshow = function(forwardButtonId, backwardsButtonId, progressBoxId, numberOf
 	}
 
 	function getDomElements(){
-		forwardButton = document.getElementById(forwardButton);
+		forwardButton = document.getElementById(forwardButtonId);
 		backwardsButton = document.getElementById(backwardsButtonId);
 		progressBox = document.getElementById(progressBoxId);
 	}
 
 	function initModel(){
-		slideshowModel = new SlideshowModel(numberOfPages);
+		slideshowModel = new Slideshow.SlideshowModel(numberOfPages);
+		slideshowModel.init();
 	}
 
 	function initView(){
@@ -32,13 +33,14 @@ Slideshow = function(forwardButtonId, backwardsButtonId, progressBoxId, numberOf
 			progressBox: progressBox,
 			numberOfPages: numberOfPages,
 		}
-		slideshowView = new SlideshowView(domElements);
+		console.log("domElements", domElements);
+		slideshowView = new Slideshow.SlideshowView(domElements);
+		slideshowView.init();
 	}	
 
 	function addListeners(){
 		modelListeners();
 		addViewListeners();
-		addPageListeners();
 	}
 
 	function modelListeners(){
@@ -60,7 +62,7 @@ Slideshow = function(forwardButtonId, backwardsButtonId, progressBoxId, numberOf
 
 	function addViewListeners(){
 		slideshowView.addEventListener("onBackwards", handleForward);
-		slideshowView.addListeners("onForward", handleBackwards);	
+		slideshowView.addEventListener("onForward", handleBackwards);	
 	}
 
 	function handleForward(){
@@ -71,5 +73,6 @@ Slideshow = function(forwardButtonId, backwardsButtonId, progressBoxId, numberOf
 		slideshowModel.setPreviousPage();
 	}
 	
+	that.init = init;
 	return that;
 } 

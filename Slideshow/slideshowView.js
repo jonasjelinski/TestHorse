@@ -15,13 +15,14 @@ Slideshow.SlideshowView = function(domElements){
 		addEventListeners();
 	}
 
-	function addEventListener(){
-		backButton.addEventListener("onClick", sendBackEvent);
-		forwardButton.addEventListener("onClick", sendForwardEvent);
+	function addEventListeners(){
+		backButton.addEventListener("click", sendBackEvent);
+		forwardButton.addEventListener("click", sendForwardEvent);
 	}
 
 	function sendBackEvent(){
 		sendEvent("onBackwards");
+		console.log("back");
 	}
 
 	function sendEvent(type){
@@ -31,11 +32,15 @@ Slideshow.SlideshowView = function(domElements){
 
 	function sendForwardEvent(){
 		sendEvent("onForward");
+		console.log("onForward");
 	}
 
 	function setPageNumber(number){
 		let progress =  numberOfPages+"/"+number;
 		progressBox.innerHTML = progress;
-	} 
+	}
 
+	that.init = init;
+	that.setPageNumber = setPageNumber;
+	return that;
 }

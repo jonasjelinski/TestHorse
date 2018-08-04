@@ -9,13 +9,21 @@ Slideshow.SlideshowModel = function(numberOfPages){
 	}
 
 	function setNextPage(){
-		if(!isSlideShowOver){
+		if(!isSlideShowOver()){
 			pageNumber++;
-			sendPageNumber();
+			sendPageNumber();			
 		}
 		else{
 			sendSlideShowOverEvent();
 		}
+		
+	}
+
+	function sendSlideShowOverEvent(){
+		let event = new Event("slideShowIsOver");
+			event.details = {};
+			event.details.pageNumber = pageNumber;
+		that.dispatchEvent(event);
 	}
 
 	function isSlideShowOver(){
@@ -23,10 +31,11 @@ Slideshow.SlideshowModel = function(numberOfPages){
 	}
 
 	function setPreviousPage(){
-		if(!isFirstPage){
+		if(!isFirstPage()){
 			pageNumber--;
-			sendPageNumber();
+			sendPageNumber();			
 		}
+		
 	}
 
 	function isFirstPage(){
@@ -40,4 +49,8 @@ Slideshow.SlideshowModel = function(numberOfPages){
 		that.dispatchEvent(event);
 	}
 
+	that.init = init;
+	that.setNextPage = setNextPage;
+	that.setPreviousPage = setPreviousPage;
+	return that;
 }
