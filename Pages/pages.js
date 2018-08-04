@@ -10,7 +10,14 @@ Pages = function(){
 	let that = {},
 		pageDomElement,
 		pageChanger,
-		mainPage;
+		loginPage,
+		mainPage,
+		userProfilPage,
+		horseProfilPage,
+		datesPage,
+		regularDatesPage,
+		appointmentsPage,
+		user;
 
 	/**
 	* @function init
