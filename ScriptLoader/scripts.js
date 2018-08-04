@@ -16,6 +16,7 @@ ScriptLoader.Scripts = (function(){
 	"./Profiles/profileControll.js",	
 	"./Profiles/profileDisplayControll.js",	
 	"./Profiles/profileChangeControll.js",	
+	"./Profiles/profileView.js",	
 	"./HorseBox/horsebox.js",	
 	"./DropList/dropList.js",
 	"./DropList/listElement.js",
