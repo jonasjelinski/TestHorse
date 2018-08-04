@@ -12,7 +12,7 @@
     <script src="ScriptLoader/scriptLoader.js"></script> 
     <script src="ScriptLoader/scripts.js"></script> 
     <script >  
-    	/*
+    	
     	//Zeigt die HauptSeite an
     	// auskommentiert, um automatisches laden zu verhindern
     	//bitte schlechten Programmierstil zu entschuldigen
@@ -21,14 +21,14 @@
         let pages = new Pages();     
             pages.init();
             pages.showMainPage();
-        }*/
+        }
 
         function loaded(){
         	console.log("loaded");
         }
      
       let scriptLoader = new ScriptLoader();
-      scriptLoader.addEventListener("onLoaded", loaded);             
+      scriptLoader.addEventListener("onLoaded", showMainPage);             
       scriptLoader.loadScripts();
    </script>   
     <script>

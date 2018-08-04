@@ -19,7 +19,7 @@ class ListElement extends EventTarget{
 	* @param {string} elementId Id of the domElement
 	* @description Constructor of this class. Sets the class-parameters. Adds the listeners to the domElement.
 	*/ 	
-	constructor(domElement, elementId){
+	constructor(domElement, elementId, elementTagId){
 		super();
 		this.element = domElement;
 		this.elementId = elementId;
@@ -29,7 +29,8 @@ class ListElement extends EventTarget{
 	    this.element.addEventListener("onClick", this.handleClick(this), false);
 		this.dragEvent = "onDrag";
 		this.dropEvent = "onDrop";
-		this.clickEvent = "onClick";		
+		this.clickEvent = "onClick";
+		this.elementTagId = elementTagId;		
 	}
 
 	/**

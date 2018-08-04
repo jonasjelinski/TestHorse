@@ -19,12 +19,13 @@ class ListView extends EventTarget{
 	* @param {string} elementId Id of the domElement
 	* @description Constructor of this class. Sets the class-parameters.
 	*/ 	
-	constructor(domElement, elementTemplateString){
+	constructor(domElement, elementTemplateString, elementTagId){
 		super();
 		this.unsortedList = domElement;
 		this.onElementClick = "onElementClick";
 		this.onInserted = "inserted";
 		this.elementTemplateString = elementTemplateString;
+		this.elementTagId = elementTagId;
 	}
 
 	/**
@@ -38,7 +39,7 @@ class ListView extends EventTarget{
 	*/ 	
 	addNewElement(data, id){
 		let li =  this.createNewElement(data),
-			listElement = new ListElement(li, id);
+			listElement = new ListElement(li, id, this.elementTagId);
 		this.addListeners(listElement);
 		this.unsortedList.appendChild(li);
 	}
@@ -118,7 +119,7 @@ class ListView extends EventTarget{
 			listElement;
 		for(let i = 0; i < listElements.length; i++){
 		let li = listElements[i],
-			lid = li.id;
+				lid = li.getAttribute(this.elementTagId);
 			if(lid === id){
 				listElement = li;
 			}
@@ -136,8 +137,8 @@ class ListView extends EventTarget{
 	* @description Returns true if self and droppedElement are the same object
 	*/ 
 	isDroppingOnItsself(self, droppedElement){
-		let selfId = self.id,
-			id = droppedElement.id;
+		let selfId = self.getAttribute(this.elementTagId),
+			id = droppedElement.getAttribute(this.elementTagId);
 		if(id === selfId){
 			return true;
 		}
@@ -225,7 +226,8 @@ class ListView extends EventTarget{
 		let listElements = this.unsortedList.children,
 		ids = [];
 		for(let i = 0; i < listElements.length; i++){
-		let id = listElements[i].id;
+		let li = listElements[i],
+				id = li.getAttribute(this.elementTagId);
 			ids.push(id);
 		}
 		return ids; 

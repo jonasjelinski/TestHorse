@@ -10,7 +10,7 @@ var DropList = DropList || {};
  * @param {string} elementTemplateString Template which is used to create new li-elements with the listElementsData
  * </p>
  */
-DropList = (function(domElementId, listElementsData, elementTemplateString){
+DropList = (function(domElementId, listElementsData, elementTemplateString, elementTagId){
 	let dropList = new EventTarget(),
 		listDomElement,
 		listView,
@@ -41,8 +41,8 @@ DropList = (function(domElementId, listElementsData, elementTemplateString){
 	*/ 	
 	function initModels(){
 		listDomElement = document.getElementById(domElementId);
-		listView = new ListView(listDomElement, elementTemplateString);;
-		listModel = new DropList.ListModel(listElementsData);
+		listView = new ListView(listDomElement, elementTemplateString, elementTagId);
+		listModel = new DropList.ListModel(listElementsData, elementTagId);
 		listModel.init();
 	}
 

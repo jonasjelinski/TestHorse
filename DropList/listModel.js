@@ -8,9 +8,10 @@ var DropList = DropList || {};
  * @param {Array} listElementsData array containing objects which contain the data for the li-eLements of the DropList-Modul
  * </p>
  */
-DropList.ListModel = (function(listElementsData){
+DropList.ListModel = (function(listElementsData, nameOfId){
 	let that = new EventTarget(),
-		elements;
+		elements,
+		elementTagId
 
 	/**
 	* @function init
@@ -21,6 +22,7 @@ DropList.ListModel = (function(listElementsData){
 	*/ 	
 	function init(){		
 		elements = listElementsData;
+		elementTagId = nameOfId;
 	}
 
 	/**
@@ -47,7 +49,7 @@ DropList.ListModel = (function(listElementsData){
 		let numberOfElementsToDelete = 1;
 		for(let i = 0; i < elements.length; i++){
 			let element = elements[i],
-				elementId = element.id;
+				elementId = element[elementTagId];
 			if(elementId === id){
 				if (index > -1) {
   					array.elements(i, numberOfElementsToDelete);

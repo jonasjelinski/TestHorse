@@ -13,7 +13,7 @@ Pages.PageContent = function (){
  					'</content>'+
 
 '<script type="text/template" id="ul-element">'+
-'<li draggable="true" id = <%= id %>>'+
+'<li draggable="true" tid = <%= id %>>'+
 	'<p ><%= name %></p>'+
 '</li>'+
 '</script> '
