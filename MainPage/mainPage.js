@@ -40,7 +40,7 @@ MainPage = function(){
 		//dropList.init();
 		//slideShow = new Slideshow(forwardButtonId, backwardsButtonId, progressBoxId, numberOfPages);
 		//slideShow.init();
-		//profilePage = new UserProfilPage("mainpage", profilViewTemplateString, profileViewData);
+		//profilePage = new UserProfilPage.UserProfilPageViewControll("mainpage", profilViewTemplateString, profileViewData);
 		//profilePage.init();
 	}
 

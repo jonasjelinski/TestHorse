@@ -28,7 +28,7 @@ ScriptLoader.Scripts = (function(){
 	"./Slideshow/slideshowModel.js",
 	"./Slideshow/slideshowView.js",
 	"./MainPage/mainPage.js",
-	"./UserProfile/userProfilePage.js",
+	"./UserProfile/userProfilePageViewControll.js",
 	"./HamburgerMenu/hamburgerMenu.js",
 	"./HamburgerMenu/hamburgerMenuModel.js",	
 	"./HamburgerMenu/hamburgerMenuView.js",

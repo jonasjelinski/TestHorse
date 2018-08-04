@@ -1,6 +1,6 @@
 var UserProfilPage = UserProfilPage || {};
 
-UserProfilPage = function(pageId, templateString, data){
+UserProfilPage.UserProfilPageViewControll = function(pageId, templateString, data){
 	const CHANGE_BUTTON_ID = "userProfileChange",
 			OKAY_BUTTON_ID = "userProfileOk",
 			DELETE_BUTTON_ID = "userProfileDelete";
