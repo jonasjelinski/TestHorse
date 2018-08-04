@@ -1,0 +1,41 @@
+var Slideshow = Slideshow ||{};
+
+Slideshow.SlideshowView = function(domElements){
+	let that = new EventTarget(),
+		backButton,
+		forwardButton,
+		progressBox,
+		numberOfPages;
+
+	function init(){
+		backButton = domElements.backButton;
+		forwardButton = domElements.forwardButton;
+		progressBox = domElements.progressBox;
+		numberOfPages = domElements.numberOfPages;
+		addEventListeners();
+	}
+
+	function addEventListener(){
+		backButton.addEventListener("onClick", sendBackEvent);
+		forwardButton.addEventListener("onClick", sendForwardEvent);
+	}
+
+	function sendBackEvent(){
+		sendEvent("onBackwards");
+	}
+
+	function sendEvent(type){
+		let event = new Event(type);
+		that.dispatchEvent(event);
+	}
+
+	function sendForwardEvent(){
+		sendEvent("onForward");
+	}
+
+	function setPageNumber(number){
+		let progress =  numberOfPages+"/"+number;
+		progressBox.innerHTML = progress;
+	} 
+
+}
