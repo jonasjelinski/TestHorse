@@ -9,16 +9,31 @@
     <div id = "parentPage"></div>
     
 
-    <script src="libs/underscore/underscore-min.js"></script> 
-    <script src="MainPage/mainPage.js"></script>  
-    <script src="Pages/pages.js"></script>  
-    <script src="Pages/pageContent.js"></script>    
-    <script src="Pages/pageCreator.js"></script>
-    <script src="Pages/pageChanger.js"></script>
-       
-    <script>  
-     let pages = new Pages();     
-     pages.init();
+    <script src="ScriptLoader/scriptLoader.js"></script> 
+    <script src="ScriptLoader/scripts.js"></script> 
+    <script >  
+    	
+    	//Zeigt die HauptSeite an
+    	// auskommentiert, um automatisches laden zu verhindern
+    	//bitte schlechten Programmierstil zu entschuldigen
+    	//wird geändert sobald das passende Modul erstellt wurde 
+       function showMainPage(){
+        let pages = new Pages();     
+            pages.init();
+           pages.showUserProfilPage();
+        }
+
+        function loaded(){
+        	console.log("loaded");
+        }
+     
+      let scriptLoader = new ScriptLoader();
+      scriptLoader.addEventListener("onLoaded", showMainPage);             
+      scriptLoader.loadScripts();
+   </script>   
+    <script>
+
+     
     </script>
    
   </body>
