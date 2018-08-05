@@ -1,7 +1,6 @@
 var LoginPage = LoginPage || {};
 
 /**
- * Test von Chris!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  * @namespace LoginModul
  * @memberOf! LoginPage
  * @description contains the logic of the LoginPage
@@ -12,6 +11,7 @@ var LoginPage = LoginPage || {};
  * else it dispatches the <code>isInvalid</code> event.</p>
  * <code>stayLoggedIn</code> is a boolean which descripes if the user wants to stay logged in
  * the code to stay logged in is in the dbRequester and php-Modul because of security issues
+ * </p>
  */
 
 LoginPage.LoginModel = function(){

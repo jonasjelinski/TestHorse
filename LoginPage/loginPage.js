@@ -13,6 +13,7 @@ var LoginPage = LoginPage || {};
  * @param {string} newUserButtonId id of the newUserButton DOM-Element
  * @param {string} stayLoggedInBoxId id of the stayLoggedInBox DOM-Element
  * @param {string} feedBackBoxId id of the feedBackBox DOM-Element
+ * </p>
  */
 
 LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBackBoxId){
@@ -106,7 +107,7 @@ LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBack
 		* @description Reads the userId from the event and send this usedId with sendChangePageEvent
 		*/ 
 		function handleIsValid(event){
-			let userId = event.details.userId,
+			let userId = event.details.userId;
 			sendChangePageEvent(userId);
 		}
 
@@ -164,5 +165,5 @@ LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBack
 		}
 
 		loginPage.init = init;
-		return loginPage:
+		return loginPage;
 }
