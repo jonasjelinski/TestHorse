@@ -1,14 +1,14 @@
-var DatesPage = DatesPage || {};
+var RegularDatesPage = RegularDatesPage || {};
 
-DatesPage.DatesPageModel = function(userID){
+RegularDatesPage.RegularDatesPageModel = function(userID){
 	let that = new EventTarget(),
 		dbRequester,		
-		datesData;
+		regularDatesData;
 
 		/**
 		* @function init
 		* @public
-		* @memberof! DatesPage.DatesPageModel 
+		* @memberof! RegularDatesPage.RegularDatesPageModel 
 		* @instance
 		* @description Initialize this model. Inits the dbRequester and its listeners. Starts a request for the user data
 		*/ 	
@@ -21,7 +21,7 @@ DatesPage.DatesPageModel = function(userID){
 		/**
 		* @function addEventListener
 		* @private
-		* @memberof! DatesPage.DatesPageModel 
+		* @memberof! RegularDatesPage.RegularDatesPageModel
 		* @instance
 		* @description Sets the listeners of the dbRequester
 		*/ 	
@@ -32,20 +32,20 @@ DatesPage.DatesPageModel = function(userID){
 		/**
 		* @function handleResult
 		* @private
-		* @memberof! DatesPage.DatesPageModel 
+		* @memberof! RegularDatesPage.RegularDatesPageModel
 		* @instance
 		* @description Dispatches the event of the type "onDataReceived". Is used to give other moduls the data of the database.
 		*/ 	
 		function handleResult(event){
 			let data = event.details.data;
-			datesData = data;
+			regularDatesData = data;
 			sendEvent("onDataReceived", datesData);
 		}	
 
 		/**
 		* @function sendEvent
 		* @private
-		* @memberof! DatesPage.DatesPageModel 
+		* @memberof! RegularDatesPage.RegularDatesPageModel
 		* @instance
 		* @description Dispatches the event of the type "type" and the details data
 		*/ 	
@@ -59,23 +59,24 @@ DatesPage.DatesPageModel = function(userID){
 		/**
 		* @function updateData
 		* @private
-		* @memberof! DatesPage.DatesPageModel 
+		* @memberof! RegularDatesPage.RegularDatesPageModel
 		* @instance
 		* @description Updates the data of this model
 		*/ 	
 		function updateData(data){
-			datesData = data;
+			regularDatesData = data;
 		}
 
 		/**
 		* @function saveDataIntoDB
 		* @private
-		* @memberof! DatesPage.DatesPageModel 
+		* @memberof! RegularDatesPage.RegularDatesPageModel
 		* @instance
-		* @description Saves data into the db
+		* @description Saves data into the database
 		*/ 	
-		function saveDataIntoDB(data){
-			datesData = data;
+		function saveDataIntoDB(){
+			regularDatesData = data;
+			dbRequester.updateDate(data);
 		}		
 
 		that.updateData = updateData;
