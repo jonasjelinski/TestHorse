@@ -26,17 +26,19 @@ DatabaseClientInterface.AJAXModul = function() {
       UNKNOWN: "Unknown Error",
     };
 
-  that = {};    
+  let that = {},
+    successCallBack,
+    errorCallBack;    
 
-  function request(onSuccessCallback, error, method, url, send) {
-    var request = createXMLHttpRequest(onSuccessCallback, error);
-    
-
+  function request(success, error, method, url, send) {
+    successCallBack = success;
+    errorCallBack = error;
+    var request = createXMLHttpRequest(success, error);
     request.open(method, url, true);
     request.send(send);
   }
 
-  function createXMLHttpRequest(onSuccess, onError) {
+  function createXMLHttpRequest() {
     var httpRequest;
     if(window.XMLHttpRequest){
       httpRequest = new XMLHttpRequest();
@@ -58,17 +60,17 @@ DatabaseClientInterface.AJAXModul = function() {
           break;
         case READY_STATES.SERVER_PROCESSING_REQUEST:
           break;
-        case READY_STATES.RESPONSE_READY:
-          onResponseReady(this, onSuccess, onError);
+        case READY_STATES.RESPONSE_READY:          
+          onResponseReady(this);
           break;
         default:
           break;
       }
   };
 
-  function onResponseReady(response, onSuccess, onError) {
-    var success = onSuccess || foo,
-      error = onError || foo;
+  function onResponseReady(response) {
+    var success = successCallBack || foo,
+      error = errorCallBack || foo;
     switch (response.status) {
       case HTTP_CODES.OK_200:
         success(response.responseText);

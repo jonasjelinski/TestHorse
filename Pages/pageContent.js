@@ -7,23 +7,32 @@ var Pages = Pages || {};
  */
 Pages.PageContent = function (){
 	let that = {};
-	const LOGIN_PAGE = "",
-	MAIN_PAGE = " ' <content>'"+
-	'<div id= "mainpage">' +
-						'<ul id="horseList" class="frames">'+
-						'</ul>'+
-						' <button id= "userProfileChange" type="button">userProfileChange</button> '+
-						' <button id= "userProfileOk" type="button">userProfileOk</button> '+
-						' <button id= "userProfileDelete" type="button">userProfileDelete</button> '+
-						'<div id= "textBox">textBox</div> '+
-	'</div>'+
+	const LOGIN_PAGE = ' <content>'+
+						'<div id= "mainpage">' +						
+							'<button id= "createNewAccount" type="button">userProfileChange</button> '+
+							'<input id= "userNameInput">userNameInput</input> '+
+							'<div id= "loginFailedText">loginFailedText</div> '+						
+							'<input id= "passwordInput">passwordInput</input> '+
+							'<button id= "loginButton" type="button">login</button> '+
+							'<input id= "stayLoggedInBox" type="checkbox" value = "stayLoggedIn"></input> '+
+						'</div>'+
+ 						'</content>',
+
+	MAIN_PAGE =  ' <content>'+
+						'<div id= "mainpage">' +
+							'<ul id="horseList" class="frames">'+
+							'</ul>'+
+							' <button id= "userProfileChange" type="button">userProfileChange</button> '+
+							' <button id= "userProfileOk" type="button">userProfileOk</button> '+
+							' <button id= "userProfileDelete" type="button">userProfileDelete</button> '+
+							'<div id= "textBox">textBox</div> '+
+						'</div>'+
  					'</content>'+
 
-
-'<script type="text/template" id="ul-element">'+
-'<li draggable="true" tid = <%= id %>>'+
-	'<p ><%= name %></p>'+
-'</li>',
+					'<script type="text/template" id="ul-element">'+
+					'<li draggable="true" tid = <%= id %>>'+
+						'<p ><%= name %></p>'+
+					'</li>',
 
   USER_PAGE = ' <content>'+ 
   '<div id= "mainpage">' + 
@@ -72,6 +81,7 @@ Pages.PageContent = function (){
     '<p ><%= name %></p>'+ 
   '</li>';  
 
+  that.LOGIN_PAGE = LOGIN_PAGE;
   that.MAIN_PAGE = MAIN_PAGE; 
   that.USER_PAGE = USER_PAGE;
   that.DATES_PAGE = DATES_PAGE; 

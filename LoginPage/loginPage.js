@@ -17,6 +17,13 @@ var LoginPage = LoginPage || {};
  */
 
 LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBackBoxId){
+	const LOGIN_BUTTON_ID = "loginButton",  
+		 NEW_USER_BUTTON_ID = "createNewAccount",
+		 STAY_LOGGED_INBOX_ID = "stayLoggedInBox", 
+		 FEEDBACK_BOX_ID = "loginFailedText",
+		 NAME_INPUT_ID =  "userNameInput",
+		 PASSWORD_INPUT_ID =  "passwordInput";
+
 	let loginPage = new EventTarget(),
 		loginView,
 		loginModel,
@@ -48,10 +55,12 @@ LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBack
 		* @description Gets the domElements by document.getElementById and the params of this modul
 		*/ 
 		function getDomElements(){
-			loginButton = document.getElementById(loginButtonId);
-			newUserButton = document.getElementById(newUserButtonId);
-			stayLoggedInBox = document.getElementById(stayLoggedInBoxId);
-			feedBackBox = document.getElementById(feedBackBoxId);
+			loginButton = document.getElementById(LOGIN_BUTTON_ID);
+			newUserButton = document.getElementById(NEW_USER_BUTTON_ID);
+			stayLoggedInBox = document.getElementById(STAY_LOGGED_INBOX_ID);
+			feedBackBox = document.getElementById(FEEDBACK_BOX_ID);
+			userNameInput = document.getElementById(NAME_INPUT_ID);
+			passwordInput = document.getElementById(PASSWORD_INPUT_ID);
 		}
 
 		/**
@@ -67,9 +76,11 @@ LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBack
 				newUserButton: newUserButton,
 				stayLoggedInBox : stayLoggedInBox,
 				feedBackBox : feedBackBox,
+				userNameInput: userNameInput,
+				passwordInput: passwordInput,
 			};
-			loginView = new LoginView(options);
-			loginView.init();			
+			loginView = new LoginPage.LoginView(options);
+			loginView.init();	
 		}
 
 		/**
@@ -80,7 +91,7 @@ LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBack
 		* @description Inits the loginModel.
 		*/ 
 		function initLoginModel(){
-			loginModel = new LoginModel();
+			loginModel = new LoginPage.LoginModel();
 			loginModel.init();			
 		}
 

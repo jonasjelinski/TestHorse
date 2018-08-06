@@ -54,6 +54,7 @@ Pages = function(){
 	* @description sets the variables of this modul which contain the moduls of the different pages.
 	*/ 
 	function initPages(){
+		loginPage = new LoginPage();
 		mainPage = new MainPage();
 		userProfilPage = new UserProfilPage();
 		datesPage = new DatesPage();
@@ -69,6 +70,7 @@ Pages = function(){
 	*/ 
 	function showLoginPage(){
 		pageChanger.switchPage("LOGIN");
+		loginPage.init();
 	}
 
 	/**
@@ -120,6 +122,7 @@ Pages = function(){
 	}
 
 	that.init = init;
+	that.showLoginPage = showLoginPage;
 	that.showMainPage = showMainPage;
 	that.showUserProfilPage = showUserProfilPage;
 	that.showAllDates = showAllDates;

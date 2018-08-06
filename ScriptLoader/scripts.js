@@ -8,9 +8,9 @@ ScriptLoader.Scripts = (function(){
 	"use strict";
 
 	let scripts = [
-	"./DatabaseClientInterface/dbRequestModul.js",
-	"./DatabaseClientInterface/ajaxModul.js",
 	"./DatabaseClientInterface/dbClientInterface.js",
+	"./DatabaseClientInterface/dbRequestModul.js",
+	"./DatabaseClientInterface/ajaxModul.js",	
 	"./libs/underscore/underscore.js",
 	"./libs/underscore/underscore-min.js",
 	"./Profiles/profileControll.js",

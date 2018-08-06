@@ -49,7 +49,7 @@ Pages.PageChanger = function(domElement){
 	function switchPage(page){
 		switch(page){
 			case PAGES.LOGIN_PAGE:
-				handlePageSwitch();
+				handlePageSwitch(pageContent.LOGIN_PAGE);
 				break;
 			case PAGES.MAIN_PAGE:
 				handlePageSwitch(pageContent.MAIN_PAGE);

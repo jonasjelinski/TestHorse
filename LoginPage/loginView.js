@@ -20,7 +20,7 @@ var LoginPage = LoginPage || {};
  * </p>
  */
 
-LoginPage.LoginView = new function(options){
+LoginPage.LoginView = function(options){
 
 	const NEGATIVE_HINT = "Nutzername oder Passwort sind falsch";
 
@@ -56,8 +56,8 @@ LoginPage.LoginView = new function(options){
 		newUserButton = options.newUserButton;
 		stayLoggedInBox = options.stayLoggedInBox;
 		feedBackBox = options.feedBackBox;
-		userNameInputBox = options.feedBackBox;
-		pwInputBox = options.feedBackBox;
+		userNameInputBox = options.userNameInput;
+		pwInputBox = options.passwordInput;
 	}
 
 	/**
@@ -68,8 +68,8 @@ LoginPage.LoginView = new function(options){
 	* @description Sets the listeners of the viewElements
 	*/ 
 	function initListeners(){		
-		loginButton.addEventListener("onClick", handleLogin);
-		newUserButton.addEventListener("onClick", handleNewUser);
+		loginButton.addEventListener("click", handleLogin);
+		newUserButton.addEventListener("click", handleNewUser);
 		userNameInputBox.addEventListener("input", hideNegativeFeedback);		
 	}
 
@@ -80,8 +80,8 @@ LoginPage.LoginView = new function(options){
 	* @instance
 	* @description Reads the values from DOM-Elements and gives it as params to sendLoginData
 	*/ 
-	function handleLogin(){
-		let stayLoggedIn = stayLoggedInBox.checked;
+	function handleLogin(){	
+		let stayLoggedIn = stayLoggedInBox.value;
 			userId = userNameInputBox.value;
 			pw = pwInputBox.value;
 			sendLogInData(stayLoggedIn, userId, pw);			
@@ -104,6 +104,7 @@ LoginPage.LoginView = new function(options){
 			event.details.userId = userId;
 			event.details.pw = pw;
 			loginView.dispatchEvent(event);
+			
 	}
 
 	/**
