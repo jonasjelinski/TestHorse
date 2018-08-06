@@ -8,9 +8,9 @@ ScriptLoader.Scripts = (function(){
 	"use strict";
 
 	let scripts = [
-	"./DatabaseClientInterface/dbRequestModul.js",
-	"./DatabaseClientInterface/ajaxModul.js",
 	"./DatabaseClientInterface/dbClientInterface.js",
+	"./DatabaseClientInterface/dbRequestModul.js",
+	"./DatabaseClientInterface/ajaxModul.js",	
 	"./libs/underscore/underscore.js",
 	"./libs/underscore/underscore-min.js",
 	"./Profiles/profileControll.js",
@@ -37,6 +37,9 @@ ScriptLoader.Scripts = (function(){
 	"./UserProfilePage/userProfilePage.js",
 	"./UserProfilePage/userProfilePageModel.js",	
 	"./UserProfilePage/userProfilePageViewControll.js",
+	"./DatesPage/datesPage.js",
+	"./DatesPage/datesPageControll.js",	
+	"./DatesPage/datesPageModel.js",
 	"./RegularDatesPage/regularDatesPage.js",
 	"./RegularDatesPage/regularDatesControll.js",	
 	"./RegularDatesPage/regularDatesModel.js",

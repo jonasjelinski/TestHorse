@@ -27,7 +27,8 @@ LoginPage.LoginModel = function(){
 		* @description Initialize this model. Inits the dbRequester and its listeners.
 		*/ 	
    		function init(){
-			dbRequester = new DBRequester();
+			dbRequester = new DatabaseClientInterface();
+			dbRequester.init();
 			addEventListener();
 		}
 

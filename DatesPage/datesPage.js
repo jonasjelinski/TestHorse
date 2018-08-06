@@ -4,19 +4,22 @@ DatesPage = function(){
 	let that = new EventTarget(),
 		dropList,
 		model,
-		controlls;
-		ulDomElementId = "dates",
-		elementTemplateString = document.getElementById("ul-element");
+		controlls,
+		ulDomElementId = "allDates",
+		elementTemplateString,
 		elementTagId = "dateId";
 
 	function init(){
+		elementTemplateString = document.getElementById("ul-element").innerHTML;
 		initModel();
 		initControlls();	
 	}
 
 	function initModel(){
+		let testData = [{id: "1", name: "Dienstag Zahnarzt"}, {id: "2", name: "Mittwoch Lernen"},{id: "3", name: "Sonntag Fussball"}];
 		model = new DatesPage.DatesPageModel();
-		model.addEventListener("onDataReceived", handleDataReceived);		
+		model.addEventListener("onDataReceived", handleDataReceived);
+		initDropList(testData);		
 	}
 
 	function handleDataReceived(event){
@@ -24,7 +27,7 @@ DatesPage = function(){
 		initDropList(listElementsData);
 	}
 
-	function initDropList(data){
+	function initDropList(listElementsData){
 		dropList = DropList(ulDomElementId, listElementsData, elementTemplateString, elementTagId);
 		dropList.init();
 		addDropListListeners();
