@@ -79,13 +79,34 @@ Pages.PageContent = function (){
     ' <button class= "regularDateDelete" type="button">Delete</button> '+
 	' <button class= "regularDateChange" type="button">Change</button> '+
     '<p ><%= name %></p>'+ 
-  '</li>';  
+  '</li>',
+
+   HORSE_PROFIL = ' <content>'+ 
+  '<div id= "horseProfil">' + 
+    ' <button id= "horseProfileChange" type="button">ProfileChange</button> '+ 
+    ' <button id= "horseProfileOk" type="button">ProfileOk</button> '+ 
+    ' <button id= "horseProfileDelete" type="button">ProfileDelete</button> '+ 
+    '<div id= "textBox">textBox</div> '+ 
+  '</div>'+ 
+               '</content>'+ 
+            
+'<script type="text/template" id="horseProfileTemplate">'+ 
+  '<div id= "horseProfileName"><%= name %></div> '+ 
+  '<div id= "horseProfileBirth"><%= birth %></div> '+ 
+  '<div id= "horseProfileRace"><%= race %></div> '+ 
+  '<div id= "horseProfileOwner"><%= comp %></div> '+ 
+  '<div id= "horseProfileSex"><%= owner %></div> '+ 
+  '<div id= "horseProfileHeight"><%= sex %></div> '+ 
+  '<div id= "horseProfileRaiser"><%= height %></div> '+ 
+'</script> ' 
+'</script> ', 
 
   that.LOGIN_PAGE = LOGIN_PAGE;
   that.MAIN_PAGE = MAIN_PAGE; 
   that.USER_PAGE = USER_PAGE;
   that.DATES_PAGE = DATES_PAGE; 
   that.REGULAR_DATES_PAGE = REGULAR_DATES_PAGE; 
+  that.HORSE_PROFIL = HORSE_PROFIL;
   return that; 
 };
  

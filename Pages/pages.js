@@ -121,12 +121,27 @@ Pages = function(){
 		regularDatesPage.init();
 	}
 
+	/**
+	* @function showHorseProfil
+	* @private
+	* @memberof! Pages.PageChanger  
+	* @instance
+	* @description shows the data of one horse to the user
+	*/ 
+	function showHorseProfil(){
+		let horseId = "myHorse";
+		pageChanger.switchPage("HORSE_PROFILE");
+		horseProfilPage = new HorseProfilePage(horseId);
+		horseProfilPage.init();
+	}
+
 	that.init = init;
 	that.showLoginPage = showLoginPage;
 	that.showMainPage = showMainPage;
 	that.showUserProfilPage = showUserProfilPage;
 	that.showAllDates = showAllDates;
-	that.showRegularDates = showRegularDates;	
+	that.showRegularDates = showRegularDates;
+	that.showHorseProfil = showHorseProfil;	
 	return that;
 }
 

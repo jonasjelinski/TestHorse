@@ -12,9 +12,11 @@ Profil.ProfileControll = function(firstButtonId, secondButtonId, thirdButtonId, 
 	}
 
 	function getDomElements(){
-		firstButton = document.getElementById(firstButtonId);
+
+		firstButton = document.getElementById(userProfileChange);
 		secondButton = document.getElementById(secondButtonId);
-		thirdButton = document.getElementById(thirdButtonId);		
+		thirdButton = document.getElementById(thirdButtonId);
+		console.log(firstButtonId, firstButton, secondButtonId, thirdButtonId);		
 	}
 
 	function addListeners(){
