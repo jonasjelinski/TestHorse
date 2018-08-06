@@ -5,7 +5,8 @@ RegularDatesPage.RegularDatesPageControll = function(deleteButtonClass, changeBu
 			backButton;
 
 		function init(){
-			initListControlls();						
+			initListControlls();
+			initBackButtonControlls();						
 		}
 
 		function initListControlls(){
