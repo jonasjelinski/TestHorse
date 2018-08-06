@@ -15,8 +15,8 @@ UserProfilPage = function(userId){
 	function init(){
 		profilViewTemplateString = document.getElementById(templateId).innerHTML;
 		initModel();
-		//profileViewData = {userProfileName:"Hans", userProfileMail: "h@h", userProfilePassword: "123"};			
-		//initViewControll(profileViewData);		
+		profileViewData = {userProfileName:"Hans", userProfileMail: "h@h", userProfilePassword: "123"};			
+		initViewControll(profileViewData);		
 	}
 
 	function initModel(){

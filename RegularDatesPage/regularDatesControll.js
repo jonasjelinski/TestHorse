@@ -5,20 +5,20 @@ RegularDatesPage.RegularDatesPageControll = function(deleteButtonClass, changeBu
 			backButton;
 
 		function init(){
-			initListControlls();			
+			initListControlls();						
 		}
 
 		function initListControlls(){
-			let delteButtons = document.getElementByClassName(deleteButtonClass),
-				changeButtons = document.getElementByClassName(changeButtonClass);
-			addDeleteListener(delteButtons, handleDelete);
-			addChangeListener(changeButtons, handleChange);		
+			let delteButtons = document.getElementsByClassName(deleteButtonClass),
+				changeButtons = document.getElementsByClassName(changeButtonClass);
+			addListener(delteButtons, handleDelete);
+			addListener(changeButtons, handleChange);		
 		}
 
 		function addListener(buttons, handler){
 			for(let i = 0; i < buttons.length; i++){
 				let button = buttons[i];
-				button.addEventListener("click", handler);
+				button.addEventListener("click", handler);				
 			}
 		}
 
@@ -26,13 +26,14 @@ RegularDatesPage.RegularDatesPageControll = function(deleteButtonClass, changeBu
 			let target = event.target,
 				li = target.closest("li"),
 				id = li.RegularDatesId;
-			sendIdEvent("onDelteClick", id);
+			sendIdEvent("onDeleteClick", id);
 		}
 
 		function sendIdEvent(type, id){
 			let event = new Event(type);
 			event.details = {};
 			event.details.id = id;
+			that.dispatchEvent(event);			
 		}
 
 		function handleChange(event){
