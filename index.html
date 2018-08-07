@@ -26,9 +26,29 @@
         function loaded(){
         	console.log("loaded");
         }
+
+        function startAjaxRequest(){
+          let dbRequester = DatabaseClientInterface(),
+          newUser = {},
+          name = "klaus",
+          email="klaus@k",
+          dateOfBirth = "240499",
+          password = "12334",
+          userId = "1" ;
+
+          dbRequester.init();
+          dbRequester.setUserIntoDB(name, email, dateOfBirth, password);
+          dbRequester.addEventListener("onResult", showData);
+          dbRequester.getUserData(userId);
+
+          function showData(){
+             console.log("ajaxResultData");
+          }         
+        }
+        
      
       let scriptLoader = new ScriptLoader();
-      scriptLoader.addEventListener("onLoaded", showMainPage);             
+      scriptLoader.addEventListener("onLoaded", startAjaxRequest);             
       scriptLoader.loadScripts();
    </script>   
     <script>
