@@ -16,10 +16,26 @@ Pages.PageContent = function (){
 							'<button id= "loginButton" type="button">login</button> '+
 							'<input id= "stayLoggedInBox" type="checkbox" value = "stayLoggedIn"></input> '+
 						'</div>'+
- 						'</content>',
+ 						'</content>', 
+
+          BURGER_MENU =  '<input id="burger" type="checkbox" />' +
+
+       '<label for="burger">' +
+            '<span></span>' +
+            '<span></span>' +
+            '<span></span>' +
+        '</label>' +
+        '<nav>'    +
+          '<ul id = "burgerListStartPage" >' +
+            '<li><a href="#">Link #1</a></li>' +
+            '<li><a href="#">Link #2</a></li>' +
+            '<li><a href="#">Link #3</a></li>' +
+          '</ul>'  +
+        '</nav>' ,
 
 	START_PAGE =  ' <content>'+
 						'<div id= "mainpage">' +
+            BURGER_MENU +
 							'<ul id="horseList" class="frames">'+
 							'</ul>'+
 						'</div>'+
@@ -36,7 +52,7 @@ Pages.PageContent = function (){
               '<button class="horseProfileButton" type="button">userProfileOk</button> '+
               '</div>'+ 
               '</div>'+
-					'</li>',
+					'</li>', 
 
   USER_PAGE = ' <content>'+ 
   '<div id= "mainpage">' + 
@@ -104,6 +120,8 @@ Pages.PageContent = function (){
   '<div id= "horseProfileRaiser"><%= height %></div> '+ 
 '</script> ' 
 '</script> ', 
+
+
 
   that.LOGIN_PAGE = LOGIN_PAGE;
   that.START_PAGE = START_PAGE; 

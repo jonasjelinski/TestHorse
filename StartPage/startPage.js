@@ -18,7 +18,11 @@ StartPage = function(userId){
 		buttonControlls,
 		dateButtonClass = "horseDateButton",
 		profileButtonClass = "horseProfileButton",
-		lastBoxId = "lastBox";
+		lastBoxId = "lastBox",
+		clickBoxId = "burger",
+		burgerList = "burgerListStartPage",
+		inVisibleClass = "",
+		visibleClass = "";
 
 	/**
 	* @function init
@@ -36,7 +40,14 @@ StartPage = function(userId){
 	}
 
 	function initHamburgerMenu(){
-		//hamburgerMenu = new HamburgerMenu(menuElements,menuId, newEntryTemplate, inVisibleClass, visibleClass);
+		hamburgerMenu = new HamburgerMenu(clickBoxId, burgerList, inVisibleClass, visibleClass);
+		hamburgerMenu.init();
+		hamburgerMenu.addEventListener("onOption", handleHamburgerClick);
+	}
+
+	function handleHamburgerClick(event){
+		let option = event.details.option;
+		//arbeite weite je nach ausgwählter option
 	}
 
 	function initModel(){
