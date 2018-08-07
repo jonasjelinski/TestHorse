@@ -1,23 +1,21 @@
 var Profil = Profil || {};
 
-Profil = function(userId, pageId, templateId, data){
+Profil = function(userId, pageId, templateId, testdata, viewControllConstructor, model){
 	"use strict";
 	let that = new EventTarget(),
 		profilViewTemplateString,
-		viewControll,
-		model,
-		profileViewData;
+		profileViewData,
+		viewControll;
 
 	function init(){
 		profilViewTemplateString = document.getElementById(templateId).innerHTML;
 		initModel();
-		profileViewData = data ;	
+		profileViewData = testdata ;	
 		initViewControll(profileViewData);		
 	}
 
 	function initModel(){
-		model = UserProfilPage.UserProfilPageModel(userId);
-		model.addEventListener("onDataReceived", handleDataReceived);		
+		model.addEventListener("onDataReceived", handleDataReceived);	
 	}
 
 	function handleDataReceived(event){
@@ -26,7 +24,7 @@ Profil = function(userId, pageId, templateId, data){
 	}
 
 	function initViewControll(data){					
-		viewControll = new UserProfilPage.UserProfilPageViewControll(pageId, profilViewTemplateString, data);
+		viewControll = new viewControllConstructor(pageId, profilViewTemplateString, data);
 		viewControll.init();
 		addViewControllListeners();
 	}

@@ -38,8 +38,7 @@ Profil.ProfilModel = function(requestParamater, requestFunction){
 		*/ 	
 		function handleResult(event){
 			let data = event.details.data;
-			userData = data;
-			sendEvent("onDataReceived", userData);
+			sendEvent("onDataReceived", data);
 		}	
 
 		/**
