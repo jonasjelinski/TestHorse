@@ -17,7 +17,8 @@ StartPage = function(userId){
 		elementTemplateString,
 		buttonControlls,
 		dateButtonClass = "horseDateButton",
-		profileButtonClass = "horseProfileButton";
+		profileButtonClass = "horseProfileButton",
+		lastBoxId = "lastBox";
 
 	/**
 	* @function init
@@ -29,7 +30,7 @@ StartPage = function(userId){
 	function init(){
 		initHamburgerMenu();
 		initModel();
-		initDropList();
+		initDropList(listElementsData);
 		initButtonControlls();		
 		addEventListeners();
 	}
@@ -52,11 +53,30 @@ StartPage = function(userId){
 		elementTemplateString = document.getElementById("horseBoxElement").innerHTML;
 		viewDomElement = document.getElementById("mainpage");
 		if(horseData){
-			let lastElement = {id:"lastBox", photo: "src/xzy"},
-				listData = Object.assign(horseData, lastElement);
-			dropList = new DropList(dropListId, listData, elementTemplateString, "horseid");
+			let lastElement = {id:lastBoxId, photo: "src/xzy"};
+				horseData.push(lastElement);		
+			dropList = new DropList(dropListId, horseData, elementTemplateString, "horseid");
 			dropList.init();
-		}		
+			initDropLististener();
+		}				
+	}
+
+	function initDropLististener(){
+		dropList.addEventListener("onElementClick", handleLiClick);
+	}
+
+	function handleLiClick(ev){
+		let id = ev.details.id;
+		if(lastBoxClicked(id)){
+			sendEvent("newHorse", "");			
+		}
+	}
+
+	function lastBoxClicked(id){
+		if(id === lastBoxId){
+			return true;
+		}
+		return false;
 	}
 
 	function initButtonControlls(){

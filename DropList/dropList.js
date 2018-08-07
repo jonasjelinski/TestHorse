@@ -112,8 +112,11 @@ DropList = (function(domElementId, listElementsData, elementTemplateString, elem
 	* @instance
 	* @description Sends an "onElementClick" event to other moduls.
 	*/
-	function handleOnElementClick(){
-		let event = new Event("onElementClick");
+	function handleOnElementClick(ev){
+		let event = new Event("onElementClick"),
+			id = ev.details.elementId;
+			event.details = {};
+			event.details.id = id;
 		dropList.dispatchEvent(event);
 	}
 
