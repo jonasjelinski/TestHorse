@@ -5,21 +5,23 @@ RegularDatesPage = function(){
 		dropList,
 		model,
 		controlls,
-		ulDomElementId = "regularDates",
-		elementTemplateString = document.getElementById("ul-element");
+		ulDomElementId = "allRegularDates",
+		elementTemplateString,
 		elementTagId = "regularDateId",
 		deleteButtonClass = "regularDateDelete",
 		changeButtonClass = "regularDateChange",
 		backbuttonId= "backToDates";
 
 	function init(){
-		initModel();
-		initControlls();	
+		elementTemplateString = document.getElementById("ul-element").innerHTML;
+		initModel();				
 	}
 
 	function initModel(){
+		let testData = [{id: "1", name: "Hufschmied"}, {id: "2", name: "Tierarzt"},{id: "3", name: "Reiten"}];
 		model = new DatesPage.DatesPageModel();
-		model.addEventListener("onDataReceived", handleDataReceived);		
+		model.addEventListener("onDataReceived", handleDataReceived);
+		initDropList(testData);		
 	}
 
 	function handleDataReceived(event){
@@ -27,10 +29,11 @@ RegularDatesPage = function(){
 		initDropList(listElementsData);
 	}
 
-	function initDropList(data){
+	function initDropList(listElementsData){
 		dropList = DropList(ulDomElementId, listElementsData, elementTemplateString, elementTagId);
 		dropList.init();
 		addDropListListeners();
+		initControlls();	
 	}
 
 	function addDropListListeners(){
@@ -49,7 +52,7 @@ RegularDatesPage = function(){
 	}
 
 	function addControllListeners(){
-		controlls.addEventListener("onDelteClick", handleDeleteClick);
+		controlls.addEventListener("onDeleteClick", handleDeleteClick);
 		controlls.addEventListener("onChangeClick", handleChangeClick);
 		controlls.addEventListener("onBackButtonClicked", handleBackClick);
 	}
@@ -59,9 +62,21 @@ RegularDatesPage = function(){
 		sendEvent("onDeleteClick");
 	}
 
+		/**
+	* @function sendEvent
+	* @private
+	* @memberof! RegularDatesPage
+	* @instance
+	* @description Dispatches the event of the type "type"
+	*/ 	
 	function sendEvent(type){
-			let event = new Event(type);
-			that.sendEvent(event);
+		let event = new Event(type);
+		that.dispatchEvent(event);
+	}
+
+	function sendEvent(type){
+		let event = new Event(type);
+		that.dispatchEvent(event);
 	}
 
 	function handleChangeClick(){

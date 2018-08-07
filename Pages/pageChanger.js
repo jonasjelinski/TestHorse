@@ -16,6 +16,7 @@ Pages.PageChanger = function(domElement){
 		LOGIN_PAGE: "LOGIN",
 		MAIN_PAGE: "MAIN",
 		DATES_PAGE: "DATES",
+		REGULAR_DATES_PAGE : "REGULAR_DATES_PAGE",
 		USER_PAGE: "USER_PROFILE",
 		HORSE_PAGE: "HORSE_PROFILE",
 		CREATE_DATE: "CREATE_DATE",
@@ -48,19 +49,23 @@ Pages.PageChanger = function(domElement){
 	function switchPage(page){
 		switch(page){
 			case PAGES.LOGIN_PAGE:
-				handlePageSwitch();
+				handlePageSwitch(pageContent.LOGIN_PAGE);
 				break;
 			case PAGES.MAIN_PAGE:
 				handlePageSwitch(pageContent.MAIN_PAGE);
 				break;
 			case PAGES.DATES_PAGE:
-				handlePageSwitch();
+				handlePageSwitch(pageContent.DATES_PAGE);
+				break;
+			case PAGES.REGULAR_DATES_PAGE:
+				handlePageSwitch(pageContent.REGULAR_DATES_PAGE);
 				break;
 			case PAGES.USER_PAGE:
-				handlePageSwitch();
+				handlePageSwitch(pageContent.USER_PAGE);
 				break;
 			case PAGES.HORSE_PAGE:
-				handlePageSwitch();
+			console.log(pageContent.HORSE_PROFIL);
+				handlePageSwitch(pageContent.HORSE_PROFIL);
 				break;
 			case PAGES.CREATE_DATE:
 				handlePageSwitch();

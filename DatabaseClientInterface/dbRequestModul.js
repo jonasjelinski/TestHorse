@@ -21,12 +21,16 @@ DatabaseClientInterface.RequestModul = function () {
     	DELETE: "DELETE",
     }
 
-	that = new EventTarget(),
-	requestModul = new AJAXModul();
+	let that = new EventTarget(),
+	requestModul = new DatabaseClientInterface.AJAXModul();
 
 	function askDataBase(url, data, action){
 		let requestData = createRequestDataObject(action, data);
-		requestModul.request(getDBAnswer, null, METHODS.POST, url, requestData);
+		requestModul.request(getDBAnswer, showError, METHODS.POST, url, requestData);
+	}
+
+	function showError(){
+		console.log("error");
 	}
 
 	function createRequestDataObject(action, data){
@@ -55,7 +59,7 @@ DatabaseClientInterface.RequestModul = function () {
 	}
 
 	function tryLogin(url, data){
-		askDataBase(url, data, ACTION.LOGIN);
+		askDataBase(url, data, ACTIONS.LOGIN);
 	}
 
 	function tryLogout(url, data){

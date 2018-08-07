@@ -54,8 +54,11 @@ Pages = function(){
 	* @description sets the variables of this modul which contain the moduls of the different pages.
 	*/ 
 	function initPages(){
+		loginPage = new LoginPage();
 		mainPage = new MainPage();
 		userProfilPage = new UserProfilPage();
+		datesPage = new DatesPage();
+		regularDatesPage = new RegularDatesPage();
 	}
 
 	/**
@@ -67,6 +70,7 @@ Pages = function(){
 	*/ 
 	function showLoginPage(){
 		pageChanger.switchPage("LOGIN");
+		loginPage.init();
 	}
 
 	/**
@@ -81,22 +85,63 @@ Pages = function(){
 		mainPage.init();
 	}
 
-
 	/**
 	* @function showUserProfilPage
 	* @private
 	* @memberof! Pages.PageChanger  
 	* @instance
-	* @description shows the mainPage to the user
+	* @description shows the user profil to the user
 	*/ 
 	function showUserProfilPage(){
-		pageChanger.switchPage("MAIN");
+		pageChanger.switchPage("USER_PROFILE");
 		userProfilPage.init();
 	}
 
+	/**
+	* @function showAllDates
+	* @private
+	* @memberof! Pages.PageChanger  
+	* @instance
+	* @description shows all dates to the user
+	*/ 
+	function showAllDates(){
+		pageChanger.switchPage("DATES");
+		datesPage.init();
+	}
+	
+	/**
+	* @function showRegularDates
+	* @private
+	* @memberof! Pages.PageChanger  
+	* @instance
+	* @description shows all regular dates to the user
+	*/ 
+	function showRegularDates(){
+		pageChanger.switchPage("REGULAR_DATES_PAGE");
+		regularDatesPage.init();
+	}
+
+	/**
+	* @function showHorseProfil
+	* @private
+	* @memberof! Pages.PageChanger  
+	* @instance
+	* @description shows the data of one horse to the user
+	*/ 
+	function showHorseProfil(){
+		let horseId = "myHorse";
+		pageChanger.switchPage("HORSE_PROFILE");
+		horseProfilPage = new HorseProfilePage(horseId);
+		horseProfilPage.init();
+	}
+
+	that.init = init;
+	that.showLoginPage = showLoginPage;
 	that.showMainPage = showMainPage;
 	that.showUserProfilPage = showUserProfilPage;
-	that.init = init;
+	that.showAllDates = showAllDates;
+	that.showRegularDates = showRegularDates;
+	that.showHorseProfil = showHorseProfil;	
 	return that;
 }
 

@@ -14,7 +14,7 @@ Profil.ProfileControll = function(firstButtonId, secondButtonId, thirdButtonId, 
 	function getDomElements(){
 		firstButton = document.getElementById(firstButtonId);
 		secondButton = document.getElementById(secondButtonId);
-		thirdButton = document.getElementById(thirdButtonId);		
+		thirdButton = document.getElementById(thirdButtonId);	
 	}
 
 	function addListeners(){

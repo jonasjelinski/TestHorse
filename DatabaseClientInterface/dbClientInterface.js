@@ -35,7 +35,7 @@ DatabaseClientInterface = function(){
 		requestModul;
 
 		function init(){
-			requestModul = new RequestModul();
+			requestModul = new DatabaseClientInterface.RequestModul();
 			requestModul.addEventListener("onResult", sendResultData);
 		}
 
@@ -234,6 +234,7 @@ DatabaseClientInterface = function(){
 			updateEntity(URLS.UPDATE_AGREEMENT, agreementId, valueObject);
 		}
 
+		that.init = init;
 		that.tryLogin = tryLogin;
 		that.logoutUser = logoutUser;
 		that.getAllHorsesOfUser = getAllHorsesOfUser;
