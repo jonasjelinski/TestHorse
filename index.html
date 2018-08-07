@@ -17,10 +17,10 @@
     	// auskommentiert, um automatisches laden zu verhindern
     	//bitte schlechten Programmierstil zu entschuldigen
     	//wird geändert sobald das passende Modul erstellt wurde 
-       function showMainPage(){
+       function showPage(){
         let pages = new Pages();     
             pages.init();
-            pages.showUserProfilPage();
+            pages.showLoginPage();
         }
 
         function loaded(){
@@ -48,7 +48,7 @@
         
      
       let scriptLoader = new ScriptLoader();
-      scriptLoader.addEventListener("onLoaded", startAjaxRequest);             
+      scriptLoader.addEventListener("onLoaded", showPage);             
       scriptLoader.loadScripts();
    </script>   
     <script>
