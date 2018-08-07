@@ -8,18 +8,18 @@ var DatabaseClientInterface = DatabaseClientInterface || {};
 DatabaseClientInterface.RequestModul = function () {
 	"use strict";
 
-	const METHODS = {
-      POST: "POST",      
+	const METHODS = {		
+    	POST: "POST",      
     };
 
-    const ACTIONS = {
-    	LOGIN: "LOGIN",
-    	LOGOUT : "LOGOUT",
-    	GET: "GET",
-    	SET: "SET",
-    	UPDATE: "UPDATE",
-    	DELETE: "DELETE",
-    }
+    const URLS = {
+    	LOGIN: " https://h2795767.stratoserver.net/database/actions/login.php",
+    	GET: " https://h2795767.stratoserver.net/database/actions/get.php",
+		SET: "https://h2795767.stratoserver.net/database/actions/set.php",
+		DELETE: "https://h2795767.stratoserver.net/database/actions/delete.php",
+		UPDATE: "https://h2795767.stratoserver.net/database/actions/update.php",
+		LOGOUT: "https://h2795767.stratoserver.net/database/actions/logout.php",
+	}
 
 	let that = new EventTarget(),
 	requestModul = new DatabaseClientInterface.AJAXModul();
@@ -58,28 +58,28 @@ DatabaseClientInterface.RequestModul = function () {
 		that.dispatchEvent(event);		
 	}
 
-	function tryLogin(url, data){
-		askDataBase(url, data, ACTIONS.LOGIN);
+	function tryLogin(action, data){
+		askDataBase(URLS.LOGIN, data, action);
 	}
 
-	function tryLogout(url, data){
-		askDataBase(url, data, ACTIONS.LOGOUT);
+	function tryLogout(data, action){
+		askDataBase(URLS.LOGOUT, data, action);
 	}	
 
 	function getDataFromDB(url, data){
-		askDataBase(url, data, ACTION.GET);
+		askDataBase(URLS.GET, data, action);
 	}
 
 	function setDataIntoDB(url, data){
-		askDataBase(url, data, ACTIONS.SET);
+		askDataBase(URLS.SET, data, action);
 	}
 
 	function updateDataInDB(url, data){
-		askDataBase(url, data, ACTIONS.UPDATE);
+		askDataBase(URLS.UPDATE, data, action);
 	}
 
 	function delteDataFromDB(url, data){
-		askDataBase(url, data, ACTIONS.DELETE);
+		askDataBase(URLS.DELETE, data, action);
 	}
 
 	that.tryLogin = tryLogin;

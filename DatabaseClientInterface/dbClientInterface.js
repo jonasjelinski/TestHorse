@@ -2,33 +2,43 @@ var DatabaseClientInterface = DatabaseClientInterface || {};
 
 DatabaseClientInterface = function(){
 	
-	const URLS = {
-		TRY_LOGIN: "",
-		LOGOUT: "",
-		ALL_HORSES: "",
-		SINGLE_HORSE: "",
-		ALL_DATES: "",
-		SINGLE_DATE: "",
-		ALL_REMINDERS: "",
-		SINGLE_REMINDER: "",
-		ALL_AGREEMENTS: "",
-		SINGLE_AGREEMENT: "",
-		USER_DATA:"",
-		SET_USER : "",
-		SET_HORSE : "",
-		SET_DATE : "",
-		SET_REMINDER : "",
-		SET_APPOINTMENT : "",
-		DELETE_USER : "",
-		DELETE_HORSE : "",
-		DELETE_DATE : "",
-		DELETE_REMINDER : "",
-		DELETE_APPOINTMENT : "",
-		UPDATE_USER : "",
-		UPDATE_HORSE : "",
-		UPDATE_DATE : "",
-		UPDATE_REMINDER : "",
-		UPDATE_APPOINTMENT : "",
+	const ACTIONS = {
+		TRY_LOGIN: "loginUser",
+		LOGOUT: "logoutUser",
+		ALL_HORSES: "getAllHorsesOfUser",
+		SINGLE_HORSE: "getHorse",
+		ALL_DATES: "getAllDatesOfUser",
+		SINGLE_DATE: "getDate",
+		ALL_REMINDERS: "getAllRemindersOfUser",
+		SINGLE_REMINDER: "getReminder",
+		ALL_AGREEMENTS: "getAllAgreementsOfUser",
+		SINGLE_AGREEMENT: "getAgreement",
+		USER_DATA:"getUserData",
+		SET_USER : "setUserIntoDB",
+		SET_HORSE : "setHorseIntoDB",
+		SET_DATE : "setDateIntoDB",
+		SET_REMINDER : "setReminderIntoDB",
+		SET_AGREEMENT : "?????",
+		DELETE_USER : "deleteUserFromDB",
+		DELETE_HORSE : "deleteHorseFromDB",
+		DELETE_DATE : "deleteDateFromDB",
+		DELETE_REMINDER : "deleteReminderFromDB",
+		DELETE_AGREEMENT : "deleteAgreementFromDB",
+		UPDATE_USER_NAME : "updateUserName",
+		UPDATE_USER_EMAIL : "?????",
+		UPDATE_USER_PASSWORD : "updateUserName",
+		UPDATE_USER_BIRTH : "updateUserDateOfBirth",
+		UPDATE_HORSE_NAME : "updateHorseName",
+		UPDATE_HORSE_OWNER : "updateHorseOwner",
+		UPDATE_HORSE_RACE : "updateHorseRace",
+		UPDATE_HORSE_BIRTH : "updateHorseDateOfBirth",
+		UPDATE_HORSE_PHOTO : "updateHorseDateOfBirth",
+		UPDATE_HORSE_SEX : "updateHorseSex",
+		UPDATE_HORSE_HEIGHT : "updateHorseHeight",
+		UPDATE_HORSE_GROWER : "updateHorseGrower",
+		UPDATE_DATE : "?????",
+		UPDATE_REMINDER : "????",
+		UPDATE_AGREEMENT: "????",
 	}
 
 	let that = new EventTarget(),
@@ -39,8 +49,10 @@ DatabaseClientInterface = function(){
 			requestModul.addEventListener("onResult", sendResultData);
 		}
 
-		function sendResultData(){
+		function sendResultData(ev){
 			let event = new Event("onResult");
+				event.details = {};
+				event.details.data = ev.details.data;
 			that.dispatchEvent(event);
 		}
 
@@ -51,70 +63,70 @@ DatabaseClientInterface = function(){
 				data.stayLoggedIn = wantsToStayLoggedIn;
 				data.id = userId;
 				data.password;
-			requestModul.tryLogin(URLS.TRY_LOGIN, data);
+			requestModul.tryLogin(ACTIONS.TRY_LOGIN, data);
 		}
 
 		function logoutUser(userId){
 			let data = {};
 				data.id = userId;
-			requestModul.tryLogout(URLS.LOGOUT, data);
+			requestModul.tryLogout(ACTIONS.LOGOUT, data);
 		}
 
 
 		//GET DATA
 
+		function getUserData(userId){
+			let data = {};
+				data.id = userId;
+			requestModul.getDataFromDB(ACTIONS.USER_DATA, data);
+		}
+
 		function getAllHorsesOfUser(userId){
 			let data = {};
 				data.id = userId;
-			requestModul.getDataFromDB(URLS.ALL_HORSES, data);
+			requestModul.getDataFromDB(ACTIONS.ALL_HORSES, data);
 		}
 
 		function getHorse(horseId){
 			let data = {};
 				data.id = horseId;
-			requestModul.getDataFromDB(URLS.SINGLE_HORSE, data);
+			requestModul.getDataFromDB(ACTIONS.SINGLE_HORSE, data);
 		}
 
 		function getAllDatesOfUser(userId){
 			let data = {};
 				data.id = userId;
-			requestModul.getDataFromDB(URLS.ALL_DATES, data);
+			requestModul.getDataFromDB(ACTIONS.ALL_DATES, data);
 		}
 
 		function getDate(dateId){
 			let data = {};
 				data.id = dateId;
-			requestModul.getDataFromDB(URLS.SINGLE_DATE, data);
+			requestModul.getDataFromDB(ACTIONS.SINGLE_DATE, data);
 		}
 
 		function getAllRemindersOfUser(userId){
 			let data = {};
 				data.id = userId;
-			requestModul.getDataFromDB(URLS.ALL_REMINDERS, data);	
+			requestModul.getDataFromDB(ACTIONS.ALL_REMINDERS, data);	
 		}
 
 		function getReminder(reminderId){
 			let data = {};
 				data.id = reminderId;
-			requestModul.getDataFromDB(URLS.SINGLE_REMINDER, data);	
-		}
-
-		function getUserData(userId){
-			let data = {};
-				data.id = userId;
-			requestModul.getDataFromDB(URLS.USER_DATA, data);
+			requestModul.getDataFromDB(ACTIONS.SINGLE_REMINDER, data);	
 		}
 
 		function getAllAgreementsOfUser(userId){
 			let data = {};
 			data.id = userId;
-			requestModul.getDataFromDB(URLS.ALL_AGREEMENTS, data);		
+			requestModul.getDataFromDB(ACTIONS.ALL_AGREEMENTS, data);		
 		}
 
 		function getAgreement(agreementId){
 			let data = {};
 			data.id = agreementId;
-			requestModul.getDataFromDB(URLS.SINGLE_AGREEMENT, data);		
+			requestModul.getDataFromDB(ACTIONS.SINGLE_AGREEMENT, data);		
 		}
 
 		//SET DATA
@@ -126,10 +138,10 @@ DatabaseClientInterface = function(){
 				dateOfBirth: dateOfBirth,
 				password : password,
 			};
-			requestModul.setDataIntoDB(URLS.SET_USER, data);
+			requestModul.setDataIntoDB(ACTIONS.SET_USER, data);
 		}
 
-		function setHorseIntoDB(name, owner, race, dateOfBirth, photoSrc, sex, height, grower){
+		function setHorseIntoDB(name, owner, race, dateOfBirth, photoSrc, sex, height, grower, userID){
 			let data = {
 				name: name,
 				owner: owner,
@@ -139,31 +151,33 @@ DatabaseClientInterface = function(){
 				sex : sex, 
 				height: height, 
 				grower: grower,
+				userID: userID,
 			};
-			requestModul.setDataIntoDB(URLS.SET_HORSE, data);
+			requestModul.setDataIntoDB(ACTIONS.SET_HORSE, data);
 		}
 
-		function setDateIntoDB(title, date, time, location, regular, reminder){
+		function setDateIntoDB(title, date, time, location, regular, reminder, userID){
 			let data = {
+				userID: userID,
 				title: title,
 				date: date,
 				time: time,
-				location : location,
+				location : location,				
+				reminder : reminder,
 				regular: regular,
-				reminder : reminder, 
 			};
-			requestModul.setDataIntoDB(URLS.SET_DATE, data);
+			requestModul.setDataIntoDB(ACTIONS.SET_DATE, data);
 		}
 
-		function setReminderIntoDB(title, date, time, location, parentDate){
+		function setReminderIntoDB(title, date, time, location, parentDate, dateID){
 			let data = {
 				title: title,
 				date: date,
 				time: time,
 				location : location,
-				parentDate: dateId,
+				dateID: dateID,
 			};
-			requestModul.setDataIntoDB(URLS.SET_REMINDER, data);
+			requestModul.setDataIntoDB(ACTIONS.SET_REMINDER, data);
 		}
 
 		function setAppointmentIntoDB(title, dateToShow, timeToShow, dateOfFutureDate, timeOfFutureDate){
@@ -174,13 +188,13 @@ DatabaseClientInterface = function(){
 				dateOfFutureDate : location,
 				timeOfFutureDate: dateId,
 			};
-			requestModul.setDataIntoDB(URLS.SET_APPOINTMENT, data);
+			requestModul.setDataIntoDB(ACTIONS.SET_APPOINTMENT, data);
 		}		
 
 		//DELETE ENTITY
 
 		function deleteUserFromDB(userId){
-			deleteEntityFromDB(URLS.DELETE_USER, id);
+			deleteEntityFromDB(ACTIONS.DELETE_USER, id);
 		}
 
 		function deleteEntityFromDB(url, id){
@@ -190,29 +204,29 @@ DatabaseClientInterface = function(){
 		}
 
 		function deleteHorseFromDB(horseId){
-			deleteEntityFromDB(URLS.DELETE_HORSE, horseId);
+			deleteEntityFromDB(ACTIONS.DELETE_HORSE, horseId);
 		}
 
 		function deleteDateFromDB(dateId){
-			deleteEntityFromDB(URLS.DELETE_DATE, dateId);
+			deleteEntityFromDB(ACTIONS.DELETE_DATE, dateId);
 		}
 
 		function deleteReminderFromDB(reminderId){
-			deleteEntityFromDB(URLS.DELETE_REMINDER, reminderId);
+			deleteEntityFromDB(ACTIONS.DELETE_REMINDER, reminderId);
 		}
 
 		function deleteAgreementFromDB(agreementId){
-			deleteEntityFromDB(URLS.DELETE_AGREEMENT, agreementId);
+			deleteEntityFromDB(ACTIONS.DELETE_AGREEMENT, agreementId);
 		}
 
 		//UPDATE
 
 		function updateUser(userId, valueObject){
-			updateEntity(URLS.UPDATE_USER, userId, valueObject);
+			updateEntity(ACTIONS.UPDATE_USER, userId, valueObject);
 		} 
 
 		function updateHorse(horseId, valueObject){
-			updateEntity(URLS.UPDATE_HORSE, horseId, valueObject);
+			updateEntity(ACTIONS.UPDATE_HORSE, horseId, valueObject);
 		}
 
 		function updateEntity(url, id, valueObject){
@@ -223,15 +237,15 @@ DatabaseClientInterface = function(){
 		}
 
 		function updateDate(dateId, valueObject){
-			updateEntity(URLS.UPDATE_DATE, dateId, valueObject);
+			updateEntity(ACTIONS.UPDATE_DATE, dateId, valueObject);
 		}
 
 		function updateReminder(reminderId, valueObject){
-			updateEntity(URLS.UPDATE_REMINDER, reminderId, valueObject);
+			updateEntity(ACTIONS.UPDATE_REMINDER, reminderId, valueObject);
 		}
 
 		function updateAgreement(agreementId, valueObject){
-			updateEntity(URLS.UPDATE_AGREEMENT, agreementId, valueObject);
+			updateEntity(ACTIONS.UPDATE_AGREEMENT, agreementId, valueObject);
 		}
 
 		that.init = init;
