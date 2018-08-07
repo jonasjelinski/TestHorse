@@ -61,16 +61,16 @@ DatesPage = function(){
 
 
 	function handleRegularClick(){
-		sendEvent("onRegularClicked");
+		sendEvent("showRegularDates");
 	}
 
 	function sendEvent(type){
 			let event = new Event(type);
-			that.sendEvent(event);
+			that.dispatchEvent(event);
 	}
 
 	function handleSingleClick(){
-		sendEvent("onSingleClicked");
+		sendEvent("showCreateSingleDate");
 	}
 
 	that.init = init;

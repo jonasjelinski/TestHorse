@@ -8,23 +8,23 @@ var DatabaseClientInterface = DatabaseClientInterface || {};
 DatabaseClientInterface.RequestModul = function () {
 	"use strict";
 
-	const METHODS = {
-      POST: "POST",      
+	const METHODS = {		
+    	POST: "POST",      
     };
 
-    const ACTIONS = {
-    	LOGIN: "LOGIN",
-    	LOGOUT : "LOGOUT",
-    	GET: "GET",
-    	SET: "SET",
-    	UPDATE: "UPDATE",
-    	DELETE: "DELETE",
-    }
+    const URLS = {
+    	LOGIN: " https://h2795767.stratoserver.net/database/actions/login.php",
+    	GET: " https://h2795767.stratoserver.net/database/actions/get.php",
+		SET: "https://h2795767.stratoserver.net/database/actions/set.php",
+		DELETE: "https://h2795767.stratoserver.net/database/actions/delete.php",
+		UPDATE: "https://h2795767.stratoserver.net/database/actions/update.php",
+		LOGOUT: "https://h2795767.stratoserver.net/database/actions/logout.php",
+	}
 
 	let that = new EventTarget(),
 	requestModul = new DatabaseClientInterface.AJAXModul();
 
-	function askDataBase(url, data, action){
+	function askDataBase(url, action, data){
 		let requestData = createRequestDataObject(action, data);
 		requestModul.request(getDBAnswer, showError, METHODS.POST, url, requestData);
 	}
@@ -58,28 +58,28 @@ DatabaseClientInterface.RequestModul = function () {
 		that.dispatchEvent(event);		
 	}
 
-	function tryLogin(url, data){
-		askDataBase(url, data, ACTIONS.LOGIN);
+	function tryLogin(action, data){
+		askDataBase(URLS.LOGIN, action, data);
 	}
 
-	function tryLogout(url, data){
-		askDataBase(url, data, ACTIONS.LOGOUT);
+	function tryLogout(data, action){
+		askDataBase(URLS.LOGOUT, action, data);
 	}	
 
-	function getDataFromDB(url, data){
-		askDataBase(url, data, ACTION.GET);
+	function getDataFromDB(action, data){
+		askDataBase(URLS.GET, action, data);
 	}
 
-	function setDataIntoDB(url, data){
-		askDataBase(url, data, ACTIONS.SET);
+	function setDataIntoDB(action, data){
+		askDataBase(URLS.SET, action, data);
 	}
 
-	function updateDataInDB(url, data){
-		askDataBase(url, data, ACTIONS.UPDATE);
+	function updateDataInDB(action, data){
+		askDataBase(URLS.UPDATE, action, data);
 	}
 
-	function delteDataFromDB(url, data){
-		askDataBase(url, data, ACTIONS.DELETE);
+	function delteDataFromDB(action, data){
+		askDataBase(URLS.DELETE, action, data);
 	}
 
 	that.tryLogin = tryLogin;

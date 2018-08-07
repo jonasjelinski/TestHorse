@@ -5,13 +5,17 @@ Profil = function(userId, pageId, templateId, testdata, viewControllConstructor,
 	let that = new EventTarget(),
 		profilViewTemplateString,
 		profileViewData,
-		viewControll;
+		viewControll,
+		popup;
 
 	function init(){
 		profilViewTemplateString = document.getElementById(templateId).innerHTML;
 		initModel();
 		profileViewData = testdata ;	
 		initViewControll(profileViewData);		
+		popup = Popup("Wirklich löschen?");
+		popup.init();
+		addEventListeners();				
 	}
 
 	function initModel(){
@@ -26,7 +30,12 @@ Profil = function(userId, pageId, templateId, testdata, viewControllConstructor,
 	function initViewControll(data){					
 		viewControll = new viewControllConstructor(pageId, profilViewTemplateString, data);
 		viewControll.init();
+		
+	}
+
+	function addEventListeners(){
 		addViewControllListeners();
+		addPopupListeners();
 	}
 
 	function addViewControllListeners(){
@@ -34,19 +43,42 @@ Profil = function(userId, pageId, templateId, testdata, viewControllConstructor,
 		viewControll.addEventListener("onOkay", handleOkay );
 		viewControll.addEventListener("onDelete", handleDelete );
 	}
+
 		
 	function handleChange(){
-		console.log("onChange");
+		sendShowSide("onChangeProfile");
+	}
+
+	function sendShowSide(type){
+		let event = new Event(type);
+		that.dispatchEvent(event);
 	}	
 
 	function handleOkay(){
-		console.log("onOkay");
+		sendShowSide("onProfileOkay");
 	}
 
 	function handleDelete(){
-		console.log("onDelete");
+		popup.setPopupVisible();
 	}
 
+	function addPopupListeners(){
+		popup.addEventListener("onYes", handleYes);
+	}
+
+	function handleYes(){
+		deleteProfil();
+	}
+
+	function deleteProfil(){
+		console.log("deleteProfil");
+	}
+
+	function setModelParameter(param){
+		model.setParameter(param);
+	}
+
+	that.setModelParameter = setModelParameter;
 	that.init = init;
 	return that;
 }

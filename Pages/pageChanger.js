@@ -14,7 +14,7 @@ Pages.PageChanger = function(domElement){
 
 	const PAGES = {
 		LOGIN_PAGE: "LOGIN",
-		MAIN_PAGE: "MAIN",
+		START_PAGE: "START",
 		DATES_PAGE: "DATES",
 		REGULAR_DATES_PAGE : "REGULAR_DATES_PAGE",
 		USER_PAGE: "USER_PROFILE",
@@ -51,8 +51,8 @@ Pages.PageChanger = function(domElement){
 			case PAGES.LOGIN_PAGE:
 				handlePageSwitch(pageContent.LOGIN_PAGE);
 				break;
-			case PAGES.MAIN_PAGE:
-				handlePageSwitch(pageContent.MAIN_PAGE);
+			case PAGES.START_PAGE:
+				handlePageSwitch(pageContent.START_PAGE);
 				break;
 			case PAGES.DATES_PAGE:
 				handlePageSwitch(pageContent.DATES_PAGE);
@@ -64,7 +64,6 @@ Pages.PageChanger = function(domElement){
 				handlePageSwitch(pageContent.USER_PAGE);
 				break;
 			case PAGES.HORSE_PAGE:
-			console.log(pageContent.HORSE_PROFIL);
 				handlePageSwitch(pageContent.HORSE_PROFIL);
 				break;
 			case PAGES.CREATE_DATE:

@@ -128,10 +128,10 @@ LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBack
 		* @memberof! LoginPage  
 		* @instance
 		* @param {string} userId id of the user who logged in successfuly
-		* @description Dispatches the event of the type "mainPage" together with the userId
+		* @description Dispatches the event of the type "showStartPage" together with the userId
 		*/ 
 		function sendChangePageEvent(userId){
-			let event = new Event("mainPage");
+			let event = new Event("showStartPage");
 			event.details = {};
 			event.details.userId = userId;
 			loginPage.dispatchEvent(event);
@@ -161,6 +161,7 @@ LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBack
 				userId = event.details.userId,				
 				pw = event.details.pw;
 			loginModel.tryLogin(stayLoggedIn, userId, pw);
+			sendChangePageEvent(1);
 		}
 
 		/**
