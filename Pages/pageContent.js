@@ -26,10 +26,10 @@ Pages.PageContent = function (){
  					'</content>'+
 
 					'<script type="text/template" id="horseBoxElement">'+
-					'<li draggable="true" class= "horseListElement" horseId = <%= id %>'+
-						'<div class = horseBox horseBoxId = <%= id  %>' +
-              '<div>'+
-              '<img class= "horsePic" horsePicId = <%=id% src=<%=photo> </img>' +
+					'<li draggable="true" class= "horseListElement" horseId = <%= id %> '+
+						' <div class = "horseBox" horseBoxId = <%= id  %>' +
+              '</div>'+
+              '<img class= "horsePic" horsePicId = <%=id%> src=<%=photo%>> </img>' +
               '</div>'+
               '<div>'+
               '<button class="horseDateButton" type="button">userProfileChange</button> '+ 

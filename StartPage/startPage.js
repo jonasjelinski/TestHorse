@@ -14,7 +14,7 @@ StartPage = function(){
 		dropListId = "horseList",
 		listElementsData = [{id: "1", photo: "/src/xy"}, {id: "2", photo: "/src/xy"},{id: "3", photo: "/src/xy"}],
 		elementTemplateString;
-		
+
 	/**
 	* @function init
 	* @public
@@ -26,7 +26,7 @@ StartPage = function(){
 		elementTemplateString = document.getElementById("horseBoxElement").innerHTML;
 		viewDomElement = document.getElementById("mainpage");
 		//hamburgerMenu = new HamburgerMenu(menuElements,menuId, newEntryTemplate, inVisibleClass, visibleClass);
-		dropList = new DropList(dropListId, listElementsData, elementTemplateString, "horseId");
+		dropList = new DropList(dropListId, listElementsData, elementTemplateString, "horseid");
 		dropList.init();
 
 	}
