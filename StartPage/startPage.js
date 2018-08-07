@@ -7,13 +7,17 @@ var StartPage = StartPage || {};
  * <p><code><dropList</code> is a modul which handles a dom-element of the type unsorted list </p>
  * <p><code><hamburgerMenu</code> is a modul which handles a hamburgerMenu, which is a kind of droplist</p>
  */
-StartPage = function(){
+StartPage = function(userId){
 	let that = new EventTarget(),
+		model, 
 		hamburgerMenu,
 		dropList,
 		dropListId = "horseList",
-		listElementsData = [{id: "1", photo: "/src/xy"}, {id: "2", photo: "/src/xy"},{id: "3", photo: "/src/xy"}],
-		elementTemplateString;
+		listElementsData = [{id: "1", photo: "/src/xy"}, {id: "2", photo: "/src/xy"},{id: "3", photo: "/src/xy"}],		
+		elementTemplateString,
+		buttonControlls,
+		dateButtonClass = "horseDateButton",
+		profileButtonClass = "horseProfileButton";
 
 	/**
 	* @function init
@@ -23,12 +27,63 @@ StartPage = function(){
 	* @description Initialize this model. Sets the elementTemplateString, the hamburgerMenu and the dropList
 	*/ 
 	function init(){
+		initHamburgerMenu();
+		initModel();
+		initDropList();
+		initButtonControlls();		
+		addEventListeners();
+	}
+
+	function initHamburgerMenu(){
+		//hamburgerMenu = new HamburgerMenu(menuElements,menuId, newEntryTemplate, inVisibleClass, visibleClass);
+	}
+
+	function initModel(){
+		model = StartPage.Model(userId);
+		model.addEventListener("onResult", handleDBResult);
+	}
+
+	function handleDBResult(ev){
+		let horseData = ev.details.data;
+		initDropList(horseData);
+	}
+
+	function initDropList(horseData){
 		elementTemplateString = document.getElementById("horseBoxElement").innerHTML;
 		viewDomElement = document.getElementById("mainpage");
-		//hamburgerMenu = new HamburgerMenu(menuElements,menuId, newEntryTemplate, inVisibleClass, visibleClass);
-		dropList = new DropList(dropListId, listElementsData, elementTemplateString, "horseid");
-		dropList.init();
+		if(horseData){
+			let lastElement = {id:"lastBox", photo: "src/xzy"},
+				listData = Object.assign(horseData, lastElement);
+			dropList = new DropList(dropListId, listData, elementTemplateString, "horseid");
+			dropList.init();
+		}		
+	}
 
+	function initButtonControlls(){
+		buttonControlls = StartPage.Controlls(dateButtonClass, profileButtonClass);
+		buttonControlls.init();
+	}
+
+	function addEventListeners(){
+		buttonControlls.addEventListener("onDateClick", handleDateClick);
+		buttonControlls.addEventListener("onProfileClick", handleProfileClick);
+	}
+
+	function handleDateClick(ev){
+		let horseId = ev.details.id;
+		sendEvent("showDates",horseId);
+	}
+
+	function handleProfileClick(ev){
+		let horseId = ev.details.id;
+		sendEvent("showHorseProfile", horseId);	
+	}
+
+	function sendEvent(type, id){
+		let event = new Event(type);
+		event.details = {};
+		event.details.horseId = id;
+		that.dispatchEvent(event);	
 	}
 
 	that.init = init;
