@@ -14,6 +14,7 @@ ScriptLoader.Scripts = (function(){
 	"./DatabaseClientInterface/simpleRequester.js",	
 	"./libs/underscore/underscore.js",
 	"./libs/underscore/underscore-min.js",
+	"./Popup/popup.js",
 	"./Profiles/profilePage.js",
 	"./Profiles/profileControll.js",
 	"./Profiles/profileControllTypes.js",		

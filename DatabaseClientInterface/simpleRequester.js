@@ -3,7 +3,9 @@ var DatabaseClientInterface = DatabaseClientInterface || {};
 DatabaseClientInterface.SimpleRequester = function(requestParamater, requestFunction){
 	let that = new EventTarget(),
 		dbRequester,		
-		userData;
+		userData,
+		requestParam,
+		requestFunc;
 
 	/**
 	* @function init
@@ -12,10 +14,28 @@ DatabaseClientInterface.SimpleRequester = function(requestParamater, requestFunc
 	* @instance
 	* @description Initialize this model. Inits the dbRequester and its listeners. Starts a request for the user data
 	*/ 	
-		function init(){
-		dbRequester = new DatabaseClientInterface(userID);
+	function init(){
+		initParameter();
+		initInterface();
+	}
+
+	function initParameter(){
+		requestParam = requestParamater;
+		requestFunc = requestFunction;
+	}
+
+	function initInterface(){
+		interface = new DatabaseClientInterface();
 		addEventListener();
-		dbRequester[requestFunction](requestParamater);
+		interface[requestFunc](requestParam);
+	}
+
+	function setParameter(param){
+		requestParam = param;	
+	}
+
+	function setFunction(func){
+		requestFunc = func;
 	}
 
 	/**
@@ -26,7 +46,7 @@ DatabaseClientInterface.SimpleRequester = function(requestParamater, requestFunc
 	* @description Sets the listeners of the dbRequester
 	*/ 	
 	function addEventListener(){
-		dbRequester.addEventListener("onResult", handleResult);		
+		interface.addEventListener("onResult", handleResult);		
 	}
 
 	/**
@@ -56,5 +76,7 @@ DatabaseClientInterface.SimpleRequester = function(requestParamater, requestFunc
 	}
 
 	that.init = init;
+	that.setParameter = setParameter;
+	that.setFunction = setFunction;
 	return that;
 }

@@ -59,7 +59,8 @@ Pages = function(){
 		startPage = new StartPage();
 		userProfilPage = new UserProfilPage();
 		datesPage = new DatesPage();
-		regularDatesPage = new RegularDatesPage();		
+		regularDatesPage = new RegularDatesPage();
+		horseProfilPage = new HorseProfilePage();		
 	}
 
 	/**
@@ -73,18 +74,22 @@ Pages = function(){
 		loginPage.addEventListener("showStartPage", showStartPage);
 		startPage.addEventListener("showProfilePage", showUserProfilPage);
 		startPage.addEventListener("showHelpPage", showHelpPage);
-		startPage.addEventListener("logoutUser", showUserProfilPage);
+		startPage.addEventListener("logoutUser", logoutUser);
 		startPage.addEventListener("showHorseDates", showAllDates);
 		startPage.addEventListener("showHorseProfile", showHorseProfile);
 		userProfilPage.addEventListener("onProfileOkay", showStartPage);
 		datesPage.addEventListener("showRegularDates", showRegularDates);
 		datesPage.addEventListener("showCreateSingleDate", showCreateSingleDate);
 		regularDatesPage.addEventListener("showAllDates", showAllDates);
+		horseProfilPage.addEventListener("onProfileOkay", showStartPage);
 	}
 
 	function showHelpPage(){}
 	function showSingleDates(){}
 	function showCreateSingleDate(){		
+	}
+	function logoutUser(){
+
 	}
 
 
@@ -157,9 +162,9 @@ Pages = function(){
 	*/ 
 	function showHorseProfile(){
 		let horseId = "myHorse";
-		pageChanger.switchPage("HORSE_PROFILE");
-		horseProfilPage = new HorseProfilePage(horseId);
+		pageChanger.switchPage("HORSE_PROFILE");		
 		horseProfilPage.init();
+		horseProfilPage.setModelParameter(horseId);
 	}
 
 	that.init = init;

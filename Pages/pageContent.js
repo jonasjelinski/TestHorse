@@ -33,6 +33,12 @@ Pages.PageContent = function (){
           '</ul>'  +
         '</nav>' ,
 
+        POPUP = '<div id="popup">' +
+                    '<p id="popupText"></p>'+
+                    '<button id="popupTextYes" type="button">Yes</button> '+ 
+                    '<button id="popupTextNo"  type="button">No</button> '+
+                '</div>',
+
 	START_PAGE =  ' <content>'+
 						'<div id= "mainpage">' +
             '<input id="burger" type="checkbox" />' +
@@ -74,6 +80,7 @@ Pages.PageContent = function (){
     ' <button id= "userProfileDelete" type="button">userProfileDelete</button> '+ 
     '<div id= "textBox">textBox</div> '+ 
   '</div>'+ 
+   POPUP+
                '</content>'+ 
             
 '<script type="text/template" id="userProfileTemplate">'+ 
@@ -104,7 +111,7 @@ Pages.PageContent = function (){
 
 
   '</div>'+
- 
+     POPUP +
     '</content>'+ 
  ' <button id= "backToDates" type="button">backToDates</button> '+
   '<script type="text/template" id="ul-element">'+ 
@@ -120,6 +127,7 @@ Pages.PageContent = function (){
     ' <button id= "horseProfileOk" type="button">ProfileOk</button> '+ 
     ' <button id= "horseProfileDelete" type="button">ProfileDelete</button> '+ 
     '<div id= "textBox">textBox</div> '+ 
+    POPUP +
   '</div>'+ 
                '</content>'+ 
             
