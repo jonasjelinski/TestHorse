@@ -70,7 +70,7 @@ DatesPage = function(){
 	}
 
 	function handleSingleClick(){
-		sendEvent("showSingleDates");
+		sendEvent("showCreateSingleDate");
 	}
 
 	that.init = init;

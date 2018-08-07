@@ -26,7 +26,7 @@ Pages.PageContent = function (){
             '<span></span>' +
         '</label>' +
         '<nav>'    +
-          '<ul id = "burgerListStartPage" >' +
+          '<ul id = "burgerList" >' +
             '<li><a href="#">Link #1</a></li>' +
             '<li><a href="#">Link #2</a></li>' +
             '<li><a href="#">Link #3</a></li>' +
@@ -35,7 +35,20 @@ Pages.PageContent = function (){
 
 	START_PAGE =  ' <content>'+
 						'<div id= "mainpage">' +
-            BURGER_MENU +
+            '<input id="burger" type="checkbox" />' +
+
+       '<label for="burger">' +
+            '<span></span>' +
+            '<span></span>' +
+            '<span></span>' +
+        '</label>' +
+        '<nav>'    +
+          '<ul id = "burgerListStartPage" >' +
+            '<li><a  id="burgerOptionProfile" href="#">Profil</a></li>' +
+            '<li ><a id="burgerOptionHelp" href="#">Help</a></li>' +
+            '<li ><a id= "burgerOptionLogut" href="#">Logout</a></li>' +
+          '</ul>'  +
+        '</nav>'  +
 							'<ul id="horseList" class="frames">'+
 							'</ul>'+
 						'</div>'+

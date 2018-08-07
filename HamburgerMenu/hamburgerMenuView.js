@@ -20,10 +20,10 @@ HamburgerMenu.HamburgerMenuView = function(checkBox, unsortedList, inVisibleClas
 		}
 		isVisible = !isVisible;
 	}
-	
+
 	function handleOnClick(ev){
 		let clickedElement = ev.target,
-			option = clickedElement.innerHTML;
+			option = clickedElement.getAttribute("id");
 			event = new Event("onClick");
 		event.details = {};
 		event.details.option = option;

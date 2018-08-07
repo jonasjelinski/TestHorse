@@ -75,15 +75,17 @@ Pages = function(){
 		startPage.addEventListener("showHelpPage", showHelpPage);
 		startPage.addEventListener("logoutUser", showUserProfilPage);
 		startPage.addEventListener("showHorseDates", showAllDates);
-		startPage.addEventListener("showHorseProfile", showHorseProfil);
-		userProfilPage.addEventListener("showStartPage", showStartPage);
+		startPage.addEventListener("showHorseProfile", showHorseProfile);
+		userProfilPage.addEventListener("onProfileOkay", showStartPage);
 		datesPage.addEventListener("showRegularDates", showRegularDates);
-		datesPage.addEventListener("showSingleDates", showSingleDates);
+		datesPage.addEventListener("showCreateSingleDate", showCreateSingleDate);
 		regularDatesPage.addEventListener("showAllDates", showAllDates);
 	}
 
 	function showHelpPage(){}
 	function showSingleDates(){}
+	function showCreateSingleDate(){		
+	}
 
 
 	/**
@@ -106,7 +108,6 @@ Pages = function(){
 	* @description shows the startPage to the user
 	*/ 
 	function showStartPage(){
-		console.log("start");
 		pageChanger.switchPage("START");
 		startPage.init();
 	}
@@ -148,13 +149,13 @@ Pages = function(){
 	}
 
 	/**
-	* @function showHorseProfil
+	* @function showHorseProfile
 	* @private
 	* @memberof! Pages.PageChanger  
 	* @instance
 	* @description shows the data of one horse to the user
 	*/ 
-	function showHorseProfil(){
+	function showHorseProfile(){
 		let horseId = "myHorse";
 		pageChanger.switchPage("HORSE_PROFILE");
 		horseProfilPage = new HorseProfilePage(horseId);
@@ -167,7 +168,7 @@ Pages = function(){
 	that.showUserProfilPage = showUserProfilPage;
 	that.showAllDates = showAllDates;
 	that.showRegularDates = showRegularDates;
-	that.showHorseProfil = showHorseProfil;	
+	that.showHorseProfile = showHorseProfile;	
 	return that;
 }
 

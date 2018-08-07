@@ -36,15 +36,20 @@ Profil = function(userId, pageId, templateId, testdata, viewControllConstructor,
 	}
 		
 	function handleChange(){
-		console.log("onChange");
+		sendShowSide("onChangeProfile");
+	}
+
+	function sendShowSide(type){
+		let event = new Event(type);
+		that.dispatchEvent(event);
 	}	
 
 	function handleOkay(){
-		console.log("onOkay");
+		sendShowSide("onProfileOkay");
 	}
 
 	function handleDelete(){
-		console.log("onDelete");
+		sendShowSide("onProfileDelete");
 	}
 
 	that.init = init;

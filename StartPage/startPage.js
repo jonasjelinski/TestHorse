@@ -22,7 +22,10 @@ StartPage = function(userId){
 		clickBoxId = "burger",
 		burgerList = "burgerListStartPage",
 		inVisibleClass = "",
-		visibleClass = "";
+		visibleClass = "",
+		burgerOptionProfile = "burgerOptionProfile",
+		burgerOptionHelp = "burgerOptionHelp",
+		burgerOptionLogout = "burgerOptionLogout";
 
 	/**
 	* @function init
@@ -47,7 +50,34 @@ StartPage = function(userId){
 
 	function handleHamburgerClick(event){
 		let option = event.details.option;
-		//arbeite weite je nach ausgwählter option
+		switch(option){
+			case burgerOptionProfile : handleProfileOption();
+				break;
+			case burgerOptionHelp : handleHelpOption();
+				break;
+			case burgerOptionLogout : handleLogoutOption();
+				break;
+			default: break;
+		}
+	}
+
+	function handleProfileOption(){
+		sendEvent("showProfilePage","");
+	}
+
+	function sendEvent(type, id){
+		let event = new Event(type);
+		event.details = {};
+		event.details.horseId = id;
+		that.dispatchEvent(event);	
+	}
+
+	function handleHelpOption(){
+		sendEvent("showHelpPage","");
+	}
+
+	function handleLogoutOption(){
+		sendEvent("logoutUser","");
 	}
 
 	function initModel(){
@@ -108,14 +138,7 @@ StartPage = function(userId){
 	function handleProfileClick(ev){
 		let horseId = ev.details.id;
 		sendEvent("showHorseProfile", horseId);	
-	}
-
-	function sendEvent(type, id){
-		let event = new Event(type);
-		event.details = {};
-		event.details.horseId = id;
-		that.dispatchEvent(event);	
-	}
+	}	
 
 	that.init = init;
 	return that;
