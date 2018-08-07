@@ -24,7 +24,7 @@ DatabaseClientInterface.RequestModul = function () {
 	let that = new EventTarget(),
 	requestModul = new DatabaseClientInterface.AJAXModul();
 
-	function askDataBase(url, data, action){
+	function askDataBase(url, action, data){
 		let requestData = createRequestDataObject(action, data);
 		requestModul.request(getDBAnswer, showError, METHODS.POST, url, requestData);
 	}
@@ -59,27 +59,27 @@ DatabaseClientInterface.RequestModul = function () {
 	}
 
 	function tryLogin(action, data){
-		askDataBase(URLS.LOGIN, data, action);
+		askDataBase(URLS.LOGIN, action, data);
 	}
 
 	function tryLogout(data, action){
-		askDataBase(URLS.LOGOUT, data, action);
+		askDataBase(URLS.LOGOUT, action, data);
 	}	
 
-	function getDataFromDB(url, data){
-		askDataBase(URLS.GET, data, action);
+	function getDataFromDB(action, data){
+		askDataBase(URLS.GET, action, data);
 	}
 
-	function setDataIntoDB(url, data){
-		askDataBase(URLS.SET, data, action);
+	function setDataIntoDB(action, data){
+		askDataBase(URLS.SET, action, data);
 	}
 
-	function updateDataInDB(url, data){
-		askDataBase(URLS.UPDATE, data, action);
+	function updateDataInDB(action, data){
+		askDataBase(URLS.UPDATE, action, data);
 	}
 
-	function delteDataFromDB(url, data){
-		askDataBase(URLS.DELETE, data, action);
+	function delteDataFromDB(action, data){
+		askDataBase(URLS.DELETE, action, data);
 	}
 
 	that.tryLogin = tryLogin;

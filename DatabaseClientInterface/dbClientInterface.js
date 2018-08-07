@@ -45,7 +45,7 @@ DatabaseClientInterface = function(){
 		requestModul;
 
 		function init(){
-			requestModul = new DatabaseClientInterface.RequestModul();
+			requestModul = new DatabaseClientInterface.RequestModul ();
 			requestModul.addEventListener("onResult", sendResultData);
 		}
 
