@@ -26,7 +26,7 @@ class ListElement extends EventTarget{
 	   	this.element.addEventListener("dragstart", this.handleDragStart.bind(this), false);
 	    this.element.addEventListener("dragover", this.handleDragOver.bind(this), false);
 	    this.element.addEventListener("drop", this.handleDrop.bind(this), false);
-	    this.element.addEventListener("onClick", this.handleClick(this), false);
+	    this.element.addEventListener("click", this.handleClick.bind(this), false);
 		this.dragEvent = "onDrag";
 		this.dropEvent = "onDrop";
 		this.clickEvent = "onClick";

@@ -17,7 +17,7 @@ var LoginPage = LoginPage || {};
 LoginPage.LoginModel = function(){
 	let loginModel = new EventTarget(),
 		dbRequester,		
-		userID;
+		email;
 
 		/**
 		* @function init
@@ -91,8 +91,8 @@ LoginPage.LoginModel = function(){
 		* @param {string} pw password which has to be validated together with the userID
 		* @description Trys to login through the dbRequester
 		*/ 	
-		function tryLogin(stayLoggedIn, userID, pw){
-			dbRequester.tryLogin(stayLoggedIn, userID, pw);
+		function tryLogin(stayLoggedIn, email, pw){
+			dbRequester.tryLogin(stayLoggedIn, email, pw);
 		}
 
 		loginModel.init = init;

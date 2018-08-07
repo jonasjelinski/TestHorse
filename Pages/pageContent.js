@@ -16,23 +16,56 @@ Pages.PageContent = function (){
 							'<button id= "loginButton" type="button">login</button> '+
 							'<input id= "stayLoggedInBox" type="checkbox" value = "stayLoggedIn"></input> '+
 						'</div>'+
- 						'</content>',
+ 						'</content>', 
 
-	MAIN_PAGE =  ' <content>'+
+          BURGER_MENU =  '<input id="burger" type="checkbox" />' +
+
+       '<label for="burger">' +
+            '<span></span>' +
+            '<span></span>' +
+            '<span></span>' +
+        '</label>' +
+        '<nav>'    +
+          '<ul id = "burgerList" >' +
+            '<li><a href="#">Link #1</a></li>' +
+            '<li><a href="#">Link #2</a></li>' +
+            '<li><a href="#">Link #3</a></li>' +
+          '</ul>'  +
+        '</nav>' ,
+
+	START_PAGE =  ' <content>'+
 						'<div id= "mainpage">' +
+            '<input id="burger" type="checkbox" />' +
+
+       '<label for="burger">' +
+            '<span></span>' +
+            '<span></span>' +
+            '<span></span>' +
+        '</label>' +
+        '<nav>'    +
+          '<ul id = "burgerListStartPage" >' +
+            '<li><a  id="burgerOptionProfile" href="#">Profil</a></li>' +
+            '<li ><a id="burgerOptionHelp" href="#">Help</a></li>' +
+            '<li ><a id= "burgerOptionLogut" href="#">Logout</a></li>' +
+          '</ul>'  +
+        '</nav>'  +
 							'<ul id="horseList" class="frames">'+
 							'</ul>'+
-							' <button id= "userProfileChange" type="button">userProfileChange</button> '+
-							' <button id= "userProfileOk" type="button">userProfileOk</button> '+
-							' <button id= "userProfileDelete" type="button">userProfileDelete</button> '+
-							'<div id= "textBox">textBox</div> '+
 						'</div>'+
  					'</content>'+
 
-					'<script type="text/template" id="ul-element">'+
-					'<li draggable="true" tid = <%= id %>>'+
-						'<p ><%= name %></p>'+
-					'</li>',
+					'<script type="text/template" id="horseBoxElement">'+
+					'<li draggable="true" class= "horseListElement" horseId = <%= id %> '+
+						' <div class = "horseBox" horseBoxId = <%= id  %>' +
+              '</div>'+
+              '<img class= "horsePic" horsePicId = <%=id%> src=<%=photo%>> </img>' +
+              '</div>'+
+              '<div>'+
+              '<button class="horseDateButton" type="button">horseDateButton</button> '+ 
+              '<button class="horseProfileButton" type="button">horseProfileButton</button> '+
+              '</div>'+ 
+              '</div>'+
+					'</li>', 
 
   USER_PAGE = ' <content>'+ 
   '<div id= "mainpage">' + 
@@ -101,8 +134,10 @@ Pages.PageContent = function (){
 '</script> ' 
 '</script> ', 
 
+
+
   that.LOGIN_PAGE = LOGIN_PAGE;
-  that.MAIN_PAGE = MAIN_PAGE; 
+  that.START_PAGE = START_PAGE; 
   that.USER_PAGE = USER_PAGE;
   that.DATES_PAGE = DATES_PAGE; 
   that.REGULAR_DATES_PAGE = REGULAR_DATES_PAGE; 

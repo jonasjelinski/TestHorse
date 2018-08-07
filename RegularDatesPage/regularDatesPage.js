@@ -84,7 +84,7 @@ RegularDatesPage = function(){
 	}
 
 	function handleBackClick(){
-		sendEvent("onBackButtonClicked");
+		sendEvent("showAllDates");
 	}
 
 	that.init = init;

@@ -11,7 +11,7 @@ Pages = function(){
 		pageDomElement,
 		pageChanger,
 		loginPage,
-		mainPage,
+		startPage,
 		userProfilPage,
 		horseProfilPage,
 		datesPage,
@@ -28,7 +28,8 @@ Pages = function(){
 	*/ 
 	function init(){
 		initPageChanger();
-		initPages();				
+		initPages();
+		initPageCommunication();				
 	}
 
 	/**
@@ -55,11 +56,37 @@ Pages = function(){
 	*/ 
 	function initPages(){
 		loginPage = new LoginPage();
-		mainPage = new MainPage();
+		startPage = new StartPage();
 		userProfilPage = new UserProfilPage();
 		datesPage = new DatesPage();
-		regularDatesPage = new RegularDatesPage();
+		regularDatesPage = new RegularDatesPage();		
 	}
+
+	/**
+	* @function initPageCommunication
+	* @private
+	* @memberof! Pages.PageChanger  
+	* @instance
+	* @description sets up the communication between the different pages
+	*/ 
+	function initPageCommunication(){
+		loginPage.addEventListener("showStartPage", showStartPage);
+		startPage.addEventListener("showProfilePage", showUserProfilPage);
+		startPage.addEventListener("showHelpPage", showHelpPage);
+		startPage.addEventListener("logoutUser", showUserProfilPage);
+		startPage.addEventListener("showHorseDates", showAllDates);
+		startPage.addEventListener("showHorseProfile", showHorseProfile);
+		userProfilPage.addEventListener("onProfileOkay", showStartPage);
+		datesPage.addEventListener("showRegularDates", showRegularDates);
+		datesPage.addEventListener("showCreateSingleDate", showCreateSingleDate);
+		regularDatesPage.addEventListener("showAllDates", showAllDates);
+	}
+
+	function showHelpPage(){}
+	function showSingleDates(){}
+	function showCreateSingleDate(){		
+	}
+
 
 	/**
 	* @function showLoginPage
@@ -74,15 +101,15 @@ Pages = function(){
 	}
 
 	/**
-	* @function showMainPage
+	* @function showStartPage
 	* @private
 	* @memberof! Pages.PageChanger  
 	* @instance
-	* @description shows the mainPage to the user
+	* @description shows the startPage to the user
 	*/ 
-	function showMainPage(){
-		pageChanger.switchPage("MAIN");
-		mainPage.init();
+	function showStartPage(){
+		pageChanger.switchPage("START");
+		startPage.init();
 	}
 
 	/**
@@ -122,13 +149,13 @@ Pages = function(){
 	}
 
 	/**
-	* @function showHorseProfil
+	* @function showHorseProfile
 	* @private
 	* @memberof! Pages.PageChanger  
 	* @instance
 	* @description shows the data of one horse to the user
 	*/ 
-	function showHorseProfil(){
+	function showHorseProfile(){
 		let horseId = "myHorse";
 		pageChanger.switchPage("HORSE_PROFILE");
 		horseProfilPage = new HorseProfilePage(horseId);
@@ -137,11 +164,11 @@ Pages = function(){
 
 	that.init = init;
 	that.showLoginPage = showLoginPage;
-	that.showMainPage = showMainPage;
+	that.showStartPage = showStartPage;
 	that.showUserProfilPage = showUserProfilPage;
 	that.showAllDates = showAllDates;
 	that.showRegularDates = showRegularDates;
-	that.showHorseProfil = showHorseProfil;	
+	that.showHorseProfile = showHorseProfile;	
 	return that;
 }
 

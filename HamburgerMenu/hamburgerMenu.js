@@ -1,31 +1,23 @@
 var HamburgerMenu = HamburgerMenu || {};
 
-HamburgerMenu = function(menuElements,menuId, newEntryTemplate, inVisibleClass, visibleClass){
-	let hamburgerMenu = new EventTarget(),
+HamburgerMenu = function(clickBoxId, unsortedListId, inVisibleClass, visibleClass){
+	let that = new EventTarget(),
+		unsortedList,
+		clickBox,
 		hamburgerMenuView,
 		hamburgerMenuModel,
 		menuDomElement;
 
 	function init(){
 		initView();
-		initModel();
 		addListeners();
 	}
 
 	function initView(){
-		menuDomElement = d3.selectElementById(menuId);
-		hamburgerMenuView = new HamburgerMenuView(menuDomElement, newEntryTemplate, inVisibleClass, visibleClass);	
-	}
-
-	function addMenuElements(){
-		for(let i = 0; i < menuElements.length; i++){
-			let data = menuElements[i];
-			hamburgerMenuView.addNewEntry(data);
-		}
-	}
-
-	function initModel(){		
-		hamburgerMenuModel = new HamburgerMenuModel(menuElements);
+		clickBox = document.getElementById(clickBoxId);
+		unsortedList = document.getElementById(unsortedListId);
+		hamburgerMenuView = new HamburgerMenu.HamburgerMenuView(clickBox, unsortedList, inVisibleClass, visibleClass);
+		hamburgerMenuView.init();	
 	}
 
 	function addListeners(){
@@ -33,11 +25,12 @@ HamburgerMenu = function(menuElements,menuId, newEntryTemplate, inVisibleClass, 
 	}
 
 	function handleMenuClick(ev){
-		let event = Event("onClick");
+		let event = new Event("onOption");
 		event.details = {};
-		event.details.elementId = ev.details.elementId;
+		event.details.option = ev.details.option;
+		that.dispatchEvent(event);;
 	}
 
-	hamburgerMenu.init = init;
-	return hamburgerMenu;
+	that.init = init;
+	return that;
 }

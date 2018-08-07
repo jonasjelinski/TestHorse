@@ -1,47 +1,32 @@
 var HamburgerMenu = HamburgerMenu || {};
 
-HamburgerMenu.HamburgerMenuView = function(domElement, newEntryTemplate, inVisibleClass, visibleClass){
-	let that,
-		menu,
-		isVisible = false;
+HamburgerMenu.HamburgerMenuView = function(checkBox, unsortedList, inVisibleClass, visibleClass){
+	let that = new EventTarget(),	
+		isVisible = true;
 
 	function init(){
-		that = new EventTarget(),
-		menu = domElement;
-		addMenuListener(menu);	
-	}
-
-	function addMenuListener(){
-		menu.addEventListener("onClick", handleMenuClick);
+		checkBox.addEventListener("click", handleMenuClick);
+		unsortedList.addEventListener("click", handleOnClick);
 	}
 
 	function handleMenuClick(){
 		if(isVisible){
-			menu.class = inVisibleClass;
+			//unsortedList.class = inVisibleClass;
+			unsortedList.style.opacity = 0;
 		}
 		else{
-			menu.class = visibleClass;
+			//unsortedList.class = visibleClass;
+			unsortedList.style.opacity = 1;
 		}
-		isVisible != isVisible;
+		isVisible = !isVisible;
 	}
 
-	function addNewEntry(data){
-		let menuElement = createNewEntry();
-		addElementListener(addListener);	
-	}
-
-	function createNewEntry(data){
-    	let templateFunction = _.template(templateString),
-    	menuElement = templateFunction(data);
-    	return menuElement;
-	}
-
-	function addElementListener(element){
-		element.addEventListener("onClick", handleOnClick);
-	}
-
-	function handleOnClick(){
-		let event = new Event("onClick");
+	function handleOnClick(ev){
+		let clickedElement = ev.target,
+			option = clickedElement.getAttribute("id");
+			event = new Event("onClick");
+		event.details = {};
+		event.details.option = option;
 		if(that){
 			that.dispatchEvent(event);	
 		}		

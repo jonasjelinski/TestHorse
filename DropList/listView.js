@@ -96,7 +96,7 @@ class ListView extends EventTarget{
  	* @param {event} Event Containing the id of the droppedELement as details
 	* @description Insert the dropped li-element before the li-element dropped on if it is not the same li-element.
 	*/ 
-	handleElementDrop(event){
+	handleElementDrop(event){		
 		let details = event.details,    		
 			id = event.details.id,
 			droppedElement = this.getLiElementyById(id),    		
@@ -114,7 +114,7 @@ class ListView extends EventTarget{
  	* @param {string} id Id of the element
 	* @description Returns the li-element with the id "id"
 	*/ 
-	getLiElementyById(id){
+	getLiElementyById(id){		
 		let listElements = this.unsortedList.children,
 			listElement;
 		for(let i = 0; i < listElements.length; i++){
@@ -136,7 +136,7 @@ class ListView extends EventTarget{
  	* @param {object} droppedElement Object
 	* @description Returns true if self and droppedElement are the same object
 	*/ 
-	isDroppingOnItsself(self, droppedElement){
+	isDroppingOnItsself(self, droppedElement){	
 		let selfId = self.getAttribute(this.elementTagId),
 			id = droppedElement.getAttribute(this.elementTagId);
 		if(id === selfId){

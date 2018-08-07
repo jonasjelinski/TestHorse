@@ -9,11 +9,12 @@ DatesPage.DatesPageControll = function(domElements){
 	function init(){
 		regularDatesButton = domElements.regularDatesButton;
 		singleDatesButton = domElements.singleDatesButton;
+		addEventListeners();
 	}
 
 	function addEventListeners(){
-		regularDatesButton.addEventListeners("onClick", handleRegularClick);
-		singleDatesButton.addEventListeners("onClick", handleSingleClick);
+		regularDatesButton.addEventListener("click", handleRegularClick);
+		singleDatesButton.addEventListener("click", handleSingleClick);
 	}
 
 	function handleRegularClick(){
@@ -22,7 +23,7 @@ DatesPage.DatesPageControll = function(domElements){
 
 	function sendEvent(type){
 			let event = new Event(type);
-			that.sendEvent(event);
+			that.dispatchEvent(event);
 	}
 
 	function handleSingleClick(){
