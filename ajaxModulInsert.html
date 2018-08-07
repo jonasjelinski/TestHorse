@@ -1,0 +1,101 @@
+
+<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+
+
+
+<script>
+//This is for inserting User
+	$.ajax({
+    type: 'POST',
+    url: 'https://h2795767.stratoserver.net/database/actions/set.php',
+    data: { 
+        'action': 'setUserIntoDB', 
+        'name': 'Jonas Jelinski',
+		'email' : 'jonas@jelinski.de',
+		'dateOfBirth': '2012-12-12',
+		'password': "jonas1234"
+    },
+    success: function(msg){
+        alert("insert user"+msg);
+    }
+});
+	
+	
+	//This is for inserting Horse
+	$.ajax({
+    type: 'POST',
+    url: 'https://h2795767.stratoserver.net/database/actions/set.php',
+    data: { 
+        'action': 'setHorseIntoDB', 
+        'name': 'Horst',
+		'owner' : 'Hans Meier',
+		'race': 'Black Ginger Chinese',
+		'dateOfBirth': "2012-12-12",
+		'photo': 'https://h2795767.stratoserver.net/images/standardPhoto.jpg', // "standardPhoto" hier wichtig! Da Konflikt zwischen "update" und "insert", wenn dieses Feld übersprungen wird. Haben keine eindeutige Bildzuweisung beim Erstellen. User kann später Foto hochladen, da Bildzuweisung mit horseId eindeutig. 
+		'sex': 'male',
+		'height': '3,50',
+		'grower': 'Jürgen',
+		'userID': '38' //wird über "getUserID" von Chris angefragt, bevor dre Ajax-Request startet
+    },
+    success: function(msg){
+        alert("insert horse"+msg);
+    }
+});
+
+
+	//This is for inserting dates
+	$.ajax({
+    type: 'POST',
+    url: 'https://h2795767.stratoserver.net/database/actions/set.php',
+    data: { 
+        'action': 'setDateIntoDB', 
+        'userID': '38', //wird über "getUserID" von Chris angefragt, bevor der Ajax-Request startet
+		'title' : 'Entwurmung',
+		'date': '2012-12-12',
+		'time': '13:50:00',
+		'location': 'Springfield', 
+		'reminder': 'true',
+		'regular': 'true'
+    },
+    success: function(msg){
+        alert("insert date"+msg);
+    }
+});
+
+	//This is for inserting reminder
+	$.ajax({
+    type: 'POST',
+    url: 'https://h2795767.stratoserver.net/database/actions/set.php',
+    data: { 
+        'action': 'setReminderIntoDB', 
+		'title' : 'Entwurmung Reminder',
+		'date': '2012-12-10',
+		'time': '13:00:00',
+		'location': 'Springfield', 
+		'dateID': '22'
+    },
+    success: function(msg){
+        alert("insert reminder"+msg);
+    }
+});
+
+	//This is for inserting appointment
+	$.ajax({
+    type: 'POST',
+    url: 'https://h2795767.stratoserver.net/database/actions/set.php',
+    data: { 
+        'action': 'setAppointmentIntoDB', 
+		'title' : 'Entwurmung Reminder',
+		'dateToShow': '2012-12-10',
+		'timeToShow': '13:00:00',
+		'dateFutureDate': '22',
+		'timeFutureDate': '23:23:23'
+    },
+    success: function(msg){
+        alert("insert appointment"+msg);
+    }
+});
+
+
+
+</script>
