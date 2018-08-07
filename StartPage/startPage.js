@@ -102,7 +102,7 @@ StartPage = function(userId){
 
 	function handleDateClick(ev){
 		let horseId = ev.details.id;
-		sendEvent("showDates",horseId);
+		sendEvent("showHorseDates",horseId);
 	}
 
 	function handleProfileClick(ev){

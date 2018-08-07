@@ -48,8 +48,8 @@ Pages.PageContent = function (){
               '<img class= "horsePic" horsePicId = <%=id%> src=<%=photo%>> </img>' +
               '</div>'+
               '<div>'+
-              '<button class="horseDateButton" type="button">userProfileChange</button> '+ 
-              '<button class="horseProfileButton" type="button">userProfileOk</button> '+
+              '<button class="horseDateButton" type="button">horseDateButton</button> '+ 
+              '<button class="horseProfileButton" type="button">horseProfileButton</button> '+
               '</div>'+ 
               '</div>'+
 					'</li>', 

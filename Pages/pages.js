@@ -28,7 +28,8 @@ Pages = function(){
 	*/ 
 	function init(){
 		initPageChanger();
-		initPages();				
+		initPages();
+		initPageCommunication();				
 	}
 
 	/**
@@ -58,8 +59,32 @@ Pages = function(){
 		startPage = new StartPage();
 		userProfilPage = new UserProfilPage();
 		datesPage = new DatesPage();
-		regularDatesPage = new RegularDatesPage();
+		regularDatesPage = new RegularDatesPage();		
 	}
+
+	/**
+	* @function initPageCommunication
+	* @private
+	* @memberof! Pages.PageChanger  
+	* @instance
+	* @description sets up the communication between the different pages
+	*/ 
+	function initPageCommunication(){
+		loginPage.addEventListener("showStartPage", showStartPage);
+		startPage.addEventListener("showProfilePage", showUserProfilPage);
+		startPage.addEventListener("showHelpPage", showHelpPage);
+		startPage.addEventListener("logoutUser", showUserProfilPage);
+		startPage.addEventListener("showHorseDates", showAllDates);
+		startPage.addEventListener("showHorseProfile", showHorseProfil);
+		userProfilPage.addEventListener("showStartPage", showStartPage);
+		datesPage.addEventListener("showRegularDates", showRegularDates);
+		datesPage.addEventListener("showSingleDates", showSingleDates);
+		regularDatesPage.addEventListener("showAllDates", showAllDates);
+	}
+
+	function showHelpPage(){}
+	function showSingleDates(){}
+
 
 	/**
 	* @function showLoginPage
@@ -81,6 +106,7 @@ Pages = function(){
 	* @description shows the startPage to the user
 	*/ 
 	function showStartPage(){
+		console.log("start");
 		pageChanger.switchPage("START");
 		startPage.init();
 	}
