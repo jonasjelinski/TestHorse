@@ -11,7 +11,7 @@ Pages = function(){
 		pageDomElement,
 		pageChanger,
 		loginPage,
-		mainPage,
+		startPage,
 		userProfilPage,
 		horseProfilPage,
 		datesPage,
@@ -55,7 +55,7 @@ Pages = function(){
 	*/ 
 	function initPages(){
 		loginPage = new LoginPage();
-		mainPage = new MainPage();
+		startPage = new StartPage();
 		userProfilPage = new UserProfilPage();
 		datesPage = new DatesPage();
 		regularDatesPage = new RegularDatesPage();
@@ -74,15 +74,15 @@ Pages = function(){
 	}
 
 	/**
-	* @function showMainPage
+	* @function showStartPage
 	* @private
 	* @memberof! Pages.PageChanger  
 	* @instance
-	* @description shows the mainPage to the user
+	* @description shows the startPage to the user
 	*/ 
-	function showMainPage(){
-		pageChanger.switchPage("MAIN");
-		mainPage.init();
+	function showStartPage(){
+		pageChanger.switchPage("START");
+		startPage.init();
 	}
 
 	/**
@@ -137,7 +137,7 @@ Pages = function(){
 
 	that.init = init;
 	that.showLoginPage = showLoginPage;
-	that.showMainPage = showMainPage;
+	that.showStartPage = showStartPage;
 	that.showUserProfilPage = showUserProfilPage;
 	that.showAllDates = showAllDates;
 	that.showRegularDates = showRegularDates;

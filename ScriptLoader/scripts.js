@@ -10,7 +10,8 @@ ScriptLoader.Scripts = (function(){
 	let scripts = [
 	"./DatabaseClientInterface/dbClientInterface.js",
 	"./DatabaseClientInterface/dbRequestModul.js",
-	"./DatabaseClientInterface/ajaxModul.js",	
+	"./DatabaseClientInterface/ajaxModul.js",
+	"./DatabaseClientInterface/simpleRequester.js",	
 	"./libs/underscore/underscore.js",
 	"./libs/underscore/underscore-min.js",
 	"./Profiles/profilePage.js",
@@ -30,7 +31,7 @@ ScriptLoader.Scripts = (function(){
 	"./Slideshow/slideshow.js",
 	"./Slideshow/slideshowModel.js",
 	"./Slideshow/slideshowView.js",
-	"./MainPage/mainPage.js",
+	"./StartPage/startPage.js",
 	"./HamburgerMenu/hamburgerMenu.js",
 	"./HamburgerMenu/hamburgerMenuModel.js",	
 	"./HamburgerMenu/hamburgerMenuView.js",

@@ -18,20 +18,24 @@ Pages.PageContent = function (){
 						'</div>'+
  						'</content>',
 
-	MAIN_PAGE =  ' <content>'+
+	START_PAGE =  ' <content>'+
 						'<div id= "mainpage">' +
 							'<ul id="horseList" class="frames">'+
 							'</ul>'+
-							' <button id= "userProfileChange" type="button">userProfileChange</button> '+
-							' <button id= "userProfileOk" type="button">userProfileOk</button> '+
-							' <button id= "userProfileDelete" type="button">userProfileDelete</button> '+
-							'<div id= "textBox">textBox</div> '+
 						'</div>'+
  					'</content>'+
 
-					'<script type="text/template" id="ul-element">'+
-					'<li draggable="true" tid = <%= id %>>'+
-						'<p ><%= name %></p>'+
+					'<script type="text/template" id="horseBoxElement">'+
+					'<li draggable="true" class= "horseListElement" horseId = <%= id %>'+
+						'<div class = horseBox horseBoxId = <%= id  %>' +
+              '<div>'+
+              '<img class= "horsePic" horsePicId = <%=id% src=<%=photo> </img>' +
+              '</div>'+
+              '<div>'+
+              '<button class="horseDateButton" type="button">userProfileChange</button> '+ 
+              '<button class="horseProfileButton" type="button">userProfileOk</button> '+
+              '</div>'+ 
+              '</div>'+
 					'</li>',
 
   USER_PAGE = ' <content>'+ 
@@ -102,7 +106,7 @@ Pages.PageContent = function (){
 '</script> ', 
 
   that.LOGIN_PAGE = LOGIN_PAGE;
-  that.MAIN_PAGE = MAIN_PAGE; 
+  that.START_PAGE = START_PAGE; 
   that.USER_PAGE = USER_PAGE;
   that.DATES_PAGE = DATES_PAGE; 
   that.REGULAR_DATES_PAGE = REGULAR_DATES_PAGE; 
