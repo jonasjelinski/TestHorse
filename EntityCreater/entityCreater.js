@@ -1,8 +1,8 @@
 var EntityCreater = EntityCreater || {};
 
-EntityCreater = function(valueBoxId, forwardButtonId, backwardsButtonId, textBoxId, numberOfPages, attributes, pages){
+EntityCreater = function(innerPageId, forwardButtonId, backwardsButtonId, textBoxId, numberOfPages, attributes, pages, valueBoxId, feedBackBoxId){
 	let that = new EventTarget(),
-		valueBox,
+		innerPage,
 		pageCreator,
 		slideShow,
 		view,
@@ -12,11 +12,12 @@ EntityCreater = function(valueBoxId, forwardButtonId, backwardsButtonId, textBox
 		initPageCreator();
 		initSlideShow();
 		initModel();
+		initView();
 	}
 
 	function initPageCreator(){
-		valueBox = document.getElementById(valueBoxId);
-		pageCreator = new PageCreator(valueBox);		
+		innerPage = document.getElementById(innerPageId);
+		pageCreator = new PageCreator(innerPage);		
 	}
 
 	function initSlideShow(){
@@ -26,8 +27,10 @@ EntityCreater = function(valueBoxId, forwardButtonId, backwardsButtonId, textBox
 	}
 
 	function handlePageChange(event){
-		let pageNumber = event.details.pageNumber;
+		let pageNumber = event.details.pageNumber,
+			valueData = view.getValue();			
 		model.setPage(pageNumber);	
+		model.updatePropertyValue(valueData.property, valueData.value);
 	}
 
 	function handleSlideShowIsOver(){
@@ -64,15 +67,7 @@ EntityCreater = function(valueBoxId, forwardButtonId, backwardsButtonId, textBox
 	}
 
 	function initView(){
-		view = new EntityCreater.EntityCreaterView();
-		view.addEventListener("onNewPropertyValue", handleNewValue);
-	}
-
-	function handleNewValue(event){
-		let details = event.details,
-			property = details.property,
-			value = details.value;
-		model.updatePropertyValue(property, value);
+		view = new EntityCreater.EntityCreaterView(valueBoxId, feedBackBoxId);		
 	}
 
 	that.init = init;
