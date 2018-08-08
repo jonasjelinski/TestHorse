@@ -1,6 +1,6 @@
 var EntityCreater = EntityCreater || {};
 
-EntityCreater = function(valueBoxId, forwardButtonId, backwardsButtonId, textBoxId, numberOfPages){
+EntityCreater = function(valueBoxId, forwardButtonId, backwardsButtonId, textBoxId, numberOfPages, attributes, pages){
 	let that = new EventTarget(),
 		valueBox,
 		pageCreator,
@@ -35,7 +35,7 @@ EntityCreater = function(valueBoxId, forwardButtonId, backwardsButtonId, textBox
 	}
 
 	function initModel(){
-		model = new EntityCreater.EntityCreaterModel(pages);
+		model = new EntityCreater.EntityCreaterModel(attributes, pages);
 		model.addEventListener("onPageChange", handlePageChangeOfModel);
 		model.addEventListener("hasEnoughValues", handleEnoughValues);
 		model.addEventListener("hasNotEnoughValues", handleNotEnoughValues);
