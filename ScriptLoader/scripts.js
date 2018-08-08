@@ -36,6 +36,7 @@ ScriptLoader.Scripts = (function(){
 	"./EntityCreater/entityCreater.js",
 	"./EntityCreater/entityCreaterModel.js",
 	"./EntityCreater/entityCreaterView.js",
+	"./TalkingHorse/talkingHorse.js",
 	"./StartPage/startPage.js",
 	"./StartPage/startPageControlls.js",
 	"./StartPage/startPageModel.js",
