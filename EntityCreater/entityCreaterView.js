@@ -6,8 +6,8 @@ EntityCreater.EntityCreaterView = function(valueBoxId, feedBackBoxId){
 		feedBackBox;
 
 	function init(){
-		valueBox = document.getElementyById(valueBoxId);
-		feedBackBox = document.getElementyById(feedBackBoxId);
+		valueBox = document.getElementById(valueBoxId);
+		feedBackBox = document.getElementById(feedBackBoxId);
 	}
 
 	function updateView(){
@@ -16,7 +16,7 @@ EntityCreater.EntityCreaterView = function(valueBoxId, feedBackBoxId){
 	}
 
 	function getValue(){
-		let property = value.getAttribute("property"),
+		let property = valueBox.getAttribute("property"),
 			value = valueBox.getAttribute("value"),
 			data = {
 				property: property, 

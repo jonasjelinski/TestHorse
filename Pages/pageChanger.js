@@ -72,8 +72,8 @@ Pages.PageChanger = function(domElement){
 			case PAGES.CREATE_USER:
 				handlePageSwitch();
 				break;
-			case CREATE_HORSEBOX:
-				handlePageSwitch();
+			case PAGES.CREATE_HORSEBOX:
+				handlePageSwitch(pageContent.CREATE_HORSEBOX);
 				break;
 			default:
 				break;

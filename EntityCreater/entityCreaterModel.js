@@ -15,6 +15,7 @@ EntityCreater.EntityCreaterModel = function(pages, attributes){
 
 	function setPage(pageNum){
 		pageNumber = pageNum;
+		sendPage();
 	}
 
 	function sendPage(){
@@ -40,8 +41,9 @@ EntityCreater.EntityCreaterModel = function(pages, attributes){
 		}
 	}
 
+	that.init = init;
 	that.checkIfEntityHasEnoughValues = checkIfEntityHasEnoughValues;
-	that.updatePropertyValue = up;
+	that.updatePropertyValue = updatePropertyValue;
 	that.setPage = setPage;
 	return that;
 

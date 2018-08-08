@@ -12,18 +12,20 @@ EntityCreater = function(innerPageId, forwardButtonId, backwardsButtonId, textBo
 		initPageCreator();
 		initSlideShow();
 		initModel();
+		showFirstPage();
 		initView();
 	}
 
 	function initPageCreator(){
 		innerPage = document.getElementById(innerPageId);
-		pageCreator = new PageCreator(innerPage);		
+		pageCreator = new Pages.PageCreator(innerPage);		
 	}
 
 	function initSlideShow(){
 		slideshow = Slideshow(forwardButtonId, backwardsButtonId, textBoxId, numberOfPages);
 		slideshow.addEventListener("onPageChange", handlePageChange); 
-		slideshow.addEventListener("slideShowIsOver", handleSlideShowIsOver); 
+		slideshow.addEventListener("slideShowIsOver", handleSlideShowIsOver);
+		slideshow.init(); 
 	}
 
 	function handlePageChange(event){
@@ -38,15 +40,16 @@ EntityCreater = function(innerPageId, forwardButtonId, backwardsButtonId, textBo
 	}
 
 	function initModel(){
-		model = new EntityCreater.EntityCreaterModel(attributes, pages);
+		model = new EntityCreater.EntityCreaterModel(pages, attributes);
 		model.addEventListener("onPageChange", handlePageChangeOfModel);
 		model.addEventListener("hasEnoughValues", handleEnoughValues);
 		model.addEventListener("hasNotEnoughValues", handleNotEnoughValues);
+		model.init();
 	}	
 
 	function handlePageChangeOfModel(event){
 		let pageHTMLString = event.details.page;
-		pageCreator.showPage(pageHTMLString); 
+		pageCreator.createPage(pageHTMLString); 
 	}
 
 	function handleEnoughValues(event){
@@ -67,9 +70,16 @@ EntityCreater = function(innerPageId, forwardButtonId, backwardsButtonId, textBo
 	}
 
 	function initView(){
-		view = new EntityCreater.EntityCreaterView(valueBoxId, feedBackBoxId);		
+		view = new EntityCreater.EntityCreaterView(valueBoxId, feedBackBoxId);
+		view.init();		
+	}
+
+	function showFirstPage() {
+		let pageNumber = 1;
+		model.setPage(pageNumber);
 	}
 
 	that.init = init;
+	that.showFirstPage = showFirstPage;
 	return that;
 }

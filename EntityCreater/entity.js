@@ -4,13 +4,13 @@
 	}
 	
 	setAttribute(key, value){
-		let attribute = attributes[key];
+		let attribute = this.attributes[key];
 		attribute.value = value;
-		attributes[key] = attribute;
+		this.attributes[key] = attribute;
 	}
 
 	getAttribute(key){
-		return attributes[key];
+		return this.attributes[key];
 	}
 	
 	getAllAttributes(){
