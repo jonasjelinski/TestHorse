@@ -106,14 +106,15 @@ Pages.PageContent = function (){
     '<p ><%= name %></p>'+ 
   '</li>',
 
-  REGULAR_DATES_PAGE = 	  	'<ul id="allRegularDates">'+ 
+  REGULAR_DATES_PAGE = 	  	'<content>'+ 
+
+    '<ul id="allRegularDates">'+ 
   	'</ul>'+ 
-
-
-  '</div>'+
-     POPUP +
-    '</content>'+ 
+    POPUP +
  ' <button id= "backToDates" type="button">backToDates</button> '+
+  '</div>'+
+ '</content>'+
+  
   '<script type="text/template" id="ul-element">'+ 
   '<li draggable="true" regularDateId = <%= id %>>'+ 
     ' <button class= "regularDateDelete" type="button">Delete</button> '+
