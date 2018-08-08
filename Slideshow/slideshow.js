@@ -62,6 +62,7 @@ Slideshow = function(forwardButtonId, backwardsButtonId, progressBoxId, numberOf
 	function addViewListeners(){
 		slideshowView.addEventListener("onBackwards", handleForward);
 		slideshowView.addEventListener("onForward", handleBackwards);	
+		slideshowView.addEventListener("slideShowIsOver", handleSlideShowIsOver);	
 	}
 
 	function handleForward(){
@@ -71,6 +72,11 @@ Slideshow = function(forwardButtonId, backwardsButtonId, progressBoxId, numberOf
 	function handleBackwards(){
 		slideshowModel.setPreviousPage();
 	}
+
+	function handleSlideShowIsOver(){
+		let event = new Event("slideShowIsOver");
+		that.dispatchEvent(event);
+	} 
 	
 	that.init = init;
 	return that;
