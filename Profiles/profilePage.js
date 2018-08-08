@@ -43,7 +43,6 @@ Profil = function(userId, pageId, templateId, testdata, viewControllConstructor,
 		viewControll.addEventListener("onOkay", handleOkay );
 		viewControll.addEventListener("onDelete", handleDelete );
 	}
-
 		
 	function handleChange(){
 		sendShowSide("onChangeProfile");
