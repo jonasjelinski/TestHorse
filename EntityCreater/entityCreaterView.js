@@ -11,8 +11,8 @@ EntityCreater.EntityCreaterView = function(valueBoxId, feedBackBoxId){
 	}
 
 	function updateView(){
-		valueBox = document.getElementyById(valueBoxId);
-		feedBackBox = document.getElementyById(feedBackBoxId);
+		valueBox = document.getElementById(valueBoxId);
+		feedBackBox = document.getElementById(feedBackBoxId);
 	}
 
 	function getValue(){

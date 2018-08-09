@@ -18,15 +18,15 @@ Slideshow.SlideshowModel = function(numberOfPages){
 		}		
 	}
 
+	function isSlideShowOver(){
+		return pageNumber === numberOfPages;
+	}
+
 	function sendSlideShowOverEvent(){
 		let event = new Event("slideShowIsOver");
 			event.details = {};
 			event.details.pageNumber = pageNumber;
 		that.dispatchEvent(event);
-	}
-
-	function isSlideShowOver(){
-		return pageNumber === numberOfPages+1;
 	}
 
 	function setPreviousPage(){

@@ -18,22 +18,25 @@
 	}
 
 	hasAllNecessaryAttributes(){
-		if(!oneNecessaryAttributeIsUndefined){
+		if(!this.oneNecessaryAttributeIsUndefined()){
 			return true;
 		}
 		return false;	
 	}
 
 	oneNecessaryAttributeIsUndefined(){
-		for(let i=0; i < this.attributes.length; i++){
-			let attribute = this.attributes[i];	
+		let attributeNames = Object.keys(this.attributes),
+			that = this,
+			isUndefined = false;
+		attributeNames.forEach(function(attributeName){
+			let attribute = that.attributes[attributeName];					
 			if(attribute.isNecessary){
-				if(attribute.value === undefined){
-					return true;
+				if(attribute.value === undefined || attribute.value === ""){
+					isUndefined =  true;
 				}
 			}			
-		}
-		return false;
+		});
+		return isUndefined;
 	}
 
 }

@@ -30,12 +30,16 @@ EntityCreater = function(innerPageId, forwardButtonId, backwardsButtonId, textBo
 
 	function handlePageChange(event){
 		let pageNumber = event.details.pageNumber,
-			valueData = view.getValue();			
+			valueData = view.getValue();		
 		model.setPage(pageNumber);	
-		model.updatePropertyValue(valueData.property, valueData.value);
+		model.updateAttributeValue(valueData.property, valueData.value);
+		view.updateView();
+		sendEvent("onPageChange"); 
 	}
 
 	function handleSlideShowIsOver(){
+		let valueData = view.getValue();
+		model.updateAttributeValue(valueData.property, valueData.value)
 		model.checkIfEntityHasEnoughValues();
 	}
 
@@ -49,7 +53,12 @@ EntityCreater = function(innerPageId, forwardButtonId, backwardsButtonId, textBo
 
 	function handlePageChangeOfModel(event){
 		let pageHTMLString = event.details.page;
-		pageCreator.createPage(pageHTMLString); 
+		pageCreator.createPage(pageHTMLString);		
+	}
+
+	function sendEvent(type) {
+		let event = new Event(type);
+		that.dispatchEvent(event);
 	}
 
 	function handleEnoughValues(event){
@@ -59,14 +68,15 @@ EntityCreater = function(innerPageId, forwardButtonId, backwardsButtonId, textBo
 	}
 
 	function handleNotEnoughValues(){
-		view.showHasNotEnoughVaues();
+		view.showHasNotEnoughValues();
 	}
 
 	function sendValuesData(data){
-		let event = new Event("onAllValuesSaved");
+		let event = new Event("hasEnoughValues");
 		event.details = {};
 		event.details.data = data;
 		that.dispatchEvent(event);
+		console.log("send data");
 	}
 
 	function initView(){

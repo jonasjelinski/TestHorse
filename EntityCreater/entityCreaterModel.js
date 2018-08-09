@@ -9,7 +9,7 @@ EntityCreater.EntityCreaterModel = function(pages, attributes){
 		entity = new Entity(attributes);
 	}
 
-	function updatePropertyValue(property, value){
+	function updateAttributeValue(property, value){
 		entity.setAttribute(property, value);
 	}
 
@@ -43,7 +43,7 @@ EntityCreater.EntityCreaterModel = function(pages, attributes){
 
 	that.init = init;
 	that.checkIfEntityHasEnoughValues = checkIfEntityHasEnoughValues;
-	that.updatePropertyValue = updatePropertyValue;
+	that.updateAttributeValue = updateAttributeValue;
 	that.setPage = setPage;
 	return that;
 
