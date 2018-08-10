@@ -1,6 +1,6 @@
 var HorseCreator = HorseCreator || {};
 
-HorseCreator = function(userID){
+HorseCreator = function(newAttributes){
 	const INNER_PAGE_ID = "horseInteractionInnerPage",
 		FORWARD_BUTTON_ID = "horseInteractionForward",
 		BACKWARDS_BUTTON_ID = "horseInteractionBack",
@@ -22,24 +22,24 @@ HorseCreator = function(userID){
 		}
 
 		function initPages(){
-			pages = new  HorseCreator.HorseCreatorPages();
+			pages = new  HorseCreator.HorseCreatorSliderPages();
 		}
 
 
 		function initModel(){
-			model = new HorseCreator.HorseCreatorModel();			
-			model.addEventListener("onAttributesCreated", initCreaterWithNewAttributes);
+			model = new HorseCreator.HorseCreatorModel(newAttributes);			
+			model.addEventListener("onAttributesCreated", initCreatorWithNewAttributes);
 			model.init();
 		}
 
-		function initCreaterWithNewAttributes(event) {
+		function initCreatorWithNewAttributes(event) {
 			let attributes = event.details.attributes;
 			initEntityCreator(attributes);
 			initView();
 		}
 
 		function initEntityCreator(attributes){
-			entityCreator = new EntityCreater(INNER_PAGE_ID, FORWARD_BUTTON_ID, BACKWARDS_BUTTON_ID, 
+			entityCreator = new EntityCreator(INNER_PAGE_ID, FORWARD_BUTTON_ID, BACKWARDS_BUTTON_ID, 
 								TEXT_BOX_ID, NUM_OF_PAGES, attributes, pages, VALUE_BOX_ID, FEEDBACK_BOX_ID);
 			entityCreator.addEventListener("onPageChange", handlePageChange);
 			entityCreator.addEventListener("hasEnoughValues", handleHasEnoughValues);
@@ -62,12 +62,20 @@ HorseCreator = function(userID){
 		}
 
 		function handleHasEnoughValues(event){
-			model.hasEnoughValues();
+			let attributes = model.getAttributes();
+			sendAttributes(attributes);
 		}
 
 		function initView(){
 			view = new HorseCreator.HorseCreatorView(VALUE_BOX_ID, INPUT_BOX);
 			view.init();
+		}
+
+		function sendAttributes(attributes){
+			let event = new Event("onEnoughAttributes");
+			event.details = {};
+			event.details.attributes = attributes;
+			that.dispatchEvent(event);
 		}
 
 		that.init = init;

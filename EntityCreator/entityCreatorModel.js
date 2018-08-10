@@ -1,6 +1,6 @@
-var EntityCreater = EntityCreater || {};
+var EntityCreator = EntityCreator || {};
 
-EntityCreater.EntityCreaterModel = function(pages, attributes){
+EntityCreator.EntityCreatorModel = function(pages, attributes){
 	let that = new EventTarget(),
 		pageNumber,
 		entity;

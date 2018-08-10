@@ -1,6 +1,6 @@
-var EntityCreater = EntityCreater || {};
+var EntityCreator = EntityCreator || {};
 
-EntityCreater.EntityCreaterView = function(valueBoxId, feedBackBoxId){
+EntityCreator.EntityCreatorView = function(valueBoxId, feedBackBoxId){
 	let that = {},
 		valueBox,
 		feedBackBox;

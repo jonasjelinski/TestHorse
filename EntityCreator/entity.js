@@ -5,8 +5,10 @@
 	
 	setAttribute(key, value){
 		let attribute = this.attributes[key];
-		attribute.value = value;
-		this.attributes[key] = attribute;
+		if(attribute){
+			attribute.value = value;
+			this.attributes[key] = attribute;
+		}		
 	}
 
 	getAttribute(key){

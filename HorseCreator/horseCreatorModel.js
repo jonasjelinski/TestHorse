@@ -1,6 +1,6 @@
 var HorseCreator = HorseCreator || {};
 
-HorseCreator.HorseCreatorModel = function(){
+HorseCreator.HorseCreatorModel = function(newAttributes){
 	const ATTRIBUTES = {
 				name: {value:undefined,
 					   isNecessary: false,
@@ -11,7 +11,7 @@ HorseCreator.HorseCreatorModel = function(){
 				race: {value:undefined,
 					   isNecessary: false,
 				},
-				dateOfBirth : {value:undefined,
+				birth : {value:undefined,
 					   isNecessary: false,
 				},
 				photo: {value:undefined,
@@ -23,7 +23,7 @@ HorseCreator.HorseCreatorModel = function(){
 				height: {value:undefined,
 					   isNecessary: false,
 				}, 
-				grower: {value:undefined,
+				raiser: {value:undefined,
 					   isNecessary: false,
 				},
 			};
@@ -33,8 +33,10 @@ HorseCreator.HorseCreatorModel = function(){
 		horseObject,
 		attributes;
 
-	function init() {		
+	function init() {
+	if(!newAttributes){
 		attributes = ATTRIBUTES;
+	}		
 		sendAttributes();		
 	}
 
@@ -45,27 +47,21 @@ HorseCreator.HorseCreatorModel = function(){
 		that.dispatchEvent(event);
 	}
 
-	function hasEnoughValues(){
-		let attribute = attributes["owner"],
-			value = attribute.value;
-			/*let attributeNames = Object.keys(attributes);
-			attributeNames.forEach(function(attributeName) {
-				let newAttributeObject = newAttributes[attributeName],
-					newValue = newAttributeObject.value;
-				attributes[attributeName] = newValue;
-				console.log("attributeValue", attributeValue);
-			});	
-			console.log("updateAttributes", attributes, "names", attributeNames);*/		
+	function getAttributes(){
+		return attributes;	
 	}
 
 	function getValueOfAttribute(attributeName){
-		let attribute = attributes[attributeName],
-			value = attribute.value;
+		let value,
+			attribute = attributes[attributeName];
+			if(attribute){
+				value = attribute.value;
+			}
 			return value;
 	}
 
 	that.init = init;
-	that.hasEnoughValues = hasEnoughValues;
+	that.getAttributes = getAttributes;
 	that.getValueOfAttribute = getValueOfAttribute;
 	return that;
 };

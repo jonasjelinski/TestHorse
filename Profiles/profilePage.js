@@ -1,6 +1,6 @@
 var Profil = Profil || {};
 
-Profil = function(userId, pageId, templateId, testdata, viewControllConstructor, model){
+Profil = function(pageId, templateId, viewControllConstructor){
 	"use strict";
 	let that = new EventTarget(),
 		profilViewTemplateString,
@@ -8,18 +8,13 @@ Profil = function(userId, pageId, templateId, testdata, viewControllConstructor,
 		viewControll,
 		popup;
 
-	function init(){
+	function init(profileData){
 		profilViewTemplateString = document.getElementById(templateId).innerHTML;
-		initModel();
-		profileViewData = testdata ;	
+		profileViewData = profileData;	
 		initViewControll(profileViewData);		
 		popup = Popup("Wirklich löschen?");
 		popup.init();
 		addEventListeners();				
-	}
-
-	function initModel(){
-		model.addEventListener("onDataReceived", handleDataReceived);	
 	}
 
 	function handleDataReceived(event){
@@ -27,10 +22,9 @@ Profil = function(userId, pageId, templateId, testdata, viewControllConstructor,
 		initViewControll(data);
 	}
 
-	function initViewControll(data){					
+	function initViewControll(data){				
 		viewControll = new viewControllConstructor(pageId, profilViewTemplateString, data);
-		viewControll.init();
-		
+		viewControll.init();		
 	}
 
 	function addEventListeners(){
@@ -73,11 +67,6 @@ Profil = function(userId, pageId, templateId, testdata, viewControllConstructor,
 		console.log("deleteProfil");
 	}
 
-	function setModelParameter(param){
-		model.setParameter(param);
-	}
-
-	that.setModelParameter = setModelParameter;
 	that.init = init;
 	return that;
 }

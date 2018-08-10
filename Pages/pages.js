@@ -17,7 +17,7 @@ Pages = function(){
 		datesPage,
 		regularDatesPage,
 		appointmentsPage,
-		horseCreator,
+		horseCreatorPage,
 		user;
 
 	/**
@@ -62,7 +62,8 @@ Pages = function(){
 		datesPage = new DatesPage();
 		regularDatesPage = new RegularDatesPage();
 		horseProfilPage = new HorseProfilePage();
-		horseCreator = new HorseCreator();		
+		horseCreatorPage = new HorseCreatorPage();
+		horseProfileChanger = new HorseProfileChanger();		
 	}
 
 	/**
@@ -85,6 +86,7 @@ Pages = function(){
 		datesPage.addEventListener("showCreateSingleDate", showCreateSingleDate);
 		regularDatesPage.addEventListener("showAllDates", showAllDates);
 		horseProfilPage.addEventListener("onProfileOkay", showStartPage);
+		horseCreatorPage.addEventListener("onEnoughAttributes", showHorseProfileChanger);
 	}
 
 	function showHelpPage(){}
@@ -164,15 +166,28 @@ Pages = function(){
 	* @description shows the data of one horse to the user
 	*/ 
 	function showHorseProfile(){
-		let horseId = "myHorse";
-		pageChanger.switchPage("HORSE_PROFILE");		
-		horseProfilPage.init();
-		horseProfilPage.setModelParameter(horseId);
+		let horseId = "myHorse",
+		data = {name :"dieter", birth: "24.0488", race: "harfling",  comp: "ja", owner: "klaus", sex: "male", height :"1, 60m", raiser:"unknown"}
+		pageChanger.switchPage("HORSE_PROFILE");
+		horseProfilPage.init(data);
 	}
 
-	function showHorseCreatorPage(){
+	function showHorseCreatorPage(event){
+		let attributes;
+		if(event){
+			attributes = event.details.attributes;
+		}
 		pageChanger.switchPage("CREATE_HORSEBOX");
-		horseCreator.init();
+		horseCreatorPage.init(attributes);
+	}
+
+	function showHorseProfileChanger(event){
+		let attributes;
+		if(event){
+			attributes = event.details.attributes;
+			pageChanger.switchPage("HORSE_PROFILE_CHANGE");
+			horseProfileChanger.init(attributes);	
+		}			
 	}
 
 	that.init = init;

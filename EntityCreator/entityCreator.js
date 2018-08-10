@@ -1,6 +1,6 @@
-var EntityCreater = EntityCreater || {};
+var EntityCreator = EntityCreator || {};
 
-EntityCreater = function(innerPageId, forwardButtonId, backwardsButtonId, textBoxId, numberOfPages, attributes, pages, valueBoxId, feedBackBoxId){
+EntityCreator = function(innerPageId, forwardButtonId, backwardsButtonId, textBoxId, numberOfPages, attributes, pages, valueBoxId, feedBackBoxId){
 	let that = new EventTarget(),
 		innerPage,
 		pageCreator,
@@ -44,7 +44,7 @@ EntityCreater = function(innerPageId, forwardButtonId, backwardsButtonId, textBo
 	}
 
 	function initModel(){
-		model = new EntityCreater.EntityCreaterModel(pages, attributes);
+		model = new EntityCreator.EntityCreatorModel(pages, attributes);
 		model.addEventListener("onPageChange", handlePageChangeOfModel);
 		model.addEventListener("hasEnoughValues", handleEnoughValues);
 		model.addEventListener("hasNotEnoughValues", handleNotEnoughValues);
@@ -79,7 +79,7 @@ EntityCreater = function(innerPageId, forwardButtonId, backwardsButtonId, textBo
 	}
 
 	function initView(){
-		view = new EntityCreater.EntityCreaterView(valueBoxId, feedBackBoxId);
+		view = new EntityCreator.EntityCreatorView(valueBoxId, feedBackBoxId);
 		view.init();		
 	}
 
