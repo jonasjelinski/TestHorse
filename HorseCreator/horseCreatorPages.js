@@ -1,28 +1,44 @@
 var HorseCreator = HorseCreator || {};
 
 HorseCreator.HorseCreatorPages = function() {
-	const NAME = '<input id="horseInteractionInput"></input>'+
+	const NAME = 
+				'<div>Name des Pferdes:</div>'+
+				'<input id="horseInteractionInput"></input>'+
 				'<div id=horseInteractionFeedback></div>'+
 				'<div id= "horseInteractionValueBox" property="name" value="" opacity = 0 ></div>',
-			OWNER = '<input id="horseInteractionInput"></input>'+
+			OWNER = 
+				'<div>Besitzer des Pferdes:</div>'+
+				'<input id="horseInteractionInput"></input>'+
 				'<div id=horseInteractionFeedback></div>'+
 				'<div id= "horseInteractionValueBox" property="owner" value="" opacity = 0 ></div>',
-			RACE = '<input id="horseInteractionInput"></input>'+
+			RACE = 
+				'<div>Rasse des Pferdes:</div>'+
+				'<input id="horseInteractionInput"></input>'+
 				'<div id=horseInteractionFeedback></div>'+
 				'<div id= "horseInteractionValueBox" property="race" value="" opacity = 0 ></div>',
-			DATE_OF_BIRTH = '<input id="horseInteractionInput"></input>'+
+			DATE_OF_BIRTH = 
+				'<div>Geburtsdatum des Pferdes:</div>'+
+				'<input id="horseInteractionInput"></input>'+
 				'<div id=horseInteractionFeedback></div>'+
 				'<div id= "horseInteractionValueBox" property="dateOfBirth" value="" opacity = 0 ></div>',
-			PHOTO = '<input id="horseInteractionInput"></input>'+
+			PHOTO = 
+				'<div>Photo des Pferdes:</div>'+
+				'<input id="horseInteractionInput"></input>'+
 				'<div id=horseInteractionFeedback></div>'+
 				'<div id= "horseInteractionValueBox" property="photo" value="" opacity = 0 ></div>',
-			SEX = '<input id="horseInteractionInput"></input>'+
+			SEX = 
+				'<div>Geschlecht des Pferdes:</div>'+
+				'<input id="horseInteractionInput"></input>'+
 				'<div id=horseInteractionFeedback></div>'+
 				'<div id= "horseInteractionValueBox" property="sex" value="" opacity = 0 ></div>',
-			HEIGHT = '<input id="horseInteractionInput"></input>'+
+			HEIGHT = 
+				'<div>Höhe des Pferdes:</div>'+
+				'<input id="horseInteractionInput"></input>'+
 				'<div id=horseInteractionFeedback></div>'+
 				'<div id= "horseInteractionValueBox" property="height" value="" opacity = 0 ></div>',
-			GROWER = '<input id="horseInteractionInput"></input>'+
+			GROWER = 
+				'<div>Züchter des Pferdes:</div>'+
+				'<input id="horseInteractionInput"></input>'+
 				'<div id=horseInteractionFeedback></div>'+
 				'<div id= "horseInteractionValueBox" property="grower" value="" opacity = 0 ></div>';
 				
