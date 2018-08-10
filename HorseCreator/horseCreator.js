@@ -48,14 +48,21 @@ HorseCreator = function(userID){
 
 		//view updaten, damit listener neu geladen werden;
 		function handlePageChange(){
+			let attribute,
+				value;
 			if(view){
-				view.update();	
+				view.update();
+				attribute = view.getCurrentAttribute();
+				value = model.getValueOfAttribute(attribute);
+				if(value){
+					view.setInputValue(value);
+					view.setValueBox(value);
+				}
 			}			
 		}
 
 		function handleHasEnoughValues(event){
-			let attributes = event.details.data;
-			model.updateAttributes(attributes);
+			model.hasEnoughValues();
 		}
 
 		function initView(){

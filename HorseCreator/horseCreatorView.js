@@ -32,7 +32,19 @@ HorseCreator.HorseCreatorView = function(valueBoxId, inputId){
 		input.value = inputValue;
 	}
 
+	function setValueBox(value){
+		valueBox.setAttribute("value", value);
+	}
+
+	function getCurrentAttribute(){
+		let attribute = valueBox.getAttribute("property");
+		return attribute;
+	}
+
 	that.init = init;
 	that.update = update;
+	that.getCurrentAttribute = getCurrentAttribute;
+	that.setInputValue = setInputValue;
+	that.setValueBox = setValueBox;
 	return that;
 };

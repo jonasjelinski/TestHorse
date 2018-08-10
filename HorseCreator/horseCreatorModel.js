@@ -3,28 +3,28 @@ var HorseCreator = HorseCreator || {};
 HorseCreator.HorseCreatorModel = function(){
 	const ATTRIBUTES = {
 				name: {value:undefined,
-					   isNecessary: "true",
+					   isNecessary: false,
 				},
 				owner: {value:undefined,
-					   isNecessary: "true",
+					   isNecessary: false,
 				},
 				race: {value:undefined,
-					   isNecessary: "true",
+					   isNecessary: false,
 				},
 				dateOfBirth : {value:undefined,
-					   isNecessary: "true",
+					   isNecessary: false,
 				},
 				photo: {value:undefined,
-					   isNecessary: "false",
+					   isNecessary: false,
 				},
 				sex : {value:undefined,
-					   isNecessary: "true",
+					   isNecessary: false,
 				}, 
 				height: {value:undefined,
-					   isNecessary: "true",
+					   isNecessary: false,
 				}, 
 				grower: {value:undefined,
-					   isNecessary: "true",
+					   isNecessary: false,
 				},
 			};
 
@@ -33,7 +33,7 @@ HorseCreator.HorseCreatorModel = function(){
 		horseObject,
 		attributes;
 
-	function init() {
+	function init() {		
 		attributes = ATTRIBUTES;
 		sendAttributes();		
 	}
@@ -45,16 +45,27 @@ HorseCreator.HorseCreatorModel = function(){
 		that.dispatchEvent(event);
 	}
 
-	function updateAttributes(newAttributes){
-			let attributeNames = Object.keys(attributes);
+	function hasEnoughValues(){
+		let attribute = attributes["owner"],
+			value = attribute.value;
+			/*let attributeNames = Object.keys(attributes);
 			attributeNames.forEach(function(attributeName) {
-				let attributeValue = newAttributes[attributeName];
-				attributes[attributeName] = attributeValue;
+				let newAttributeObject = newAttributes[attributeName],
+					newValue = newAttributeObject.value;
+				attributes[attributeName] = newValue;
+				console.log("attributeValue", attributeValue);
 			});	
-			console.log(attributes);		
+			console.log("updateAttributes", attributes, "names", attributeNames);*/		
+	}
+
+	function getValueOfAttribute(attributeName){
+		let attribute = attributes[attributeName],
+			value = attribute.value;
+			return value;
 	}
 
 	that.init = init;
-	that.updateAttributes = updateAttributes;
+	that.hasEnoughValues = hasEnoughValues;
+	that.getValueOfAttribute = getValueOfAttribute;
 	return that;
 };

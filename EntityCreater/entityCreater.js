@@ -76,7 +76,6 @@ EntityCreater = function(innerPageId, forwardButtonId, backwardsButtonId, textBo
 		event.details = {};
 		event.details.data = data;
 		that.dispatchEvent(event);
-		console.log("send data");
 	}
 
 	function initView(){
