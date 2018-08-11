@@ -21,8 +21,8 @@ Profil.ProfilView = function(domElement, templateString, data){
 			div =  document.createElement("div"),
 			templateFunction = _.template(templateString),
 			elementHTML = templateFunction(data);
-    	div.innerHTML = elementHTML;
-    	filledForms = div.children;
+    	div.innerHTML  = elementHTML;
+    	filledForms = div.childNodes;
     	return filledForms;
 	}
 

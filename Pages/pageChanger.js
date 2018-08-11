@@ -22,6 +22,7 @@ Pages.PageChanger = function(domElement){
 		CREATE_DATE: "CREATE_DATE",
 		CREATE_USER: "CREATE_USER",
 		CREATE_HORSEBOX: "CREATE_HORSEBOX",
+		HORSE_PROFILE_CHANGE:"HORSE_PROFILE_CHANGE",
 	}
 
 	/**
@@ -72,9 +73,11 @@ Pages.PageChanger = function(domElement){
 			case PAGES.CREATE_USER:
 				handlePageSwitch();
 				break;
-			case CREATE_HORSEBOX:
-				handlePageSwitch();
+			case PAGES.CREATE_HORSEBOX:
+				handlePageSwitch(pageContent.CREATE_HORSEBOX);
 				break;
+			case PAGES.HORSE_PROFILE_CHANGE:
+				handlePageSwitch(pageContent.HORSE_PROFILE_CHANGE);
 			default:
 				break;
 		}

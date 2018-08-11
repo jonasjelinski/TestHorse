@@ -33,6 +33,16 @@ Pages.PageContent = function (){
           '</ul>'  +
         '</nav>' ,
 
+        HORSE_PROFILE_TEMPLATE = '<script type="text/template" id="horseProfileTemplate">'+ 
+  '<div id= "horseProfileName">Name: <%= name %></div> '+ 
+  '<div id= "horseProfileBirth">Geburtsdatum: <%= birth %></div> '+ 
+  '<div id= "horseProfileRace">Rasse: <%= race %></div> '+ 
+  '<div id= "horseProfileOwner">Besitzer: <%= owner %></div> '+ 
+  '<div id= "horseProfileSex">Geschlecht: <%= sex %></div> '+ 
+  '<div id= "horseProfileHeight">Höhe: <%= height %></div> '+ 
+  '<div id= "horseProfileRaiser">Züchter: <%= raiser %></div> '+ 
+'</script> ' ,
+
         POPUP = '<div id="popup">' +
                     '<p id="popupText"></p>'+
                     '<button id="popupTextYes" type="button">Yes</button> '+ 
@@ -106,14 +116,15 @@ Pages.PageContent = function (){
     '<p ><%= name %></p>'+ 
   '</li>',
 
-  REGULAR_DATES_PAGE = 	  	'<ul id="allRegularDates">'+ 
+  REGULAR_DATES_PAGE = 	  	'<content>'+ 
+
+    '<ul id="allRegularDates">'+ 
   	'</ul>'+ 
-
-
-  '</div>'+
-     POPUP +
-    '</content>'+ 
+    POPUP +
  ' <button id= "backToDates" type="button">backToDates</button> '+
+  '</div>'+
+ '</content>'+
+  
   '<script type="text/template" id="ul-element">'+ 
   '<li draggable="true" regularDateId = <%= id %>>'+ 
     ' <button class= "regularDateDelete" type="button">Delete</button> '+
@@ -122,25 +133,34 @@ Pages.PageContent = function (){
   '</li>',
 
    HORSE_PROFIL = ' <content>'+ 
-  '<div id= "horseProfil">' + 
+  '<div id= "horseProfile">' + 
     ' <button id= "horseProfileChange" type="button">ProfileChange</button> '+ 
     ' <button id= "horseProfileOk" type="button">ProfileOk</button> '+ 
     ' <button id= "horseProfileDelete" type="button">ProfileDelete</button> '+ 
     '<div id= "textBox">textBox</div> '+ 
     POPUP +
   '</div>'+ 
-               '</content>'+ 
-            
-'<script type="text/template" id="horseProfileTemplate">'+ 
-  '<div id= "horseProfileName"><%= name %></div> '+ 
-  '<div id= "horseProfileBirth"><%= birth %></div> '+ 
-  '<div id= "horseProfileRace"><%= race %></div> '+ 
-  '<div id= "horseProfileOwner"><%= comp %></div> '+ 
-  '<div id= "horseProfileSex"><%= owner %></div> '+ 
-  '<div id= "horseProfileHeight"><%= sex %></div> '+ 
-  '<div id= "horseProfileRaiser"><%= height %></div> '+ 
-'</script> ' 
-'</script> ', 
+  '</content>'+             
+    HORSE_PROFILE_TEMPLATE ,
+
+  CREATE_HORSEBOX = '<content>'+ 
+  '<div id= "horseInteraction">' + 
+    '<div id= "horseInteractionInnerPage"></div>' +
+    ' <button id= "horseInteractionForward" type="button">Forward</button>' + 
+    ' <button id= "horseInteractionBack" type="button">Backwards</button> '+ 
+    '<div id= "horseInteractionProgress"></div> '+
+    ' <content>',
+
+  HORSE_PROFILE_CHANGE =  ' <content>'+ 
+  '<div id= "horseProfileChange">' + 
+    ' <button id= "horseChangeChange" type="button">ProfileChange</button> '+ 
+    ' <button id= "horseChangeOk" type="button">ProfileOk</button> '+ 
+    ' <button id= "horseChangeDelete" type="button">ProfileDelete</button> '+ 
+    '<div id= "textBox">textBox</div> '+ 
+    POPUP +
+  '</div>'+ 
+  '</content>'+             
+    HORSE_PROFILE_TEMPLATE ,
 
 
 
@@ -150,6 +170,8 @@ Pages.PageContent = function (){
   that.DATES_PAGE = DATES_PAGE; 
   that.REGULAR_DATES_PAGE = REGULAR_DATES_PAGE; 
   that.HORSE_PROFIL = HORSE_PROFIL;
+  that.CREATE_HORSEBOX = CREATE_HORSEBOX;
+  that.HORSE_PROFILE_CHANGE = HORSE_PROFILE_CHANGE;
   return that; 
 };
  

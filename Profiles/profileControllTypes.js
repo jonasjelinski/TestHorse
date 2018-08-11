@@ -2,20 +2,20 @@ var Profil = Profil || {};
 
 Profil.ProfilControllTypes = function(changeButtonId, okayButtonId, delteButtonId, secondEventType){
 	let that = new EventTarget(),
-		userProfile,	
+		profileControll,	
 		changeEventType = "onChange",
 		deleteEventType = "onDelete";
 
 	function init(){
-		userProfile = Profil.ProfileControll(changeButtonId, okayButtonId, delteButtonId, changeEventType, secondEventType, deleteEventType);
-		userProfile.init();
+		profileControll = Profil.ProfileControll(changeButtonId, okayButtonId, delteButtonId, changeEventType, secondEventType, deleteEventType);
+		profileControll.init();
 		addEventListeners();	
 	}
 
 	function addEventListeners(){
-		userProfile.addEventListener(changeEventType, handleChange);
-		userProfile.addEventListener(secondEventType, handleOkay);
-		userProfile.addEventListener(deleteEventType, handleDelete);
+		profileControll.addEventListener(changeEventType, handleChange);
+		profileControll.addEventListener(secondEventType, handleOkay);
+		profileControll.addEventListener(deleteEventType, handleDelete);
 	}
 
 	function handleChange(){		

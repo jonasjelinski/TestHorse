@@ -34,7 +34,7 @@ Slideshow.SlideshowView = function(domElements){
 	}
 
 	function setPageNumber(number){
-		let progress =  numberOfPages+"/"+number;
+		let progress =  number+"/"+ numberOfPages;
 		progressBox.innerHTML = progress;
 	}
 

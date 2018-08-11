@@ -7,7 +7,7 @@ UserProfilPage = function(userId){
 		model = new UserProfilPage.UserProfilPageModel(userId, REQUEST_FUNCTION);
 		
 	let data = {userProfileName:"Hans", userProfileMail: "h@h", userProfilePassword: "123", },
-		that = Profil(userId, PAGE_ID, TEMPLATE_ID, data, UserProfilPage.UserProfilPageViewControll, model);
+		that = Profil(PAGE_ID, TEMPLATE_ID, data, UserProfilPage.UserProfilPageViewControll);
 	
 	return that;
 }
