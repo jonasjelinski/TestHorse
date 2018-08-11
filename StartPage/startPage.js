@@ -109,7 +109,7 @@ StartPage = function(userId){
 	function handleLiClick(ev){
 		let id = ev.details.id;
 		if(lastBoxClicked(id)){
-			sendEvent("newHorse", "");			
+			sendEvent("createNewHorse", "");			
 		}
 	}
 
