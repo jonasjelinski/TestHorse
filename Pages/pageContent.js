@@ -152,10 +152,10 @@ Pages.PageContent = function (){
     ' <content>',
 
   HORSE_PROFILE_CHANGE =  ' <content>'+ 
-  '<div id= "horseProfileChange">' + 
-    ' <button id= "horseChangeChange" type="button">ProfileChange</button> '+ 
-    ' <button id= "horseChangeOk" type="button">ProfileOk</button> '+ 
-    ' <button id= "horseChangeDelete" type="button">ProfileDelete</button> '+ 
+  '<div id= "horseProfileSaver">' + 
+    ' <button id= "horseSaverChange" type="button">Ändern</button> '+ 
+    ' <button id= "horseSaverOk" type="button">Speichern</button> '+ 
+    ' <button id= "horseSaverDelete" type="button">Verwerfen</button> '+ 
     '<div id= "textBox">textBox</div> '+ 
     POPUP +
   '</div>'+ 

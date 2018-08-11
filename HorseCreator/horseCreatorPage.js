@@ -2,7 +2,7 @@ var HorseCreatorPage = HorseCreatorPage ||{};
 
 HorseCreatorPage = function(){
 
-	const  ATTRIBUTES = {
+	const ATTRIBUTES = {
 				name: {value:undefined,
 					   isNecessary: false,
 				},
@@ -29,63 +29,7 @@ HorseCreatorPage = function(){
 				},
 			};
 
-	let that = new EventTarget(),
-		horseCreator,
-		attributesWithoutIsNecessary,
-		dbRequester;
+	let that = new CreatorPage(ATTRIBUTES);
 
-	function init(){
-		attributes = ATTRIBUTES;
-		horseCreator = new HorseCreator();
-		horseCreator.init(attributes);
-		horseCreator.addEventListener("onEnoughAttributes", changeAttributesAndSendThem);
-	}
-
-	function changeAttributesAndSendThem(event){
-		attributes = event.details.attributes;
-			attributesWithoutIsNecessary = {};
-			attributeNames = Object.keys(attributes);
-			attributeNames.forEach( function (name){
-				let attribute = attributes[name],
-					value = attribute.value;
-					if(value === undefined){
-						value = "";
-					}
-				attributesWithoutIsNecessary[name] = value;
-			});
-		sendAttributes(attributesWithoutIsNecessary);
-	}
-
-	function sendAttributes(attributes){
-		let event = new Event("onEnoughAttributes");
-		event.details = {};
-		event.details.attributes = attributes;
-		that.dispatchEvent(event);
-	}
-
-	function saveHorse(){
-		dbRequester = new HorseCreator.HorseCreatorDBRequester();
-		dbRequester.init(attributesWithoutIsNecessary);
-		sendEvent("onHorseSaved");
-		//dbRequester.request(); 
-	}
-
-	function changeHorse(){
-		horseCreator.init(attributes);
-	}
-
-	function sendEvent(type){
-		let event = new Event(type);
-		that.dispatchEvent(event);
-	}
-
-	function setAttributes(attr){
-		attributes = attr;
-	}
-
-	that.setAttributes = setAttributes;
-	that.saveHorse = saveHorse;
-	that.changeHorse = changeHorse;
-	that.init = init;
 	return that;
 }

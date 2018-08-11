@@ -1,12 +1,9 @@
-var HorseProfileChanger = HorseProfileChanger || {};
+var HorseProfilePage = HorseProfilePage || {};
 
-HorseProfileChanger = function(data){
+HorseProfilePage = function(){
 	"user strict";
 	const 
-	HORSE_ID = ""
-	PAGE_ID = "horseProfileChange",
-	TEMPLATE_ID = "horseProfileTemplate",
-	REQUEST_FUNCTION = "getHorseData";
+	HORSE_ID = "";
 
 	let that = new EventTarget(),
 		profil = {},
@@ -14,11 +11,25 @@ HorseProfileChanger = function(data){
 
 	function init(newAttributes){		
 		attributes = newAttributes;
-		profil =  Profil(PAGE_ID, TEMPLATE_ID, HorseProfileChanger.ViewControll);
-		profil.init(attributes);
+		initProfil();
+		initModel();
+		addEventListeners();		
+	}
+
+	function initProfil(){
+		profil =  new  HorseProfilePage.HorseProfile(HORSE_ID);
+		profil.init(attributes);	
+	}
+
+	function initModel(){
+		model = HorseProfileSaver.Model();
+		model.init(attributes);	
+	}
+
+	function addEventListeners(){
 		profil.addEventListener("onChangeProfile", handleChangeProfile);
 		profil.addEventListener("onProfileOkay", handleOkayProfile);
-		profil.addEventListener("onDeleteProfile", handleDeleteProfile);
+		profil.addEventListener("onDeleteProfile", handleDeleteProfile);	
 	}
 
 	function handleChangeProfile(){
@@ -30,10 +41,12 @@ HorseProfileChanger = function(data){
 		event.details = {};
 		event.details.attributes = attributes;
 		that.dispatchEvent(event);
+		console.log("send");
 	}
 
 	function handleOkayProfile(){
-		sendEvent("onSaveHorseProfile", attributes);
+		//model.saveHorseIntoDB();
+		sendEvent("onSaveHorseProfile");
 	}
 
 	function handleDeleteProfile(){

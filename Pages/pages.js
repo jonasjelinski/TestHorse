@@ -18,6 +18,8 @@ Pages = function(){
 		regularDatesPage,
 		appointmentsPage,
 		horseCreatorPage,
+		horseProfileSaver,
+		horseProfileChanger,
 		user;
 
 	/**
@@ -63,6 +65,7 @@ Pages = function(){
 		regularDatesPage = new RegularDatesPage();
 		horseProfilPage = new HorseProfilePage();
 		horseCreatorPage = new HorseCreatorPage();
+		horseProfileSaver = new HorseProfileSaver();
 		horseProfileChanger = new HorseProfileChanger();		
 	}
 
@@ -85,12 +88,16 @@ Pages = function(){
 		datesPage.addEventListener("showRegularDates", showRegularDates);
 		datesPage.addEventListener("showCreateSingleDate", showCreateSingleDate);
 		regularDatesPage.addEventListener("showAllDates", showAllDates);
-		horseProfilPage.addEventListener("onProfileOkay", showStartPage);
-		horseCreatorPage.addEventListener("onEnoughAttributes", showHorseProfileChanger);
+		horseProfilPage.addEventListener("onChangeHorseProfile", changeHorse);
+		horseProfilPage.addEventListener("onSaveHorseProfile", showStartPage);
+		horseProfilPage.addEventListener("onDeleteNewHorseProfile", showStartPage);
+		horseCreatorPage.addEventListener("onEnoughAttributes", showHorseProfileSaver);
 		horseCreatorPage.addEventListener("onHorseSaved", showStartPage);
-		horseProfileChanger.addEventListener("onChangeHorseProfile", changeNewHorse);
-		horseProfileChanger.addEventListener("onSaveHorseProfile", saveNewHorse);
-		horseProfileChanger.addEventListener("onDeleteNewHorseProfile", showStartPage);		
+		horseProfileSaver.addEventListener("onChangeHorseProfile", changeHorse);
+		horseProfileSaver.addEventListener("onSaveHorseProfile", showStartPage);
+		horseProfileSaver.addEventListener("onDeleteNewHorseProfile", showStartPage);
+		horseProfileChanger.addEventListener("onEnoughAttributes", showHorseProfileSaver);
+		horseProfileChanger.addEventListener("onHorseSaved", showStartPage);				
 	}
 
 	function showHelpPage(){}
@@ -185,12 +192,12 @@ Pages = function(){
 		horseCreatorPage.init(attributes);
 	}
 
-	function showHorseProfileChanger(event){
+	function showHorseProfileSaver(event){
 		let attributes;
 		if(event){
 			attributes = event.details.attributes;
 			pageChanger.switchPage("HORSE_PROFILE_CHANGE");
-			horseProfileChanger.init(attributes);				
+			horseProfileSaver.init(attributes);				
 		}			
 	}
 
@@ -202,15 +209,14 @@ Pages = function(){
 		}
 	}
 
-	function changeNewHorse(event){
+	function changeHorse(event){
 		let attributes;
 		if(event){
 			attributes = event.details.attributes;
-			pageChanger.switchPage("CREATE_HORSEBOX");
-			horseCreatorPage.changeHorse(attributes);
-		}
-		
-	}
+			pageChanger.switchPage("CREATE_HORSEBOX");			
+			horseProfileChanger.init(attributes);
+		}		
+	}	
 
 	that.init = init;
 	that.showLoginPage = showLoginPage;

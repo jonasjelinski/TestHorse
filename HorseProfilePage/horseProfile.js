@@ -1,6 +1,6 @@
 var HorseProfilePage = HorseProfilePage || {};
 
-HorseProfilePage = function(horseId){
+HorseProfilePage.HorseProfile = function(horseId){
 	"user strict";
 	const PAGE_ID = "horseProfile",
 	TEMPLATE_ID = "horseProfileTemplate",
