@@ -26,8 +26,8 @@ DatabaseClientInterface.SimpleRequester = function(requestParamater, requestFunc
 
 	function initInterface(){
 		interface = new DatabaseClientInterface();
+		interface.init();
 		addEventListener();
-		interface[requestFunc](requestParam);
 	}
 
 	function request() {

@@ -64,7 +64,7 @@ Profil = function(pageId, templateId, viewControllConstructor){
 	}
 
 	function deleteProfil(){
-		console.log("deleteProfil");
+		sendShowSide("onDeleteProfile");
 	}
 
 	that.init = init;

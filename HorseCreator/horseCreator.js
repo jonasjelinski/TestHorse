@@ -1,6 +1,6 @@
 var HorseCreator = HorseCreator || {};
 
-HorseCreator = function(newAttributes){
+HorseCreator = function(){
 	const INNER_PAGE_ID = "horseInteractionInnerPage",
 		FORWARD_BUTTON_ID = "horseInteractionForward",
 		BACKWARDS_BUTTON_ID = "horseInteractionBack",
@@ -14,9 +14,11 @@ HorseCreator = function(newAttributes){
 		pages,
 		entityCreator,
 		view,
-		model;
+		model,
+		newAttributes;
 
-		function init(){
+		function init(attributes){
+			newAttributes = attributes;
 			initPages();
 			initModel();			
 		}
@@ -48,6 +50,10 @@ HorseCreator = function(newAttributes){
 
 		//view updaten, damit listener neu geladen werden;
 		function handlePageChange(){
+				updateView();		
+		}
+
+		function updateView(){
 			let attribute,
 				value;
 			if(view){
@@ -58,7 +64,7 @@ HorseCreator = function(newAttributes){
 					view.setInputValue(value);
 					view.setValueBox(value);
 				}
-			}			
+			}	
 		}
 
 		function handleHasEnoughValues(event){
@@ -69,6 +75,7 @@ HorseCreator = function(newAttributes){
 		function initView(){
 			view = new HorseCreator.HorseCreatorView(VALUE_BOX_ID, INPUT_BOX);
 			view.init();
+			updateView();	
 		}
 
 		function sendAttributes(attributes){

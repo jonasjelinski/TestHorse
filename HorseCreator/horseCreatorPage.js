@@ -1,18 +1,49 @@
 var HorseCreatorPage = HorseCreatorPage ||{};
 
 HorseCreatorPage = function(){
-	let that = new EventTarget(),
-		horseCreator;
 
-	function init(attributes){
+	const  ATTRIBUTES = {
+				name: {value:undefined,
+					   isNecessary: false,
+				},
+				owner: {value:undefined,
+					   isNecessary: false,
+				},
+				race: {value:undefined,
+					   isNecessary: false,
+				},
+				birth : {value:undefined,
+					   isNecessary: false,
+				},
+				photo: {value:undefined,
+					   isNecessary: false,
+				},
+				sex : {value:undefined,
+					   isNecessary: false,
+				}, 
+				height: {value:undefined,
+					   isNecessary: false,
+				}, 
+				raiser: {value:undefined,
+					   isNecessary: false,
+				},
+			};
+
+	let that = new EventTarget(),
+		horseCreator,
+		attributesWithoutIsNecessary,
+		dbRequester;
+
+	function init(){
+		attributes = ATTRIBUTES;
 		horseCreator = new HorseCreator();
 		horseCreator.init(attributes);
 		horseCreator.addEventListener("onEnoughAttributes", changeAttributesAndSendThem);
 	}
 
 	function changeAttributesAndSendThem(event){
-		let attributes = event.details.attributes,
-			attributesWithoutIsNecessary = {},
+		attributes = event.details.attributes;
+			attributesWithoutIsNecessary = {};
 			attributeNames = Object.keys(attributes);
 			attributeNames.forEach( function (name){
 				let attribute = attributes[name],
@@ -32,6 +63,24 @@ HorseCreatorPage = function(){
 		that.dispatchEvent(event);
 	}
 
+	function saveHorse(){
+		dbRequester = new HorseCreator.HorseCreatorDBRequester();
+		dbRequester.init(attributesWithoutIsNecessary);
+		sendEvent("onHorseSaved");
+		//dbRequester.request(); 
+	}
+
+	function changeHorse(){
+		horseCreator.init(attributes);
+	}
+
+	function sendEvent(type){
+		let event = new Event(type);
+		that.dispatchEvent(event);
+	}
+
+	that.saveHorse = saveHorse;
+	that.changeHorse = changeHorse;
 	that.init = init;
 	return that;
 }

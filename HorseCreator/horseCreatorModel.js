@@ -36,6 +36,9 @@ HorseCreator.HorseCreatorModel = function(newAttributes){
 	function init() {
 	if(!newAttributes){
 		attributes = ATTRIBUTES;
+	}
+	else {
+		attributes = newAttributes;
 	}		
 		sendAttributes();		
 	}

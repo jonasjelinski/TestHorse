@@ -87,6 +87,10 @@ Pages = function(){
 		regularDatesPage.addEventListener("showAllDates", showAllDates);
 		horseProfilPage.addEventListener("onProfileOkay", showStartPage);
 		horseCreatorPage.addEventListener("onEnoughAttributes", showHorseProfileChanger);
+		horseCreatorPage.addEventListener("onHorseSaved", showStartPage);
+		horseProfileChanger.addEventListener("onChangeHorseProfile", changeNewHorse);
+		horseProfileChanger.addEventListener("onSaveHorseProfile", saveNewHorse);
+		horseProfileChanger.addEventListener("onDeleteNewHorseProfile", showStartPage);		
 	}
 
 	function showHelpPage(){}
@@ -186,8 +190,26 @@ Pages = function(){
 		if(event){
 			attributes = event.details.attributes;
 			pageChanger.switchPage("HORSE_PROFILE_CHANGE");
-			horseProfileChanger.init(attributes);	
+			horseProfileChanger.init(attributes);				
 		}			
+	}
+
+	function saveNewHorse(event){
+		let attributes;
+		if(event){
+			attributes = event.details.attributes;
+			horseCreatorPage.saveHorse(attributes);
+		}
+	}
+
+	function changeNewHorse(event){
+		let attributes;
+		if(event){
+			attributes = event.details.attributes;
+			pageChanger.switchPage("CREATE_HORSEBOX");
+			horseCreatorPage.changeHorse(attributes);
+		}
+		
 	}
 
 	that.init = init;
