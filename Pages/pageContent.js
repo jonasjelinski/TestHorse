@@ -33,6 +33,13 @@ Pages.PageContent = function (){
           '</ul>'  +
         '</nav>' ,
 
+        USER_PROFILE_TEMPLATE = '<script type="text/template" id="userProfileTemplate">'+ 
+  '<div id= "userProfileName"><%= userProfileName %></div> '+ 
+  '<div id= "userProfileMail"><%= userProfileMail %></div> '+ 
+  '<div id= "userProfilePassword"><%= userProfilePassword %></div> '+ 
+'</script> ' 
+'</script> ', 
+
         HORSE_PROFILE_TEMPLATE = '<script type="text/template" id="horseProfileTemplate">'+ 
   '<div id= "horseProfileName">Name: <%= name %></div> '+ 
   '<div id= "horseProfileBirth">Geburtsdatum: <%= birth %></div> '+ 
@@ -92,13 +99,8 @@ Pages.PageContent = function (){
   '</div>'+ 
    POPUP+
                '</content>'+ 
-            
-'<script type="text/template" id="userProfileTemplate">'+ 
-  '<div id= "userProfileName"><%= userProfileName %></div> '+ 
-  '<div id= "userProfileMail"><%= userProfileMail %></div> '+ 
-  '<div id= "userProfilePassword"><%= userProfilePassword %></div> '+ 
-'</script> ' 
-'</script> ', 
+    USER_PROFILE_TEMPLATE,            
+
  
   DATES_PAGE =' <content>'+ 
  '<div id = "allDates" >' +
@@ -162,8 +164,17 @@ Pages.PageContent = function (){
   '</content>'+             
     HORSE_PROFILE_TEMPLATE ,
 
+    CREATE_USER = '<content>'+ 
+  '<div id= "userInteraction">' + 
+    '<div id= "userInteractionInnerPage"></div>' +
+    ' <button id= "userInteractionForward" type="button">Forward</button>' + 
+    ' <button id= "userInteractionBack" type="button">Backwards</button> '+ 
+    '<div id= "userInteractionProgress"></div> '+
+    ' <content>' +
+    USER_PROFILE_TEMPLATE,
 
 
+  that.CREATE_USER = CREATE_USER;  
   that.LOGIN_PAGE = LOGIN_PAGE;
   that.START_PAGE = START_PAGE; 
   that.USER_PAGE = USER_PAGE;

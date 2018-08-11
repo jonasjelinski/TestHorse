@@ -88,7 +88,14 @@ EntityCreator = function(innerPageId, forwardButtonId, backwardsButtonId, textBo
 		model.setPage(pageNumber);
 	}
 
+	function setPageCanChange(booleanValue){
+		if(slideshow){
+			slideshow.setPageCanChange(booleanValue);
+		}		
+	}
+	
 	that.init = init;
 	that.showFirstPage = showFirstPage;
+	that.setPageCanChange = setPageCanChange;
 	return that;
 }

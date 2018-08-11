@@ -41,7 +41,6 @@ HorseProfilePage = function(){
 		event.details = {};
 		event.details.attributes = attributes;
 		that.dispatchEvent(event);
-		console.log("send");
 	}
 
 	function handleOkayProfile(){

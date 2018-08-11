@@ -8,6 +8,7 @@ var Pages = Pages || {};
  */
 Pages = function(){
 	let that = {},
+		userCreator,
 		pageDomElement,
 		pageChanger,
 		loginPage,
@@ -58,6 +59,7 @@ Pages = function(){
 	* @description sets the variables of this modul which contain the moduls of the different pages.
 	*/ 
 	function initPages(){
+		userCreator = new UserCreator();
 		loginPage = new LoginPage();
 		startPage = new StartPage();
 		userProfilPage = new UserProfilPage();
@@ -106,6 +108,11 @@ Pages = function(){
 	}
 	function logoutUser(){
 
+	}
+
+	function createUser(){
+		pageChanger.switchPage("NEW_USER");
+		userCreator.init();
 	}
 
 
@@ -216,9 +223,10 @@ Pages = function(){
 			pageChanger.switchPage("CREATE_HORSEBOX");			
 			horseProfileChanger.init(attributes);
 		}		
-	}	
-
+	}
+	
 	that.init = init;
+	that.createUser = createUser;
 	that.showLoginPage = showLoginPage;
 	that.showStartPage = showStartPage;
 	that.showUserProfilPage = showUserProfilPage;

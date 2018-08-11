@@ -13,6 +13,7 @@ Pages.PageChanger = function(domElement){
 		pageContent;
 
 	const PAGES = {
+		NEW_USER: "NEW_USER",
 		LOGIN_PAGE: "LOGIN",
 		START_PAGE: "START",
 		DATES_PAGE: "DATES",
@@ -49,6 +50,9 @@ Pages.PageChanger = function(domElement){
 	*/ 	
 	function switchPage(page){
 		switch(page){
+			case PAGES.NEW_USER:
+				handlePageSwitch(pageContent.CREATE_USER);
+				break;
 			case PAGES.LOGIN_PAGE:
 				handlePageSwitch(pageContent.LOGIN_PAGE);
 				break;

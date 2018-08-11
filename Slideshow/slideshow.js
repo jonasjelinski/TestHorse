@@ -76,8 +76,13 @@ Slideshow = function(forwardButtonId, backwardsButtonId, progressBoxId, numberOf
 	function handleSlideShowIsOver(){
 		let event = new Event("slideShowIsOver");
 		that.dispatchEvent(event);
+	}
+
+	function setPageCanChange(booleanValue){
+		slideshowModel.setPageCanChange(booleanValue);
 	} 
 	
 	that.init = init;
+	that.setPageCanChange = setPageCanChange;
 	return that;
 } 
