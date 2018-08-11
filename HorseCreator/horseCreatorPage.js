@@ -79,6 +79,11 @@ HorseCreatorPage = function(){
 		that.dispatchEvent(event);
 	}
 
+	function setAttributes(attr){
+		attributes = attr;
+	}
+
+	that.setAttributes = setAttributes;
 	that.saveHorse = saveHorse;
 	that.changeHorse = changeHorse;
 	that.init = init;
