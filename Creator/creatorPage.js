@@ -33,10 +33,6 @@ class CreatorPage extends EventTarget{
 		this.dispatchEvent(event);
 	}
 
-	startCreationFromStart(){
-		this.creator.init();
-	}	
-
 	sendEvent(type){
 		let event = new Event(type);		
 		this.dispatchEvent(event);

@@ -1,5 +1,4 @@
-class CreatorView extends EventTarget{
-	
+class CreatorView extends EventTarget{	
 	constructor(valueBoxId, inputId){
 		super();
 		this.valueBoxId = valueBoxId;
