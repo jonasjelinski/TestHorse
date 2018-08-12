@@ -81,8 +81,9 @@ Pages.PageChanger = function(domElement){
 			case PAGES.CREATE_HORSEBOX:
 				handlePageSwitch(pageContent.CREATE_HORSEBOX);
 				break;
-			case PAGES.HORSE_PROFILE_CHANGE:
+			case PAGES.HORSE_PROFILE_SAVER:
 				handlePageSwitch(pageContent.HORSE_PROFILE_SAVER);
+				break;
 			case PAGES.USER_PROFILE_SAVER:
 				handlePageSwitch(pageContent.USER_PROFILE_SAVER);
 			default:

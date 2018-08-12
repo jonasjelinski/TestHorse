@@ -6,7 +6,7 @@ class Creator extends EventTarget{
 		this.view = view;	
 	}
 	
-	init(){				
+	init(){			
 		this.initModel();
 		this.initEntityCreator();
 		this.initView();			
@@ -57,4 +57,16 @@ class Creator extends EventTarget{
 		event.details.attributes = attributes;
 		this.dispatchEvent(event);
 	}
+
+	stopPageSlider(){ 
+      this.entityCreator.setPageCanChange(false); 
+    } 
+ 
+    proceedPageSlider(){ 
+      this.entityCreator.setPageCanChange(true); 
+    }
+
+    updateEntityCreator(attributes) {
+    	this.entityCreator.updateModel(attributes);
+    }  
 }

@@ -1,11 +1,13 @@
 var EntityCreator = EntityCreator || {};
 
-EntityCreator.EntityCreatorModel = function(pages, attributes){
+EntityCreator.EntityCreatorModel = function(pages, attr){
 	let that = new EventTarget(),
 		pageNumber,
-		entity;
+		entity,
+		attributes;
 
 	function init(){
+		attributes = attr;
 		entity = new Entity(attributes);
 	}
 
@@ -41,10 +43,24 @@ EntityCreator.EntityCreatorModel = function(pages, attributes){
 		}
 	}
 
+	function setAttributes(newAttributes){
+		attributes = newAttributes;
+	}
+
+	function createNewEntity(){
+		entity = new Entity(attributes);
+	}
+
+	function updateModel(attributes){
+		setAttributes(attributes);
+		createNewEntity();		
+	}
+
 	that.init = init;
 	that.checkIfEntityHasEnoughValues = checkIfEntityHasEnoughValues;
 	that.updateAttributeValue = updateAttributeValue;
 	that.setPage = setPage;
+	that.updateModel = updateModel;
 	return that;
 
 }

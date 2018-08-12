@@ -3,12 +3,11 @@ class ChangerPage extends CreatorPage{
 		let attributes = undefined;		
 		super(attributes, creator);
 		this.necessaryAttributes = necessaryAttributes;		
-	}	
+	}
 
-	init(newAttributes){
+	changeEntity(newAttributes){
 		this.attributes = this.addIsNecessaryToAttributes(newAttributes);
-		super.init();		
-		super.changeHorse(this.attributes);		
+		this.updateEntityCreator(this.attributes);
 	}
 
 	addIsNecessaryToAttributes(attributes){
@@ -17,7 +16,7 @@ class ChangerPage extends CreatorPage{
 			attributeNames = Object.keys(attributes);		
 		attributeNames.forEach( function (name){
 			let value = attributes[name],
-				isNecessary = that.necessaryAttributes.includes(name);
+				isNecessary = that.necessaryAttributes.includes(name),
 				newAttribute = {
 					 value: value,
 					isNecessary: isNecessary,

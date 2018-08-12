@@ -19,7 +19,6 @@ HorseProfileSaver = function(data){
 	}
 
 	function initPofil(){
-		console.log("initHorseSaver");
 		profil = new Profil(PAGE_ID, TEMPLATE_ID, HorseProfileSaver.ViewControll);
 		profil.init(attributes);		
 	}

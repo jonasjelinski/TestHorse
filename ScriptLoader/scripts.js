@@ -44,6 +44,7 @@ ScriptLoader.Scripts = (function(){
 	"./TalkingHorse/talkingHorse.js",
 	"./HorseCreator/horseCreatorPageClass.js",
 	"./HorseCreator/horseCreatorPage.js",
+	"./HorseCreator/standardHorseCreatorPage.js",
 	"./HorseCreator/horseCreator.js",
 	"./HorseCreator/horseCreatorSliderPages.js",
 	"./HorseCreator/horseCreatorModel.js",

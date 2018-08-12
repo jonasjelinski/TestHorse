@@ -46,14 +46,5 @@ class UserCreatorClass extends Creator{
         this.stopPageSlider();         
       } 
     }
-
-    stopPageSlider(){ 
-      this.entityCreator.setPageCanChange(false); 
-    } 
- 
-    proceedPageSlider(){ 
-      this.entityCreator.setPageCanChange(true); 
-    }  
-
 }
 

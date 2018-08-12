@@ -1,6 +1,6 @@
 var HorseCreator = HorseCreator || {};
 
-HorseCreator.HorseCreatorSliderPages = function() {
+HorseCreator.SliderPages = function() {
 	const NAME = 
 				'<div>Name des Pferdes:</div>'+
 				'<input id="horseInteractionInput"></input>'+

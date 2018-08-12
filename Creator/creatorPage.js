@@ -34,16 +34,15 @@ class CreatorPage extends EventTarget{
 	}
 
 	startCreationFromStart(){
-		this.creator.init(this.attributes);
+		this.creator.init();
 	}	
 
 	sendEvent(type){
 		let event = new Event(type);		
 		this.dispatchEvent(event);
 	}
-	
-	changeEntity(newAttributes){
-		this.attributes = newAttributes;
-		this.startCreationFromStart();
-	}
+
+	updateEntityCreator(attributes){
+		this.creator.updateEntityCreator(attributes);
+	}	
 }

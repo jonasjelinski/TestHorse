@@ -1,14 +1,16 @@
 var EntityCreator = EntityCreator || {};
 
-EntityCreator = function(innerPageId, forwardButtonId, backwardsButtonId, textBoxId, numberOfPages, attributes, pages, valueBoxId, feedBackBoxId){
+EntityCreator = function(innerPageId, forwardButtonId, backwardsButtonId, textBoxId, numberOfPages, attr, pages, valueBoxId, feedBackBoxId){
 	let that = new EventTarget(),
 		innerPage,
 		pageCreator,
 		slideShow,
 		view,
-		model;
+		model,
+		attributes;
 
 	function init(){
+		attributes = attr;
 		initPageCreator();
 		initSlideShow();
 		initModel();
@@ -93,9 +95,21 @@ EntityCreator = function(innerPageId, forwardButtonId, backwardsButtonId, textBo
 			slideshow.setPageCanChange(booleanValue);
 		}		
 	}
+
+	function setAttributes(newAttributes){
+		attributes = newAttributes;
+	}
+
+	function updateModel(attributes){
+		if(model){
+			model.updateModel(attributes);
+		}
+		
+	}
 	
 	that.init = init;
 	that.showFirstPage = showFirstPage;
 	that.setPageCanChange = setPageCanChange;
+	that.updateModel = updateModel;
 	return that;
 }

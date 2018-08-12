@@ -231,7 +231,7 @@ Pages = function(){
 	function showHorseProfileSaver(event){
 		let attributes;
 		if(event){
-			attributes = event.details.attributes;
+			attributes = event.details.attributes;1
 			pageChanger.switchPage("HORSE_PROFILE_SAVER");
 			horseProfileSaver.init(attributes);				
 		}			
@@ -241,8 +241,9 @@ Pages = function(){
 		let attributes;
 		if(event){
 			attributes = event.details.attributes;
-			pageChanger.switchPage("CREATE_HORSEBOX");			
-			horseProfileChanger.init(attributes);
+			pageChanger.switchPage("CREATE_HORSEBOX");		
+			horseProfileChanger.init();
+			horseProfileChanger.changeEntity(attributes);
 		}		
 	}
 
