@@ -28,7 +28,7 @@ UserCreatorPage = function(){
 		model = new UserCreator.UserCreatorModel(ATTRIBUTES), 
 		pages = new  UserCreator.SliderPages(),	  
 		entityCreator = new EntityCreator(INNER_PAGE_ID, FORWARD_BUTTON_ID, BACKWARDS_BUTTON_ID, TEXT_BOX_ID, NUM_OF_PAGES, ATTRIBUTES, pages, VALUE_BOX_ID, FEEDBACK_BOX_ID),   
-		userCreator = new Creator(entityCreator, model, view),
+		userCreator = new UserCreatorClass(entityCreator, model, view),
 		that = new CreatorPage(ATTRIBUTES, userCreator);
 
 	return that;
