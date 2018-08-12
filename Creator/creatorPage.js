@@ -38,7 +38,7 @@ class CreatorPage extends EventTarget{
 		this.dispatchEvent(event);
 	}
 
-	updateEntityCreator(attributes){
-		this.creator.updateEntityCreator(attributes);
+	updateCreator(attributes){
+		this.creator.upateCreator(attributes);
 	}	
 }

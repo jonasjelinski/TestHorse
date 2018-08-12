@@ -18,6 +18,7 @@ const INNER_PAGE_ID = "horseInteractionInnerPage",
 		horseCreator = new HorseCreatorClass(entityCreator, model, view),
 		that = new CreatorPage(attributes, horseCreator);
 
+
 	that.horseCreator = horseCreator;	
 	return that;
 }

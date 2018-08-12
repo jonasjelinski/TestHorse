@@ -12,6 +12,7 @@
 	}
 
 	getAttribute(key){
+		console.log("getAttribute", key, this.attributes);
 		return this.attributes[key];
 	}
 	

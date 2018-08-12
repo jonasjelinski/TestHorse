@@ -42,7 +42,7 @@ class Creator extends EventTarget{
 	}
 
 	handleHasEnoughValues(event){
-		let attributes = this.model.getAttributes();
+		let attributes = event.details.data;
 		this.sendAttributes(attributes);
 	}
 
@@ -66,7 +66,17 @@ class Creator extends EventTarget{
       this.entityCreator.setPageCanChange(true); 
     }
 
+    upateCreator(attributes){
+    	this.updateEntityCreator(attributes);
+    	this.updateModelAttributes(attributes);
+    	this.updateView();
+    }
+
     updateEntityCreator(attributes) {
     	this.entityCreator.updateModel(attributes);
-    }  
+    }
+
+    updateModelAttributes(attributes){
+    	this.model.setAttributes(attributes);
+    } 
 }

@@ -1,27 +1,36 @@
 var CreatorModel = function(newAttributes){
 
-	let that = new EventTarget(),
+	let that = {},
 		attributes;
 
 	function init() {
-		attributes = newAttributes;	
+		if(newAttributes){
+			attributes = newAttributes;	
+		}		
 	}	
 
 	function getAttributes(){
 		return attributes;	
 	}
 
+	function setAttributes(attr){
+		attributes = attr;
+	}
+
 	function getValueOfAttribute(attributeName){
-		let value,
+		let value;
+		if(attributes){
 			attribute = attributes[attributeName];
 			if(attribute){
 				value = attribute.value;
 			}
-			return value;
+		}
+		return value;
 	}
 
 	that.init = init;
 	that.getAttributes = getAttributes;
 	that.getValueOfAttribute = getValueOfAttribute;
+	that.setAttributes = setAttributes;
 	return that;
 };
