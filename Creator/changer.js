@@ -14,16 +14,19 @@ class ChangerPage extends CreatorPage{
 		let attributesWithNecessary = {},
 			that = this,
 			attributeNames = Object.keys(attributes);		
-		attributeNames.forEach( function (name){
-			let value = attributes[name],
-				isNecessary = that.necessaryAttributes.includes(name),
-				newAttribute = {
-					 value: value,
-					isNecessary: isNecessary,
-				};
-			attributesWithNecessary[name] = newAttribute;
+		attributeNames.forEach( function (name){		
+			attributesWithNecessary[name] = that.createNewAttribute(attributes, name);
 		});
-
 		return attributesWithNecessary;		
+	}
+
+	createNewAttribute(attributes, name){
+		let value = attributes[name],
+			isNecessary = this.necessaryAttributes.includes(name),
+			newAttribute = {
+				 value: value,
+				isNecessary: isNecessary,
+			};
+		return newAttribute;
 	}
 }
