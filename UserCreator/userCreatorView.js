@@ -40,7 +40,6 @@ class UserCreatorView extends CreatorView{
 		event.details = {};
 		event.details.isValid = booleanValue;
 		this.dispatchEvent(event);
-		console.log(type);
 	}
 
 	testEmail(){
