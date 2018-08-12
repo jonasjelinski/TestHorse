@@ -16,7 +16,7 @@ class Creator extends EventTarget{
 		this.model.init();
 	}
 	
-	initEntityCreator(){			
+	initEntityCreator(){		
 		this.entityCreator.addEventListener("onPageChange", this.handlePageChange.bind(this));
 		this.entityCreator.addEventListener("hasEnoughValues", this.handleHasEnoughValues.bind(this));
 		this.entityCreator.init();
@@ -24,7 +24,7 @@ class Creator extends EventTarget{
 
 	//view updaten, damit listener neu geladen werden;
 	handlePageChange(){
-			updateView();		
+			this.updateView();		
 	}
 
 	updateView(){

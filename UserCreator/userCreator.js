@@ -80,7 +80,7 @@ UserCreator = function(){
     } 
  
     function initView(){ 
-      view = new UserCreatorView(VALUE_BOX_ID, INPUT_BOX, FEEDBACK_BOX_ID); 
+      let view = new UserCreatorView(VALUE_BOX_ID, INPUT_BOX, FEEDBACK_BOX_ID); 
       view.init(); 
       view.addEventListener("onValidation", handlePassword); 
       updateView();   

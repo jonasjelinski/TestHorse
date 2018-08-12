@@ -39,7 +39,7 @@ ScriptLoader.Scripts = (function(){
 	"./Creator/creator.js",
 	"./Creator/creatorModel.js",
 	"./Creator/creatorView.js",
-	"./Creator/creatorPageClass.js",
+	"./Creator/creatorPage.js",
 	"./Creator/changer.js",
 	"./TalkingHorse/talkingHorse.js",
 	"./HorseCreator/horseCreatorPageClass.js",

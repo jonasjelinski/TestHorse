@@ -7,8 +7,10 @@ class CreatorView extends EventTarget{
 	} 
 
 	init(){
+		console.log("this inputiD", "addListeners");
 		this.getDomElements();
 		this.addListeners();
+
 	}	
 
 	getDomElements() {
@@ -17,6 +19,7 @@ class CreatorView extends EventTarget{
 	}
 
 	addListeners() {
+		console.log("this inputiD", this.inputId);
 		this.input.addEventListener("input", this.changeValueBox.bind(this));
 	}
 
