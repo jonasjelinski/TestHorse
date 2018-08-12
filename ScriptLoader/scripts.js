@@ -54,6 +54,7 @@ ScriptLoader.Scripts = (function(){
 	"./HorseProfileSaver/horsePorfileSaverModel.js",
 	"./HorsePofileChanger/horseProfileChanger.js",	
 	"./UserCreator/userCreatorPage.js",
+	"./UserCreator/standardUserCreatorPage.js",
 	"./UserCreator/userCreator.js",
 	"./UserCreator/userCreatorDBRequester.js",
 	"./UserCreator/userCreatorModel.js",

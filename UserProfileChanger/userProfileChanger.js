@@ -1,7 +1,8 @@
-class UserProfileChanger extends ChangerPage{
-	constructor(){
-		let creator = new UserCreatorClass(),
-			necessaryAttributes = [];
-		super(creator, necessaryAttributes);	
-	}
+var UserProfileChanger = UserProfileChanger || {};
+
+UserProfileChanger = function(attributes){
+	let necessaryAttributes = [],
+	creator = UserCreatorPage.StandardPage(attributes).userCreator,
+	that = new ChangerPage(creator, necessaryAttributes);
+	return that;
 }

@@ -29,13 +29,7 @@ class UserCreatorClass extends Creator{
           this.view.testEmail(); 
         }               
       }   
-    } 
-
-    handleHasEnoughValues(event){ 
-      let attributes = this.model.getAttributes(); 
-      this.sendAttributes(attributes); 
-    }    
- 
+    }
  
     handlePassword(event){ 
       let isValidInput = event.details.isValid;

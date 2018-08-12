@@ -86,9 +86,10 @@ Pages = function(){
 	function initPageCommunication(){
 		addListenersToLoginPage();
 		addListenersToStartPage();
-		userCreator.addEventListener("onEnoughAttributes", showUserSaver);
+		userCreator.addEventListener("onEnoughAttributes", showUserProfileSaver);
 		userProfilPage.addEventListener("onProfileOkay", showStartPage);
 		addListenersToUserProfileSaver();
+		addListenersToUserProfileChanger();
 		horseCreatorPage.addEventListener("onEnoughAttributes", showHorseProfileSaver);
 		horseCreatorPage.addEventListener("onHorseSaved", showStartPage);
 		addListenersToHorseProfilePage();
@@ -113,9 +114,14 @@ Pages = function(){
 	}
 
 	function addListenersToUserProfileSaver(){
-		userProfileSaver.addEventListener("onChangeUserProfile", showUserCreatorPage);
+		userProfileSaver.addEventListener("onChangeUserProfile", changeUser);
 		userProfileSaver.addEventListener("onSaveUserProfile", showStartPage);
 		userProfileSaver.addEventListener("onDeleteNewUserProfile", showStartPage);
+	}
+
+	function addListenersToUserProfileChanger(){
+		userProfileChanger.addEventListener("onEnoughAttributes", showUserProfileSaver);
+		userProfileChanger.addEventListener("onHorseSaved", showStartPage);
 	}
 
 	function addListenersToHorseProfilePage(){
@@ -188,7 +194,7 @@ Pages = function(){
 		userCreator.init();
 	}
 
-	function showUserSaver(event){
+	function showUserProfileSaver(event){
 		let attributes = event.details.attributes;
 		pageChanger.switchPage("USER_PROFILE_SAVER");
 		userProfileSaver.init(attributes);
@@ -199,7 +205,8 @@ Pages = function(){
 		if(event){
 			attributes = event.details.attributes;
 			pageChanger.switchPage("CREATE_USER");			
-			userProfileChanger.init(attributes);
+			userProfileChanger.init();
+			userProfileChanger.changeEntity(attributes);
 		}		
 	}
 
