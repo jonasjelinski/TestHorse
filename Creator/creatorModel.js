@@ -1,21 +1,11 @@
-var Creator = Creator || {};
-
-Creator.CreatorModel = function(newAttributes){
+var CreatorModel = function(newAttributes){
 
 	let that = new EventTarget(),
-		requester,
 		attributes;
 
 	function init() {
 		attributes = newAttributes;	
-	}
-
-	function sendAttributes() {
-		let event = new Event("onAttributesCreated");
-		event.details = {};
-		event.details.attributes = attributes;
-		that.dispatchEvent(event);
-	}
+	}	
 
 	function getAttributes(){
 		return attributes;	

@@ -22,7 +22,7 @@ Profil = function(pageId, templateId, viewControllConstructor){
 		initViewControll(data);
 	}
 
-	function initViewControll(data){				
+	function initViewControll(data){			
 		viewControll = new viewControllConstructor(pageId, profilViewTemplateString, data);
 		viewControll.init();		
 	}

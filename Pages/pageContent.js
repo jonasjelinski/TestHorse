@@ -34,9 +34,9 @@ Pages.PageContent = function (){
         '</nav>' ,
 
         USER_PROFILE_TEMPLATE = '<script type="text/template" id="userProfileTemplate">'+ 
-  '<div id= "userProfileName"><%= userProfileName %></div> '+ 
-  '<div id= "userProfileMail"><%= userProfileMail %></div> '+ 
-  '<div id= "userProfilePassword"><%= userProfilePassword %></div> '+ 
+  '<div id= "userProfileName"><%= name %></div> '+ 
+  '<div id= "userProfileMail"><%= email %></div> '+ 
+  '<div id= "userProfilePassword"><%= password %></div> '+ 
 '</script> ' 
 '</script> ', 
 
@@ -153,7 +153,7 @@ Pages.PageContent = function (){
     '<div id= "horseInteractionProgress"></div> '+
     ' <content>',
 
-  HORSE_PROFILE_CHANGE =  ' <content>'+ 
+  HORSE_PROFILE_SAVER =  ' <content>'+ 
   '<div id= "horseProfileSaver">' + 
     ' <button id= "horseSaverChange" type="button">Ändern</button> '+ 
     ' <button id= "horseSaverOk" type="button">Speichern</button> '+ 
@@ -173,8 +173,17 @@ Pages.PageContent = function (){
     ' <content>' +
     USER_PROFILE_TEMPLATE,
 
-
-  that.CREATE_USER = CREATE_USER;  
+    USER_PROFILE_SAVER =  ' <content>'+ 
+  '<div id= "userProfileSaver">' + 
+    ' <button id= "userSaverChange" type="button">Ändern</button> '+ 
+    ' <button id= "userSaverOk" type="button">Speichern</button> '+ 
+    ' <button id= "userSaverDelete" type="button">Verwerfen</button> '+ 
+    '<div id= "textBox">textBox</div> '+ 
+    POPUP +
+  '</div>'+ 
+  '</content>'+             
+    USER_PROFILE_TEMPLATE ,    
+  
   that.LOGIN_PAGE = LOGIN_PAGE;
   that.START_PAGE = START_PAGE; 
   that.USER_PAGE = USER_PAGE;
@@ -182,7 +191,9 @@ Pages.PageContent = function (){
   that.REGULAR_DATES_PAGE = REGULAR_DATES_PAGE; 
   that.HORSE_PROFIL = HORSE_PROFIL;
   that.CREATE_HORSEBOX = CREATE_HORSEBOX;
-  that.HORSE_PROFILE_CHANGE = HORSE_PROFILE_CHANGE;
+  that.HORSE_PROFILE_SAVER = HORSE_PROFILE_SAVER;
+  that.CREATE_USER = CREATE_USER;  
+  that.USER_PROFILE_SAVER = USER_PROFILE_SAVER;
   return that; 
 };
  

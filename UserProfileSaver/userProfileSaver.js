@@ -1,11 +1,11 @@
-var HorseProfileSaver = HorseProfileSaver || {};
+var UserProfileSaver = UserProfileSaver || {};
 
-HorseProfileSaver = function(data){
+UserProfileSaver = function(data){
 	"user strict";
 	const 
 	HORSE_ID = ""
-	PAGE_ID = "horseProfileSaver",
-	TEMPLATE_ID = "horseProfileTemplate";
+	USER_PAGE_ID = "userProfileSaver",
+	USER_TEMPLATE_ID = "userProfileTemplate";
 
 	let that = new EventTarget(),
 		profil = {},
@@ -19,8 +19,7 @@ HorseProfileSaver = function(data){
 	}
 
 	function initPofil(){
-		console.log("initHorseSaver");
-		profil = new Profil(PAGE_ID, TEMPLATE_ID, HorseProfileSaver.ViewControll);
+		profil =  new Profil(USER_PAGE_ID, USER_TEMPLATE_ID, UserProfileSaver.ViewControll);
 		profil.init(attributes);		
 	}
 
@@ -36,7 +35,7 @@ HorseProfileSaver = function(data){
 	}
 
 	function handleChangeProfile(){
-		sendEvent("onChangeHorseProfile", attributes);
+		sendEvent("onChangeUserProfile", attributes);
 	}
 
 	function sendEvent(type, attributes){
@@ -48,11 +47,11 @@ HorseProfileSaver = function(data){
 
 	function handleOkayProfile(){
 		//model.saveHorseIntoDB();
-		sendEvent("onSaveHorseProfile");
+		sendEvent("onSaveUserProfile");
 	}
 
 	function handleDeleteProfile(){
-		sendEvent("onDeleteNewHorseProfile", "");
+		sendEvent("onDeleteNewUserProfile", "");
 	}
 
 	that.init = init;

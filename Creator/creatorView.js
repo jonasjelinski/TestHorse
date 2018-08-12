@@ -9,8 +9,7 @@ class CreatorView extends EventTarget{
 	init(){
 		this.getDomElements();
 		this.addListeners();
-	}
-	
+	}	
 
 	getDomElements() {
 		this.valueBox = document.getElementById(this.valueBoxId);

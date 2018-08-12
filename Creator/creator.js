@@ -1,91 +1,60 @@
-class Creator = function(innerPageId, forwardButtonId, backwardButtonId, textBoxId, numberOfPages, valueBoxId, feedbackBoxId, inputBoxId){
+class Creator extends EventTarget{
 	constructor(entityCreator, creatorModel, view){
-
+		super();
+		this.entityCreator = entityCreator;
+		this.model = creatorModel;
+		this.view = view;	
 	}
-	const INNER_PAGE_ID = "horseInteractionInnerPage",
-		FORWARD_BUTTON_ID = "horseInteractionForward",
-		BACKWARDS_BUTTON_ID = "horseInteractionBack",
-		TEXT_BOX_ID = "horseInteractionProgress",
-		NUM_OF_PAGES = 8,
-		VALUE_BOX_ID = "horseInteractionValueBox",
-		FEEDBACK_BOX_ID = "horseInteractionFeedback",
-		INPUT_BOX = "horseInteractionInput"; 
+	
+	init(){				
+		this.initModel();
+		this.initEntityCreator();
+		this.initView();			
+	}
 
-	let that = new EventTarget(),
-		pages,
-		entityCreator,
-		view,
-		model,
-		newAttributes;
+	initModel(){			
+		this.model.init();
+	}
+	
+	initEntityCreator(){			
+		this.entityCreator.addEventListener("onPageChange", this.handlePageChange.bind(this));
+		this.entityCreator.addEventListener("hasEnoughValues", this.handleHasEnoughValues.bind(this));
+		this.entityCreator.init();
+	}
 
-		function init(attributes){
-			newAttributes = attributes;
-			initPages();
-			initModel();			
-		}
+	//view updaten, damit listener neu geladen werden;
+	handlePageChange(){
+			updateView();		
+	}
 
-		function initPages(){
-			pages = new  HorseCreator.HorseCreatorSliderPages();
-		}
+	updateView(){
+		let attribute,
+			value;
+		if(this.view){
+			this.view.update();
+			attribute = this.view.getCurrentAttribute();
+			value = this.model.getValueOfAttribute(attribute);
+			if(value){
+				this.view.setInputValue(value);
+				this.view.setValueBox(value);
+			}
+		}	
+	}
 
+	handleHasEnoughValues(event){
+		let attributes = this.model.getAttributes();
+		this.sendAttributes(attributes);
+	}
 
-		function initModel(){
-			model = new HorseCreator.HorseCreatorModel(newAttributes);			
-			model.addEventListener("onAttributesCreated", initCreatorWithNewAttributes);
-			model.init();
-		}
+	initView(){
+		this.view.init();
+		this.updateView();	
+	}
 
-		function initCreatorWithNewAttributes(event) {
-			let attributes = event.details.attributes;
-			initEntityCreator(attributes);
-			initView();
-		}
-
-		function initEntityCreator(attributes){
-			entityCreator = new EntityCreator(innerPageId, forwardButtonId, backwardButtonId, 
-								textBoxId, numberOfPages, attributes, pages, pages, feedbackBoxId);
-			entityCreator.addEventListener("onPageChange", handlePageChange);
-			entityCreator.addEventListener("hasEnoughValues", handleHasEnoughValues);
-			entityCreator.init();
-		}
-
-		//view updaten, damit listener neu geladen werden;
-		function handlePageChange(){
-				updateView();		
-		}
-
-		function updateView(){
-			let attribute,
-				value;
-			if(view){
-				view.update();
-				attribute = view.getCurrentAttribute();
-				value = model.getValueOfAttribute(attribute);
-				if(value){
-					view.setInputValue(value);
-					view.setValueBox(value);
-				}
-			}	
-		}
-
-		function handleHasEnoughValues(event){
-			let attributes = model.getAttributes();
-			sendAttributes(attributes);
-		}
-
-		function initView(){
-			view = new HorseCreator.HorseCreatorView(valueBoxId, inputBoxId);
-			view.init();
-			updateView();	
-		}
-
-		function sendAttributes(attributes){
-			let event = new Event("onEnoughAttributes");
-			event.details = {};
-			event.details.attributes = attributes;
-			that.dispatchEvent(event);
-		}
-
-		that.init = init;
-		return that;
+	sendAttributes(attributes){
+		let event = new Event("onEnoughAttributes");
+		event.details = {};
+		event.details.attributes = attributes;
+		this.dispatchEvent(event);
+	}
 }

@@ -29,7 +29,9 @@ HorseCreatorPage = function(){
 				},
 			};
 
-	let that = new CreatorPage(ATTRIBUTES);
+	let horseCreator = new HorseCreator(),
+		dbRequester = new HorseCreator.HorseCreatorDBRequester(),
+		that = new HorseCreatorPageClass(ATTRIBUTES, horseCreator, dbRequester);
 
 	return that;
 }

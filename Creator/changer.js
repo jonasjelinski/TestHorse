@@ -1,9 +1,8 @@
-class HorseProfileChanger extends CreatorPage{
-	constructor(){
-		let attributes = undefined,
-			creator = new HorseCreator(),
-			dbRequester = new HorseCreator.HorseCreatorDBRequester()		
-		super(attributes, creator, dbRequester);		
+class ChangerPage extends CreatorPage{
+	constructor(creator, necessaryAttributes){
+		let attributes = undefined;		
+		super(attributes, creator);
+		this.necessaryAttributes = necessaryAttributes;		
 	}	
 
 	init(newAttributes){
@@ -14,12 +13,14 @@ class HorseProfileChanger extends CreatorPage{
 
 	addIsNecessaryToAttributes(attributes){
 		let attributesWithNecessary = {},
+			that = this,
 			attributeNames = Object.keys(attributes);		
 		attributeNames.forEach( function (name){
 			let value = attributes[name],
+				isNecessary = that.necessaryAttributes.includes(name);
 				newAttribute = {
 					 value: value,
-					isNecessary: false,
+					isNecessary: isNecessary,
 				};
 			attributesWithNecessary[name] = newAttribute;
 		});

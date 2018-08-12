@@ -1,13 +1,13 @@
 class CreatorPage extends EventTarget{
-	constructor(attributes){
+	constructor(attributes, creator){
 		super();
-		this.attributes = attributes;	
+		this.attributes = attributes;
+		this.creator = creator;		
 	}	
 
 	init(){		
-		this.horseCreator = new HorseCreator();
-		this.horseCreator.init(this.attributes);
-		this.horseCreator.addEventListener("onEnoughAttributes", this.changeAttributesAndSendThem.bind(this));
+		this.creator.init();
+		this.creator.addEventListener("onEnoughAttributes", this.changeAttributesAndSendThem.bind(this));
 	}
 
 	changeAttributesAndSendThem(event){
@@ -33,14 +33,8 @@ class CreatorPage extends EventTarget{
 		this.dispatchEvent(event);
 	}
 
-	saveHorse(){
-		this.dbRequester = new HorseCreator.HorseCreatorDBRequester();
-		dbRequester.init(attributesWithoutIsNecessary);
-		this.sendEvent("onHorseSaved");		
-	}
-
 	startCreationFromStart(){
-		this.horseCreator.init(this.attributes);
+		this.creator.init(this.attributes);
 	}	
 
 	sendEvent(type){
@@ -48,7 +42,7 @@ class CreatorPage extends EventTarget{
 		this.dispatchEvent(event);
 	}
 	
-	changeHorse(newAttributes){
+	changeEntity(newAttributes){
 		this.attributes = newAttributes;
 		this.startCreationFromStart();
 	}
