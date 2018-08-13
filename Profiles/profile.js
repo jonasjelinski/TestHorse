@@ -7,14 +7,14 @@ Profil = function(pageId, templateId, viewControllConstructor){
 
 	let that = new EventTarget(),
 		profilViewTemplateString,
-		profileViewData,
+		attributes,
 		viewControll,
 		popup;
 
 	function init(profileData){
 		profilViewTemplateString = document.getElementById(templateId).innerHTML;
-		profileViewData = profileData;	
-		initViewControll(profileViewData);		
+		attributes = profileData;	
+		initViewControll(attributes);		
 		popup = Popup(POPUP_MESSAGE);
 		popup.init();
 		addEventListeners();				
@@ -42,11 +42,15 @@ Profil = function(pageId, templateId, viewControllConstructor){
 	}
 		
 	function handleChange(){
-		sendShowSide("onChangeProfile");
+		sendShowSide("onChangeProfile", attributes);
 	}
 
-	function sendShowSide(type){
+	function sendShowSide(type, data){
 		let event = new Event(type);
+		if(data){
+			event.details = {};
+			event.details.attributes = data; 
+		}
 		that.dispatchEvent(event);
 	}	
 

@@ -87,7 +87,7 @@ Pages = function(){
 		addListenersToLoginPage();
 		addListenersToStartPage();
 		userCreator.addEventListener("onEnoughAttributes", showUserProfileSaver);
-		userProfilPage.addEventListener("onProfileOkay", showStartPage);
+		addListenersToUserProfilePage();
 		addListenersToUserProfileSaver();
 		addListenersToUserProfileChanger();
 		horseCreatorPage.addEventListener("onEnoughAttributes", showHorseProfileSaver);
@@ -111,6 +111,12 @@ Pages = function(){
 		startPage.addEventListener("showHorseDates", showAllDates);
 		startPage.addEventListener("showHorseProfile", showHorseProfilePage);
 		startPage.addEventListener("createNewHorse", showHorseCreatorPage);
+	}
+
+	function addListenersToUserProfilePage(){
+		userProfilPage.addEventListener("onProfileOkay", showStartPage);
+		userProfilPage.addEventListener("onChangeProfile", changeUser);
+		userProfilPage.addEventListener("onDeleteProfile", showStartPage);
 	}
 
 	function addListenersToUserProfileSaver(){

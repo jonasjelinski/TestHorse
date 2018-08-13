@@ -34,9 +34,9 @@ Pages.PageContent = function (){
         '</nav>' ,
 
         USER_PROFILE_TEMPLATE = '<script type="text/template" id="userProfileTemplate">'+ 
-  '<div id= "userProfileName"><%= name %></div> '+ 
-  '<div id= "userProfileMail"><%= email %></div> '+ 
-  '<div id= "userProfilePassword"><%= password %></div> '+ 
+  '<div id= "userProfileName">Name <%= name %></div> '+ 
+  '<div id= "userProfileMail">Email <%= email %></div> '+ 
+  '<div id= "userProfilePassword">Password <%= password %></div> '+ 
 '</script> ' 
 '</script> ', 
 
