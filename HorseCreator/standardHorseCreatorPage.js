@@ -16,7 +16,7 @@ const INNER_PAGE_ID = "horseInteractionInnerPage",
 		pages = new  HorseCreator.SliderPages(),	  
 		entityCreator = new EntityCreator(INNER_PAGE_ID, FORWARD_BUTTON_ID, BACKWARDS_BUTTON_ID, TEXT_BOX_ID, NUM_OF_PAGES, attributes, pages, VALUE_BOX_ID, FEEDBACK_BOX_ID),   
 		horseCreator = new Creator(entityCreator, model, view),
-		that = new CreatorPage(attributes, horseCreator);
+		that = new CreatorPage(horseCreator);
 
 	that.horseCreator = horseCreator;	
 	return that;

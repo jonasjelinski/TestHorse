@@ -14,9 +14,14 @@ EntityCreator = function(innerPageId, forwardButtonId, backwardsButtonId, textBo
 		initPageCreator();
 		initSlideShow();
 		initModel();
-		showFirstPage();
 		initView();
-		getCurrentDataFromViewAndSendThem();
+		checkIfThereAreAlreadyValuesForTheNewPageAndSendThem();
+	}
+
+	function setAttributes(newAttributes){
+		if(newAttributes){
+			attributes = newAttributes;
+		}		
 	}
 
 	function initPageCreator(){
@@ -118,33 +123,25 @@ EntityCreator = function(innerPageId, forwardButtonId, backwardsButtonId, textBo
 		view.init();		
 	}
 
-	function showFirstPage() {
-		let pageNumber = 1;
-		model.setPage(pageNumber);
-	}
-
 	function setPageCanChange(booleanValue){
 		if(slideshow){
 			slideshow.setPageCanChange(booleanValue);
 		}		
-	}
+	}	
 
-	function setAttributes(newAttributes){
-		if(newAttributes){
-			attributes = newAttributes;
+	function updateModel(newAttributes){
+		if(model){
+			model.updateModel(newAttributes);
 		}		
 	}
 
-	function updateModel(attributes){
-		if(model){
-			model.updateModel(attributes);
-		}
-		
+	function overrideConstructorAttributes(newAttributes){
+		attr = newAttributes;
 	}
 	
 	that.init = init;
-	that.showFirstPage = showFirstPage;
 	that.setPageCanChange = setPageCanChange;
 	that.updateModel = updateModel;
+	that.overrideConstructorAttributes = overrideConstructorAttributes;
 	return that;
 }

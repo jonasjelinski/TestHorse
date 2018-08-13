@@ -1,11 +1,6 @@
-class Changer{
+class AttributesConverter{
 	constructor(necessaryAttributes){
 		this.necessaryAttributes = necessaryAttributes;		
-	}
-
-	changeAttributes(newAttributes){
-		this.attributes = this.addIsNecessaryToAttributes(newAttributes);
-		return this.attributes;
 	}
 
 	addIsNecessaryToAttributes(attributes){

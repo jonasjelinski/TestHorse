@@ -37,7 +37,7 @@ ScriptLoader.Scripts = (function(){
 	"./EntityCreator/entityCreator.js",
 	"./EntityCreator/entityCreatorModel.js",
 	"./EntityCreator/entityCreatorView.js",
-	"./Creator/changer.js",
+	"./Creator/attributesConverter.js",
 	"./Creator/creator.js",
 	"./Creator/creatorModel.js",
 	"./Creator/creatorView.js",

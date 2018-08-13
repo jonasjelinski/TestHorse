@@ -1,10 +1,9 @@
 class CreatorPage extends EventTarget{
-	constructor(attributes, creator){
+	constructor(creator){
 		super();
-		this.attributes = attributes;
 		this.creator = creator;
 		this.neccessaryAttributes = [];
-		this.changer = new Changer(this.neccessaryAttributes);	
+		this.changer = new AttributesConverter(this.neccessaryAttributes);	
 	}	
 
 	init(){		
@@ -17,9 +16,9 @@ class CreatorPage extends EventTarget{
 	}
 
 	changeAttributesAndSendThem(event){
-		let attributesWithoutIsNecessary;
-		this.attributes = event.details.attributes;
-		attributesWithoutIsNecessary = this.changer.removeIsNecessaryFromAttributes(this.attributes);			
+		let attributesWithoutIsNecessary,
+			attributes = event.details.attributes;
+		attributesWithoutIsNecessary = this.changer.removeIsNecessaryFromAttributes(attributes);			
 		this.sendAttributes(attributesWithoutIsNecessary);
 	}
 

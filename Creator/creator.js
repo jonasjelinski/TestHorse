@@ -27,7 +27,7 @@ class Creator extends EventTarget{
 			let attributeAndValue = this.getAttributeAndValueFromEvent(event),
 			attribute = attributeAndValue[0],
 			value = attributeAndValue[1];			
-		this.updateModel(value);			
+		this.updateModel(attribute, value);			
 	}
 
 	handlePageChangeAndOldValues(event){
@@ -66,7 +66,7 @@ class Creator extends EventTarget{
 	}
 
 	updateModel(attribute, value){
-		//this.model.setAttributeValue(attribute, value);
+		this.model.setAttributeValue(attribute, value);
 	}
 
 	handleHasEnoughValues(event){
@@ -93,10 +93,14 @@ class Creator extends EventTarget{
       this.entityCreator.setPageCanChange(true); 
     }
 
+    resetCreator(attributes){
+    	this.entityCreator.overrideConstructorAttributes(attributes);
+    	this.updateCreator(attributes);
+    }
+
     updateCreator(attributes){
     	this.updateEntityCreator(attributes);
     	this.updateModelAttributes(attributes);
-    	this.updateView();
     }
 
     updateEntityCreator(attributes) {
@@ -104,6 +108,11 @@ class Creator extends EventTarget{
     }
 
     updateModelAttributes(attributes){
-    	//this.model.setAttributes(attributes);
-    } 
+    	this.model.setAttributes(attributes);
+    }
+
+    changeEntity(newAttributes){		
+		this.attributes = this.changer.changeAttributes(newAttributes);
+		this.updateCreator(this.attributes);
+	} 
 }

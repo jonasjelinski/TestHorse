@@ -2,12 +2,17 @@ class ChangerPage extends CreatorPage{
 	constructor(creator, necessaryAttributes){
 		let attributes = undefined;				
 		super(attributes, creator);
-		this.changer = new Changer(necessaryAttributes);		
+		this.creator = creator;
+		this.changer = new AttributesConverter(necessaryAttributes);		
 	}
 
-	changeEntity(newAttributes){
-		
-		this.attributes = this.changer.changeAttributes(newAttributes);
-		this.updateCreator(this.attributes);
+	init(newAttributes){
+		this.changeEntity(newAttributes);
+		super.init();
+	}
+
+	changeEntity(newAttributes){		
+		this.attributes = this.changer.addIsNecessaryToAttributes(newAttributes);
+		this.creator.resetCreator(this.attributes);
 	}
 }
