@@ -69,6 +69,6 @@ Slideshow.SlideshowModel = function(numberOfPages){
 	that.init = init;
 	that.setNextPage = setNextPage;
 	that.setPreviousPage = setPreviousPage;
-	that. setPageCanChange = setPageCanChange;
+	that.setPageCanChange = setPageCanChange;
 	return that;
 }

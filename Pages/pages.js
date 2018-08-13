@@ -205,8 +205,7 @@ Pages = function(){
 		if(event){
 			attributes = event.details.attributes;
 			pageChanger.switchPage("CREATE_USER");			
-			userProfileChanger.init();
-			userProfileChanger.changeEntity(attributes);
+			userProfileChanger.init(attributes);
 		}		
 	}
 

@@ -9,65 +9,64 @@ class UserCreatorView extends CreatorView{
 		super.init();
 	}
 
-	testPasswords(secondPasswordInputId){
+	addPWListener(secondPasswordInputId){
 		this.secondPWInput = document.getElementById(secondPasswordInputId);
+		this.input.addEventListener("input", this.handlePWInput.bind(this));
 		this.secondPWInput.addEventListener("input", this.handlePWInput.bind(this));				
 	}
+
+	addEmailListener() {
+		this.input.addEventListener("input", this.validateEmailInput.bind(this));
+		this.testEmailIfThereIsAnOldInput();
+	}
+
+	testEmailIfThereIsAnOldInput(){
+		if(this.inputHasAllreadyAValue()){
+			this.validateEmailInput();
+		}
+	}
+
+	inputHasAllreadyAValue(){
+		let value = this.input.value;
+		if(value){
+			return true;
+		}
+		else false;
+	}
+
+
+	validateEmailInput(){
+		let email = this.input.value;
+		this.sendEmail(email);
+	}
+
+	sendEmail(email){
+		let data = {email: email};
+		this.sendEvent("onEmailInput", data);
+	}	
 
 	handlePWInput(){
 		let secondPassword = this.secondPWInput.value,
 			firstPassword = this.input.value;
-		if(secondPassword!==firstPassword){
-			this.giveNegativePWFeedback();
-			this.sendEvent("onValidation", false);
-		}
-		else{
-			this.givePositivePWFeedback();
-			this.sendEvent("onValidation", true);
-		}		
+		this.sendPasswords(firstPassword, secondPassword);
 	}
 
-	giveNegativePWFeedback(){	
-		this.feedBackBox.innerHTML = "Passwörter stimme nicht überein";
+	sendPasswords(firstPassword, secondPassword){
+		let data = {
+			firstPassword: firstPassword,
+			secondPassword: secondPassword,
+		};
+		this.sendEvent("onPasswordInput", data);
 	}
 
-	givePositivePWFeedback(){	
-		this.feedBackBox.innerHTML = "Passwörter stimmen überein";
+	setFeedback(text){
+		this.feedBackBox.innerHTML = text;
 	}
 
-	sendEvent(type, booleanValue){
+	sendEvent(type, data){
 		let event = new Event(type);
 		event.details = {};
-		event.details.isValid = booleanValue;
+		event.details.data = data;
 		this.dispatchEvent(event);
-	}
-
-	testEmail(){
-		this.input.addEventListener("input", this.handleEmailInput.bind(this));
-	}
-
-	handleEmailInput(){
-		let email = this.input.value;
-		if(this.emailIsCorrect(email)){
-			this.sendEvent("onValidation", true);
-			this.givePositiveEmailFeedback();
-		}
-		else{
-			this.sendEvent("onValidation", false);
-			this.giveNegativeEmailFeedback();
-		}
-	}
-
-	emailIsCorrect(email) {
-		var regex = /\S+@\S+\.\S+/;
-    	return regex.test(email);
-	}
-
-	givePositiveEmailFeedback(){
-		this.feedBackBox.innerHTML = "Email ist okay";
-	}
-
-	giveNegativeEmailFeedback(){
-		this.feedBackBox.innerHTML = "Emailaddresse muss valide sein";
 	}
 }

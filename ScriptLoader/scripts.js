@@ -56,6 +56,7 @@ ScriptLoader.Scripts = (function(){
 	"./UserCreator/userCreatorPage.js",
 	"./UserCreator/standardUserCreatorPage.js",
 	"./UserCreator/userCreator.js",
+	"./UserCreator/userCreatorInputValidator.js",
 	"./UserCreator/userCreatorDBRequester.js",
 	"./UserCreator/userCreatorModel.js",
 	"./UserCreator/userCreatorSliderPages.js",

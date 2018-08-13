@@ -17,7 +17,7 @@ UserCreatorPage.StandardPage = function(attributes){
 		pages = new  UserCreator.SliderPages(),	  
 		entityCreator = new EntityCreator(INNER_PAGE_ID, FORWARD_BUTTON_ID, BACKWARDS_BUTTON_ID, TEXT_BOX_ID, NUM_OF_PAGES, attributes, pages, VALUE_BOX_ID, FEEDBACK_BOX_ID),   
 		userCreator = new UserCreatorClass(entityCreator, model, view),
-		that = new CreatorPage(attributes, userCreator);
+		that = new CreatorPage(userCreator);
 
 
 	that.userCreator = userCreator;	

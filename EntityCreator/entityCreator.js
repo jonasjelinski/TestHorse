@@ -55,8 +55,12 @@ EntityCreator = function(innerPageId, forwardButtonId, backwardsButtonId, textBo
 	}
 
 	function getCurrentDataFromViewAndSendThem(){
-		let valueData = view.getValue();
-		sendCurrentData(valueData);		
+		let valueData = view.getValue(),
+			data = {
+					attribute : valueData.property,
+					value : valueData.value,
+				};	
+		sendCurrentData(data);		
 	}
 
 	function sendCurrentData(data){

@@ -8,12 +8,15 @@ UserCreator.InputValidator = function(){
 	function validatePW(pw1, pw2){
 		if(!pw2 || !pw1){
 			sendEvent("onOnePWFieldIsEmpty");
+			return;
 		}
 		if(pw1 !== pw2){
 			sendEvent("onPaswordsNotEqual");
+			return;
 		}
 		if(pw1.length < MIN_PW_LENGTH){
 			sendEvent("onPaswordsTooShort");
+			return;
 		}
 		else{
 			sendEvent("onPaswordValid");
@@ -38,4 +41,7 @@ UserCreator.InputValidator = function(){
 		var regex = /\S+@\S+\.\S+/;
     	return regex.test(email);
 	}
+	that.validatePW = validatePW;
+	that.validateEmail = validateEmail;
+	return that;
 }

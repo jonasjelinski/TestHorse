@@ -14,5 +14,21 @@ UserCreator.UserCreatorModel = function(newAttributes){
 			};
 
 	let that = CreatorModel(ATTRIBUTES);
+
+	function validateInput(attribute){
+		switch(attribute){
+			case "email": validateEmailInput();
+			break;
+			case "password": validatePassword(); 
+		}
+	}
+
+	function validateEmailInput(){
+
+	}
+
+	function validatePassword(){
+		
+	}
 	return that;
 };

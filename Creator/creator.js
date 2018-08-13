@@ -41,9 +41,10 @@ class Creator extends EventTarget{
 		data,
 		attribute,
 		value;
+
 		if(details){
 			data = details.data,
-			attribute = data.property,
+			attribute = data.attribute,
 			value = data.value;
 		}
 		return [attribute, value];

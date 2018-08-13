@@ -49,8 +49,13 @@ Slideshow = function(forwardButtonId, backwardsButtonId, progressBoxId, numberOf
 		slideShowPageChanger.setPage(pageNumber);
 	}
 
+	function setPageCanChange(booleanValue){
+		slideShowProgress.setPageCanChange(booleanValue);
+	}
+
 	that.init = init;
 	that.setPage = setPage;
 	that.showFirstPage = showFirstPage;
+	that.setPageCanChange = setPageCanChange;
 	return that;
 }
