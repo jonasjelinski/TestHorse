@@ -75,12 +75,15 @@ EntityCreator = function(innerPageId, forwardButtonId, backwardsButtonId, textBo
 	function checkIfThereAreAlreadyValuesForTheNewPageAndSendThem(){
 		let valueData = view.getValue(),
 			attributeName = valueData.property,
-			oldValues = model.getAttribute(attributeName).value,
-			data = {
-				attribute : attributeName,
-				value : oldValues,
-			};			
-			sendEvent("onOldValuesOfNewPageLoaded", data);
+			oldAttribute = model.getAttribute(attributeName);
+			if(oldAttribute){
+				let oldValues = oldAttribute.value;			
+				data = {
+					attribute : attributeName,
+					value : oldValues,
+				};			
+				sendEvent("onOldValuesOfNewPageLoaded", data);
+			}
 	}
 
 	function handleSlideShowIsOver(){
