@@ -4,15 +4,26 @@
 	}
 	
 	setAttribute(key, value){
-		let attribute = this.attributes[key];
-		if(attribute){
-			attribute.value = value;
-			this.attributes[key] = attribute;
+		if(this.attributes){
+			let attribute = this.attributes[key];
+			if(attribute){
+				attribute.value = value;
+				this.attributes[key] = attribute;
+			}
 		}		
 	}
 
 	getAttribute(key){
 		return this.attributes[key];
+	}
+
+	getAttributeValue(key){
+		let value,
+			attribute = this.attributes[key];
+		if(attribute){
+			value = attribute.value;
+		}
+		return value;
 	}
 	
 	getAllAttributes(){
@@ -36,7 +47,7 @@
 				if(attribute.value === undefined || attribute.value === ""){
 					isUndefined =  true;
 				}
-			}			
+			 	}			
 		});
 		return isUndefined;
 	}

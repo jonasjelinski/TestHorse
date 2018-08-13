@@ -2,6 +2,9 @@ var Profil = Profil || {};
 
 Profil = function(pageId, templateId, viewControllConstructor){
 	"use strict";
+
+	const POPUP_MESSAGE = "Wirklich löschen?";
+
 	let that = new EventTarget(),
 		profilViewTemplateString,
 		profileViewData,
@@ -12,7 +15,7 @@ Profil = function(pageId, templateId, viewControllConstructor){
 		profilViewTemplateString = document.getElementById(templateId).innerHTML;
 		profileViewData = profileData;	
 		initViewControll(profileViewData);		
-		popup = Popup("Wirklich löschen?");
+		popup = Popup(POPUP_MESSAGE);
 		popup.init();
 		addEventListeners();				
 	}
@@ -22,7 +25,7 @@ Profil = function(pageId, templateId, viewControllConstructor){
 		initViewControll(data);
 	}
 
-	function initViewControll(data){			
+	function initViewControll(data){		
 		viewControll = new viewControllConstructor(pageId, profilViewTemplateString, data);
 		viewControll.init();		
 	}

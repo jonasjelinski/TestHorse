@@ -1,13 +1,13 @@
 var Profil = Profil || {};
 
-Profil.ProfilControllTypes = function(changeButtonId, okayButtonId, delteButtonId, secondEventType){
+Profil.ProfilControllChangeAndDelete = function(changeButtonId, okayButtonId, delteButtonId, secondEventType){
 	let that = new EventTarget(),
 		profileControll,	
 		changeEventType = "onChange",
 		deleteEventType = "onDelete";
 
 	function init(){
-		profileControll = Profil.ProfileControll(changeButtonId, okayButtonId, delteButtonId, changeEventType, secondEventType, deleteEventType);
+		profileControll = Profil.GeneralProfileControll(changeButtonId, okayButtonId, delteButtonId, changeEventType, secondEventType, deleteEventType);
 		profileControll.init();
 		addEventListeners();	
 	}

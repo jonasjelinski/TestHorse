@@ -1,6 +1,6 @@
 var EntityCreator = EntityCreator || {};
 
-EntityCreator.EntityCreatorModel = function(pages, attr){
+EntityCreator.EntityCreatorModel = function(attr){
 	let that = new EventTarget(),
 		pageNumber,
 		entity,
@@ -17,13 +17,6 @@ EntityCreator.EntityCreatorModel = function(pages, attr){
 
 	function setPage(pageNum){
 		pageNumber = pageNum;
-		sendPage();
-	}
-
-	function sendPage(){
-		let pageHTMLString = pages[pageNumber-1],
-			data = {page: pageHTMLString};
-		sendEvent("onPageChange", data);
 	}
 
 	function sendEvent(type, data){
@@ -53,14 +46,20 @@ EntityCreator.EntityCreatorModel = function(pages, attr){
 
 	function updateModel(attributes){
 		setAttributes(attributes);
-		createNewEntity();		
+		createNewEntity();	
 	}
 
+	function getAttribute(attributeName){
+		return entity.getAttribute(attributeName);
+	}
+
+	
 	that.init = init;
 	that.checkIfEntityHasEnoughValues = checkIfEntityHasEnoughValues;
 	that.updateAttributeValue = updateAttributeValue;
 	that.setPage = setPage;
 	that.updateModel = updateModel;
+	that.getAttribute = getAttribute;
 	return that;
 
 }

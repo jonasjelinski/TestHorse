@@ -8,12 +8,7 @@ EntityCreator.EntityCreatorView = function(valueBoxId, feedBackBoxId){
 	function init(){
 		valueBox = document.getElementById(valueBoxId);
 		feedBackBox = document.getElementById(feedBackBoxId);
-	}
-
-	function updateView(){
-		valueBox = document.getElementById(valueBoxId);
-		feedBackBox = document.getElementById(feedBackBoxId);
-	}
+	}	
 
 	function getValue(){
 		let property = valueBox.getAttribute("property"),
@@ -37,7 +32,6 @@ EntityCreator.EntityCreatorView = function(valueBoxId, feedBackBoxId){
 
 	that.init = init;
 	that.getValue = getValue;
-	that.updateView = updateView;
 	that.showHasNotEnoughValues = showHasNotEnoughValues;
 	that.hideHasNotEnoughValues = hideHasNotEnoughValues;
 	return that;

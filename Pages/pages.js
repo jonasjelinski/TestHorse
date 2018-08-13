@@ -185,7 +185,7 @@ Pages = function(){
 	*/ 
 	function showUserProfilPage(){
 		pageChanger.switchPage("USER_PROFILE");
-		userProfilPage.init();
+		userProfilPage.initPage();
 	}
 
 
@@ -248,7 +248,7 @@ Pages = function(){
 		if(event){
 			attributes = event.details.attributes;
 			pageChanger.switchPage("CREATE_HORSEBOX");		
-			horseProfileChanger.init();
+			horseProfileChanger.init(attributes);
 			horseProfileChanger.changeEntity(attributes);
 		}		
 	}

@@ -3,7 +3,7 @@ class Creator extends EventTarget{
 		super();
 		this.entityCreator = entityCreator;
 		this.model = creatorModel;
-		this.view = view;	
+		this.view = view;
 	}
 	
 	init(){			
@@ -12,33 +12,61 @@ class Creator extends EventTarget{
 		this.initView();			
 	}
 
-	initModel(){			
+	initModel(){		
 		this.model.init();
 	}
 	
 	initEntityCreator(){		
-		this.entityCreator.addEventListener("onPageChange", this.handlePageChange.bind(this));
+		this.entityCreator.addEventListener("onCurrentData", this.handleCurrentData.bind(this));
+		this.entityCreator.addEventListener("onOldValuesOfNewPageLoaded", this.handlePageChangeAndOldValues.bind(this));
 		this.entityCreator.addEventListener("hasEnoughValues", this.handleHasEnoughValues.bind(this));
 		this.entityCreator.init();
 	}
 
-	//view updaten, damit listener neu geladen werden;
-	handlePageChange(){
-			this.updateView();		
+	handleCurrentData(event){
+			let attributeAndValue = this.getAttributeAndValueFromEvent(event),
+			attribute = attributeAndValue[0],
+			value = attributeAndValue[1];			
+		this.updateModel(value);			
 	}
 
-	updateView(){
-		let attribute,
-			value;
-		if(this.view){
-			this.view.update();
-			attribute = this.view.getCurrentAttribute();
-			value = this.model.getValueOfAttribute(attribute);
-			if(value){
-				this.view.setInputValue(value);
-				this.view.setValueBox(value);
-			}
-		}	
+	handlePageChangeAndOldValues(event){
+		let attributeAndValue = this.getAttributeAndValueFromEvent(event),
+			value = attributeAndValue[1];			
+		this.updateView(value);			
+	}
+
+	getAttributeAndValueFromEvent(event){
+		let details = event.details,
+		data,
+		attribute,
+		value;
+		if(details){
+			data = details.data,
+			attribute = data.property,
+			value = data.value;
+		}
+		return [attribute, value];
+	}
+
+	updateView(value){
+		this.reloadViewAfterPageChange();
+		this.fillViewInputWithValuesOfPreviousInputIfThereHasBeenOne(value);
+	}
+
+	reloadViewAfterPageChange() {
+		this.view.init();
+	}
+
+	fillViewInputWithValuesOfPreviousInputIfThereHasBeenOne(value){
+		if(value){
+			this.view.setInputValue(value);
+			this.view.setValueBox(value);
+		}		
+	}
+
+	updateModel(attribute, value){
+		//this.model.setAttributeValue(attribute, value);
 	}
 
 	handleHasEnoughValues(event){
@@ -48,7 +76,6 @@ class Creator extends EventTarget{
 
 	initView(){
 		this.view.init();
-		this.updateView();	
 	}
 
 	sendAttributes(attributes){
@@ -66,7 +93,7 @@ class Creator extends EventTarget{
       this.entityCreator.setPageCanChange(true); 
     }
 
-    upateCreator(attributes){
+    updateCreator(attributes){
     	this.updateEntityCreator(attributes);
     	this.updateModelAttributes(attributes);
     	this.updateView();
@@ -77,6 +104,6 @@ class Creator extends EventTarget{
     }
 
     updateModelAttributes(attributes){
-    	this.model.setAttributes(attributes);
+    	//this.model.setAttributes(attributes);
     } 
 }

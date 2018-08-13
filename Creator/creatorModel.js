@@ -18,17 +18,31 @@ var CreatorModel = function(newAttributes){
 	}
 
 	function getValueOfAttribute(attributeName){
-		let value;
-		if(attributes){
-			attribute = attributes[attributeName];
+		let value,
+			attribute =getAttribute(attributeName);
 			if(attribute){
 				value = attribute.value;
 			}
-		}
 		return value;
 	}
 
+	function setAttributeValue(attributeName, value){
+		let attribute = getAttribute(attributeName);
+		if(attribute){
+			attribute.value = value;
+		}
+	}
+
+	function getAttribute(attributeName){
+		let attribute;
+		if(attributes){
+			attribute = attributes[attributeName];
+		}
+		return attribute;
+	}
+
 	that.init = init;
+	that.setAttributeValue = setAttributeValue;
 	that.getAttributes = getAttributes;
 	that.getValueOfAttribute = getValueOfAttribute;
 	that.setAttributes = setAttributes;

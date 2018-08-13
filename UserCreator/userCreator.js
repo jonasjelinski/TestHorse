@@ -9,7 +9,7 @@ class UserCreatorClass extends Creator{
     this.view.addEventListener("onValidation", this.handlePassword.bind(this)); 
   }
 
-  updateView(){ 
+  updateViewAfterPageChanger(){ 
       let attribute,
           value; 
       if(this.view){ 

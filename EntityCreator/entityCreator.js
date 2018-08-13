@@ -10,12 +10,13 @@ EntityCreator = function(innerPageId, forwardButtonId, backwardsButtonId, textBo
 		attributes;
 
 	function init(){
-		attributes = attr;
+		setAttributes(attr);
 		initPageCreator();
 		initSlideShow();
 		initModel();
 		showFirstPage();
 		initView();
+		getCurrentDataFromViewAndSendThem();
 	}
 
 	function initPageCreator(){
@@ -24,19 +25,53 @@ EntityCreator = function(innerPageId, forwardButtonId, backwardsButtonId, textBo
 	}
 
 	function initSlideShow(){
-		slideshow = Slideshow(forwardButtonId, backwardsButtonId, textBoxId, numberOfPages);
-		slideshow.addEventListener("onPageChange", handlePageChange); 
+		slideshow = Slideshow(forwardButtonId, backwardsButtonId, textBoxId, numberOfPages, pages, innerPageId);
+		slideshow.addEventListener("onPageChange", handleSliderPageChange); 
 		slideshow.addEventListener("slideShowIsOver", handleSlideShowIsOver);
-		slideshow.init(); 
+		slideshow.init();
+		slideshow.showFirstPage(); 
 	}
 
-	function handlePageChange(event){
-		let pageNumber = event.details.pageNumber,
-			valueData = view.getValue();		
-		model.setPage(pageNumber);	
+	function handleSliderPageChange(event){
+		let pageNumber = event.details.pageNumber;		
+		getCurrentDataFromViewAndUpdateModel();		
+		getCurrentDataFromViewAndSendThem();
+		switchToNewPageAndUpdateViewController(pageNumber);
+		checkIfThereAreAlreadyValuesForTheNewPageAndSendThem();		
+	}
+
+	function reloadViewForNewPage(){
+		view.init();
+	}
+
+	function getCurrentDataFromViewAndUpdateModel(){
+		let valueData = view.getValue();		
 		model.updateAttributeValue(valueData.property, valueData.value);
-		view.updateView();
-		sendEvent("onPageChange"); 
+	}
+
+	function getCurrentDataFromViewAndSendThem(){
+		let valueData = view.getValue();
+		sendCurrentData(valueData);		
+	}
+
+	function sendCurrentData(data){
+		sendEvent("onCurrentData", data); 
+	}
+
+	function switchToNewPageAndUpdateViewController(pageNumber){
+		slideshow.setPage(pageNumber);
+		reloadViewForNewPage();
+	}
+
+	function checkIfThereAreAlreadyValuesForTheNewPageAndSendThem(){
+		let valueData = view.getValue(),
+			attributeName = valueData.property,
+			oldValues = model.getAttribute(attributeName).value,
+			data = {
+				attribute : attributeName,
+				value : oldValues,
+			};			
+			sendEvent("onOldValuesOfNewPageLoaded", data);
 	}
 
 	function handleSlideShowIsOver(){
@@ -46,20 +81,18 @@ EntityCreator = function(innerPageId, forwardButtonId, backwardsButtonId, textBo
 	}
 
 	function initModel(){
-		model = new EntityCreator.EntityCreatorModel(pages, attributes);
-		model.addEventListener("onPageChange", handlePageChangeOfModel);
+		model = new EntityCreator.EntityCreatorModel(attributes);
 		model.addEventListener("hasEnoughValues", handleEnoughValues);
 		model.addEventListener("hasNotEnoughValues", handleNotEnoughValues);
 		model.init();
 	}	
 
-	function handlePageChangeOfModel(event){
-		let pageHTMLString = event.details.page;
-		pageCreator.createPage(pageHTMLString);		
-	}
-
-	function sendEvent(type) {
+	function sendEvent(type, data) {
 		let event = new Event(type);
+		if(data){
+			event.details = {};
+			event.details.data = data;
+		}
 		that.dispatchEvent(event);
 	}
 
@@ -97,7 +130,9 @@ EntityCreator = function(innerPageId, forwardButtonId, backwardsButtonId, textBo
 	}
 
 	function setAttributes(newAttributes){
-		attributes = newAttributes;
+		if(newAttributes){
+			attributes = newAttributes;
+		}		
 	}
 
 	function updateModel(attributes){

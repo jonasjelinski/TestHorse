@@ -2,7 +2,9 @@ class CreatorPage extends EventTarget{
 	constructor(attributes, creator){
 		super();
 		this.attributes = attributes;
-		this.creator = creator;		
+		this.creator = creator;
+		this.neccessaryAttributes = [];
+		this.changer = new Changer(this.neccessaryAttributes);	
 	}	
 
 	init(){		
@@ -10,19 +12,14 @@ class CreatorPage extends EventTarget{
 		this.creator.addEventListener("onEnoughAttributes", this.changeAttributesAndSendThem.bind(this));
 	}
 
+	setCreator(creator){
+		this.creator = creator;
+	}
+
 	changeAttributesAndSendThem(event){
+		let attributesWithoutIsNecessary;
 		this.attributes = event.details.attributes;
-			let attributesWithoutIsNecessary = {},
-			that = this,
-			attributeNames = Object.keys(this.attributes);
-			attributeNames.forEach( function (name){
-				let attribute = that.attributes[name],
-					value = attribute.value;
-					if(value === undefined){
-						value = "";
-					}
-				attributesWithoutIsNecessary[name] = value;
-			});
+		attributesWithoutIsNecessary = this.changer.removeIsNecessaryFromAttributes(this.attributes);			
 		this.sendAttributes(attributesWithoutIsNecessary);
 	}
 
@@ -39,6 +36,6 @@ class CreatorPage extends EventTarget{
 	}
 
 	updateCreator(attributes){
-		this.creator.upateCreator(attributes);
+		this.creator.updateCreator(attributes);
 	}	
 }

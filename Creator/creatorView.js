@@ -16,10 +16,10 @@ class CreatorView extends EventTarget{
 	}
 
 	addListeners() {
-		this.input.addEventListener("input", this.changeValueBox.bind(this));
+		this.input.addEventListener("input", this.changeValueBoxAfterInput.bind(this));
 	}
 
-	changeValueBox() {		
+	changeValueBoxAfterInput() {		
 		let text = this.input.value;
 		this.valueBox.setAttribute("value", text);
 	}
@@ -35,9 +35,5 @@ class CreatorView extends EventTarget{
 	getCurrentAttribute(){
 		let attribute = this.valueBox.getAttribute("property");
 		return attribute;
-	}
-
-	update() {
-		this.init();
 	}
 };

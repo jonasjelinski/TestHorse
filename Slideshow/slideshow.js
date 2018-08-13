@@ -1,76 +1,43 @@
 var Slideshow = Slideshow ||{};
 
-Slideshow = function(forwardButtonId, backwardsButtonId, progressBoxId, numberOfPages){
+Slideshow = function(forwardButtonId, backwardsButtonId, progressBoxId, numberOfPages, pages, innerPageId){
 	let that = new EventTarget(),
-		slideshowModel,
-		slideshowView,
-		forwardButton,
-		backwardsButton,
-		progressBox;
+		slideShowProgress,
+		slideShowPageChanger,
+		currentPage;
 
 	function init(){
-		getDomElements();
-		initModel();
-		initView();		
+		initModuls();
 		addListeners();
 	}
 
-	function getDomElements(){
-		forwardButton = document.getElementById(forwardButtonId);
-		backwardsButton = document.getElementById(backwardsButtonId);
-		progressBox = document.getElementById(progressBoxId);
+	function initModuls(){
+		slideShowProgress = new Slideshow.SlideshowProgress(forwardButtonId, backwardsButtonId, progressBoxId, numberOfPages);
+		slideShowPageChanger = new Slideshow.PageChanger(innerPageId, pages);
+		slideShowProgress.init();
+		slideShowPageChanger.init();
 	}
-
-	function initModel(){
-		slideshowModel = new Slideshow.SlideshowModel(numberOfPages);
-		slideshowModel.init();
-	}
-
-	function initView(){
-		let domElements = {
-			backButton: backwardsButton,
-			forwardButton: forwardButton,
-			progressBox: progressBox,
-			numberOfPages: numberOfPages,
-		}
-		slideshowView = new Slideshow.SlideshowView(domElements);
-		slideshowView.init();
-	}	
 
 	function addListeners(){
-		modelListeners();
-		addViewListeners();
+		slideShowProgress.addEventListener("onPageChange", handlePageChange);
+		slideShowProgress.addEventListener("slideShowIsOver", handleSlideShowIsOver);
 	}
 
-	function modelListeners(){
-		slideshowModel.addEventListener("onPageChange", handlePageChange);
-		slideshowModel.addEventListener("slideShowIsOver", handleSlideShowIsOver);
+	function showFirstPage(){
+		let firstPage = 1;
+		slideShowPageChanger.setPage(firstPage);
 	}
 
 	function handlePageChange(event){
-		let pageNumber = event.details.pageNumber;
-		slideshowView.setPageNumber(pageNumber);
-		sendPageNumber(pageNumber);
+		currentPage = event.details.pageNumber;		
+		sendPageNumber(currentPage);
 	}
 
-	function sendPageNumber(number){
+	function sendPageNumber(pageNumber){
 		let event = new Event("onPageChange");
-		event.details = {};
-		event.details.pageNumber = number;
+			event.details = {};
+			event.details.pageNumber = pageNumber;
 		that.dispatchEvent(event);
-	}
-
-	function addViewListeners(){
-		slideshowView.addEventListener("onBackwards", handleBackwards);
-		slideshowView.addEventListener("onForward", handleForward);				
-	}
-
-	function handleForward(){
-		slideshowModel.setNextPage();
-	}
-
-	function handleBackwards(){
-		slideshowModel.setPreviousPage();
 	}
 
 	function handleSlideShowIsOver(){
@@ -78,11 +45,12 @@ Slideshow = function(forwardButtonId, backwardsButtonId, progressBoxId, numberOf
 		that.dispatchEvent(event);
 	}
 
-	function setPageCanChange(booleanValue){
-		slideshowModel.setPageCanChange(booleanValue);
-	} 
-	
+	function setPage(pageNumber){
+		slideShowPageChanger.setPage(pageNumber);
+	}
+
 	that.init = init;
-	that.setPageCanChange = setPageCanChange;
+	that.setPage = setPage;
+	that.showFirstPage = showFirstPage;
 	return that;
-} 
+}

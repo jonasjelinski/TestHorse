@@ -1,6 +1,6 @@
 var Slideshow = Slideshow ||{};
 
-Slideshow.SlideshowView = function(domElements){
+Slideshow.ViewControll = function(domElements){
 	let that = new EventTarget(),
 		backButton,
 		forwardButton,
