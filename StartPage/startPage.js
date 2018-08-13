@@ -94,13 +94,31 @@ StartPage = function(userId){
 		elementTemplateString = document.getElementById("horseBoxElement").innerHTML;
 		viewDomElement = document.getElementById("mainpage");
 		if(horseData){
-			let lastElement = {id:lastBoxId, photo: "src/xzy"};
-				horseData.push(lastElement);		
+			if(!hasLastBox(horseData)){
+				appendLastBox(horseData);
+			}		
 			dropList = new DropList(dropListId, horseData, elementTemplateString, "horseid");
 			dropList.init();
 			initDropLististener();
 		}				
 	}
+
+	function hasLastBox(horseData){		
+		for(let i = 0; i < horseData.length; i++){
+			let horse = horseData[i],
+				id = horse.id;
+			if(id === lastBoxId){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	function appendLastBox(horseData){
+		let lastElement = {id:lastBoxId, photo: "src/xzy"};
+		horseData.push(lastElement);	
+	}
+	
 
 	function initDropLististener(){
 		dropList.addEventListener("onElementClick", handleLiClick);
