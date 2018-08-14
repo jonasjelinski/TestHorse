@@ -1,25 +1,23 @@
 var Profil = Profil || {};
 
-Profil = function(userId, pageId, templateId, testdata, viewControllConstructor, model){
+Profil = function(pageId, templateId, viewControllConstructor){
 	"use strict";
+
+	const POPUP_MESSAGE = "Wirklich löschen?";
+
 	let that = new EventTarget(),
 		profilViewTemplateString,
-		profileViewData,
+		attributes,
 		viewControll,
 		popup;
 
-	function init(){
+	function init(profileData){
 		profilViewTemplateString = document.getElementById(templateId).innerHTML;
-		initModel();
-		profileViewData = testdata ;	
-		initViewControll(profileViewData);		
-		popup = Popup("Wirklich löschen?");
+		attributes = profileData;	
+		initViewControll(attributes);		
+		popup = Popup(POPUP_MESSAGE);
 		popup.init();
 		addEventListeners();				
-	}
-
-	function initModel(){
-		model.addEventListener("onDataReceived", handleDataReceived);	
 	}
 
 	function handleDataReceived(event){
@@ -27,10 +25,9 @@ Profil = function(userId, pageId, templateId, testdata, viewControllConstructor,
 		initViewControll(data);
 	}
 
-	function initViewControll(data){					
+	function initViewControll(data){		
 		viewControll = new viewControllConstructor(pageId, profilViewTemplateString, data);
-		viewControll.init();
-		
+		viewControll.init();		
 	}
 
 	function addEventListeners(){
@@ -43,14 +40,17 @@ Profil = function(userId, pageId, templateId, testdata, viewControllConstructor,
 		viewControll.addEventListener("onOkay", handleOkay );
 		viewControll.addEventListener("onDelete", handleDelete );
 	}
-
 		
 	function handleChange(){
-		sendShowSide("onChangeProfile");
+		sendShowSide("onChangeProfile", attributes);
 	}
 
-	function sendShowSide(type){
+	function sendShowSide(type, data){
 		let event = new Event(type);
+		if(data){
+			event.details = {};
+			event.details.attributes = data; 
+		}
 		that.dispatchEvent(event);
 	}	
 
@@ -71,14 +71,9 @@ Profil = function(userId, pageId, templateId, testdata, viewControllConstructor,
 	}
 
 	function deleteProfil(){
-		console.log("deleteProfil");
+		sendShowSide("onDeleteProfile");
 	}
 
-	function setModelParameter(param){
-		model.setParameter(param);
-	}
-
-	that.setModelParameter = setModelParameter;
 	that.init = init;
 	return that;
 }

@@ -26,7 +26,11 @@ DatabaseClientInterface.SimpleRequester = function(requestParamater, requestFunc
 
 	function initInterface(){
 		interface = new DatabaseClientInterface();
+		interface.init();
 		addEventListener();
+	}
+
+	function request() {
 		interface[requestFunc](requestParam);
 	}
 
@@ -76,6 +80,7 @@ DatabaseClientInterface.SimpleRequester = function(requestParamater, requestFunc
 	}
 
 	that.init = init;
+	that.request = request;
 	that.setParameter = setParameter;
 	that.setFunction = setFunction;
 	return that;

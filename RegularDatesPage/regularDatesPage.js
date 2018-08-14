@@ -10,11 +10,26 @@ RegularDatesPage = function(){
 		elementTagId = "regularDateId",
 		deleteButtonClass = "regularDateDelete",
 		changeButtonClass = "regularDateChange",
-		backbuttonId= "backToDates";
+		backbuttonId= "backToDates",
+		popup;
 
 	function init(){
 		elementTemplateString = document.getElementById("ul-element").innerHTML;
+		initPopup();		
 		initModel();				
+	}
+
+	function initPopup(){
+		popup = Popup("Wirklich löschen?");
+		popup.init();
+	}
+
+	function addPopupListeners(){
+		popup.addEventListener("onYes", handleYes);
+	}
+
+	function handleYes(){
+		console.log("delteDate");
 	}
 
 	function initModel(){
