@@ -6,8 +6,17 @@ UserProfilPage = function(userId){
 		REQUEST_FUNCTION = "getUserData";		
 		model = new UserProfilPage.UserProfilPageModel(userId, REQUEST_FUNCTION);
 		
-	let data = {userProfileName:"Hans", userProfileMail: "h@h", userProfilePassword: "123", },
-		that = Profil(userId, PAGE_ID, TEMPLATE_ID, data, UserProfilPage.UserProfilPageViewControll, model);
-	
+	let testData = {name:"Hans", email: "h@h", password: "123", },
+		that = Profil(PAGE_ID, TEMPLATE_ID, UserProfilPage.UserProfilPageViewControll);
+
+		function initPage(){
+			getDataFromDB();
+			that.init(testData);
+		}
+
+		function getDataFromDB(){
+			//return model.request;
+		}
+	that.initPage = initPage;
 	return that;
 }

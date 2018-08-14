@@ -1,6 +1,6 @@
 var Slideshow = Slideshow ||{};
 
-Slideshow.SlideshowView = function(domElements){
+Slideshow.ViewControll = function(domElements){
 	let that = new EventTarget(),
 		backButton,
 		forwardButton,
@@ -34,7 +34,7 @@ Slideshow.SlideshowView = function(domElements){
 	}
 
 	function setPageNumber(number){
-		let progress =  numberOfPages+"/"+number;
+		let progress =  number+"/"+ numberOfPages;
 		progressBox.innerHTML = progress;
 	}
 
