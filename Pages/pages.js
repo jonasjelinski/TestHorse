@@ -8,7 +8,7 @@ var Pages = Pages || {};
  */
 Pages = function(){
 	let that = {},
-		userCreator,
+		userCreatorPage,
 		userProfileSaver,
 		userProfileChanger,
 		pageDomElement,
@@ -61,18 +61,19 @@ Pages = function(){
 	* @description sets the variables of this modul which contain the moduls of the different pages.
 	*/ 
 	function initPages(){
-		userCreator = new UserCreatorPage();
-		userProfileSaver = new UserProfileSaver();
-		userProfileChanger = new UserProfileChanger();
-		loginPage = new LoginPage();
-		startPage = new StartPage();
-		userProfilPage = new UserProfilPage();
 		datesPage = new DatesPage();
-		regularDatesPage = new RegularDatesPage();
+		dateCreatorPage = new DatesCreatorPage();
 		horseProfilPage = new HorseProfilePage();
 		horseCreatorPage = new HorseCreatorPage();
 		horseProfileSaver = new HorseProfileSaver();
-		horseProfileChanger = new HorseProfileChanger();
+		horseProfileChanger = new HorseProfileChanger();		
+		loginPage = new LoginPage();				
+		regularDatesPage = new RegularDatesPage();
+		startPage = new StartPage();
+		userCreatorPage = new UserCreatorPage();
+		userProfilPage = new UserProfilPage();
+		userProfileSaver = new UserProfileSaver();
+		userProfileChanger = new UserProfileChanger();
 
 	}
 
@@ -84,21 +85,40 @@ Pages = function(){
 	* @description sets up the communication between the different pages
 	*/ 
 	function initPageCommunication(){
-		addListenersToLoginPage();
+		addListenersForDates();		
+		addListenersForHorse();
+		addListenersToLoginPage();		
 		addListenersToStartPage();
-		userCreator.addEventListener("onEnoughAttributes", showUserProfileSaver);
-		addListenersToUserProfilePage();
-		addListenersToUserProfileSaver();
-		addListenersToUserProfileChanger();
+		addListenersForUserProfile();	
+	}
+
+	function addListenersForDates(){	
+		datesPage.addEventListener("showRegularDates", showRegularDates);
+		datesPage.addEventListener("showCreateSingleDate", showCreateSingleDate);		
+		regularDatesPage.addEventListener("showAllDates", showAllDates);
+		dateCreatorPage.addEventListener("onDataSaved", showStartPage);				
+		dateCreatorPage.addEventListener("onCancel", showStartPage);				
+	}	
+
+	function addListenersForHorse() {
 		horseCreatorPage.addEventListener("onEnoughAttributes", showHorseProfileSaver);
 		horseCreatorPage.addEventListener("onHorseSaved", showStartPage);
 		addListenersToHorseProfilePage();
 		addListenersToHorseProfileSaver();
-		addListenersToHorseProfileChanger();		
-		datesPage.addEventListener("showRegularDates", showRegularDates);
-		datesPage.addEventListener("showCreateSingleDate", showCreateSingleDate);		
-		regularDatesPage.addEventListener("showAllDates", showAllDates);				
+		addListenersToHorseProfileChanger();
 	}
+
+	function addListenersToHorseProfilePage(){
+		horseProfilPage.addEventListener("onChangeHorseProfile", changeHorse);
+		horseProfilPage.addEventListener("onSaveHorseProfile", showStartPage);
+		horseProfilPage.addEventListener("onDeleteNewHorseProfile", showStartPage);		
+	}
+
+	function addListenersToHorseProfileSaver(){
+		horseProfileSaver.addEventListener("onChangeHorseProfile", changeHorse);
+		horseProfileSaver.addEventListener("onSaveHorseProfile", showStartPage);
+		horseProfileSaver.addEventListener("onDeleteNewHorseProfile", showStartPage);
+	}	
 
 	function addListenersToLoginPage(){
 		loginPage.addEventListener("showStartPage", showStartPage);
@@ -111,6 +131,13 @@ Pages = function(){
 		startPage.addEventListener("showHorseDates", showAllDates);
 		startPage.addEventListener("showHorseProfile", showHorseProfilePage);
 		startPage.addEventListener("createNewHorse", showHorseCreatorPage);
+	}	
+
+	function addListenersForUserProfile(){
+		addListenersToUserProfilePage();
+		addListenersToUserProfileSaver();
+		addListenersToUserProfileChanger();
+		addListenersForUserProfileCreator();
 	}
 
 	function addListenersToUserProfilePage(){
@@ -130,17 +157,9 @@ Pages = function(){
 		userProfileChanger.addEventListener("onHorseSaved", showStartPage);
 	}
 
-	function addListenersToHorseProfilePage(){
-		horseProfilPage.addEventListener("onChangeHorseProfile", changeHorse);
-		horseProfilPage.addEventListener("onSaveHorseProfile", showStartPage);
-		horseProfilPage.addEventListener("onDeleteNewHorseProfile", showStartPage);		
-	}
-
-	function addListenersToHorseProfileSaver(){
-		horseProfileSaver.addEventListener("onChangeHorseProfile", changeHorse);
-		horseProfileSaver.addEventListener("onSaveHorseProfile", showStartPage);
-		horseProfileSaver.addEventListener("onDeleteNewHorseProfile", showStartPage);
-	}
+	function addListenersForUserProfileCreator() {
+		userCreatorPage.addEventListener("onEnoughAttributes", showUserProfileSaver);
+	}	
 
 	function addListenersToHorseProfileChanger(){
 		horseProfileChanger.addEventListener("onEnoughAttributes", showHorseProfileSaver);
@@ -149,13 +168,13 @@ Pages = function(){
 
 	function showHelpPage(){}
 	function showSingleDates(){}
-	function showCreateSingleDate(){		
-	}
-	function logoutUser(){
+	function showCreateSingleDate(){}
+	function logoutUser(){}
 
-	}
-
-	
+	function showDateCreatorPage() {
+		pageChanger.switchPage("CREATE_DATE");
+		dateCreatorPage.init();
+	}	
 
 
 	/**
@@ -197,7 +216,7 @@ Pages = function(){
 
 	function showUserCreatorPage(){
 		pageChanger.switchPage("CREATE_USER");
-		userCreator.init();
+		userCreatorPafw.init();
 	}
 
 	function showUserProfileSaver(event){
@@ -292,6 +311,7 @@ Pages = function(){
 	that.showRegularDates = showRegularDates;
 	that.showHorseProfilePage = showHorseProfilePage;	
 	that.showHorseCreatorPage = showHorseCreatorPage;
+	that.showDateCreatorPage = showDateCreatorPage;
 	return that;
 }
 

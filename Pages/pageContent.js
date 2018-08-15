@@ -182,7 +182,31 @@ Pages.PageContent = function (){
     POPUP +
   '</div>'+ 
   '</content>'+             
-    USER_PROFILE_TEMPLATE ,    
+    USER_PROFILE_TEMPLATE ,
+
+    CREATE_DATE =   '<content>'+ 
+  '<div id= "dateCreater">' + 
+   '<div id= "dateTitleInputHeader">Title</div>' +
+   '<input id= "dateTitleInput">Title</input> '+
+   '<div id= "dateDateInputHeader">Datum</div>' +
+   '<input id= "dateDateInput" type="date">Datum</input> '+
+   '<div id= "dateTimeInputHeader">Zeit</div>' +
+   '<input id= "dateTimeInput" type="time">Zeit</input> '+
+   '<div id= "dateLocationInputHeader">Ort</div>' +
+   '<input id= "dateLocationInput">Ort</input> '+
+   ' <input type="checkbox" id="dateCreaterCheckbox">'+
+    '<label>Erinnerung erstellen</label>'+
+    '<p>'+
+    ' <button id= "dateCreaterReminderButton" type="button">Erinnerung</button> '+ 
+    ' <button id= "dateCreaterDateButton" type="button">Termin</button> '+ 
+    '</p>' +
+     '<p>' +
+    ' <button id= "dateCreaterSaveButton" type="button">Speichern</button> '+ 
+    ' <button id= "dateCreaterCancelButton" type="button">Abbrechen</button> '+ 
+      '</p>' +
+ 
+  '</div>'+ 
+  '</content>',             
   
   that.LOGIN_PAGE = LOGIN_PAGE;
   that.START_PAGE = START_PAGE; 
@@ -194,6 +218,7 @@ Pages.PageContent = function (){
   that.HORSE_PROFILE_SAVER = HORSE_PROFILE_SAVER;
   that.CREATE_USER = CREATE_USER;  
   that.USER_PROFILE_SAVER = USER_PROFILE_SAVER;
+  that.CREATE_DATE = CREATE_DATE;
   return that; 
 };
  
