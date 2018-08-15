@@ -73,7 +73,7 @@ Pages.PageChanger = function(domElement){
 				handlePageSwitch(pageContent.HORSE_PROFIL);
 				break;
 			case PAGES.CREATE_DATE:
-				handlePageSwitch();
+				handlePageSwitch(pageContent.CREATE_DATE);
 				break;
 			case PAGES.CREATE_USER:
 				handlePageSwitch();
