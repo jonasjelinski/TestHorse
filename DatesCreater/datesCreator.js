@@ -123,7 +123,8 @@ DatesCreator = function(dateClass, reminderClass, containerElementId, titleInput
 	function updateCreator(newDate, newReminder){		
 		setDate(newDate);
 		if(newReminder){
-			setReminder(newReminder);	
+			setReminder(newReminder);
+			view.setReminderTrue();	
 		}	
 		view.showDateCreater(newDate);
 	}

@@ -12,6 +12,8 @@ Pages = function(){
 		datesPage,
 		datesPageRegular,
 		horseProfilPage,
+		datesChangerPageRegular,
+		datesChangerPageSingle,
 		datescreatorPageRegular,
 		datesCreatorPageSingle,	
 		loginPage,		
@@ -68,6 +70,7 @@ Pages = function(){
 		datesCreatorPageSingle = new SingleDatesCreatorPage();
 		datesPageRegular = new RegularDatesPage();
 		datesChangerPageSingle = new DatesChangerPageSingle();		
+		datesChangerPageRegular = new DatesChangerPageRegular();		
 		horseProfilPage = new HorseProfilePage();
 		horseCreatorPage = new HorseCreatorPage();
 		horseProfileSaver = new HorseProfileSaver();
@@ -77,8 +80,7 @@ Pages = function(){
 		userCreatorPage = new UserCreatorPage();
 		userProfilPage = new UserProfilPage();
 		userProfileSaver = new UserProfileSaver();
-		userProfileChanger = new UserProfileChanger();
-		
+		userProfileChanger = new UserProfileChanger();		
 	}
 
 	/**
@@ -208,8 +210,8 @@ Pages = function(){
 	}
 
 	function showRegularDatescreatorPage() {
-		pageChanger.switchPage("REGULAR_DATES_CREATER_PAGE");
-		datescreatorPageRegular.init();
+		pageChanger.switchPage("REGULAR_DATES_CREATER_PAGE");		
+		datesCreatorPageRegular.init();
 	}
 
 	function changeSingleDate(attributes){
@@ -217,8 +219,9 @@ Pages = function(){
 		datesChangerPageSingle.init(attributes);
 	}
 
-	function changeRegularDate() {
-
+	function changeRegularDate(attributes) {
+		pageChanger.switchPage("REGULAR_DATES_CREATER_PAGE");
+		datesChangerPageRegular.init(attributes);
 	}	
 
 
@@ -332,7 +335,7 @@ Pages = function(){
 	that.showStartPage = showStartPage;
 	that.showUserProfilPage = showUserProfilPage;	
 	that.showUserCreatorPage = showUserCreatorPage;	
-	that.changeSingleDate = changeSingleDate;
+	that.changeRegularDate = changeRegularDate;
 	return that;
 }
 

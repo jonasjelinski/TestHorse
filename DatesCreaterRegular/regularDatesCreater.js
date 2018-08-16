@@ -52,8 +52,7 @@ RegulardatesCreater = function(dateClass, reminderClass, containerElementId, tit
 	}
 
 	function updateCreator(newDate, newReminder, newDurationValue, newDurationUnit){
-		updateDate(newDate);
-		updateReminder(newReminder);
+		singleDatesCreator.updateCreator(newDate, newReminder);
 		updateDurationValue(newDurationValue);
 		updateDurationUnit(newDurationUnit);
 	}

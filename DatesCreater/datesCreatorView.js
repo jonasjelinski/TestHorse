@@ -192,8 +192,9 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 		setInputValue(locationInput, "Bitte Ort eingeben");
 	}
 
-	function handleInputOkay(){
-
+	function setReminderTrue(){
+		wantsReminderCheckBox.checked = true;
+		showReminderAndDateButtons();
 	}
 
 	that.init = init;
@@ -203,6 +204,8 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 	that.giveNoDateFeedback = giveNoDateFeedback;
 	that.giveNoTimeFeedback = giveNoTimeFeedback;
 	that.giveNoLocationFeedback = giveNoLocationFeedback;
+	that.setReminderTrue = setReminderTrue;
+	that.wantsReminderCheckBox = wantsReminderCheckBox;
 	return that;
 
 }

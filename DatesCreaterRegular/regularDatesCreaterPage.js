@@ -41,6 +41,7 @@ RegulardatesCreatorPage = function(){
 
 	function handleSave(event) {
 		let data = event.details.data;
+		console.log("data",data);
 		saveDataIntoDB(data);
 		sendEvent("onDataSaved");
 	}

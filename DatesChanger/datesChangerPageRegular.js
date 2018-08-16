@@ -15,12 +15,12 @@ DatesChangerPageRegular = function(){
 			attributes = testdata;
 		}
 		if(page){
-			addAttributes(attributes);
-			page.init();			
+			page.init();	
+			addAttributes(attributes);					
 		}
 	}
 
-	function addAttributes(){
+	function addAttributes(attributes){
 		let newDate = attributes.date,
 				reminder = attributes.reminder,
 				newDurationValue = attributes.durationValue,
@@ -40,7 +40,7 @@ DatesChangerPageRegular = function(){
 		time:"22:22",
 	}
 
-	let testdata = {date, reminder};
+	let testdata = {date, reminder, unit:"Woche", durationValue: "7"};
 
 	that.init = init;
 	return that;
