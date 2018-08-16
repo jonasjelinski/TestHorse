@@ -57,6 +57,13 @@ RegulardatesCreatorPage = function(){
 		sendEvent("onCancel");
 	}
 
+	function updateCreater(){
+		regularDatesCreater
+		regularDatesCreater
+		regularDatesCreater
+		regularDatesCreater
+	}
+
 	that.init = init;
 	return that;
 }

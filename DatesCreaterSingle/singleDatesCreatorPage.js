@@ -54,6 +54,16 @@ SingleDatesCreatorPage = function(){
 		sendEvent("onCancel");
 	}
 
+	function updateDate(newDate) {
+		datesCreator.setDate(newDate);
+	}
+
+	function updateReminder(newReminder) {
+		datesCreator.setReminder(newReminder);
+	}
+
+	that.updateDate = updateDate;
+	that.updateReminder = updateReminder;
 	that.init = init;
 	return that;
 }

@@ -30,9 +30,19 @@ RegulardatesCreater.View = function(dropDownMenuId, unitInputId){
 			};
 		return data;
 	}
+
+	function setDurationUnit(value) {
+		unitInput.value = value;
+	}
+
+	function setDurationValue(value) {
+		valueInput.value = value;
+	}
 	
 
 	that.init = init;
 	that.getUnitAndValue = getUnitAndValue;
+	that.setDurationValue = setDurationValue;
+	that.setDurationUnit = setDurationUnit;
 	return that;
 }
