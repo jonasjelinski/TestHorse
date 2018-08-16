@@ -77,8 +77,11 @@ RegularDatesPage.RegularDatesPageModel = function(userID){
 		function saveDataIntoDB(){
 			regularDatesData = data;
 			dbRequester.updateDate(data);
-		}		
+		}
 
+		function getDateAttributesById(id) {}		
+
+		that.getDateAttributesById = getDateAttributesById;
 		that.updateData = updateData;
 		that.saveDataIntoDB = saveDataIntoDB;
 		that.init = init;

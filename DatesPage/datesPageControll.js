@@ -9,12 +9,14 @@ DatesPage.DatesPageControll = function(domElements){
 	function init(){
 		regularDatesButton = domElements.regularDatesButton;
 		singleDatesButton = domElements.singleDatesButton;
+		cancelButton = domElements.cancelButton;
 		addEventListeners();
 	}
 
 	function addEventListeners(){
 		regularDatesButton.addEventListener("click", handleRegularClick);
 		singleDatesButton.addEventListener("click", handleSingleClick);
+		cancelButton.addEventListener("click", handleCancelClick);
 	}
 
 	function handleRegularClick(){
@@ -28,6 +30,10 @@ DatesPage.DatesPageControll = function(domElements){
 
 	function handleSingleClick(){
 		sendEvent("onSingleClicked");
+	}
+
+	function handleCancelClick() {
+		sendEvent("onCancelDatesPage");
 	}
 
 	that.init = init;
