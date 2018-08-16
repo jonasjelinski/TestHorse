@@ -211,11 +211,11 @@ Pages = function(){
 		datescreatorPageRegular.init();
 	}
 
-	function showDatesChanger() {
+	function changeSingleDate() {
 		
 	}
 
-	function showRegularDatesChanger() {
+	function changeRegularDate() {
 
 	}	
 
