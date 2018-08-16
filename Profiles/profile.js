@@ -42,10 +42,10 @@ Profil = function(pageId, templateId, viewControllConstructor){
 	}
 		
 	function handleChange(){
-		sendShowSide("onChangeProfile", attributes);
+		sendEvent("onChangeProfile", attributes);
 	}
 
-	function sendShowSide(type, data){
+	function sendEvent(type, data){
 		let event = new Event(type);
 		if(data){
 			event.details = {};
@@ -55,7 +55,7 @@ Profil = function(pageId, templateId, viewControllConstructor){
 	}	
 
 	function handleOkay(){
-		sendShowSide("onProfileOkay");
+		sendEvent("onProfileOkay");
 	}
 
 	function handleDelete(){
@@ -71,7 +71,7 @@ Profil = function(pageId, templateId, viewControllConstructor){
 	}
 
 	function deleteProfil(){
-		sendShowSide("onDeleteProfile");
+		sendEvent("onDeleteProfile");
 	}
 
 	that.init = init;

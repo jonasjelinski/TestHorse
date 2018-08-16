@@ -1,6 +1,17 @@
 var DatesChangerPageSingle = DatesChangerPageSingle || {};
 
 DatesChangerPageSingle = function(){
+	const DATE = {
+		date: "2018-08-02",
+		location:"222",
+		time:"11:11",
+		title:"11",
+	},
+	REMINDER = {
+		date: "2018-08-02",
+		time:"22:22",
+	},
+	DEFAULT_DATA = {DATE, REMINDER};
 
 	let that = new EventTarget(),
 		page;
@@ -12,7 +23,7 @@ DatesChangerPageSingle = function(){
 
 	function addAttributesAndInitPage(attributes) {
 		if(!attributes){
-			attributes = testdata;
+			attributes = DEFAULT_DATA;
 		}
 		if(page){
 			page.init();	
@@ -26,21 +37,6 @@ DatesChangerPageSingle = function(){
 			reminder = attributes.reminder;
 		page.updateCreator(newDate, reminder);
 	}
-
-	let date = {
-		date: "2018-08-02",
-		location:"222",
-		time:"11:11",
-		title:"11",
-	}
-
-	let reminder = {
-		date: "2018-08-02",
-		time:"22:22",
-	}
-
-	let testdata = {date, reminder};
-
 
 	that.init = init;
 	return that;

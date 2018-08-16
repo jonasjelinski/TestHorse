@@ -15,11 +15,11 @@ UserProfileSaver.Model = function(){
 		requester.init();
 	}
 
-	function saveHorseIntoDB(){
+	function saveUserIntoDB(){
 		requester.request();
 	}
 
 	that.init = init;
-	that.saveHorseIntoDB = saveHorseIntoDB;
+	that.saveUserIntoDB = saveUserIntoDB;
 	return that;
 }

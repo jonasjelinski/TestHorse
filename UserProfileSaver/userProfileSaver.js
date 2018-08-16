@@ -2,9 +2,7 @@ var UserProfileSaver = UserProfileSaver || {};
 
 UserProfileSaver = function(data){
 	"user strict";
-	const 
-	HORSE_ID = ""
-	USER_PAGE_ID = "userProfileSaver",
+	const USER_PAGE_ID = "userProfileSaver",
 	USER_TEMPLATE_ID = "userProfileTemplate";
 
 	let that = new EventTarget(),
@@ -24,7 +22,7 @@ UserProfileSaver = function(data){
 	}
 
 	function initModel(){
-		model = new HorseProfileSaver.Model();
+		model = new UserProfileSaver.Model();
 		model.init(attributes);
 	}
 
@@ -45,8 +43,9 @@ UserProfileSaver = function(data){
 		that.dispatchEvent(event);
 	}
 
-	function handleOkayProfile(){
-		//model.saveHorseIntoDB();
+	function handleOkayProfile(event){
+		let attributes = event.details.attributes
+		//model.saveUserIntoDB(attributes);
 		sendEvent("onSaveUserProfile");
 	}
 
