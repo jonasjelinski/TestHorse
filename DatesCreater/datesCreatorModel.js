@@ -51,7 +51,6 @@ DatesCreator.Model = function(){
 				return true;
 			}
 		}
-
 		return false;
 	}
 

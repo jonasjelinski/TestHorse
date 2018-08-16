@@ -16,7 +16,16 @@ Pages.PageContent = function (){
 							'<button id= "loginButton" type="button">login</button> '+
 							'<input id= "stayLoggedInBox" type="checkbox" value = "stayLoggedIn"></input> '+
 						'</div>'+
- 						'</content>', 
+ 						'</content>',
+
+          DROPDOWN_MENU = '<div class="dropdown">'+
+ '<button class="dropdownButton">Dropdown</button>'+
+  '<div id="myDropdown" class="dropdown-content">'+
+    '<a href="#">Link 1</a>'+
+    '<a href="#">Link 2</a>'+
+    '<a href="#">Link 3</a>'+
+  '</div>'+
+'</div>' ,
 
           BURGER_MENU =  '<input id="burger" type="checkbox" />' +
 
@@ -206,7 +215,16 @@ Pages.PageContent = function (){
       '</p>' +
  
   '</div>'+ 
-  '</content>',             
+  '</content>',  
+
+  DROPDOWN_MENU_REGULAR_DATES = '<select>'+
+                                    '<option value="Tag">Tag</option>'+
+                                    '<option value="Woche">Woche</option>'+
+                                    '<option value="Monat">Monat</option>'+
+                                    '<option value="Jahr">Jahr</option>'+
+                                '</select>',
+
+  REGULAR_DATES_CREATER_PAGE = CREATE_DATE + DROPDOWN_MENU_REGULAR_DATES + '<input id="regular_dates_unit" type="number" min=0 max=52 value=1>';          
   
   that.LOGIN_PAGE = LOGIN_PAGE;
   that.START_PAGE = START_PAGE; 
@@ -219,6 +237,7 @@ Pages.PageContent = function (){
   that.CREATE_USER = CREATE_USER;  
   that.USER_PROFILE_SAVER = USER_PROFILE_SAVER;
   that.CREATE_DATE = CREATE_DATE;
+  that.REGULAR_DATES_CREATER_PAGE = REGULAR_DATES_CREATER_PAGE;
   return that; 
 };
  

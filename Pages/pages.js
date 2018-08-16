@@ -19,6 +19,7 @@ Pages = function(){
 		horseProfilPage,
 		datesPage,
 		regularDatesPage,
+		regularDatesCreaterPage,
 		appointmentsPage,
 		horseCreatorPage,
 		horseProfileSaver,
@@ -74,7 +75,7 @@ Pages = function(){
 		userProfilPage = new UserProfilPage();
 		userProfileSaver = new UserProfileSaver();
 		userProfileChanger = new UserProfileChanger();
-
+		regularDatesCreaterPage = new RegulardatesPage();
 	}
 
 	/**
@@ -301,6 +302,11 @@ Pages = function(){
 		regularDatesPage.init();
 	}
 
+	function showRegularDatesCreaterPage() {
+		pageChanger.switchPage("REGULAR_DATES_CREATER_PAGE");
+		regularDatesCreaterPage.init();
+	}
+
 	
 	that.init = init;
 	that.showUserCreatorPage = showUserCreatorPage;
@@ -312,6 +318,7 @@ Pages = function(){
 	that.showHorseProfilePage = showHorseProfilePage;	
 	that.showHorseCreatorPage = showHorseCreatorPage;
 	that.showDateCreatorPage = showDateCreatorPage;
+	that.showRegularDatesCreaterPage = showRegularDatesCreaterPage;
 	return that;
 }
 

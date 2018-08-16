@@ -18,6 +18,7 @@ Pages.PageChanger = function(domElement){
 		START_PAGE: "START",
 		DATES_PAGE: "DATES",
 		REGULAR_DATES_PAGE : "REGULAR_DATES_PAGE",
+		REGULAR_DATES_CREATER_PAGE : "REGULAR_DATES_CREATER_PAGE",
 		USER_PAGE: "USER_PROFILE",
 		HORSE_PAGE: "HORSE_PROFILE",
 		CREATE_DATE: "CREATE_DATE",
@@ -65,6 +66,9 @@ Pages.PageChanger = function(domElement){
 				break;
 			case PAGES.REGULAR_DATES_PAGE:
 				handlePageSwitch(pageContent.REGULAR_DATES_PAGE);
+				break;
+			case PAGES.REGULAR_DATES_CREATER_PAGE:
+				handlePageSwitch(pageContent.REGULAR_DATES_CREATER_PAGE);
 				break;
 			case PAGES.USER_PAGE:
 				handlePageSwitch(pageContent.USER_PAGE);
