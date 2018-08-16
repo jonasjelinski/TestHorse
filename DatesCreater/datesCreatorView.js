@@ -20,7 +20,7 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 	function init(){
 		getDomElements();
 		addEventListeners();
-		hideReminderAndSDateButtons();		
+		hideReminderAndDateButtons();		
 	}
 
 	function getDomElements(){
@@ -52,7 +52,7 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 			sendEvent("onWantsReminder");
 		}
 		else{
-			hideReminderAndSDateButtons();
+			hideReminderAndDateButtons();
 			sendEvent("onWantsNoReminder");
 		}
 	}
@@ -76,7 +76,7 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 		dateButton.disabled = true;
 	}
 
-	function hideReminderAndSDateButtons(){
+	function hideReminderAndDateButtons(){
 		dateButton.style.opacity = INVISIBLE;
 		reminderButton.style.opacity = INVISIBLE;	
 	}

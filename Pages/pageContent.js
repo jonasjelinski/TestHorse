@@ -194,7 +194,7 @@ Pages.PageContent = function (){
   '</content>'+             
     USER_PROFILE_TEMPLATE ,
 
-    CREATE_DATE =   '<content>'+ 
+    CREATE_SINGLE_DATE =   '<content>'+ 
   '<div id= "dateCreater">' + 
    '<div id= "dateTitleInputHeader">Title</div>' +
    '<input id= "dateTitleInput">Title</input> '+
@@ -225,7 +225,7 @@ Pages.PageContent = function (){
                                     '<option value="Jahr">Jahr</option>'+
                                 '</select>',
 
-  REGULAR_DATES_CREATER_PAGE = CREATE_DATE + DROPDOWN_MENU_REGULAR_DATES + '<input id="regular_dates_unit" type="number" min=0 max=52 value=1>';          
+  REGULAR_DATES_CREATER_PAGE = CREATE_SINGLE_DATE + DROPDOWN_MENU_REGULAR_DATES + '<input id="regular_dates_unit" type="number" min=0 max=52 value=1>';          
   
   that.LOGIN_PAGE = LOGIN_PAGE;
   that.START_PAGE = START_PAGE; 
@@ -237,7 +237,7 @@ Pages.PageContent = function (){
   that.HORSE_PROFILE_SAVER = HORSE_PROFILE_SAVER;
   that.CREATE_USER = CREATE_USER;  
   that.USER_PROFILE_SAVER = USER_PROFILE_SAVER;
-  that.CREATE_DATE = CREATE_DATE;
+  that.CREATE_SINGLE_DATE = CREATE_SINGLE_DATE;
   that.REGULAR_DATES_CREATER_PAGE = REGULAR_DATES_CREATER_PAGE;
   return that; 
 };

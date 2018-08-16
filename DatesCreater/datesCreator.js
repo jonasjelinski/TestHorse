@@ -120,8 +120,19 @@ DatesCreator = function(dateClass, reminderClass, containerElementId, titleInput
 		model.setReminder(newReminder);
 	}
 
+	function updateCreator(newDate, newReminder){		
+		setDate(newDate);
+		if(newReminder){
+			setReminder(newReminder);	
+		}	
+		view.showDateCreater(newDate);
+	}
+
+	function updateView(){
+		view.init();
+	}
+
 	that.init = init;
-	that.setDate = setDate;
-	that.setReminder = setReminder;
+	that.updateCreator = updateCreator;
 	return that;
 }

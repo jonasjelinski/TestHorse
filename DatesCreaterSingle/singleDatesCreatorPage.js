@@ -37,6 +37,7 @@ SingleDatesCreatorPage = function(){
 
 	function handleSave(event) {
 		let data = event.details.data;
+		console.log("singledata",data);
 		saveDataIntoDB(data);
 		sendEvent("onDataSaved");
 	}
@@ -54,16 +55,11 @@ SingleDatesCreatorPage = function(){
 		sendEvent("onCancel");
 	}
 
-	function updateDate(newDate) {
-		datesCreator.setDate(newDate);
+	function updateCreator(newDate, newReminder) {
+		datesCreator.updateCreator(newDate, newReminder);
 	}
 
-	function updateReminder(newReminder) {
-		datesCreator.setReminder(newReminder);
-	}
-
-	that.updateDate = updateDate;
-	that.updateReminder = updateReminder;
+	that.updateCreator = updateCreator;
 	that.init = init;
 	return that;
 }

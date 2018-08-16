@@ -24,6 +24,8 @@ ScriptLoader.Scripts = (function(){
 	"./DatesCreaterRegular/regularDatesCreaterModel.js",
 	"./DatesCreaterRegular/regularDatesCreaterView.js",
 	"./DatesCreaterRegular/regularDatesCreaterPage.js",
+	"./DatesChanger/datesChangerPageRegular.js",
+	"./DatesChanger/datesChangerPageSingle.js",
 	"./Popup/popup.js",
 	"./Profiles/profile.js",
 	"./Profiles/profileControllChangeSaveAndDelete.js",
