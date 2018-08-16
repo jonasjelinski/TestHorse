@@ -113,7 +113,6 @@ Pages = function(){
 
 	function addListenersForHorse() {
 		horseCreatorPage.addEventListener("onEnoughAttributes", showHorseProfileSaver);
-		horseCreatorPage.addEventListener("onHorseSaved", showStartPage);
 		addListenersToHorseProfilePage();
 		addListenersToHorseProfileSaver();
 		addListenersToHorseProfileChanger();
@@ -132,8 +131,7 @@ Pages = function(){
 	}	
 
 	function addListenersToHorseProfileChanger(){
-		horseProfileChanger.addEventListener("onEnoughAttributes", showHorseProfileSaver);
-		horseProfileChanger.addEventListener("onHorseSaved", showStartPage);
+		horseProfileChanger.addEventListener("onEnoughAttributes", showHorseProfileUpdater);
 	}
 
 	function addListenersToLoginPage(){
@@ -283,8 +281,19 @@ Pages = function(){
 		if(event){
 			attributes = event.details.attributes;1
 			pageChanger.switchPage("HORSE_PROFILE_SAVER");
-			horseProfileSaver.init(attributes);				
+			horseProfileSaver.init(attributes);
+			horseProfileSaver.setDBInterfaceToNew();				
 		}			
+	}
+
+	function showHorseProfileUpdater(event){
+		let attributes;
+		if(event){
+			attributes = event.details.attributes;1
+			pageChanger.switchPage("HORSE_PROFILE_SAVER");
+			horseProfileSaver.init(attributes);	
+			horseProfileSaver.setDBInterfaceToUpdate();					
+		}	
 	}
 
 	function changeHorse(event){

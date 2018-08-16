@@ -43,9 +43,8 @@ UserProfileSaver = function(data){
 		that.dispatchEvent(event);
 	}
 
-	function handleOkayProfile(event){
-		let attributes = event.details.attributes
-		//model.saveUserIntoDB(attributes);
+	function handleOkayProfile(){
+		model.saveUserIntoDB();
 		sendEvent("onSaveUserProfile");
 	}
 

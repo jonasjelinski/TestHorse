@@ -15,10 +15,13 @@ DatesChangerPageRegular = function(){
 	DEFAULT_DATA = {DATE, REMINDER, unit:"Woche", durationValue: "7"};
 
 	let that = new EventTarget(),
+		dbInterface,
 		page;
 
 	function init(attributes){
 		page = new RegulardatesCreatorPage();
+		//dbInterface = new DatesChangerPageSingle.DBRequester(userID, horsID);
+		page.setDBInterface(dbInterface);
 		addAttributesAndInitPage(attributes);		
 	}
 

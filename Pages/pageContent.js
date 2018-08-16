@@ -44,6 +44,7 @@ Pages.PageContent = function (){
 
         USER_PROFILE_TEMPLATE = '<script type="text/template" id="userProfileTemplate">'+ 
   '<div id= "userProfileName">Name <%= name %></div> '+ 
+  '<div id= "userProfileMail">Geburtsdatum <%= dateOfBirth %></div> '+ 
   '<div id= "userProfileMail">Email <%= email %></div> '+ 
   '<div id= "userProfilePassword">Password <%= password %></div> '+ 
 '</script> ' 

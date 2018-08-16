@@ -15,6 +15,7 @@ SingleDatesCreatorPage = function(){
 		CANCLE_BUTTON_ID = "dateCreaterCancelButton";
 
 	let that = new EventTarget(),
+		dbInterface,
 		datesCreator;
 
 	function init() {
@@ -37,7 +38,6 @@ SingleDatesCreatorPage = function(){
 
 	function handleSave(event) {
 		let data = event.details.data;
-		console.log("singledata",data);
 		saveDataIntoDB(data);
 		sendEvent("onDataSaved");
 	}
@@ -59,6 +59,11 @@ SingleDatesCreatorPage = function(){
 		datesCreator.updateCreator(newDate, newReminder);
 	}
 
+	function setDBInterface(newDBInterface){
+		dbInterface = newDBInterface;
+	}
+
+	that.setDBInterface = setDBInterface;
 	that.updateCreator = updateCreator;
 	that.init = init;
 	return that;

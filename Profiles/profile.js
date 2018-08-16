@@ -55,7 +55,7 @@ Profil = function(pageId, templateId, viewControllConstructor){
 	}	
 
 	function handleOkay(){
-		sendEvent("onProfileOkay");
+		sendEvent("onProfileOkay",attributes);
 	}
 
 	function handleDelete(){
