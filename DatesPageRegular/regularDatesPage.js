@@ -107,7 +107,6 @@ RegularDatesPage = function(){
 		if(data){
 			event.details = data;
 		}
-		console.log("type", data);
 		that.dispatchEvent(event);
 	}
 
@@ -117,7 +116,7 @@ RegularDatesPage = function(){
 			data = {
 				attributes: attributes,
 			}
-		sendEvent("onChangeClick", data);
+		sendEvent("onChangeDate", data);
 	}
 
 	function handleBackClick(){

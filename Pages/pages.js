@@ -103,8 +103,12 @@ Pages = function(){
 		datesPage.addEventListener("showCreateSingleDate", showCreateSingleDate);		
 		datesPage.addEventListener("onCancel", showStartPage);		
 		datesPageRegular.addEventListener("showAllDates", showAllDates);
+		datesPageRegular.addEventListener("onDataSaved", showStartPage);				
+		datesPageRegular.addEventListener("onCancel", showStartPage);			
+		datesPageRegular.addEventListener("onChangeDate", changeRegularDate);			
 		datesCreatorPageSingle.addEventListener("onDataSaved", showStartPage);				
-		datesCreatorPageSingle.addEventListener("onCancel", showStartPage);				
+		datesCreatorPageSingle.addEventListener("onCancel", showStartPage);			
+		datesCreatorPageSingle.addEventListener("onChangeClick", changeSingleDate);			
 	}	
 
 	function addListenersForHorse() {
@@ -214,12 +218,14 @@ Pages = function(){
 		datesCreatorPageRegular.init();
 	}
 
-	function changeSingleDate(attributes){
+	function changeSingleDate(event){
+		let attributes = event.details.attributes;		
 		pageChanger.switchPage("CREATE_SINGLE_DATE");
 		datesChangerPageSingle.init(attributes);
 	}
 
-	function changeRegularDate(attributes) {
+	function changeRegularDate(event){
+		let attributes = event.details.attributes;
 		pageChanger.switchPage("REGULAR_DATES_CREATER_PAGE");
 		datesChangerPageRegular.init(attributes);
 	}	
