@@ -1,6 +1,6 @@
-var RegulardatesPage = RegulardatesPage || {};
+var RegulardatesCreatorPage = RegulardatesCreatorPage || {};
 
-RegulardatesPage = function(){
+RegulardatesCreatorPage = function(){
 
 	const DATE_CLASS = "", 
 		REMINDER_CLASS = "", 

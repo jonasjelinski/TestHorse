@@ -117,6 +117,7 @@ Pages.PageContent = function (){
   	'</ul>'+ 
   	' <button id= "manageRegularDates" type="button">manageRegularDates</button> '+
 	' <button id= "manageSingleDates" type="button">manageSingleDates</button> '+
+  '<button id= "cancelDatesPage" type="button">Zum Hauptmenu</button> '+
 
   '</div>'+
  

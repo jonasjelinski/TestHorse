@@ -15,7 +15,7 @@ RegulardatesCreater = function(dateClass, reminderClass, containerElementId, tit
 		}
 
 		function initSingleDatesCreator() {
-			singleDatesCreator	= new DatesCreator(dateClass, reminderClass, containerElementId, titleInputId, 
+			singleDatesCreator	= new SingleDatesCreator(dateClass, reminderClass, containerElementId, titleInputId, 
 		dateInputId, timeInputId, locationInputId, wantsReminderCheckboxId, dateButtonId, reminderButtonId,
 		saveButtonId, cancelButtonId);
 			singleDatesCreator.init();

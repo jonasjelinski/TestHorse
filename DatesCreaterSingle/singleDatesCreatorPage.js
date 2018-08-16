@@ -1,6 +1,6 @@
-var DatesCreatorPage = DatesCreatorPage || {};
+var SingleDatesCreatorPage = SingleDatesCreatorPage || {};
 
-DatesCreatorPage = function(){
+SingleDatesCreatorPage = function(){
 	const DATE_CLASS = "", 
 		REMINDER_CLASS = "", 
 		CONTAINER_ELEMENT_ID = "dateCreater",
@@ -23,7 +23,7 @@ DatesCreatorPage = function(){
 	}
 
 	function initCreator() {
-			datesCreator = new DatesCreator(DATE_CLASS, REMINDER_CLASS, CONTAINER_ELEMENT_ID, TITLE_INPUT_ID, 
+			datesCreator = new SingleDatesCreator(DATE_CLASS, REMINDER_CLASS, CONTAINER_ELEMENT_ID, TITLE_INPUT_ID, 
 	DATE_INPUT_ID, TIME_INPUT_ID, LOCATION_INPUT_ID, CHECKBOX_ID, 
 	DATE_BUTTON_ID, REMINDER_BUTTON_ID,
 	SAVE_BUTTON_ID, CANCLE_BUTTON_ID);

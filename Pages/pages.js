@@ -7,24 +7,25 @@ var Pages = Pages || {};
  * <code><Pages/code> contains all pages of the app and determines which page should be showed to the client
  */
 Pages = function(){
-	let that = {},
-		userCreatorPage,
-		userProfileSaver,
-		userProfileChanger,
-		pageDomElement,
-		pageChanger,
-		loginPage,
-		startPage,
-		userProfilPage,
-		horseProfilPage,
+
+	let that = {},	
 		datesPage,
-		regularDatesPage,
-		regularDatesCreaterPage,
-		appointmentsPage,
+		datesPageRegular,
+		horseProfilPage,
+		datescreatorPageRegular,
+		datesCreatorPageSingle,		
+		loginPage,		
+		pageDomElement,
+		pageChanger,			
 		horseCreatorPage,
 		horseProfileSaver,
 		horseProfileChanger,
-		user;
+		startPage,	
+		user,
+		userCreatorPage,
+		userProfilPage,
+		userProfileSaver,
+		userProfileChanger;
 
 	/**
 	* @function init
@@ -63,19 +64,20 @@ Pages = function(){
 	*/ 
 	function initPages(){
 		datesPage = new DatesPage();
-		dateCreatorPage = new DatesCreatorPage();
+		datesCreatorPageRegular = new RegulardatesCreatorPage();
+		datesCreatorPageSingle = new SingleDatesCreatorPage();
+		datesPageRegular = new RegularDatesPage();		
 		horseProfilPage = new HorseProfilePage();
 		horseCreatorPage = new HorseCreatorPage();
 		horseProfileSaver = new HorseProfileSaver();
 		horseProfileChanger = new HorseProfileChanger();		
-		loginPage = new LoginPage();				
-		regularDatesPage = new RegularDatesPage();
+		loginPage = new LoginPage();		
 		startPage = new StartPage();
 		userCreatorPage = new UserCreatorPage();
 		userProfilPage = new UserProfilPage();
 		userProfileSaver = new UserProfileSaver();
 		userProfileChanger = new UserProfileChanger();
-		regularDatesCreaterPage = new RegulardatesPage();
+		
 	}
 
 	/**
@@ -96,9 +98,10 @@ Pages = function(){
 	function addListenersForDates(){	
 		datesPage.addEventListener("showRegularDates", showRegularDates);
 		datesPage.addEventListener("showCreateSingleDate", showCreateSingleDate);		
-		regularDatesPage.addEventListener("showAllDates", showAllDates);
-		dateCreatorPage.addEventListener("onDataSaved", showStartPage);				
-		dateCreatorPage.addEventListener("onCancel", showStartPage);				
+		datesPage.addEventListener("onCancel", showStartPage);		
+		datesPageRegular.addEventListener("showAllDates", showAllDates);
+		datesCreatorPageSingle.addEventListener("onDataSaved", showStartPage);				
+		datesCreatorPageSingle.addEventListener("onCancel", showStartPage);				
 	}	
 
 	function addListenersForHorse() {
@@ -121,8 +124,14 @@ Pages = function(){
 		horseProfileSaver.addEventListener("onDeleteNewHorseProfile", showStartPage);
 	}	
 
+	function addListenersToHorseProfileChanger(){
+		horseProfileChanger.addEventListener("onEnoughAttributes", showHorseProfileSaver);
+		horseProfileChanger.addEventListener("onHorseSaved", showStartPage);
+	}
+
 	function addListenersToLoginPage(){
 		loginPage.addEventListener("showStartPage", showStartPage);
+		loginPage.addEventListener("createNewUser", showUserCreatorPage);
 	}
 
 	function addListenersToStartPage(){
@@ -138,7 +147,7 @@ Pages = function(){
 		addListenersToUserProfilePage();
 		addListenersToUserProfileSaver();
 		addListenersToUserProfileChanger();
-		addListenersForUserProfileCreator();
+		addListenersToUserProfileCreator();
 	}
 
 	function addListenersToUserProfilePage(){
@@ -158,23 +167,56 @@ Pages = function(){
 		userProfileChanger.addEventListener("onHorseSaved", showStartPage);
 	}
 
-	function addListenersForUserProfileCreator() {
+	function addListenersToUserProfileCreator() {
 		userCreatorPage.addEventListener("onEnoughAttributes", showUserProfileSaver);
 	}	
 
-	function addListenersToHorseProfileChanger(){
-		horseProfileChanger.addEventListener("onEnoughAttributes", showHorseProfileSaver);
-		horseProfileChanger.addEventListener("onHorseSaved", showStartPage);
-	}
-
+	
 	function showHelpPage(){}
 	function showSingleDates(){}
 	function showCreateSingleDate(){}
 	function logoutUser(){}
 
-	function showDateCreatorPage() {
+	function showSingleDatesCreatorPage() {
 		pageChanger.switchPage("CREATE_DATE");
-		dateCreatorPage.init();
+		datesCreatorPageSingle.init();
+	}
+
+	/**
+	* @function showAllDates
+	* @private
+	* @memberof! Pages.PageChanger  
+	* @instance
+	* @description shows all dates to the user
+	*/ 
+	function showAllDates(){
+		pageChanger.switchPage("DATES");
+		datesPage.init();
+	}
+	
+	/**
+	* @function showRegularDates
+	* @private
+	* @memberof! Pages.PageChanger  
+	* @instance
+	* @description shows all regular dates to the user
+	*/ 
+	function showRegularDates(){
+		pageChanger.switchPage("REGULAR_DATES_PAGE");
+		datesPageRegular.init();
+	}
+
+	function showRegularDatescreatorPage() {
+		pageChanger.switchPage("REGULAR_DATES_creator_PAGE");
+		datescreatorPageRegular.init();
+	}
+
+	function showDatesChanger() {
+		
+	}
+
+	function showRegularDatesChanger() {
+
 	}	
 
 
@@ -200,41 +242,7 @@ Pages = function(){
 	function showStartPage(){
 		pageChanger.switchPage("START");
 		startPage.init();
-	}
-
-	/**
-	* @function showUserProfilPage
-	* @private
-	* @memberof! Pages.PageChanger  
-	* @instance
-	* @description shows the user profil to the user
-	*/ 
-	function showUserProfilPage(){
-		pageChanger.switchPage("USER_PROFILE");
-		userProfilPage.initPage();
-	}
-
-
-	function showUserCreatorPage(){
-		pageChanger.switchPage("CREATE_USER");
-		userCreatorPafw.init();
-	}
-
-	function showUserProfileSaver(event){
-		let attributes = event.details.attributes;
-		pageChanger.switchPage("USER_PROFILE_SAVER");
-		userProfileSaver.init(attributes);
-	}
-
-	function changeUser(event){
-		let attributes;
-		if(event){
-			attributes = event.details.attributes;
-			pageChanger.switchPage("CREATE_USER");			
-			userProfileChanger.init(attributes);
-		}		
-	}
-
+	}	
 	
 	/**
 	* @function showHorseProfile
@@ -279,46 +287,49 @@ Pages = function(){
 	}
 
 	/**
-	* @function showAllDates
+	* @function showUserProfilPage
 	* @private
 	* @memberof! Pages.PageChanger  
 	* @instance
-	* @description shows all dates to the user
+	* @description shows the user profil to the user
 	*/ 
-	function showAllDates(){
-		pageChanger.switchPage("DATES");
-		datesPage.init();
-	}
-	
-	/**
-	* @function showRegularDates
-	* @private
-	* @memberof! Pages.PageChanger  
-	* @instance
-	* @description shows all regular dates to the user
-	*/ 
-	function showRegularDates(){
-		pageChanger.switchPage("REGULAR_DATES_PAGE");
-		regularDatesPage.init();
+	function showUserProfilPage(){
+		pageChanger.switchPage("USER_PROFILE");
+		userProfilPage.initPage();
+	}	
+
+	function showUserCreatorPage(){
+		pageChanger.switchPage("CREATE_USER");
+		userCreatorPage.init();
 	}
 
-	function showRegularDatesCreaterPage() {
-		pageChanger.switchPage("REGULAR_DATES_CREATER_PAGE");
-		regularDatesCreaterPage.init();
+	function showUserProfileSaver(event){
+		let attributes = event.details.attributes;
+		pageChanger.switchPage("USER_PROFILE_SAVER");
+		userProfileSaver.init(attributes);
+	}
+
+	function changeUser(event){
+		let attributes;
+		if(event){
+			attributes = event.details.attributes;
+			pageChanger.switchPage("CREATE_USER");			
+			userProfileChanger.init(attributes);
+		}		
 	}
 
 	
 	that.init = init;
-	that.showUserCreatorPage = showUserCreatorPage;
-	that.showLoginPage = showLoginPage;
-	that.showStartPage = showStartPage;
-	that.showUserProfilPage = showUserProfilPage;
 	that.showAllDates = showAllDates;
 	that.showRegularDates = showRegularDates;
+	that.showSingleDatesCreatorPage = showSingleDatesCreatorPage;
+	that.showRegularDatescreatorPage = showRegularDatescreatorPage;
 	that.showHorseProfilePage = showHorseProfilePage;	
-	that.showHorseCreatorPage = showHorseCreatorPage;
-	that.showDateCreatorPage = showDateCreatorPage;
-	that.showRegularDatesCreaterPage = showRegularDatesCreaterPage;
+	that.showHorseCreatorPage = showHorseCreatorPage;	
+	that.showLoginPage = showLoginPage;
+	that.showStartPage = showStartPage;
+	that.showUserProfilPage = showUserProfilPage;	
+	that.showUserCreatorPage = showUserCreatorPage;	
 	return that;
 }
 
