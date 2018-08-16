@@ -172,7 +172,7 @@ LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBack
 		* @description Dispatches an event of the type "newUser"
 		*/ 
 		function handleNewUser(){
-			let event = new Event("newUser");
+			let event = new Event("createNewUser");
 			loginPage.dispatchEvent(event);
 		}
 

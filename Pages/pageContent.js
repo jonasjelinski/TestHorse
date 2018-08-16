@@ -16,7 +16,16 @@ Pages.PageContent = function (){
 							'<button id= "loginButton" type="button">login</button> '+
 							'<input id= "stayLoggedInBox" type="checkbox" value = "stayLoggedIn"></input> '+
 						'</div>'+
- 						'</content>', 
+ 						'</content>',
+
+          DROPDOWN_MENU = '<div class="dropdown">'+
+ '<button class="dropdownButton">Dropdown</button>'+
+  '<div id="myDropdown" class="dropdown-content">'+
+    '<a href="#">Link 1</a>'+
+    '<a href="#">Link 2</a>'+
+    '<a href="#">Link 3</a>'+
+  '</div>'+
+'</div>' ,
 
           BURGER_MENU =  '<input id="burger" type="checkbox" />' +
 
@@ -32,6 +41,23 @@ Pages.PageContent = function (){
             '<li><a href="#">Link #3</a></li>' +
           '</ul>'  +
         '</nav>' ,
+
+        USER_PROFILE_TEMPLATE = '<script type="text/template" id="userProfileTemplate">'+ 
+  '<div id= "userProfileName">Name <%= name %></div> '+ 
+  '<div id= "userProfileMail">Email <%= email %></div> '+ 
+  '<div id= "userProfilePassword">Password <%= password %></div> '+ 
+'</script> ' 
+'</script> ', 
+
+        HORSE_PROFILE_TEMPLATE = '<script type="text/template" id="horseProfileTemplate">'+ 
+  '<div id= "horseProfileName">Name: <%= name %></div> '+ 
+  '<div id= "horseProfileBirth">Geburtsdatum: <%= birth %></div> '+ 
+  '<div id= "horseProfileRace">Rasse: <%= race %></div> '+ 
+  '<div id= "horseProfileOwner">Besitzer: <%= owner %></div> '+ 
+  '<div id= "horseProfileSex">Geschlecht: <%= sex %></div> '+ 
+  '<div id= "horseProfileHeight">Höhe: <%= height %></div> '+ 
+  '<div id= "horseProfileRaiser">Züchter: <%= raiser %></div> '+ 
+'</script> ' ,
 
         POPUP = '<div id="popup">' +
                     '<p id="popupText"></p>'+
@@ -82,13 +108,8 @@ Pages.PageContent = function (){
   '</div>'+ 
    POPUP+
                '</content>'+ 
-            
-'<script type="text/template" id="userProfileTemplate">'+ 
-  '<div id= "userProfileName"><%= userProfileName %></div> '+ 
-  '<div id= "userProfileMail"><%= userProfileMail %></div> '+ 
-  '<div id= "userProfilePassword"><%= userProfilePassword %></div> '+ 
-'</script> ' 
-'</script> ', 
+    USER_PROFILE_TEMPLATE,            
+
  
   DATES_PAGE =' <content>'+ 
  '<div id = "allDates" >' +
@@ -96,6 +117,7 @@ Pages.PageContent = function (){
   	'</ul>'+ 
   	' <button id= "manageRegularDates" type="button">manageRegularDates</button> '+
 	' <button id= "manageSingleDates" type="button">manageSingleDates</button> '+
+  '<button id= "cancelDatesPage" type="button">Zum Hauptmenu</button> '+
 
   '</div>'+
  
@@ -106,14 +128,15 @@ Pages.PageContent = function (){
     '<p ><%= name %></p>'+ 
   '</li>',
 
-  REGULAR_DATES_PAGE = 	  	'<ul id="allRegularDates">'+ 
+  REGULAR_DATES_PAGE = 	  	'<content>'+ 
+
+    '<ul id="allRegularDates">'+ 
   	'</ul>'+ 
-
-
-  '</div>'+
-     POPUP +
-    '</content>'+ 
+    POPUP +
  ' <button id= "backToDates" type="button">backToDates</button> '+
+  '</div>'+
+ '</content>'+
+  
   '<script type="text/template" id="ul-element">'+ 
   '<li draggable="true" regularDateId = <%= id %>>'+ 
     ' <button class= "regularDateDelete" type="button">Delete</button> '+
@@ -122,34 +145,100 @@ Pages.PageContent = function (){
   '</li>',
 
    HORSE_PROFIL = ' <content>'+ 
-  '<div id= "horseProfil">' + 
+  '<div id= "horseProfile">' + 
     ' <button id= "horseProfileChange" type="button">ProfileChange</button> '+ 
     ' <button id= "horseProfileOk" type="button">ProfileOk</button> '+ 
     ' <button id= "horseProfileDelete" type="button">ProfileDelete</button> '+ 
     '<div id= "textBox">textBox</div> '+ 
     POPUP +
   '</div>'+ 
-               '</content>'+ 
-            
-'<script type="text/template" id="horseProfileTemplate">'+ 
-  '<div id= "horseProfileName"><%= name %></div> '+ 
-  '<div id= "horseProfileBirth"><%= birth %></div> '+ 
-  '<div id= "horseProfileRace"><%= race %></div> '+ 
-  '<div id= "horseProfileOwner"><%= comp %></div> '+ 
-  '<div id= "horseProfileSex"><%= owner %></div> '+ 
-  '<div id= "horseProfileHeight"><%= sex %></div> '+ 
-  '<div id= "horseProfileRaiser"><%= height %></div> '+ 
-'</script> ' 
-'</script> ', 
+  '</content>'+             
+    HORSE_PROFILE_TEMPLATE ,
 
+  CREATE_HORSEBOX = '<content>'+ 
+  '<div id= "horseInteraction">' + 
+    '<div id= "horseInteractionInnerPage"></div>' +
+    ' <button id= "horseInteractionForward" type="button">Forward</button>' + 
+    ' <button id= "horseInteractionBack" type="button">Backwards</button> '+ 
+    '<div id= "horseInteractionProgress"></div> '+
+    ' <content>',
 
+  HORSE_PROFILE_SAVER =  ' <content>'+ 
+  '<div id= "horseProfileSaver">' + 
+    ' <button id= "horseSaverChange" type="button">Ändern</button> '+ 
+    ' <button id= "horseSaverOk" type="button">Speichern</button> '+ 
+    ' <button id= "horseSaverDelete" type="button">Verwerfen</button> '+ 
+    '<div id= "textBox">textBox</div> '+ 
+    POPUP +
+  '</div>'+ 
+  '</content>'+             
+    HORSE_PROFILE_TEMPLATE ,
 
+    CREATE_USER = '<content>'+ 
+  '<div id= "userInteraction">' + 
+    '<div id= "userInteractionInnerPage"></div>' +
+    ' <button id= "userInteractionForward" type="button">Forward</button>' + 
+    ' <button id= "userInteractionBack" type="button">Backwards</button> '+ 
+    '<div id= "userInteractionProgress"></div> '+
+    ' <content>' +
+    USER_PROFILE_TEMPLATE,
+
+    USER_PROFILE_SAVER =  ' <content>'+ 
+  '<div id= "userProfileSaver">' + 
+    ' <button id= "userSaverChange" type="button">Ändern</button> '+ 
+    ' <button id= "userSaverOk" type="button">Speichern</button> '+ 
+    ' <button id= "userSaverDelete" type="button">Verwerfen</button> '+ 
+    '<div id= "textBox">textBox</div> '+ 
+    POPUP +
+  '</div>'+ 
+  '</content>'+             
+    USER_PROFILE_TEMPLATE ,
+
+    CREATE_SINGLE_DATE =   '<content>'+ 
+  '<div id= "dateCreater">' + 
+   '<div id= "dateTitleInputHeader">Title</div>' +
+   '<input id= "dateTitleInput">Title</input> '+
+   '<div id= "dateDateInputHeader">Datum</div>' +
+   '<input id= "dateDateInput" type="date">Datum</input> '+
+   '<div id= "dateTimeInputHeader">Zeit</div>' +
+   '<input id= "dateTimeInput" type="time">Zeit</input> '+
+   '<div id= "dateLocationInputHeader">Ort</div>' +
+   '<input id= "dateLocationInput">Ort</input> '+
+   ' <input type="checkbox" id="dateCreaterCheckbox">'+
+    '<label>Erinnerung erstellen</label>'+
+    '<p>'+
+    ' <button id= "dateCreaterReminderButton" type="button">Erinnerung</button> '+ 
+    ' <button id= "dateCreaterDateButton" type="button">Termin</button> '+ 
+    '</p>' +
+     '<p>' +
+    ' <button id= "dateCreaterSaveButton" type="button">Speichern</button> '+ 
+    ' <button id= "dateCreaterCancelButton" type="button">Abbrechen</button> '+ 
+      '</p>' +
+ 
+  '</div>'+ 
+  '</content>',  
+
+  DROPDOWN_MENU_REGULAR_DATES = '<select>'+
+                                    '<option value="Tag">Tag</option>'+
+                                    '<option value="Woche">Woche</option>'+
+                                    '<option value="Monat">Monat</option>'+
+                                    '<option value="Jahr">Jahr</option>'+
+                                '</select>',
+
+  REGULAR_DATES_CREATER_PAGE = CREATE_SINGLE_DATE + DROPDOWN_MENU_REGULAR_DATES + '<input id="regular_dates_unit" type="number" min=0 max=52 value=1>';          
+  
   that.LOGIN_PAGE = LOGIN_PAGE;
   that.START_PAGE = START_PAGE; 
   that.USER_PAGE = USER_PAGE;
   that.DATES_PAGE = DATES_PAGE; 
   that.REGULAR_DATES_PAGE = REGULAR_DATES_PAGE; 
   that.HORSE_PROFIL = HORSE_PROFIL;
+  that.CREATE_HORSEBOX = CREATE_HORSEBOX;
+  that.HORSE_PROFILE_SAVER = HORSE_PROFILE_SAVER;
+  that.CREATE_USER = CREATE_USER;  
+  that.USER_PROFILE_SAVER = USER_PROFILE_SAVER;
+  that.CREATE_SINGLE_DATE = CREATE_SINGLE_DATE;
+  that.REGULAR_DATES_CREATER_PAGE = REGULAR_DATES_CREATER_PAGE;
   return that; 
 };
  

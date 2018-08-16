@@ -1,6 +1,6 @@
 var Profil = Profil || {};
 
-Profil.ProfileDisplayPage = function(pageId, templateString, data, changeButtonId, okayButtonId, delteButtonId){
+Profil.ProfileViewAndControll = function(pageId, templateString, data, changeButtonId, okayButtonId, delteButtonId){
 	"use strict";
 
 	let that = new EventTarget(),
@@ -15,7 +15,7 @@ Profil.ProfileDisplayPage = function(pageId, templateString, data, changeButtonI
 			page = document.getElementById(pageId);
 			view = Profil.ProfilView(page, templateString, data);
 			view.init();
-			controll = Profil.ProfileDisplayControll(changeButtonId, okayButtonId, delteButtonId);
+			controll = Profil.ProfileControllChangeOkayAndDelete(changeButtonId, okayButtonId, delteButtonId);
 			controll.init();
 			addEventListeners();		
 		}

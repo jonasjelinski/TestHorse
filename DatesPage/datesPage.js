@@ -45,9 +45,11 @@ DatesPage = function(){
 	function initControlls(){
 		let regularDatesButton = document.getElementById("manageRegularDates"),
 			singleDatesButton = document.getElementById("manageSingleDates"),
+			cancelButton = document.getElementById("cancelDatesPage"),
 		domElements = {
 			regularDatesButton: regularDatesButton,
 			singleDatesButton: singleDatesButton,
+			cancelButton : cancelButton,
 		}
 		controlls = DatesPage.DatesPageControll(domElements);
 		controlls.init();
@@ -57,6 +59,7 @@ DatesPage = function(){
 	function addControllListeners(){
 		controlls.addEventListener("onRegularClicked", handleRegularClick);
 		controlls.addEventListener("onSingleClicked", handleSingleClick);
+		controlls.addEventListener("onCancelDatesPage", handleCancelClick);
 	}
 
 
@@ -71,6 +74,10 @@ DatesPage = function(){
 
 	function handleSingleClick(){
 		sendEvent("showCreateSingleDate");
+	}
+
+	function handleCancelClick() {
+		sendEvent("onCancel");
 	}
 
 	that.init = init;

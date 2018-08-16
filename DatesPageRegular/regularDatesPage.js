@@ -10,18 +10,45 @@ RegularDatesPage = function(){
 		elementTagId = "regularDateId",
 		deleteButtonClass = "regularDateDelete",
 		changeButtonClass = "regularDateChange",
-		backbuttonId= "backToDates";
+		backbuttonId= "backToDates",
+		popup,
+		deleteId,
+		changeId;
 
 	function init(){
 		elementTemplateString = document.getElementById("ul-element").innerHTML;
-		initModel();				
+		initPopup();		
+		initModel();
+		addListeners();		
+		let testData = [{id: "1", name: "Hufschmied"}, {id: "2", name: "Tierarzt"},{id: "3", name: "Reiten"}];	
+		initDropList(testData);	
 	}
 
-	function initModel(){
-		let testData = [{id: "1", name: "Hufschmied"}, {id: "2", name: "Tierarzt"},{id: "3", name: "Reiten"}];
-		model = new DatesPage.DatesPageModel();
+	function initPopup(){
+		popup = Popup("Wirklich löschen?");
+		popup.init();
+	}
+
+	function initModel(){		
+		model = new RegularDatesPage.RegularDatesPageModel();			
+	}
+
+	function addListeners() {
+		addModelListeners();
+		addPopupListeners();
+	}
+
+	function addModelListeners() {
 		model.addEventListener("onDataReceived", handleDataReceived);
-		initDropList(testData);		
+	}
+
+
+	function addPopupListeners(){
+		popup.addEventListener("onYes", handleYes);
+	}
+
+	function handleYes(){
+		console.log("delteDate");
 	}
 
 	function handleDataReceived(event){
@@ -58,8 +85,14 @@ RegularDatesPage = function(){
 	}
 
 
-	function handleDeleteClick(){
-		sendEvent("onDeleteClick");
+	function handleDeleteClick(event){
+		showPopup();
+		let id = event.details.id;
+		deleteId = deleteId;
+	}
+
+	function showPopup() {
+		popup.setPopupVisible();
 	}
 
 		/**
@@ -69,23 +102,27 @@ RegularDatesPage = function(){
 	* @instance
 	* @description Dispatches the event of the type "type"
 	*/ 	
-	function sendEvent(type){
+	function sendEvent(type, data){
 		let event = new Event(type);
+		if(data){
+			event.details = data;
+		}
+		console.log("type", data);
 		that.dispatchEvent(event);
 	}
 
-	function sendEvent(type){
-		let event = new Event(type);
-		that.dispatchEvent(event);
-	}
-
-	function handleChangeClick(){
-		sendEvent("onChangeClick");
+	function handleChangeClick(event){
+		let id = event.details.id,
+			attributes = model.getDateAttributesById(id),
+			data = {
+				attributes: attributes,
+			}
+		sendEvent("onChangeClick", data);
 	}
 
 	function handleBackClick(){
 		sendEvent("showAllDates");
-	}
+	}	
 
 	that.init = init;
 	return that;

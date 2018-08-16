@@ -2,13 +2,12 @@
 <html lang="de">
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="./testhorse.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Titel</title>
   </head>
   <body>
     <div id = "parentPage"></div>
-    
-
     <script src="ScriptLoader/scriptLoader.js"></script> 
     <script src="ScriptLoader/scripts.js"></script> 
     <script >  
@@ -18,32 +17,14 @@
     	//bitte schlechten Programmierstil zu entschuldigen
     	//wird geändert sobald das passende Modul erstellt wurde 
        function showPage(){
-        let pages = new Pages();     
-            pages.init();
-            pages.showLoginPage();
+        let pages = new Pages();  
+            pages.init();   
+            pages.changeRegularDate();
+            //pages.showDateCreatorPage();
         }
 
         function loaded(){
         	console.log("loaded");
-        }
-
-        function startAjaxRequest(){
-          let dbRequester = DatabaseClientInterface(),
-          newUser = {},
-          name = "klaus",
-          email="klaus@k",
-          dateOfBirth = "240499",
-          password = "12334",
-          userId = "1" ;
-
-          dbRequester.init();
-          dbRequester.setUserIntoDB(name, email, dateOfBirth, password);
-          dbRequester.addEventListener("onResult", showData);
-          dbRequester.getUserData(userId);
-
-          function showData(ev){
-             console.log("ajaxResultData", ev.details.data);
-          }         
         }
         
      
