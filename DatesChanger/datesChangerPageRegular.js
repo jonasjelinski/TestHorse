@@ -26,8 +26,6 @@ DatesChangerPageRegular = function(userID){
 		addAttributesAndInitPage(attributes);		
 	}
 
-	function overrideSetterWithUpdates = 
-
 	function addAttributesAndInitPage(attributes) {
 		if(!attributes){
 			attributes = DEFAULT_DATA;

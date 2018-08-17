@@ -22,15 +22,21 @@ DatabaseClientInterface.RequestModul = function () {
 	}
 
 	let that = new EventTarget(),
-	requestModul = new DatabaseClientInterface.AJAXModul();
+	requestModul = new DatabaseClientInterface.JQAJAXModul();
+	requestModul.addEventListener("onResult", showResult);
 
 	function askDataBase(url, action, data){
 		let requestData = createRequestDataObject(action, data);
-		requestModul.request(getDBAnswer, showError, METHODS.POST, url, requestData);
+		requestModul.doAjaxRequest(url, METHODS.POST, requestData);
 	}
 
 	function showError(){
 		console.log("error");
+	}
+
+	function showResult(event){
+		let result = event.details.result ;
+		console.log("result", result);
 	}
 
 	function createRequestDataObject(action, data){

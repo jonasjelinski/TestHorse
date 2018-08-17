@@ -5,25 +5,26 @@ DatabaseClientInterface = function(){
 	const ACTIONS = {
 		TRY_LOGIN: "loginUser",
 		LOGOUT: "logoutUser",
+		GET_USER_ID: "getUserId",
 		ALL_HORSES: "getAllHorsesOfUser",
 		SINGLE_HORSE: "getHorse",
-		ALL_DATES: "getAllDatesOfUser",
-		SINGLE_DATE: "getDate",
+		ALL_DATES: "getAllHorseDates",
+		SINGLE_DATE: "getHorseDate",
 		ALL_REMINDERS: "getAllRemindersOfUser",
-		SINGLE_REMINDER: "getReminder",
-		ALL_AGREEMENTS: "getAllAgreementsOfUser",
-		SINGLE_AGREEMENT: "getAgreement",
+		SINGLE_REMINDER: "getReminderNotification",
+		ALL_REGULAR_REMINDERS: "getAllAgreementsOfUser",
+		SINGLE_REGULAR_REMINDER: "getReminderRegular",
 		USER_DATA:"getUserData",
 		SET_USER : "setUserIntoDB",
 		SET_HORSE : "setHorseIntoDB",
 		SET_DATE : "setDateIntoDB",
 		SET_REMINDER : "setReminderIntoDB",
-		SET_AGREEMENT : "?????",
+		SET_REGULAR_REMINDER : "?????",
 		DELETE_USER : "deleteUserFromDB",
 		DELETE_HORSE : "deleteHorseFromDB",
 		DELETE_DATE : "deleteDateFromDB",
 		DELETE_REMINDER : "deleteReminderFromDB",
-		DELETE_AGREEMENT : "deleteAgreementFromDB",
+		DELETE_REGULAR_REMINDER : "deleteAgreementFromDB",
 		UPDATE_USER_NAME : "updateUserName",
 		UPDATE_USER_EMAIL : "?????",
 		UPDATE_USER_PASSWORD : "updateUserName",
@@ -38,7 +39,7 @@ DatabaseClientInterface = function(){
 		UPDATE_HORSE_GROWER : "updateHorseGrower",
 		UPDATE_DATE : "?????",
 		UPDATE_REMINDER : "????",
-		UPDATE_AGREEMENT: "????",
+		UPDATE_REGULAR_REMINDER: "????",
 	}
 
 	let that = new EventTarget(),
@@ -52,7 +53,7 @@ DatabaseClientInterface = function(){
 		function sendResultData(ev){
 			let event = new Event("onResult");
 				event.details = {};
-				event.details.data = ev.details.data;
+				event.details.data = ev.details.result;
 			that.dispatchEvent(event);
 		}
 
@@ -75,57 +76,63 @@ DatabaseClientInterface = function(){
 
 		//GET DATA
 
-		function getUserData(userId){
+		function getUserId(email){
 			let data = {};
-				data.id = userId;
+				data.email = email;
+			requestModul.getDataFromDB(ACTIONS.GET_USER_ID, data);
+		}
+
+		function getUserData(userID){
+			let data = {};
+				data.userID = userID;
 			requestModul.getDataFromDB(ACTIONS.USER_DATA, data);
 		}
 
-		function getAllHorsesOfUser(userId){
+		function getAllHorsesOfUser(userID){
 			let data = {};
-				data.id = userId;
+				data.userID = userID;
 			requestModul.getDataFromDB(ACTIONS.ALL_HORSES, data);
 		}
 
 		function getHorse(horseId){
 			let data = {};
-				data.id = horseId;
+				data.horseID = horseId;
 			requestModul.getDataFromDB(ACTIONS.SINGLE_HORSE, data);
 		}
 
-		function getAllDatesOfUser(userId){
+		function getAllDatesOfHorse(horseID){
 			let data = {};
-				data.id = userId;
+				data.horseID = horseID;
 			requestModul.getDataFromDB(ACTIONS.ALL_DATES, data);
 		}
 
 		function getDate(dateId){
 			let data = {};
-				data.id = dateId;
+				data.dateID = dateId;
 			requestModul.getDataFromDB(ACTIONS.SINGLE_DATE, data);
 		}
 
 		function getAllRemindersOfUser(userId){
 			let data = {};
-				data.id = userId;
+				data.dateID = userId;
 			requestModul.getDataFromDB(ACTIONS.ALL_REMINDERS, data);	
 		}
 
-		function getReminder(reminderId){
+		function getReminder(dateID){
 			let data = {};
-				data.id = reminderId;
+				data.dateID = dateID;
 			requestModul.getDataFromDB(ACTIONS.SINGLE_REMINDER, data);	
 		}
 
-		function getAllAgreementsOfUser(userId){
+		function getAllregularRemindersOfUser(userId){
 			let data = {};
 			data.id = userId;
 			requestModul.getDataFromDB(ACTIONS.ALL_AGREEMENTS, data);		
 		}
 
-		function getAgreement(agreementId){
+		function getregularReminder(regularReminderId){
 			let data = {};
-			data.id = agreementId;
+			data.id = regularReminderId;
 			requestModul.getDataFromDB(ACTIONS.SINGLE_AGREEMENT, data);		
 		}
 
@@ -215,7 +222,7 @@ DatabaseClientInterface = function(){
 			deleteEntityFromDB(ACTIONS.DELETE_REMINDER, reminderId);
 		}
 
-		function deleteAgreementFromDB(agreementId){
+		function deleteregularReminderFromDB(agreementId){
 			deleteEntityFromDB(ACTIONS.DELETE_AGREEMENT, agreementId);
 		}
 
@@ -244,22 +251,23 @@ DatabaseClientInterface = function(){
 			updateEntity(ACTIONS.UPDATE_REMINDER, reminderId, valueObject);
 		}
 
-		function updateAgreement(agreementId, valueObject){
-			updateEntity(ACTIONS.UPDATE_AGREEMENT, agreementId, valueObject);
+		function updateregularReminder(regularReminderId, valueObject){
+			updateEntity(ACTIONS.UPDATE_AGREEMENT, regularReminderId, valueObject);
 		}
 
 		that.init = init;
 		that.tryLogin = tryLogin;
 		that.logoutUser = logoutUser;
+		that.getUserId = getUserId;
 		that.getAllHorsesOfUser = getAllHorsesOfUser;
 		that.getAllRemindersOfUser = getAllRemindersOfUser;
-		that.getAllDatesOfUser = getAllDatesOfUser;
-		that.getAllAgreementsOfUser = getAllAgreementsOfUser;
+		that.getAllDatesOfHorse = getAllDatesOfHorse;
+		that.getAllregularRemindersOfUser = getAllregularRemindersOfUser;
 		that.getUserData = getUserData;
 		that.getHorse = getHorse;
 		that.getDate = getDate;
 		that.getReminder = getReminder;
-		that.getAgreement = getAgreement;
+		that.getregularReminder = getregularReminder;
 		that.setHorseIntoDB = setHorseIntoDB;
 		that.setUserIntoDB = setUserIntoDB;
 		that.setDateIntoDB = setDateIntoDB;
@@ -269,12 +277,12 @@ DatabaseClientInterface = function(){
 		that.deleteHorseFromDB = deleteHorseFromDB;
 		that.deleteDateFromDB = deleteDateFromDB;
 		that.deleteReminderFromDB = deleteReminderFromDB;
-		that.deleteAgreementFromDB = deleteAgreementFromDB;
+		that.deleteregularReminderFromDB = deleteregularReminderFromDB;
 		that.updateUser = updateUser;
 		that.updateHorse = updateHorse;
 		that.updateEntity = updateEntity;
 		that.updateDate = updateDate;
 		that.updateReminder = updateReminder;
-		that.updateAgreement = updateAgreement;
+		that.updateregularReminder = updateregularReminder;
 		return that;
 }
