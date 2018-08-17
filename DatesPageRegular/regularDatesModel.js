@@ -77,8 +77,27 @@ RegularDatesPage.RegularDatesPageModel = function(userID){
 		function saveDataIntoDB(){
 			regularDatesData = data;
 			dbRequester.updateDate(data);
+		}
+
+		function getDateAttributesById(id) {
+			let date = {
+				date: "2018-08-02",
+				location:"222",
+				time:"11:11",
+				title:"11",
+			}
+
+			let reminder = {
+				date: "2018-08-02",
+				time:"22:22",
+			}
+
+			let testdata = {date, reminder, unit:"Woche", durationValue: "7"};
+
+			return testdata;
 		}		
 
+		that.getDateAttributesById = getDateAttributesById;
 		that.updateData = updateData;
 		that.saveDataIntoDB = saveDataIntoDB;
 		that.init = init;

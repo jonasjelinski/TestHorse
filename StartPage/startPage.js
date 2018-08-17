@@ -129,6 +129,21 @@ StartPage = function(userId){
 		if(lastBoxClicked(id)){
 			sendEvent("createNewHorse", "");			
 		}
+		else{
+			let attributes = getHorseById(id);
+			sendShowHorseEvent(attributes);
+		}
+	}	
+
+	function getHorseById(id){
+
+	}
+
+	function sendShowHorseEvent(attributes){
+		let event = new Event("showHorse");
+		event.details = {};
+		event.details.attributes = attributes;
+		that.dispatchEvent(event);	
 	}
 
 	function lastBoxClicked(id){

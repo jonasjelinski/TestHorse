@@ -9,9 +9,11 @@ HorseProfileSaver = function(data){
 
 	let that = new EventTarget(),
 		profil = {},
+		dbInterface,
 		attributes;
 
-	function init(newAttributes){		
+	function init(newAttributes){	
+		isNewHorse = isNew;	
 		attributes = newAttributes;
 		initPofil();
 		initModel();
@@ -24,8 +26,8 @@ HorseProfileSaver = function(data){
 	}
 
 	function initModel(){
-		model = new HorseProfileSaver.Model();
-		model.init(attributes);
+		dbInterface = new HorseProfileSaver.DBRequester(UserId);
+		dbInterface.init(attributes);
 	}
 
 	function addListeners(){
@@ -46,7 +48,7 @@ HorseProfileSaver = function(data){
 	}
 
 	function handleOkayProfile(){
-		//model.saveHorseIntoDB();
+		dbInterface.saveHorseIntoDB(attributes);
 		sendEvent("onSaveHorseProfile");
 	}
 
@@ -54,6 +56,16 @@ HorseProfileSaver = function(data){
 		sendEvent("onDeleteNewHorseProfile", "");
 	}
 
+	function setDBInterfaceToUpdate(){
+		dbInterface.setUpdateHorse();
+	}
+
+	function setDBInterfaceToNew(){
+		dbInterface.setNewHorse();
+	}
+
+	that.setDBInterfaceToNew = setDBInterfaceToNew;
+	that.setDBInterfaceToUpdate = setDBInterfaceToUpdate;
 	that.init = init;
 	return that;
 } 
