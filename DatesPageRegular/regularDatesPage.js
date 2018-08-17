@@ -3,6 +3,7 @@ var RegularDatesPage = RegularDatesPage || {};
 RegularDatesPage = function(){
 	let that = new EventTarget(),
 		dropList,
+		dbInterface,
 		model,
 		controlls,
 		ulDomElementId = "allRegularDates",
@@ -12,16 +13,23 @@ RegularDatesPage = function(){
 		changeButtonClass = "regularDateChange",
 		backbuttonId= "backToDates",
 		popup,
-		deleteId,
-		changeId;
+		changeId,
+		horseID;
 
-	function init(){
+	function init(newHorseID){
+		horseID = newHorseID;
 		elementTemplateString = document.getElementById("ul-element").innerHTML;
+		initDBInterface();
 		initPopup();		
 		initModel();
 		addListeners();		
 		let testData = [{id: "1", name: "Hufschmied"}, {id: "2", name: "Tierarzt"},{id: "3", name: "Reiten"}];	
 		initDropList(testData);	
+	}
+
+	function initDBInterface(){
+		dbInterface = RegularDatesPage.DBRequester(userID,horseID);
+		dbInterface.addEventListener("onResult", handleDBResult);
 	}
 
 	function initPopup(){
@@ -48,7 +56,8 @@ RegularDatesPage = function(){
 	}
 
 	function handleYes(){
-		console.log("delteDate");
+		let id = model.getDelteId();
+		console.log("delteDate", id);
 	}
 
 	function handleDataReceived(event){
@@ -88,7 +97,7 @@ RegularDatesPage = function(){
 	function handleDeleteClick(event){
 		showPopup();
 		let id = event.details.id;
-		deleteId = deleteId;
+		model.setDelteId(id);
 	}
 
 	function showPopup() {

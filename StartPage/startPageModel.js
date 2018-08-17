@@ -1,5 +1,18 @@
 var StartPage = StartPage || {};
 
-StartPage.Model = function(userId){
-	return DatabaseClientInterface.SimpleRequester("getAllHorsesOfUser", userId); 
+StartPage.Model = function(){
+	let that = {},
+		allHorses;
+
+	function init(horses){
+		allHorses = horses;
+	}
+
+	function getHorseById(id){
+
+	}
+
+	that.init = init;
+	that.getHorseById = getHorseById;
+	return that;
 }

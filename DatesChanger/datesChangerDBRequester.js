@@ -4,18 +4,12 @@ DatesChangerPageSingle.DBRequester = function(userID, horseID){
 		newDate;
 
 	function init(newDate) {
-		singleDate = newDate;
-		addUserId();
+		singleDate = newDate;;
 		initRequester();
 	}
 
-	function addUserId(){
-		singleDate.userID = userID;
-		regularDate.horseID = horseID;
-	}
-
 	function initRequester() {
-		requester = new DatabaseClientInterface.SimpleRequester(singleDate, "updateDate");
+		requester = new DatabaseClientInterface.SimpleRequester(userID, horseID, singleDate, "updateDate");
 		requester.init();
 	}
 

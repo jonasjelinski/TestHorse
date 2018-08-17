@@ -1,6 +1,6 @@
 var DatesChangerPageSingle = DatesChangerPageSingle || {};
 
-DatesChangerPageSingle = function(){
+DatesChangerPageSingle = function(userID){
 	const DATE = {
 		date: "2018-08-02",
 		location:"222",
@@ -14,10 +14,12 @@ DatesChangerPageSingle = function(){
 	DEFAULT_DATA = {DATE, REMINDER};
 
 	let that = new EventTarget(),
-		page;
+		page,
+		horseID;
 
 	function init(attributes){
-		page = new SingleDatesCreatorPage();
+		horseID = attributes.horseID;
+		page = new SingleDatesCreatorPage.Standard(userID,horseID);
 		addAttributesAndInitPage(attributes);		
 	}
 
@@ -26,7 +28,7 @@ DatesChangerPageSingle = function(){
 			attributes = DEFAULT_DATA;
 		}
 		if(page){
-			page.init();	
+			page.init(horseID);	
 			addAttributes(attributes);
 					
 		}
@@ -36,6 +38,30 @@ DatesChangerPageSingle = function(){
 		let newDate = attributes.date,
 			reminder = attributes.reminder;
 		page.updateCreator(newDate, reminder);
+	}
+
+	function addListeners() {
+		page.addEventListener("onSave", handleSave);
+		page.addEventListener("onCancel", handleCancel);
+	}
+
+	function handleSave(event) {
+		let data = event.details.data;
+		saveDataIntoDB(data);
+		sendEvent("onDataSaved");
+	}
+
+	function saveDataIntoDB(data) {
+
+	}
+
+	function sendEvent(type) {
+		let event = new Event(type);
+		that.dispatchEvent(event);
+	}
+
+	function handleCancel() {
+		sendEvent("onCancel");
 	}
 
 	that.init = init;

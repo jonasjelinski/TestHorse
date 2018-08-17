@@ -7,10 +7,11 @@ var StartPage = StartPage || {};
  * <p><code><dropList</code> is a modul which handles a dom-element of the type unsorted list </p>
  * <p><code><hamburgerMenu</code> is a modul which handles a hamburgerMenu, which is a kind of droplist</p>
  */
-StartPage = function(userId){
+StartPage = function(userID){
 	let that = new EventTarget(),
-		model, 
+		dbInterface, 
 		hamburgerMenu,
+		model,
 		dropList,
 		dropListId = "horseList",
 		listElementsData = [{id: "1", photo: "/src/xy"}, {id: "2", photo: "/src/xy"},{id: "3", photo: "/src/xy"}],		
@@ -32,62 +33,31 @@ StartPage = function(userId){
 	* @public
 	* @memberof! MainPage  
 	* @instance
-	* @description Initialize this model. Sets the elementTemplateString, the hamburgerMenu and the dropList
+	* @description Initialize this dbInterface. Sets the elementTemplateString, the hamburgerMenu and the dropList
 	*/ 
-	function init(){
-		initHamburgerMenu();
+	function init(){		
+		initDBInterface();
 		initModel();
 		initDropList(listElementsData);
+		initHamburgerMenu();
 		initButtonControlls();		
 		addEventListeners();
 	}
 
-	function initHamburgerMenu(){
-		hamburgerMenu = new HamburgerMenu(clickBoxId, burgerList, inVisibleClass, visibleClass);
-		hamburgerMenu.init();
-		hamburgerMenu.addEventListener("onOption", handleHamburgerClick);
-	}
-
-	function handleHamburgerClick(event){
-		let option = event.details.option;
-		switch(option){
-			case burgerOptionProfile : handleProfileOption();
-				break;
-			case burgerOptionHelp : handleHelpOption();
-				break;
-			case burgerOptionLogout : handleLogoutOption();
-				break;
-			default: break;
-		}
-	}
-
-	function handleProfileOption(){
-		sendEvent("showProfilePage","");
-	}
-
-	function sendEvent(type, id){
-		let event = new Event(type);
-		event.details = {};
-		event.details.horseId = id;
-		that.dispatchEvent(event);	
-	}
-
-	function handleHelpOption(){
-		sendEvent("showHelpPage","");
-	}
-
-	function handleLogoutOption(){
-		sendEvent("logoutUser","");
-	}
-
-	function initModel(){
-		model = StartPage.Model(userId);
-		model.addEventListener("onResult", handleDBResult);
+	function initDBInterface(){
+		dbInterface = StartPage.DBRequester(userID);
+		dbInterface.addEventListener("onResult", handleDBResult);
 	}
 
 	function handleDBResult(ev){
 		let horseData = ev.details.data;
 		initDropList(horseData);
+		initModel(horseData);
+	}
+
+	function initModel(horseData){
+		model = new StartPage.Model();
+		model.init(horseData);
 	}
 
 	function initDropList(horseData){
@@ -151,6 +121,44 @@ StartPage = function(userId){
 			return true;
 		}
 		return false;
+	}
+
+	function initHamburgerMenu(){
+		hamburgerMenu = new HamburgerMenu(clickBoxId, burgerList, inVisibleClass, visibleClass);
+		hamburgerMenu.init();
+		hamburgerMenu.addEventListener("onOption", handleHamburgerClick);
+	}
+
+	function handleHamburgerClick(event){
+		let option = event.details.option;
+		switch(option){
+			case burgerOptionProfile : handleProfileOption();
+				break;
+			case burgerOptionHelp : handleHelpOption();
+				break;
+			case burgerOptionLogout : handleLogoutOption();
+				break;
+			default: break;
+		}
+	}
+
+	function handleProfileOption(){
+		sendEvent("showProfilePage","");
+	}
+
+	function sendEvent(type, id){
+		let event = new Event(type);
+		event.details = {};
+		event.details.horseId = id;
+		that.dispatchEvent(event);	
+	}
+
+	function handleHelpOption(){
+		sendEvent("showHelpPage","");
+	}
+
+	function handleLogoutOption(){
+		sendEvent("logoutUser","");
 	}
 
 	function initButtonControlls(){

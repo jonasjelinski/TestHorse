@@ -1,39 +1,27 @@
 var SingleDatesCreatorPage = SingleDatesCreatorPage || {};
 
-SingleDatesCreatorPage = function(){
-	const DATE_CLASS = "", 
-		REMINDER_CLASS = "", 
-		CONTAINER_ELEMENT_ID = "dateCreater",
-		TITLE_INPUT_ID = "dateTitleInput",
-		DATE_INPUT_ID = "dateDateInput",
-		TIME_INPUT_ID = "dateTimeInput",
-		LOCATION_INPUT_ID = "dateLocationInput",
-		CHECKBOX_ID = "dateCreaterCheckbox",
-		DATE_BUTTON_ID = "dateCreaterDateButton",
-		REMINDER_BUTTON_ID = "dateCreaterReminderButton",
-		SAVE_BUTTON_ID = "dateCreaterSaveButton",
-		CANCLE_BUTTON_ID = "dateCreaterCancelButton";
+SingleDatesCreatorPage = function(userID){
 
 	let that = new EventTarget(),
+		standardPage,
 		dbInterface,
-		datesCreator;
+		datesCreator,
+		horseID;
 
-	function init() {
+	function init(newHorseID) {
+		horseID = newHorseID;
 		initCreator();
 		addListeners();
 	}
 
 	function initCreator() {
-			datesCreator = new SingleDatesCreator(DATE_CLASS, REMINDER_CLASS, CONTAINER_ELEMENT_ID, TITLE_INPUT_ID, 
-	DATE_INPUT_ID, TIME_INPUT_ID, LOCATION_INPUT_ID, CHECKBOX_ID, 
-	DATE_BUTTON_ID, REMINDER_BUTTON_ID,
-	SAVE_BUTTON_ID, CANCLE_BUTTON_ID);
-			datesCreator.init();
+		standardPage = new SingleDatesCreatorPage.Standard(userID);
+		dbInterface = new SingleDatesCreatorPage.DBRequester(userID, horseID);
 	}
 
 	function addListeners() {
-		datesCreator.addEventListener("onSave", handleSave);
-		datesCreator.addEventListener("onCancel", handleCancel);
+		standardPage.addEventListener("onSave", handleSave);
+		standardPage.addEventListener("onCancel", handleCancel);
 	}
 
 	function handleSave(event) {
@@ -55,16 +43,6 @@ SingleDatesCreatorPage = function(){
 		sendEvent("onCancel");
 	}
 
-	function updateCreator(newDate, newReminder) {
-		datesCreator.updateCreator(newDate, newReminder);
-	}
-
-	function setDBInterface(newDBInterface){
-		dbInterface = newDBInterface;
-	}
-
-	that.setDBInterface = setDBInterface;
-	that.updateCreator = updateCreator;
 	that.init = init;
 	return that;
 }

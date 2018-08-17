@@ -1,6 +1,6 @@
-var DatesPage = DatesPage || {};
+var DatesPageAll = DatesPageAll || {};
 
-DatesPage.DatesPageControll = function(domElements){
+DatesPageAll.DatesPageControll = function(domElements){
 	"user strict";
 	let that = new EventTarget(),
 		regularDatesButton,

@@ -6,17 +6,11 @@ SingleDatesCreator.DBRequester = function(userID, horseID){
 
 	function init(newDate) {
 		singleDate = newDate;
-		addUserId();
 		initRequester();
 	}
 
-	function addUserId(){
-		singleDate.userID = userID;
-		regularDate.horseID = horseID;
-	}
-
 	function initRequester() {
-		requester = new DatabaseClientInterface.SimpleRequester(singleDate, "setDateIntoDB");
+		requester = new DatabaseClientInterface.SimpleRequester(userID, horseID, singleDate, "setDateIntoDB");
 		requester.init();
 	}
 

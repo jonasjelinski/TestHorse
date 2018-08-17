@@ -3,10 +3,9 @@ class Creator extends EventTarget{
 		super();
 		this.entityCreator = entityCreator;
 		this.model = creatorModel;
-		this.view = view;
-	}
+		this.view = view;	}
 	
-	init(){			
+	init(){		
 		this.initModel();
 		this.initEntityCreator();
 		this.initView();			

@@ -1,20 +1,20 @@
-var RegularDatesPage = RegularDatesPage || {};
+var DatesPageAll = DatesPageAll || {};
 
-RegularDatesPage.RegularDatesPageModel = function(userID){
+DatesPageAll.DatesPageModel = function(userID){
 	let that = new EventTarget(),
 		dbRequester,		
-		allDates,
+		datesData,
 		delteId;
 
 		/**
 		* @function init
 		* @public
-		* @memberof! RegularDatesPage.RegularDatesPageModel 
+		* @memberof! DatesPage.DatesPageModel 
 		* @instance
 		* @description Initialize this model. Inits the dbRequester and its listeners. Starts a request for the user data
 		*/ 	
    		function init(allDates){
-   			allDates = allDates;
+   			datesData = allDates;		
 		}
 
 		function setDelteId(id){

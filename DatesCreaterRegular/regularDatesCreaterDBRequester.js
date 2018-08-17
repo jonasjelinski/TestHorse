@@ -5,17 +5,11 @@ RegulardatesCreater.DBRequester = function(userID, horseID){
 
 	function init(newDate) {
 		regularDate = newDate;
-		addUserId();
 		initRequester();
-	}
-
-	function addUserId(){
-		regularDate.userID = userID;
-		regularDate.horseID = horseID;
-	}
+	}	
 
 	function initRequester() {
-		requester = new DatabaseClientInterface.SimpleRequester(regularDate, "setUserIntoDB");
+		requester = new DatabaseClientInterface.SimpleRequester(userID, horseID,regularDate, "setDateIntoDB");
 		requester.init();
 	}
 

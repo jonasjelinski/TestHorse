@@ -1,6 +1,6 @@
 var RegulardatesCreatorPage = RegulardatesCreatorPage || {};
 
-RegulardatesCreatorPage = function(){
+RegulardatesCreatorPage = function(userID){
 
 	const DATE_CLASS = "", 
 		REMINDER_CLASS = "", 
@@ -18,12 +18,13 @@ RegulardatesCreatorPage = function(){
 		UNIT_INPUT_ID = "regular_dates_unit";
 
 	let that = new EventTarget(),
-	regularDatesCreater;
+	regularDatesCreater,
+	horseID;
 
-	function init(){
+	function init(newHorseID){
+		horseID = newHorseID;
 		initRegularDatesCreator();
 		addEventListeners();
-
 	}
 
 	function initRegularDatesCreator(){
@@ -41,7 +42,7 @@ RegulardatesCreatorPage = function(){
 
 	function handleSave(event) {
 		let data = event.details.data;
-		console.log("data",data);
+		data.horseID = horseID;
 		saveDataIntoDB(data);
 		sendEvent("onDataSaved");
 	}
@@ -62,6 +63,7 @@ RegulardatesCreatorPage = function(){
 		regularDatesCreater.updateCreator(newDate, newReminder, newDurationValue, newDurationUnit);
 	}
 
+	that.handleSave = handleSave;
 	that.updateCreator = updateCreater;
 	that.init = init;
 	return that;

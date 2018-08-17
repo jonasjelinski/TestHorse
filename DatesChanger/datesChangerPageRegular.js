@@ -1,6 +1,6 @@
 var DatesChangerPageRegular = DatesChangerPageRegular || {};
 
-DatesChangerPageRegular = function(){
+DatesChangerPageRegular = function(userID){
 
 	const DATE = {
 		date: "2018-08-02",
@@ -16,14 +16,17 @@ DatesChangerPageRegular = function(){
 
 	let that = new EventTarget(),
 		dbInterface,
-		page;
+		horseID;
 
 	function init(attributes){
-		page = new RegulardatesCreatorPage();
-		//dbInterface = new DatesChangerPageSingle.DBRequester(userID, horsID);
+		horseID = attributes.horseID;
+		page = new RegulardatesCreatorPage(userID);
 		page.setDBInterface(dbInterface);
+		dbInterface = new DatesChangerPageSingle.DBRequester(userID, horseID);
 		addAttributesAndInitPage(attributes);		
 	}
+
+	function overrideSetterWithUpdates = 
 
 	function addAttributesAndInitPage(attributes) {
 		if(!attributes){

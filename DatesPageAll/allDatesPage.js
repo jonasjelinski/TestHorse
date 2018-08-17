@@ -1,23 +1,32 @@
-var DatesPage = DatesPage || {};
+var DatesPageAll = DatesPageAll || {};
 
-DatesPage = function(){
+DatesPageAll = function(userID){
 	let that = new EventTarget(),
 		dropList,
+		dbInterface,
 		model,
 		controlls,
 		ulDomElementId = "allDates",
 		elementTemplateString,
-		elementTagId = "dateId";
+		elementTagId = "dateId",
+		horseID;
 
-	function init(){
+	function init(newHorseID){
+		horseID = newHorseID;
 		elementTemplateString = document.getElementById("ul-element").innerHTML;
+		initDBInterface();
 		initModel();
 		initControlls();	
 	}
 
+	function initDBInterface(){
+		dbInterface = DatesPageAll.DBRequester(userID,horseID);
+		dbInterface.addEventListener("onResult", handleDBResult);
+	}
+
 	function initModel(){
 		let testData = [{id: "1", name: "Dienstag Zahnarzt"}, {id: "2", name: "Mittwoch Lernen"},{id: "3", name: "Sonntag Fussball"}];
-		model = new DatesPage.DatesPageModel();
+		model = new DatesPageAll.DatesPageModel();
 		model.addEventListener("onDataReceived", handleDataReceived);
 		initDropList(testData);		
 	}
@@ -51,7 +60,7 @@ DatesPage = function(){
 			singleDatesButton: singleDatesButton,
 			cancelButton : cancelButton,
 		}
-		controlls = DatesPage.DatesPageControll(domElements);
+		controlls = DatesPageAll.DatesPageControll(domElements);
 		controlls.init();
 		addControllListeners();
 	}
@@ -69,6 +78,7 @@ DatesPage = function(){
 
 	function sendEvent(type){
 			let event = new Event(type);
+			event.details.attributes.horseID = horseID;
 			that.dispatchEvent(event);
 	}
 

@@ -27,7 +27,8 @@ Pages = function(){
 		userCreatorPage,
 		userProfilPage,
 		userProfileSaver,
-		userProfileChanger;
+		userProfileChanger,
+		userID;
 
 	/**
 	* @function init
@@ -65,22 +66,22 @@ Pages = function(){
 	* @description sets the variables of this modul which contain the moduls of the different pages.
 	*/ 
 	function initPages(){
-		datesPage = new DatesPage();
-		datesCreatorPageRegular = new RegulardatesCreatorPage();
-		datesCreatorPageSingle = new SingleDatesCreatorPage();
-		datesPageRegular = new RegularDatesPage();
-		datesChangerPageSingle = new DatesChangerPageSingle();		
-		datesChangerPageRegular = new DatesChangerPageRegular();		
-		horseProfilPage = new HorseProfilePage();
-		horseCreatorPage = new HorseCreatorPage();
-		horseProfileSaver = new HorseProfileSaver();
-		horseProfileChanger = new HorseProfileChanger();		
+		datesPage = new DatesPageAll(userID);
+		datesCreatorPageRegular = new RegulardatesCreatorPage(userID);
+		datesCreatorPageSingle = new SingleDatesCreatorPage(userID);
+		datesPageRegular = new RegularDatesPage(userID);
+		datesChangerPageSingle = new DatesChangerPageSingle(userID);		
+		datesChangerPageRegular = new DatesChangerPageRegular(userID);		
+		horseProfilPage = new HorseProfilePage(userID);
+		horseCreatorPage = new HorseCreatorPage(userID);
+		horseProfileSaver = new HorseProfileSaver(userID);
+		horseProfileChanger = new HorseProfileChanger(userID);		
 		loginPage = new LoginPage();		
-		startPage = new StartPage();
-		userCreatorPage = new UserCreatorPage();
-		userProfilPage = new UserProfilPage();
-		userProfileSaver = new UserProfileSaver();
-		userProfileChanger = new UserProfileChanger();		
+		startPage = new StartPage(userID);
+		userCreatorPage = new UserCreatorPage(userID);
+		userProfilPage = new UserProfilPage(userID);
+		userProfileSaver = new UserProfileSaver(userID);
+		userProfileChanger = new UserProfileChanger(userID);		
 	}
 
 	/**
