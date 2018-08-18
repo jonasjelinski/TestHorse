@@ -9,14 +9,17 @@ SingleDatesCreatorPage = function(userID){
 		horseID;
 
 	function init(newHorseID) {
+ 		newHorseID = newHorseID || 38;
 		horseID = newHorseID;
-		initCreator();
+		initModuls();
 		addListeners();
 	}
 
-	function initCreator() {
+	function initModuls() {
 		standardPage = new SingleDatesCreatorPage.Standard(userID);
+		standardPage.init();
 		dbInterface = new SingleDatesCreatorPage.DBRequester(userID, horseID);
+		dbInterface.init();
 	}
 
 	function addListeners() {
@@ -25,13 +28,14 @@ SingleDatesCreatorPage = function(userID){
 	}
 
 	function handleSave(event) {
-		let data = event.details.data;
-		saveDataIntoDB(data);
+		let data = event.details.data,
+			date = data.date;
+		saveDateIntoDB(date);
 		sendEvent("onDataSaved");
 	}
 
-	function saveDataIntoDB(data) {
-
+	function saveDateIntoDB(date) {
+		dbInterface.saveDateIntoDB(date);
 	}
 
 	function sendEvent(type) {

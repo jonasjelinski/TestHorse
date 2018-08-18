@@ -16,11 +16,9 @@ SingleDatesCreatorPage.Standard = function(userID){
 
 	let that = new EventTarget(),
 		dbInterface,
-		datesCreator,
-		horseID;
+		datesCreator;
 
-	function init(newHorseID) {
-		horseID = newHorseID;
+	function init() {
 		initCreator();
 		addListeners();
 	}
@@ -40,13 +38,13 @@ SingleDatesCreatorPage.Standard = function(userID){
 
 	function handleSave(event) {
 		let data = event.details.data;
-		data.horseID = horseID;
 		sendEvent("onSave", data);
 	}
 
 	function sendEvent(type, data) {
 		let event = new Event(type);
 		if(data){
+			event.details = {};
 			event.details.data = data;
 		}
 		that.dispatchEvent(event);

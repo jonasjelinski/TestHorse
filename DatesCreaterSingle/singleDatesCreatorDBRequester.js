@@ -1,5 +1,6 @@
+var SingleDatesCreatorPage = SingleDatesCreatorPage || {};
 
-SingleDatesCreator.DBRequester = function(userID, horseID){
+SingleDatesCreatorPage.DBRequester = function(userID, horseID){
 	let that = {},
 		attributes,
 		singleDate;
@@ -10,14 +11,32 @@ SingleDatesCreator.DBRequester = function(userID, horseID){
 	}
 
 	function initRequester() {
-		requester = new DatabaseClientInterface.SimpleRequester(userID, horseID, singleDate, "setDateIntoDB");
+		requester = new DatabaseClientInterface();
 		requester.init();
 	}
 
-	function saveDateIntoDB(newDate)
-	{	console.log("saveDateIntoDB", newDate);
-		singleDate = Object.assign(singleDate, newDate);
-		//requester.request();
+	function addEventListeners(){
+		requester.addEventListener("onResult", handleResult);
+	}
+
+	function handleResult(){
+		
+	}
+
+	function saveDateIntoDB(newDate){
+		let idData = {userID, horseID},
+			dataToSave = Object.assign(idData, newDate),		
+			hadCorrectParameter = requester.setDateIntoDB(dataToSave);
+		handleParameterFeedBack(hadCorrectParameter, newDate);
+	}
+
+	function handleParameterFeedBack(hadCorrectParameter, newDate){
+		if(hadCorrectParameter){
+			console.log("hadCorrectParameter")
+		}
+		else{
+			console.log("not Enough attributes", newDate);
+		}
 	}
 
 	that.init = init;

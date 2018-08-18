@@ -1,6 +1,6 @@
 var RegularDatesPage = RegularDatesPage || {};
 
-RegularDatesPage = function(){
+RegularDatesPage = function(userID){
 	let that = new EventTarget(),
 		dropList,
 		dbInterface,
@@ -16,53 +16,43 @@ RegularDatesPage = function(){
 		changeId,
 		horseID;
 
-	function init(newHorseID){
-		horseID = newHorseID;
-		elementTemplateString = document.getElementById("ul-element").innerHTML;
+	function init(newHorseID){		
+		setHorseIDAndTemplateString(newHorseID);
 		initDBInterface();
-		initPopup();		
-		initModel();
-		addListeners();		
-		let testData = [{id: "1", name: "Hufschmied"}, {id: "2", name: "Tierarzt"},{id: "3", name: "Reiten"}];	
-		initDropList(testData);	
+		requestDatesFromDB();
+		initPopup();
 	}
+
+	function setHorseIDAndTemplateString(newHorseID){
+		horseID = newHorseID || 38;
+		elementTemplateString = document.getElementById("ul-element").innerHTML;
+	}	
 
 	function initDBInterface(){
 		dbInterface = RegularDatesPage.DBRequester(userID,horseID);
+		dbInterface.init();
 		dbInterface.addEventListener("onResult", handleDBResult);
 	}
 
-	function initPopup(){
-		popup = Popup("Wirklich löschen?");
-		popup.init();
+	function requestDatesFromDB(){
+		dbInterface.requestDatesFromDB();
+		console.log("init RegularDatesPage");
 	}
 
-	function initModel(){		
-		model = new RegularDatesPage.RegularDatesPageModel();			
+	function handleDBResult(event){
+		let allDatesAsStrings = event.details.allDates;		
+		initModel(allDatesAsStrings);		
 	}
 
-	function addListeners() {
-		addModelListeners();
-		addPopupListeners();
+	function initModel(allDatesAsStrings){
+		model = new RegularDatesPage.Model();
+		model.addEventListener("onDataConverted", handleOnDataConverted);
+		model.init(allDatesAsStrings);	
 	}
 
-	function addModelListeners() {
-		model.addEventListener("onDataReceived", handleDataReceived);
-	}
-
-
-	function addPopupListeners(){
-		popup.addEventListener("onYes", handleYes);
-	}
-
-	function handleYes(){
-		let id = model.getDelteId();
-		console.log("delteDate", id);
-	}
-
-	function handleDataReceived(event){
-		let listElementsData = event.details.event;		
-		initDropList(listElementsData);
+	function handleOnDataConverted(event){
+		let convertedDates = event.details.allDates;
+		initDropList(convertedDates);
 	}
 
 	function initDropList(listElementsData){
@@ -130,6 +120,17 @@ RegularDatesPage = function(){
 
 	function handleBackClick(){
 		sendEvent("showAllDates");
+	}
+
+	function initPopup(){
+		popup = Popup("Wirklich löschen?");
+		popup.addEventListener("onYes", handleYes);
+		popup.init();
+	}
+
+	function handleYes(){
+		let id = model.getDelteId();
+		console.log("delteDate", id);
 	}	
 
 	that.init = init;

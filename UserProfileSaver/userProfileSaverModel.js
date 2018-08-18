@@ -11,13 +11,31 @@ UserProfileSaver.Model = function(){
 	}
 
 	function initRequester() {
-		requester = new DatabaseClientInterface.SimpleRequester(user, "setUserIntoDB");
+		requester = new DatabaseClientInterface();
 		requester.init();
 	}
 
+	function addEventListeners(){
+		requester.addEventListener("onResult", handleResult);
+	}
+
+	function handleResult(event){
+		let data = event.details.data;
+		console.log("data", data);
+    }
+
 	function saveUserIntoDB()
-	{	console.log("saveUserIntoDB", user);
-		//requester.request();
+	{	let hadCorrectParameter = requester.setUserIntoDB(user);
+		handleParameterFeedBack(hadCorrectParameter);
+	}
+
+	function handleParameterFeedBack(hadCorrectParameter){
+		if(hadCorrectParameter){
+			console.log("hadCorrectParameter")
+		}
+		else{
+			console.log("not Enough attributes", newHorse);
+		}
 	}
 
 	that.init = init;

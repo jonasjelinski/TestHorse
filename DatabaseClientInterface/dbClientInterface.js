@@ -53,8 +53,26 @@ DatabaseClientInterface = function(){
 		function sendResultData(ev){
 			let event = new Event("onResult");
 				event.details = {};
-				event.details.data = ev.details.result;
+				event.details.result = ev.details.result;			
 			that.dispatchEvent(event);
+		}
+
+		function allNecessaryDataHaveBeenParsed(necessaryAttributes, parsedObject){
+			for(let i = 0; i < necessaryAttributes.length; i++){
+				let attribute = necessaryAttributes[i],
+					parsedAttribute = parsedObject[attribute];
+				if(attributeIsMissing(parsedAttribute)){
+					return false;
+				}
+			}
+			return true;
+		}
+
+		function attributeIsMissing(attribute){
+			if(attribute === undefined){
+				return true;
+			}
+			return false;
 		}
 
 		//LOGIN AND LOGOUT
@@ -138,42 +156,44 @@ DatabaseClientInterface = function(){
 
 		//SET DATA
 
-		function setUserIntoDB(name, email, dateOfBirth, password){
-			let data = {
-				name: name,
-				email: email,
-				dateOfBirth: dateOfBirth,
-				password : password,
-			};
-			requestModul.setDataIntoDB(ACTIONS.SET_USER, data);
+		//newUser : name, email, dateOfBirth, password
+		function setUserIntoDB(newUser){
+			let necessaryAttributes = ["name", "email", "dateOfBirth", "password"];
+			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, newUser)){
+				requestModul.setDataIntoDB(ACTIONS.SET_USER, newUser);
+				return true;
+			}
+			else{
+				console.log("setUserIntoDB failed");
+				return false;				
+			}			
 		}
 
-		function setHorseIntoDB(name, owner, race, dateOfBirth, photoSrc, sex, height, grower, userID){
-			let data = {
-				name: name,
-				owner: owner,
-				race: race,
-				dateOfBirth : dateOfBirth,
-				photo: photoSrc,
-				sex : sex, 
-				height: height, 
-				grower: grower,
-				userID: userID,
-			};
-			requestModul.setDataIntoDB(ACTIONS.SET_HORSE, data);
+		function setHorseIntoDB(newHorse){
+			let standardPhoto = "https://h2795767.stratoserver.net/images/standardPhoto.jpg",
+				necessaryAttributes = ["name", "owner", "race", "dateOfBirth", "photo", "sex", "height", "grower", "userID"];
+			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, newHorse)){
+				newHorse.photo = standardPhoto;
+				requestModul.setDataIntoDB(ACTIONS.SET_HORSE, newHorse);
+				return true;
+			}
+			else{
+				console.log("setUserIntoDB failed");
+				return false;				
+			}			
 		}
 
-		function setDateIntoDB(title, date, time, location, regular, reminder, userID){
-			let data = {
-				userID: userID,
-				title: title,
-				date: date,
-				time: time,
-				location : location,				
-				reminder : reminder,
-				regular: regular,
-			};
-			requestModul.setDataIntoDB(ACTIONS.SET_DATE, data);
+		//title, date, time, location, horseID, userID
+		function setDateIntoDB(newDate){
+				necessaryAttributes = ["title", "date", "time", "location", "horseID", "userID"];
+			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, newDate)){
+				requestModul.setDataIntoDB(ACTIONS.SET_DATE, newDate);
+				return true;
+			}
+			else{
+				console.log("setUserIntoDB failed");
+				return false;				
+			}				
 		}
 
 		function setReminderIntoDB(title, date, time, location, parentDate, dateID){

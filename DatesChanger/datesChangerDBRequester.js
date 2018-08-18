@@ -1,21 +1,36 @@
 DatesChangerPageSingle.DBRequester = function(userID, horseID){
 	let that = {},
 		attributes,
-		newDate;
+		oldDate;
 
-	function init(newDate) {
-		singleDate = newDate;;
+	function init(oldDate) {
+		oldDate = oldDate;
 		initRequester();
 	}
 
 	function initRequester() {
-		requester = new DatabaseClientInterface.SimpleRequester(userID, horseID, singleDate, "updateDate");
+		requester = new DatabaseClientInterface();
 		requester.init();
 	}
 
-	function saveDateIntoDB()
-	{	console.log("saveUserIntoDB", user);
-		//requester.request();
+	function addEventListeners(){
+		requester.addEventListener("onResult", handleResult);
+	}
+
+	function saveDateIntoDB(changedDate){
+		oldDate = changedDate;
+		console.log("changedDate",changedDate);
+			//hadCorrectParameter = requester.updateDate(changedDate);
+		//handleParameterFeedBack(hadCorrectParameter, changedDate);
+	}
+
+	function handleParameterFeedBack(hadCorrectParameter, changedDate){
+		if(hadCorrectParameter){
+			console.log("hadCorrectParameter")
+		}
+		else{
+			console.log("not Enough attributes", changedDate);
+		}
 	}
 
 	that.init = init;

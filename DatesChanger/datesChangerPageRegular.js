@@ -16,22 +16,23 @@ DatesChangerPageRegular = function(userID){
 
 	let that = new EventTarget(),
 		dbInterface,
+		standardPage,
 		horseID;
 
 	function init(attributes){
 		horseID = attributes.horseID;
-		page = new RegulardatesCreatorPage(userID);
-		page.setDBInterface(dbInterface);
+		standardPage = new RegulardatesCreatorPage.Standard (userID);
 		dbInterface = new DatesChangerPageSingle.DBRequester(userID, horseID);
-		addAttributesAndInitPage(attributes);		
+		addAttributesAndInitPage(attributes);
+		addListeners();		
 	}
 
 	function addAttributesAndInitPage(attributes) {
 		if(!attributes){
 			attributes = DEFAULT_DATA;
 		}
-		if(page){
-			page.init();	
+		if(standardPage){
+			standardPage.init();	
 			addAttributes(attributes);					
 		}
 	}
@@ -41,8 +42,34 @@ DatesChangerPageRegular = function(userID){
 				reminder = attributes.reminder,
 				newDurationValue = attributes.durationValue,
 				newDurationUnit = attributes.unit;
-			page.updateCreator(newDate, reminder, newDurationValue, newDurationUnit);
+			standardPage.updateCreator(newDate, reminder, newDurationValue, newDurationUnit);
 	}
+
+	function addListeners() {
+		standardPage.addEventListener("onSave", handleSave);
+		standardPage.addEventListener("onCancel", handleCancel);
+	}
+
+	function handleSave(event) {
+		let data = event.details.data,
+			changedDate = data.date;
+		saveDateIntoDB(date);
+		sendEvent("onDataSaved");
+	}
+
+	function saveDateIntoDB(changedDate) {
+		dbInterface.saveDateIntoDB(changedDate);
+	}
+
+	function sendEvent(type) {
+		let event = new Event(type);
+		that.dispatchEvent(event);
+	}
+
+	function handleCancel() {
+		sendEvent("onCancel");
+	}
+
 
 	that.init = init;
 	return that;

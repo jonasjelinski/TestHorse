@@ -20,7 +20,7 @@
        function showPage(){
         let pages = new Pages();  
             pages.init();   
-            pages.showUserCreatorPage();
+            pages.showStartPage();
             //pages.showDateCreatorPage();
         }
 
@@ -48,7 +48,7 @@
         
      
       let scriptLoader = new ScriptLoader();
-      scriptLoader.addEventListener("onLoaded", loaded);             
+      scriptLoader.addEventListener("onLoaded", showPage);             
       scriptLoader.loadScripts();
    </script>   
     <script>

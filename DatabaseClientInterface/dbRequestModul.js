@@ -23,7 +23,7 @@ DatabaseClientInterface.RequestModul = function () {
 
 	let that = new EventTarget(),
 	requestModul = new DatabaseClientInterface.JQAJAXModul();
-	requestModul.addEventListener("onResult", showResult);
+	requestModul.addEventListener("onResult", sendResults);
 
 	function askDataBase(url, action, data){
 		let requestData = createRequestDataObject(action, data);
@@ -34,9 +34,12 @@ DatabaseClientInterface.RequestModul = function () {
 		console.log("error");
 	}
 
-	function showResult(event){
-		let result = event.details.result ;
-		console.log("result", result);
+	function sendResults(ev){
+		let requestResult = ev.details.result,
+		event = new Event("onResult");
+		event.details = {};
+		event.details.result = requestResult;
+		that.dispatchEvent(event);		
 	}
 
 	function createRequestDataObject(action, data){
@@ -50,6 +53,7 @@ DatabaseClientInterface.RequestModul = function () {
 	function convertAllValuesToTypeString(requestData){
 		Object.keys(requestData).forEach( function(i){
 			if (typeof requestData[i] === "object") {
+				console.log(requestData);
 				return convertAllValuesToTypeString(requestData[k]);
 			}
 			requestData[i] = '' + requestData[i];

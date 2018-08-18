@@ -1,22 +1,38 @@
-RegulardatesCreater.DBRequester = function(userID, horseID){
+var RegulardatesCreatorPage = RegulardatesCreatorPage || {};
+
+RegulardatesCreatorPage.DBRequester = function(userID, horseID){
 	let that = {},
 		attributes,
-		regularDate;
+		singleDate;
 
 	function init(newDate) {
-		regularDate = newDate;
+		singleDate = newDate;
 		initRequester();
-	}	
+	}
 
 	function initRequester() {
-		requester = new DatabaseClientInterface.SimpleRequester(userID, horseID,regularDate, "setDateIntoDB");
+		requester = new DatabaseClientInterface();
 		requester.init();
 	}
 
-	function saveDateIntoDB(newDate)
-	{	console.log("saveUserIntoDB", user);
-		regularDate = Object.assign(regularDate, newDate);
-		//requester.request();
+	function addEventListeners(){
+		requester.addEventListener("onResult", handleResult);
+	}
+
+	function saveDateIntoDB(newDate){
+		let idData = {userID, horseID},
+			dataToSave = Object.assign(idData, newDate);	
+			//hadCorrectParameter = requester.setDateIntoDB(dataToSave);
+		//handleParameterFeedBack(hadCorrectParameter, newDate);
+	}
+
+	function handleParameterFeedBack(hadCorrectParameter, newDate){
+		if(hadCorrectParameter){
+			console.log("hadCorrectParameter")
+		}
+		else{
+			console.log("not Enough attributes", newDate);
+		}
 	}
 
 	that.init = init;

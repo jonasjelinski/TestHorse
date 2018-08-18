@@ -2,6 +2,7 @@ var HorseProfileSaver = HorseProfileSaver || {};
 
 HorseProfileSaver.DBRequester = function(userID){
 	let that = {},
+		isNewHorse,
 		newHorse;
 
 	function init(horse) {
@@ -15,19 +16,35 @@ HorseProfileSaver.DBRequester = function(userID){
 	}
 
 	function initRequester() {
-		requester = new DatabaseClientInterface.SimpleRequester(newHorse, "setHorseIntoDB");
+		requester = new DatabaseClientInterface();
 		requester.init();
 	}
 
 	function saveHorseIntoDB(){
-		console.log("saveHorseIntoDB", newHorse);
-		//requester.request();
+		let hadCorrectParameter = {};
+		if(isNewHorse){
+			hadCorrectParameter = requester.setHorseIntoDB(newHorse);
+		}
+		handleParameterFeedBack(hadCorrectParameter);
+	}
+
+	function handleParameterFeedBack(hadCorrectParameter){
+		if(hadCorrectParameter){
+			console.log("hadCorrectParameter")
+		}
+		else{
+			console.log("not Enough attributes", newHorse);
+		}
+	}
+
+	function setUpdateHorse(){
+		isNewHorse = false;
 	}
 
 	function setNewHorse(){
-		requester = new DatabaseClientInterface.SimpleRequester(newHorse, "updateHorse");
-		requester.init();
+		isNewHorse = true;
 	}
+
 
 	that.init = init;
 	that.saveHorseIntoDB = saveHorseIntoDB;

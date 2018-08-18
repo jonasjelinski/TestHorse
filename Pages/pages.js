@@ -28,7 +28,7 @@ Pages = function(){
 		userProfilPage,
 		userProfileSaver,
 		userProfileChanger,
-		userID;
+		userID = 100;
 
 	/**
 	* @function init
@@ -283,7 +283,7 @@ Pages = function(){
 			attributes = event.details.attributes;1
 			pageChanger.switchPage("HORSE_PROFILE_SAVER");
 			horseProfileSaver.init(attributes);
-			horseProfileSaver.setDBInterfaceToNew();				
+			horseProfileSaver.createNewHorse();				
 		}			
 	}
 
@@ -293,7 +293,7 @@ Pages = function(){
 			attributes = event.details.attributes;1
 			pageChanger.switchPage("HORSE_PROFILE_SAVER");
 			horseProfileSaver.init(attributes);	
-			horseProfileSaver.setDBInterfaceToUpdate();					
+			horseProfileSaver.updateOldHorse();					
 		}	
 	}
 
@@ -325,7 +325,10 @@ Pages = function(){
 	}
 
 	function showUserProfileSaver(event){
-		let attributes = event.details.attributes;
+		let attributes = {};
+		if(event){
+			attributes = event.details.attributes;
+		}			
 		pageChanger.switchPage("USER_PROFILE_SAVER");
 		userProfileSaver.init(attributes);
 	}
@@ -352,6 +355,7 @@ Pages = function(){
 	that.showUserProfilPage = showUserProfilPage;	
 	that.showUserCreatorPage = showUserCreatorPage;	
 	that.changeRegularDate = changeRegularDate;
+	that.showUserProfileSaver = showUserProfileSaver;
 	return that;
 }
 

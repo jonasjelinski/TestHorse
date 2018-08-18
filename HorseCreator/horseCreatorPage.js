@@ -24,7 +24,7 @@ HorseCreatorPage = function(){
 				height: {value:undefined,
 					   isNecessary: false,
 				}, 
-				raiser: {value:undefined,
+				grower: {value:undefined,
 					   isNecessary: false,
 				},
 			};

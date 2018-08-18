@@ -12,6 +12,7 @@ DatabaseClientInterface.JQAJAXModul = function () {
 	requestModul = new DatabaseClientInterface.AJAXModul();
 
 	function doAjaxRequest(url, type , data){
+		console.log("url, type, data", url, type, data);
 	$.ajax({
 	    	type: type,
 	    	url: url,

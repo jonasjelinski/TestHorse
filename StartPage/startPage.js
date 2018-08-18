@@ -37,8 +37,7 @@ StartPage = function(userID){
 	*/ 
 	function init(){		
 		initDBInterface();
-		initModel();
-		initDropList(listElementsData);
+		requestDatesFromDB();
 		initHamburgerMenu();
 		initButtonControlls();		
 		addEventListeners();
@@ -47,17 +46,27 @@ StartPage = function(userID){
 	function initDBInterface(){
 		dbInterface = StartPage.DBRequester(userID);
 		dbInterface.addEventListener("onResult", handleDBResult);
+		dbInterface.init();
+	}
+
+	function requestDatesFromDB(){
+		dbInterface.requestDatesFromDB();
 	}
 
 	function handleDBResult(ev){
-		let horseData = ev.details.data;
-		initDropList(horseData);
-		initModel(horseData);
+		let horseData = ev.details.allHorses;
+		initModel(horseData);		
 	}
 
 	function initModel(horseData){
 		model = new StartPage.Model();
+		model.addEventListener("onDataConverted", handleOnDataConverted);
 		model.init(horseData);
+	}
+
+	function handleOnDataConverted(event){
+		let convertedHorseData = event.details.allHorses;
+		initDropList(convertedHorseData);
 	}
 
 	function initDropList(horseData){

@@ -52,12 +52,12 @@ Pages.PageContent = function (){
 
         HORSE_PROFILE_TEMPLATE = '<script type="text/template" id="horseProfileTemplate">'+ 
   '<div id= "horseProfileName">Name: <%= name %></div> '+ 
-  '<div id= "horseProfileBirth">Geburtsdatum: <%= birth %></div> '+ 
+  '<div id= "horseProfileBirth">Geburtsdatum: <%= dateOfBirth %></div> '+ 
   '<div id= "horseProfileRace">Rasse: <%= race %></div> '+ 
   '<div id= "horseProfileOwner">Besitzer: <%= owner %></div> '+ 
   '<div id= "horseProfileSex">Geschlecht: <%= sex %></div> '+ 
   '<div id= "horseProfileHeight">Höhe: <%= height %></div> '+ 
-  '<div id= "horseProfileRaiser">Züchter: <%= raiser %></div> '+ 
+  '<div id= "horseProfileGrower">Züchter: <%= grower %></div> '+ 
 '</script> ' ,
 
         POPUP = '<div id="popup">' +
@@ -126,7 +126,7 @@ Pages.PageContent = function (){
  
   '<script type="text/template" id="ul-element">'+ 
   '<li draggable="true" dateId = <%= id %>>'+ 
-    '<p ><%= name %></p>'+ 
+    '<p ><%= title %></p>'+ 
   '</li>',
 
   REGULAR_DATES_PAGE = 	  	'<content>'+ 
@@ -142,7 +142,7 @@ Pages.PageContent = function (){
   '<li draggable="true" regularDateId = <%= id %>>'+ 
     ' <button class= "regularDateDelete" type="button">Delete</button> '+
 	' <button class= "regularDateChange" type="button">Change</button> '+
-    '<p ><%= name %></p>'+ 
+    '<p ><%= title %></p>'+ 
   '</li>',
 
    HORSE_PROFIL = ' <content>'+ 
