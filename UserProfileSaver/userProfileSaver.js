@@ -52,6 +52,16 @@ UserProfileSaver = function(data){
 		sendEvent("onDeleteNewUserProfile", "");
 	}
 
+	function createNewUser(){
+		model.createNewUser();
+	}
+
+	function updateOldUser(){
+		model.updateOldUser();
+	}
+
 	that.init = init;
+	that.createNewUser = createNewUser;
+	that.updateOldUser = updateOldUser;
 	return that;
 } 

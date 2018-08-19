@@ -1,14 +1,16 @@
-var DatesPageAll = DatesPageAll || {};
+var UserProfilPage = UserProfilPage || {};
 
-DatesPageAll.DBRequester = function(userID, horseID){
-	
-	let that = new EventTarget();
+UserProfilPage.DBRequester = function(userID){
+	let that = new EventTarget(),
+		isNewHorse,
+		newHorse;
 
-	function init() {
+	function init(horse) {
+		newHorse = horse;
 		initRequester();
 		addEventListeners();
 	}
-
+	
 	function initRequester() {
 		requester = new DatabaseClientInterface();
 		requester.init();
@@ -26,12 +28,12 @@ DatesPageAll.DBRequester = function(userID, horseID){
 	function sendEvent(type, data){
 		let event = new Event(type);
 		event.details = {};
-		event.details.allDates = data;
+		event.details.userData = data;
 		that.dispatchEvent(event);
 	}
 
 	function requestDatesFromDB(){
-		requester.getUserData(horseID);
+		requester.getUserData(userID);
 	}	
 
 	that.init = init;

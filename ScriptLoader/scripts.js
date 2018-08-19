@@ -94,6 +94,7 @@ ScriptLoader.Scripts = (function(){
 	"./UserProfilePage/userProfilePage.js",
 	"./UserProfilePage/userProfilePageModel.js",	
 	"./UserProfilePage/userProfilePageViewControll.js",
+	"./UserProfilePage/userProfileDBRequester.js",
 	"./HorseProfilePage/horsePofilePage.js",
 	"./HorseProfilePage/horseProfile.js",
 	"./HorseProfilePage/horseProfileControll.js",	

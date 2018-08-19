@@ -3,6 +3,7 @@ var UserProfileSaver = UserProfileSaver || {};
 UserProfileSaver.Model = function(){
 	let that = {},
 		attributes,
+		isNewUser = true,
 		user;
 
 	function init(newUser) {
@@ -21,11 +22,16 @@ UserProfileSaver.Model = function(){
 
 	function handleResult(event){
 		let data = event.details.data;
-		console.log("data", data);
     }
 
 	function saveUserIntoDB()
-	{	let hadCorrectParameter = requester.setUserIntoDB(user);
+	{	let hadCorrectParameter ={};
+		if(isNewUser){
+			hadCorrectParameter = requester.setUserIntoDB(user);
+		}
+		else{
+			hadCorrectParameter = requester.updateUser(user);
+		}		
 		handleParameterFeedBack(hadCorrectParameter);
 	}
 
@@ -38,7 +44,17 @@ UserProfileSaver.Model = function(){
 		}
 	}
 
+	function createNewUser(){
+		isNewUser= true;
+	}
+
+	function updateOldUser(){
+		isNewUser = false;
+	}
+
 	that.init = init;
 	that.saveUserIntoDB = saveUserIntoDB;
+	that.createNewUser = createNewUser;
+	that.updateOldUser = updateOldUser;
 	return that;
 }

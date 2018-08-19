@@ -178,7 +178,7 @@ DatabaseClientInterface = function(){
 				return true;
 			}
 			else{
-				console.log("setUserIntoDB failed");
+				console.log("setHorseIntoDB failed");
 				return false;				
 			}			
 		}
@@ -191,7 +191,7 @@ DatabaseClientInterface = function(){
 				return true;
 			}
 			else{
-				console.log("setUserIntoDB failed");
+				console.log("setDateIntoDB failed");
 				return false;				
 			}				
 		}
@@ -249,7 +249,15 @@ DatabaseClientInterface = function(){
 		//UPDATE
 
 		function updateUser(userId, valueObject){
-			updateEntity(ACTIONS.UPDATE_USER, userId, valueObject);
+			let necessaryAttributes = ["name", "email", "dateOfBirth", "password", "userID"];
+			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, oldUser)){
+				requestModul.updateDataInDB(ACTIONS.UPDATE_USER, oldUser);
+				return true;
+			}
+			else{
+				console.log("updateUserIntoDB failed");
+				return false;				
+			}	
 		} 
 
 		function updateHorse(horseId, valueObject){

@@ -132,7 +132,7 @@ Pages = function(){
 	}	
 
 	function addListenersToHorseProfileChanger(){
-		horseProfileChanger.addEventListener("onEnoughAttributes", showHorseProfileUpdater);
+		horseProfileChanger.addEventListener("onEnoughAttributes", showHorseProfileSaverToUpdate);
 	}
 
 	function addListenersToLoginPage(){
@@ -169,7 +169,7 @@ Pages = function(){
 	}
 
 	function addListenersToUserProfileChanger(){
-		userProfileChanger.addEventListener("onEnoughAttributes", showUserProfileSaver);
+		userProfileChanger.addEventListener("onEnoughAttributes", showUserProfileSaverToUpdate);
 		userProfileChanger.addEventListener("onHorseSaved", showStartPage);
 	}
 
@@ -287,7 +287,7 @@ Pages = function(){
 		}			
 	}
 
-	function showHorseProfileUpdater(event){
+	function showHorseProfileSaverToUpdate(event){
 		let attributes;
 		if(event){
 			attributes = event.details.attributes;1
@@ -331,6 +331,17 @@ Pages = function(){
 		}			
 		pageChanger.switchPage("USER_PROFILE_SAVER");
 		userProfileSaver.init(attributes);
+		userProfileSaver.createNewUser();
+	}
+
+	function showUserProfileSaverToUpdate(event){
+		let attributes = {};
+		if(event){
+			attributes = event.details.attributes;
+		}			
+		pageChanger.switchPage("USER_PROFILE_SAVER");
+		userProfileSaver.init(attributes);
+		userProfileSaver.updateOldUser();
 	}
 
 	function changeUser(event){
