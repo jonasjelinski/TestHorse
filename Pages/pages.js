@@ -109,7 +109,8 @@ Pages = function(){
 		datesPageRegular.addEventListener("onChangeDate", changeRegularDate);			
 		datesCreatorPageSingle.addEventListener("onDataSaved", showStartPage);				
 		datesCreatorPageSingle.addEventListener("onCancel", showStartPage);			
-		datesCreatorPageSingle.addEventListener("onChangeClick", changeSingleDate);			
+		datesCreatorPageSingle.addEventListener("onChangeClick", changeSingleDate);
+		datesChangerPageRegular.addEventListener("onDataSaved", showRegularDates);			
 	}	
 
 	function addListenersForHorse() {
@@ -195,9 +196,10 @@ Pages = function(){
 	* @instance
 	* @description shows all dates to the user
 	*/ 
-	function showAllDates(){
+	function showAllDates(event){
+		let horseID = event.details.horseID;
 		pageChanger.switchPage("DATES");
-		datesPage.init();
+		datesPage.init(horseID);
 	}
 	
 	/**

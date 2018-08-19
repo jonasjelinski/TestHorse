@@ -17,14 +17,20 @@ DatesChangerPageRegular = function(userID){
 	let that = new EventTarget(),
 		dbInterface,
 		standardPage,
+		model,
 		horseID;
 
 	function init(attributes){
 		horseID = attributes.horseID;
-		standardPage = new RegulardatesCreatorPage.Standard (userID);
-		dbInterface = new DatesChangerPageSingle.DBRequester(userID, horseID);
+		initModuls(horseID);		
 		addAttributesAndInitPage(attributes);
 		addListeners();		
+	}
+
+	function initModuls(horseID){
+		standardPage = new RegulardatesCreatorPage.Standard (userID);
+		dbInterface = new DatesChangerPageSingle.DBRequester(userID, horseID);
+		model = new DatesChangerPageSingle.Model();
 	}
 
 	function addAttributesAndInitPage(attributes) {
@@ -32,13 +38,15 @@ DatesChangerPageRegular = function(userID){
 			attributes = DEFAULT_DATA;
 		}
 		if(standardPage){
-			standardPage.init();	
+			standardPage.init();
+			model.init(attributes);	
 			addAttributes(attributes);					
 		}
 	}
 
 	function addAttributes(attributes){
-		let newDate = attributes.date,
+		console.log("attributes",attributes);
+		let newDate = attributes,	//atrributes besitzt noch keinen reminder und duration value unit
 				reminder = attributes.reminder,
 				newDurationValue = attributes.durationValue,
 				newDurationUnit = attributes.unit;
@@ -51,10 +59,18 @@ DatesChangerPageRegular = function(userID){
 	}
 
 	function handleSave(event) {
-		let data = event.details.data,
-			changedDate = data.date;
-		saveDateIntoDB(date);
+		let updatedDate = prepareDataForDBRequest(event);	
+		saveDateIntoDB(updatedDate);
 		sendEvent("onDataSaved");
+	}
+
+	function prepareDataForDBRequest(event){
+		let data = event.details.data,
+			changedDate = data.date,
+			updatedDate;
+		model.updateDate(changedDate);
+		updatedDate = model.getDate();
+		return updatedDate;
 	}
 
 	function saveDateIntoDB(changedDate) {

@@ -14,8 +14,19 @@ DatesPageAll.DatesPageModel = function(){
 		* @description Initialize this model. Inits the dbRequester and its listeners. Starts a request for the user data
 		*/ 	
    		function init(allDatesAsStrings){
-   			allDates = JSON.parse(allDatesAsStrings);	
-   			sendOnDataConverted();	
+   			if(!isObjectEmpty(allDatesAsStrings)){
+   				allDates = JSON.parse(allDatesAsStrings);
+   				sendOnDataConverted();   			
+   			}
+   			else{
+   				sendNoDataEvent();
+   			}   			
+   			
+		}
+
+		function isObjectEmpty(allDatesAsStrings){
+			let noResultMessage = "No results found";
+			return allDatesAsStrings.includes(noResultMessage);
 		}
 
 		function setDelteId(id){
@@ -34,6 +45,11 @@ DatesPageAll.DatesPageModel = function(){
 			let event = new Event("onDataConverted");
 			event.details = {};
 			event.details.allDates = allDates;
+			that.dispatchEvent(event);
+		}
+
+		function sendNoDataEvent(){
+			let event = new Event("onNoData");
 			that.dispatchEvent(event);
 		}
 

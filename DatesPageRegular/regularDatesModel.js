@@ -37,8 +37,18 @@ RegularDatesPage.Model = function(userID){
 			console.log("newOrder", newOrder);
 		}
 
-		function getDateAttributesById(){
+		function getDateAttributesById(id){
+			let searchedDate = getSearchedDate(id);
+			return searchedDate; 
+		}
 
+		function getSearchedDate(id){
+			for(let i = 0; i < allDates.length; i++){
+				let date = allDates[i];
+				if(date.id === id){
+					return date;
+				}
+			}
 		}		
 		
 		that.init = init;

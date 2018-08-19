@@ -39,7 +39,7 @@ DatabaseClientInterface = function(){
 		UPDATE_HORSE_SEX : "updateHorseSex",
 		UPDATE_HORSE_HEIGHT : "updateHorseHeight",
 		UPDATE_HORSE_GROWER : "updateHorseGrower",
-		UPDATE_DATE : "?????",
+		UPDATE_DATE : "updateDate",
 		UPDATE_REMINDER : "????",
 		UPDATE_REGULAR_REMINDER: "????",
 	}
@@ -281,8 +281,16 @@ DatabaseClientInterface = function(){
 			requestModul.updateDataInDB(url, data);
 		}
 
-		function updateDate(dateId, valueObject){
-			updateEntity(ACTIONS.UPDATE_DATE, dateId, valueObject);
+		function updateDate(oldDate){
+			let necessaryAttributes = ["dateID", "horseID", "title", "date"];
+			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, oldDate)){
+				requestModul.updateDataInDB(ACTIONS.UPDATE_DATE, oldDate);
+				return true;
+			}
+			else{
+				console.log("updateUserIntoDB failed");
+				return false;				
+			}			
 		}
 
 		function updateReminder(reminderId, valueObject){

@@ -17,11 +17,19 @@ DatesChangerPageSingle.DBRequester = function(userID, horseID){
 		requester.addEventListener("onResult", handleResult);
 	}
 
+	function handleResult(event){
+		let result = event.details.result;
+		console.log("horse saver result", result);
+	}
+
 	function saveDateIntoDB(changedDate){
 		oldDate = changedDate;
-		console.log("changedDate",changedDate);
-			//hadCorrectParameter = requester.updateDate(changedDate);
-		//handleParameterFeedBack(hadCorrectParameter, changedDate);
+		changedDate.horseID = changedDate.horse_id;
+		changedDate.dateID = changedDate.id;
+		delete changedDate.horse_id;
+		delete changedDate.id;
+		hadCorrectParameter = requester.updateDate(changedDate);
+		handleParameterFeedBack(hadCorrectParameter, changedDate);
 	}
 
 	function handleParameterFeedBack(hadCorrectParameter, changedDate){

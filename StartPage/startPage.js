@@ -38,9 +38,7 @@ StartPage = function(userID){
 	function init(){		
 		initDBInterface();
 		requestDatesFromDB();
-		initHamburgerMenu();
-		initButtonControlls();		
-		addEventListeners();
+		initHamburgerMenu();		
 	}
 
 	function initDBInterface(){
@@ -67,6 +65,8 @@ StartPage = function(userID){
 	function handleOnDataConverted(event){
 		let convertedHorseData = event.details.allHorses;
 		initDropList(convertedHorseData);
+		initButtonControlls();		
+		addButtonControllsListeners();
 	}
 
 	function initDropList(horseData){
@@ -100,10 +100,10 @@ StartPage = function(userID){
 	
 
 	function initDropLististener(){
-		dropList.addEventListener("onElementClick", handleLiClick);
+		//dropList.addEventListener("onElementClick", handleHorseBoxClick);
 	}
 
-	function handleLiClick(ev){
+	function handleHorseBoxClick(ev){
 		let id = ev.details.id;
 		if(lastBoxClicked(id)){
 			sendEvent("createNewHorse", "");			
@@ -160,7 +160,7 @@ StartPage = function(userID){
 	function sendEvent(type, id){
 		let event = new Event(type);
 		event.details = {};
-		event.details.horseId = id;
+		event.details.horseID = id;
 		that.dispatchEvent(event);	
 	}
 
@@ -177,19 +177,21 @@ StartPage = function(userID){
 		buttonControlls.init();
 	}
 
-	function addEventListeners(){
+	function addButtonControllsListeners(){
 		buttonControlls.addEventListener("onDateClick", handleDateClick);
 		buttonControlls.addEventListener("onProfileClick", handleProfileClick);
 	}
 
 	function handleDateClick(ev){
 		let horseId = ev.details.id;
+		console.log("handleDateClick", horseId);
 		sendEvent("showHorseDates",horseId);
 	}
 
 	function handleProfileClick(ev){
-		let horseId = ev.details.id;
-		sendEvent("showHorseProfile", horseId);	
+		let horseId = ev.details.id,
+		horseAttributes = getHorseById(horseId);
+		sendShowHorseEvent(horseAttributes);
 	}	
 
 	that.init = init;

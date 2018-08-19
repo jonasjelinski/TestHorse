@@ -17,7 +17,13 @@ HorseProfileSaver.DBRequester = function(userID){
 
 	function initRequester() {
 		requester = new DatabaseClientInterface();
+		requester.addEventListener("onResult", handleResult);
 		requester.init();
+	}
+
+	function handleResult(event){
+		let result = event.details.result;
+		console.log("horse saver result", result);
 	}
 
 	function saveHorseIntoDB(){
