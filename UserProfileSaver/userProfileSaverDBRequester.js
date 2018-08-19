@@ -2,6 +2,8 @@ var UserProfileSaver = UserProfileSaver || {};
 
 UserProfileSaver.DBRequester = function(){
 
+	let that = new EventTarget();
+
 	function init(){
 		initRequester();
 	}
@@ -17,6 +19,7 @@ UserProfileSaver.DBRequester = function(){
 
 	function handleResult(event){
 		let data = event.details.data;
+		console.log("onResult", data);
     }
 
 	function saveUserIntoDB(isNewUser, user)

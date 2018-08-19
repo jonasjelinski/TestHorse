@@ -42,8 +42,7 @@ Pages = function(){
 	function init(){
 		initPageChanger();
 		initModulsForLogin();
-		initModulsForCreatingANewUser();
-		initAfterLogin();		
+		initModulsForCreatingANewUser();	
 	}
 
 	/**
@@ -78,9 +77,11 @@ Pages = function(){
 
 	function initModulsForCreatingANewUser(){
 		initUserCreatorPage();
+		initUserChangerPage();
 		initUserSaverPage();
-		addListenersToUserProfileCreator();	
 		addListenersToUserProfileSaver();
+		addListenersToUserProfileChanger();
+		addListenersToUserProfileCreator();
 	}
 	
 
@@ -92,14 +93,18 @@ Pages = function(){
 		userCreatorPage.addEventListener("onEnoughAttributes", showUserProfileSaver);
 	}
 
+	function initUserChangerPage(){
+		userProfileChanger = new UserProfileChanger();
+	}
+
 	function initUserSaverPage(){
-		userProfileSaver = new UserProfileSaver(userID);
+		userProfileSaver = new UserProfileSaver();
 	}
 
 	function addListenersToUserProfileSaver(){
 		userProfileSaver.addEventListener("onChangeUserProfile", changeUser);
-		userProfileSaver.addEventListener("onSaveUserProfile", showStartPage);
-		userProfileSaver.addEventListener("onDeleteNewUserProfile", showStartPage);
+		userProfileSaver.addEventListener("onSaveUserProfile", handleSaveUserProfile);
+		userProfileSaver.addEventListener("onDeleteNewUserProfile", handleDelteNewUserProfile);
 	}
 
 	
@@ -198,9 +203,9 @@ Pages = function(){
 	}
 
 	function addListenersToUserProfilePage(){
-		userProfilPage.addEventListener("onProfileOkay", showStartPage);
+		userProfilPage.addEventListener("onProfileOkay", handleChangeProfileOkay);
 		userProfilPage.addEventListener("onChangeProfile", changeUser);
-		userProfilPage.addEventListener("onDeleteProfile", showStartPage);
+		userProfilPage.addEventListener("onDeleteProfile", handleChangeProfileDelete);
 	}
 
 
@@ -215,10 +220,6 @@ Pages = function(){
 
 		
 
-	function showCreateSingleDate(){
-
-
-	}
 
 	function showHelpPage(){
 
@@ -243,11 +244,6 @@ Pages = function(){
 	function initAfterLogin(){
 		initPages();
 		initPageCommunication();	
-	}
-
-	function showSingleDatesCreatorPage() {
-		pageChanger.switchPage("CREATE_SINGLE_DATE");
-		datesCreatorPageSingle.init();
 	}
 
 	/**
@@ -285,6 +281,12 @@ Pages = function(){
 		pageChanger.switchPage("CREATE_SINGLE_DATE");
 		datesChangerPageSingle.init(attributes);
 	}
+
+	function showCreateSingleDate(){
+		pageChanger.switchPage("SINGLE_DATE_CREATER_PAGE");
+		datesCreatorPageSingle.init();
+	}
+
 
 	function changeRegularDate(event){
 		let attributes = event.details.attributes;
@@ -415,11 +417,42 @@ Pages = function(){
 		}		
 	}
 
+	function handleSaveUserProfile(){
+		if(isUserLoggedIn){
+			showStartPage();
+		}
+		else{
+			showLoginPage();
+		}
+	}
+
+	function handleDelteNewUserProfile(){
+		showLoginPage();
+	}
+
+	function handleChangeProfileOkay(){
+		if(isUserLoggedIn){
+			showStartPage();
+		}
+		else{
+			showLoginPage();
+		}
+	}
+
+	function handleChangeProfileDelete(){
+		console.log("isUserLoggedIn",isUserLoggedIn);
+		if(isUserLoggedIn){
+			showStartPage();
+		}
+		else{
+			showLoginPage();
+		}
+	}
+
 	
 	that.init = init;
 	that.showAllDates = showAllDates;
 	that.showRegularDates = showRegularDates;
-	that.showSingleDatesCreatorPage = showSingleDatesCreatorPage;
 	that.showRegularDatescreatorPage = showRegularDatescreatorPage;
 	that.showHorseProfilePage = showHorseProfilePage;	
 	that.showHorseCreatorPage = showHorseCreatorPage;	
