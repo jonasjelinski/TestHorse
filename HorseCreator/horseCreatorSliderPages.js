@@ -18,12 +18,12 @@ HorseCreator.SliderPages = function() {
 				'<div id= "horseInteractionValueBox" property="race" value="" opacity = 0 ></div>',
 			DATE_OF_BIRTH = 
 				'<div>Geburtsdatum des Pferdes:</div>'+
-				'<input id="horseInteractionInput"></input>'+
+				'<input type="date" id="horseInteractionInput"></input>'+
 				'<div id=horseInteractionFeedback></div>'+
 				'<div id= "horseInteractionValueBox" property="dateOfBirth" value="" opacity = 0 ></div>',
 			PHOTO = 
 				'<div>Photo des Pferdes:</div>'+
-				'<input id="horseInteractionInput"></input>'+
+				'<input type="file" id="horseInteractionInput"></input>'+
 				'<div id=horseInteractionFeedback></div>'+
 				'<div id= "horseInteractionValueBox" property="photo" value="" opacity = 0 ></div>',
 			SEX = 

@@ -100,7 +100,7 @@ StartPage = function(userID){
 	
 
 	function initDropLististener(){
-		//dropList.addEventListener("onElementClick", handleHorseBoxClick);
+		dropList.addEventListener("onElementClick", handleHorseBoxClick);
 	}
 
 	function handleHorseBoxClick(ev){

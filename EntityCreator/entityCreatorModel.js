@@ -12,6 +12,7 @@ EntityCreator.EntityCreatorModel = function(attr){
 	}
 
 	function updateAttributeValue(property, value){
+		console.log("updateAttributeValue, property, value", property, value);
 		entity.setAttribute(property, value);
 	}
 
