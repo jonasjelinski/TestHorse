@@ -19,6 +19,7 @@ StartPage.DBRequester = function(userID){
 
 	function handleResult(event){		
 		let results = event.details.result;
+		console.log("handleResult", results);		
 		sendEvent("onResult", results);
 	}
 
@@ -30,7 +31,7 @@ StartPage.DBRequester = function(userID){
 	}
 
 	function requestDatesFromDB(){
-		requester.getAllHorsesOfUser("141");
+		requester.getAllHorsesOfUser(userID);
 	}	
 
 	that.init = init;

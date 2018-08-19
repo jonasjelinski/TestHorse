@@ -5,9 +5,20 @@ StartPage.Model = function(){
 		allHorses;
 
 	function init(horses){
-		allHorses = JSON.parse(horses);
+		if(isArrayFullOfHorses(horses)){
+			allHorses = JSON.parse(horses);
+		}
+		else{
+			allHorses = [];
+		}
+		
 		changePropertyNames(allHorses);
 		sendOnDataConverted();
+	}
+
+	function isArrayFullOfHorses(horses){
+		let horseAttribute = "date_of_birth";
+		return horses.includes(horseAttribute);
 	}
 
 	function changePropertyNames(allHorses){

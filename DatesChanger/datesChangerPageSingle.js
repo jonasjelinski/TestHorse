@@ -48,9 +48,11 @@ DatesChangerPageSingle = function(userID){
 	}
 
 	function handleSave(event) {
-		let changedDate = event.details.data.date;
-		saveDateIntoDB(changedDate);
-		sendEvent("onDataSaved");
+		let data = event.details.data,
+			changedDate = data.date;
+		console.log("handle save", data);
+		//saveDateIntoDB(changedDate);
+		//sendEvent("onDataSaved");
 	}
 
 	function saveDateIntoDB(changedDate) {

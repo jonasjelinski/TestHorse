@@ -92,7 +92,7 @@ ScriptLoader.Scripts = (function(){
 	"./HamburgerMenu/hamburgerMenu.js",	
 	"./HamburgerMenu/hamburgerMenuView.js",
 	"./LoginPage/loginPage.js",
-	"./LoginPage/loginModel.js",	
+	"./LoginPage/loginDBRequester.js",	
 	"./LoginPage/loginView.js",
 	"./UserProfilePage/userProfilePage.js",
 	"./UserProfilePage/userProfilePageModel.js",	

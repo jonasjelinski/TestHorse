@@ -59,8 +59,8 @@ DatesChangerPageRegular = function(userID){
 	}
 
 	function handleSave(event) {
-		let updatedDate = prepareDataForDBRequest(event);	
-		saveDateIntoDB(updatedDate);
+		let updatedData = prepareDataForDBRequest(event);	
+		saveDateIntoDB(updatedData);
 		sendEvent("onDataSaved");
 	}
 
@@ -68,13 +68,15 @@ DatesChangerPageRegular = function(userID){
 		let data = event.details.data,
 			changedDate = data.date,
 			updatedDate;
+			console.log("changedDate", changedDate, "data", data);
 		model.updateDate(changedDate);
 		updatedDate = model.getDate();
-		return updatedDate;
+		data.date = updatedDate;
+		return data;
 	}
 
 	function saveDateIntoDB(changedDate) {
-		dbInterface.saveDateIntoDB(changedDate);
+		dbInterface.saveDateIntoDB(updatedData);
 	}
 
 	function sendEvent(type) {

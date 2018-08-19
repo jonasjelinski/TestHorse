@@ -1,6 +1,6 @@
 var UserProfileSaver = UserProfileSaver || {};
 
-UserProfileSaver = function(data){
+UserProfileSaver = function(){
 	"user strict";
 	const USER_PAGE_ID = "userProfileSaver",
 	USER_TEMPLATE_ID = "userProfileTemplate";

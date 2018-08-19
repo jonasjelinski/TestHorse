@@ -28,7 +28,8 @@ Pages = function(){
 		userProfilPage,
 		userProfileSaver,
 		userProfileChanger,
-		userID = 100;
+		isUserLoggedIn = false,
+		userID = 141;
 
 	/**
 	* @function init
@@ -39,8 +40,9 @@ Pages = function(){
 	*/ 
 	function init(){
 		initPageChanger();
-		initPages();
-		initPageCommunication();				
+		initModulsForLogin();
+		initModulsForCreatingANewUser();
+		initAfterLogin();		
 	}
 
 	/**
@@ -58,6 +60,48 @@ Pages = function(){
 		pageChanger.init();
 	}
 
+	function initModulsForLogin(){
+		initLoginPage();
+		addListenersToLoginPage();
+	}
+
+
+	function initLoginPage(){
+		loginPage = new LoginPage();
+	}
+
+	function addListenersToLoginPage(){
+		loginPage.addEventListener("showStartPage", showStartPageAfterLogin);
+		loginPage.addEventListener("createNewUser", showUserCreatorPage);
+	}
+
+	function initModulsForCreatingANewUser(){
+		initUserCreatorPage();
+		initUserSaverPage();
+		addListenersToUserProfileCreator();	
+		addListenersToUserProfileSaver();
+	}
+	
+
+	function initUserCreatorPage(){
+		userCreatorPage = new UserCreatorPage(userID);
+	}
+
+	function addListenersToUserProfileCreator() {
+		userCreatorPage.addEventListener("onEnoughAttributes", showUserProfileSaver);
+	}
+
+	function initUserSaverPage(){
+		userProfileSaver = new UserProfileSaver(userID);
+	}
+
+	function addListenersToUserProfileSaver(){
+		userProfileSaver.addEventListener("onChangeUserProfile", changeUser);
+		userProfileSaver.addEventListener("onSaveUserProfile", showStartPage);
+		userProfileSaver.addEventListener("onDeleteNewUserProfile", showStartPage);
+	}
+
+	
 	/**
 	* @function initPages
 	* @private
@@ -75,12 +119,9 @@ Pages = function(){
 		horseProfilPage = new HorseProfilePage(userID);
 		horseCreatorPage = new HorseCreatorPage(userID);
 		horseProfileSaver = new HorseProfileSaver(userID);
-		horseProfileChanger = new HorseProfileChanger(userID);		
-		loginPage = new LoginPage();		
+		horseProfileChanger = new HorseProfileChanger(userID);				
 		startPage = new StartPage(userID);
-		userCreatorPage = new UserCreatorPage(userID);
 		userProfilPage = new UserProfilPage(userID);
-		userProfileSaver = new UserProfileSaver(userID);
 		userProfileChanger = new UserProfileChanger(userID);		
 	}
 
@@ -93,8 +134,7 @@ Pages = function(){
 	*/ 
 	function initPageCommunication(){
 		addListenersForDates();		
-		addListenersForHorse();
-		addListenersToLoginPage();		
+		addListenersForHorse();				
 		addListenersToStartPage();
 		addListenersForUserProfile();	
 	}
@@ -136,10 +176,7 @@ Pages = function(){
 		horseProfileChanger.addEventListener("onEnoughAttributes", showHorseProfileSaverToUpdate);
 	}
 
-	function addListenersToLoginPage(){
-		loginPage.addEventListener("showStartPage", showStartPage);
-		loginPage.addEventListener("createNewUser", showUserCreatorPage);
-	}
+	
 
 	function addListenersToStartPage(){
 		startPage.addEventListener("showProfilePage", showUserProfilPage);
@@ -163,26 +200,41 @@ Pages = function(){
 		userProfilPage.addEventListener("onDeleteProfile", showStartPage);
 	}
 
-	function addListenersToUserProfileSaver(){
-		userProfileSaver.addEventListener("onChangeUserProfile", changeUser);
-		userProfileSaver.addEventListener("onSaveUserProfile", showStartPage);
-		userProfileSaver.addEventListener("onDeleteNewUserProfile", showStartPage);
-	}
 
 	function addListenersToUserProfileChanger(){
 		userProfileChanger.addEventListener("onEnoughAttributes", showUserProfileSaverToUpdate);
 		userProfileChanger.addEventListener("onHorseSaved", showStartPage);
 	}
 
-	function addListenersToUserProfileCreator() {
-		userCreatorPage.addEventListener("onEnoughAttributes", showUserProfileSaver);
-	}	
+		
+
+	function showCreateSingleDate(){
+
+
+	}
+
+	function showHelpPage(){
+
+	}
+
+	function logoutUser(){
+
+	}
 
 	
-	function showHelpPage(){}
-	function showSingleDates(){}
-	function showCreateSingleDate(){}
-	function logoutUser(){}
+	function showStartPageAfterLogin(event) {
+		let newUserID = event.details.userID;
+		userID = newUserID;
+		isUserLoggedIn = true;
+		initAfterLogin();
+		showStartPage();
+		console.log("showStartPage userID", userID)
+	}
+
+	function initAfterLogin(){
+		initPages();
+		initPageCommunication();	
+	}
 
 	function showSingleDatesCreatorPage() {
 		pageChanger.switchPage("CREATE_SINGLE_DATE");

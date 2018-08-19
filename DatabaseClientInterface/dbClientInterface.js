@@ -3,9 +3,9 @@ var DatabaseClientInterface = DatabaseClientInterface || {};
 DatabaseClientInterface = function(){
 	
 	const ACTIONS = {
-		TRY_LOGIN: "loginUser",
+		TRY_LOGIN: "tryLogin",
 		LOGOUT: "logoutUser",
-		GET_USER_ID: "getUserId",
+		GET_USER_ID: "getUserID",
 		ALL_HORSES: "getAllHorsesOfUser",
 		SINGLE_HORSE: "getHorse",
 		ALL_DATES: "getAllHorseDates",
@@ -40,8 +40,8 @@ DatabaseClientInterface = function(){
 		UPDATE_HORSE_HEIGHT : "updateHorseHeight",
 		UPDATE_HORSE_GROWER : "updateHorseGrower",
 		UPDATE_DATE : "updateDate",
-		UPDATE_REMINDER : "????",
-		UPDATE_REGULAR_REMINDER: "????",
+		UPDATE_SINGLE_REMINDER : "updateReminderNotification",
+		UPDATE_REGULAR_REMINDER: "updateReminderRegular",
 	}
 
 	let that = new EventTarget(),
@@ -79,12 +79,16 @@ DatabaseClientInterface = function(){
 
 		//LOGIN AND LOGOUT
 
-		function tryLogin(wantsToStayLoggedIn, userId, password){
-			let data = {};
-				data.stayLoggedIn = wantsToStayLoggedIn;
-				data.id = userId;
-				data.password;
-			requestModul.tryLogin(ACTIONS.TRY_LOGIN, data);
+		function tryLogin(loginData){
+			let necessaryAttributes = ["email", "password"];
+			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, loginData)){
+				requestModul.tryLogin(ACTIONS.TRY_LOGIN, loginData);
+				return true;
+			}
+			else{
+				console.log("login failed");
+				return false;				
+			}		
 		}
 
 		function logoutUser(userId){
@@ -293,12 +297,28 @@ DatabaseClientInterface = function(){
 			}			
 		}
 
-		function updateReminder(reminderId, valueObject){
-			updateEntity(ACTIONS.UPDATE_REMINDER, reminderId, valueObject);
+		function updateSingleReminder(singleReminder){
+			let necessaryAttributes = ["dateID", "valueRegular", "unitRegular"];
+			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, singleReminder)){
+				requestModul.updateDataInDB(ACTIONS.UPDATE_SINGLE_REMINDER, singleReminder);
+				return true;
+			}
+			else{
+				console.log("updateUserIntoDB failed");
+				return false;				
+			}	
 		}
 
-		function updateregularReminder(regularReminderId, valueObject){
-			updateEntity(ACTIONS.UPDATE_AGREEMENT, regularReminderId, valueObject);
+		function updateRegularReminder(regularreminder){
+			let necessaryAttributes = ["dateID", "valueRegular", "unitRegular", "name", "number"];
+			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, regularreminder)){
+				requestModul.updateDataInDB(ACTIONS.UPDATE_REGULAR_REMINDER, regularreminder);
+				return true;
+			}
+			else{
+				console.log("updateUserIntoDB failed");
+				return false;				
+			}	
 		}
 
 		that.init = init;
@@ -328,7 +348,7 @@ DatabaseClientInterface = function(){
 		that.updateHorse = updateHorse;
 		that.updateEntity = updateEntity;
 		that.updateDate = updateDate;
-		that.updateReminder = updateReminder;
-		that.updateregularReminder = updateregularReminder;
+		that.updateSingleReminder = updateSingleReminder;
+		that.updateRegularReminder = updateRegularReminder;
 		return that;
 }
