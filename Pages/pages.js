@@ -16,7 +16,8 @@ Pages = function(){
 		datesChangerPageSingle,
 		datescreatorPageRegular,
 		datesCreatorPageSingle,	
-		loginPage,		
+		loginPage,
+		logoutPage,		
 		pageDomElement,
 		pageChanger,			
 		horseCreatorPage,
@@ -119,7 +120,8 @@ Pages = function(){
 		horseProfilPage = new HorseProfilePage(userID);
 		horseCreatorPage = new HorseCreatorPage(userID);
 		horseProfileSaver = new HorseProfileSaver(userID);
-		horseProfileChanger = new HorseProfileChanger(userID);				
+		horseProfileChanger = new HorseProfileChanger(userID);
+		logoutPage = new LogoutPage(userID);				
 		startPage = new StartPage(userID);
 		userProfilPage = new UserProfilPage(userID);
 		userProfileChanger = new UserProfileChanger(userID);		
@@ -136,7 +138,8 @@ Pages = function(){
 		addListenersForDates();		
 		addListenersForHorse();				
 		addListenersToStartPage();
-		addListenersForUserProfile();	
+		addListenersForUserProfile();
+		addListenersForLogoutPage();	
 	}
 
 	function addListenersForDates(){	
@@ -206,6 +209,10 @@ Pages = function(){
 		userProfileChanger.addEventListener("onHorseSaved", showStartPage);
 	}
 
+	function addListenersForLogoutPage(event) {
+		logoutPage.addEventListener("onLogout", showLoginPage);
+	}
+
 		
 
 	function showCreateSingleDate(){
@@ -218,7 +225,9 @@ Pages = function(){
 	}
 
 	function logoutUser(){
-
+		console.log("logout");
+		logoutPage.init();
+		logoutPage.logout();
 	}
 
 	

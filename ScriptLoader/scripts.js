@@ -94,6 +94,7 @@ ScriptLoader.Scripts = (function(){
 	"./LoginPage/loginPage.js",
 	"./LoginPage/loginDBRequester.js",	
 	"./LoginPage/loginView.js",
+	"./LogoutPage/logoutPage.js",
 	"./UserProfilePage/userProfilePage.js",
 	"./UserProfilePage/userProfilePageModel.js",	
 	"./UserProfilePage/userProfilePageViewControll.js",

@@ -92,9 +92,18 @@ DatabaseClientInterface = function(){
 		}
 
 		function logoutUser(userId){
-			let data = {};
-				data.id = userId;
-			requestModul.tryLogout(ACTIONS.LOGOUT, data);
+			let necessaryAttributes = ["userID"],
+				data = {};
+				data.userID = userId;
+				console.log("logoutUser", data);
+			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, data)){
+				requestModul.tryLogout(ACTIONS.LOGOUT, data);
+				return true;
+			}
+			else{
+				console.log("logout failed");
+				return false;				
+			}				
 		}
 
 

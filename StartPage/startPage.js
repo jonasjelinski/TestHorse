@@ -169,6 +169,7 @@ StartPage = function(userID){
 	}
 
 	function handleLogoutOption(){
+		console.log("logoutUser");
 		sendEvent("logoutUser","");
 	}
 

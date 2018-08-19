@@ -79,7 +79,7 @@ Pages.PageContent = function (){
           '<ul id = "burgerListStartPage" >' +
             '<li><a  id="burgerOptionProfile" href="#">Profil</a></li>' +
             '<li ><a id="burgerOptionHelp" href="#">Help</a></li>' +
-            '<li ><a id= "burgerOptionLogut" href="#">Logout</a></li>' +
+            '<li ><a id= "burgerOptionLogout" href="#">Logout</a></li>' +
           '</ul>'  +
         '</nav>'  +
 							'<ul id="horseList" class="frames">'+
