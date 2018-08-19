@@ -14,9 +14,10 @@ var LoginPage = LoginPage || {};
  * </p>
  */
 
-LoginPage.LoginModel = function(){
+LoginPage.DBRequester = function(){
 	let loginModel = new EventTarget(),
-		dbRequester,		
+		dbRequester,
+		isLogginTry = true,		
 		email;
 
 		/**
@@ -40,20 +41,45 @@ LoginPage.LoginModel = function(){
 		* @description Sets the listeners of the dbRequester
 		*/ 	
 		function addEventListener(){
-			dbRequester.addEventListener("isInvalid", handleIsInvalid);
-			dbRequester.addEventListener("isValid", handleIsValid);
+			dbRequester.addEventListener("onResult", handleResult);
 		}
 
 		/**
-		* @function handleIsInvalid
+		* @function handleResult
 		* @private
 		* @memberof! LoginModul.LoginPage  
 		* @instance
-		* @description Dispatches the event of the type "isInvalid"
+		* @description Dispatches the event depending on the result of the db request
 		*/ 	
-		function handleIsInvalid(){
-			let data = {};
-			sendEvent("isInvalid", data);
+		function handleResult(event){
+			if(isLogginTry){
+				handleLogginResult(event);
+			}
+			else{
+				handleIDResult(event);
+			}
+			
+		}
+
+		function handleLogginResult(event){
+			let result = event.details.result;
+			if(isResultValid(result)){
+				isLogginTry = false;
+				dbRequester.getUserId(email);
+			}
+			else{
+				handleIsInvalid();
+			}
+		}
+
+		function isResultValid(result){
+			let validMessage = "true";
+			return result.includes(validMessage);
+		}
+
+		function handleIDResult(event){
+			let userID = event.details.result;
+			handleIsValid(userID);
 		}
 
 		/**
@@ -63,9 +89,26 @@ LoginPage.LoginModel = function(){
 		* @instance
 		* @description Dispatches the event of the type "isValid" and the userID
 		*/ 	
-		function handleIsValid(){
-			let data = {userID : userID};
+		function handleIsValid(userID){
+			let cleanUserID = getOnlyNumbers(userID),
+				data = {userID : cleanUserID};
 			sendEvent("isValid", data);
+		}
+
+		function getOnlyNumbers(userID){
+			userID = userID.replace(/[^0-9]/, '');
+			return userID;
+		}
+
+		/**
+		* @function isInvalid
+		* @private
+		* @memberof! LoginModul.LoginPage  
+		* @instance
+		* @description Dispatches the event of the type "isValid" and the userID
+		*/ 	
+		function handleIsInvalid(){
+			sendEvent("isInvalid");
 		}
 
 		/**
@@ -78,7 +121,7 @@ LoginPage.LoginModel = function(){
 		function sendEvent(type, data){
 			let event = new Event(type);
 			event.details = data;
-			loginModel.sendEvent(event);
+			loginModel.dispatchEvent(event);
 		}
 
 		/**
@@ -91,8 +134,16 @@ LoginPage.LoginModel = function(){
 		* @param {string} pw password which has to be validated together with the userID
 		* @description Trys to login through the dbRequester
 		*/ 	
-		function tryLogin(stayLoggedIn, email, pw){
-			dbRequester.tryLogin(stayLoggedIn, email, pw);
+		function tryLogin(stayLoggedIn, mail, pw){
+			isLogginTry = true;
+			email = mail;
+			let logginData = {
+				stayLoggedIn : stayLoggedIn,
+				email: email,
+				password: pw,
+			};
+			dbRequester.tryLogin(logginData);
+
 		}
 
 		loginModel.init = init;

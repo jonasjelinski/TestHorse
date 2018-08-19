@@ -1,20 +1,20 @@
 var UserProfileSaver = UserProfileSaver || {};
 
-UserProfileSaver = function(data){
+UserProfileSaver = function(){
 	"user strict";
-	const 
-	HORSE_ID = ""
-	USER_PAGE_ID = "userProfileSaver",
+	const USER_PAGE_ID = "userProfileSaver",
 	USER_TEMPLATE_ID = "userProfileTemplate";
 
 	let that = new EventTarget(),
 		profil = {},
+		dbInterface,
 		attributes;
 
 	function init(newAttributes){		
 		attributes = newAttributes;
 		initPofil();
 		initModel();
+		initDBRequester();
 		addListeners();			
 	}
 
@@ -24,8 +24,13 @@ UserProfileSaver = function(data){
 	}
 
 	function initModel(){
-		model = new HorseProfileSaver.Model();
+		model = new UserProfileSaver.Model();
 		model.init(attributes);
+	}
+
+	function initDBRequester(){
+		dbInterface = new UserProfileSaver.DBRequester();
+		dbInterface.init();
 	}
 
 	function addListeners(){
@@ -46,7 +51,9 @@ UserProfileSaver = function(data){
 	}
 
 	function handleOkayProfile(){
-		//model.saveHorseIntoDB();
+		let isNewUser = model.getIsNewUser(),
+			userData = model.getUserData();
+		dbInterface.saveUserIntoDB(isNewUser, userData);
 		sendEvent("onSaveUserProfile");
 	}
 
@@ -54,6 +61,16 @@ UserProfileSaver = function(data){
 		sendEvent("onDeleteNewUserProfile", "");
 	}
 
+	function createNewUser(){
+		model.createNewUser();
+	}
+
+	function updateOldUser(){
+		model.updateOldUser();
+	}
+
 	that.init = init;
+	that.createNewUser = createNewUser;
+	that.updateOldUser = updateOldUser;
 	return that;
 } 

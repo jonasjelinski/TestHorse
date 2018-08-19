@@ -6,7 +6,8 @@ class ChangerPage extends CreatorPage{
 		this.changer = new AttributesConverter(necessaryAttributes);		
 	}
 
-	init(newAttributes){
+	init(newAttributes, entityID){
+		this.entityID = entityID;
 		this.changeEntity(newAttributes);
 		super.init();
 	}

@@ -7,22 +7,21 @@ HorseProfilePage = function(){
 
 	let that = new EventTarget(),
 		profil = {},
-		attributes;
+		model;
 
 	function init(newAttributes){		
-		attributes = newAttributes;
-		initProfil();
-		initModel();
+		initProfil(newAttributes);
+		initModel(newAttributes);
 		addEventListeners();		
 	}
 
-	function initProfil(){
+	function initProfil(attributes){
 		profil =  new  HorseProfilePage.HorseProfile(HORSE_ID);
 		profil.init(attributes);	
 	}
 
-	function initModel(){
-		model = HorseProfileSaver.Model();
+	function initModel(attributes){
+		model = new HorseProfilePage.Model();
 		model.init(attributes);	
 	}
 
@@ -33,6 +32,7 @@ HorseProfilePage = function(){
 	}
 
 	function handleChangeProfile(){
+		let attributes = model.getAttributes();
 		sendEvent("onChangeHorseProfile", attributes);
 	}
 

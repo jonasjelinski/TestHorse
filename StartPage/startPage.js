@@ -7,10 +7,11 @@ var StartPage = StartPage || {};
  * <p><code><dropList</code> is a modul which handles a dom-element of the type unsorted list </p>
  * <p><code><hamburgerMenu</code> is a modul which handles a hamburgerMenu, which is a kind of droplist</p>
  */
-StartPage = function(userId){
+StartPage = function(userID){
 	let that = new EventTarget(),
-		model, 
+		dbInterface, 
 		hamburgerMenu,
+		model,
 		dropList,
 		dropListId = "horseList",
 		listElementsData = [{id: "1", photo: "/src/xy"}, {id: "2", photo: "/src/xy"},{id: "3", photo: "/src/xy"}],		
@@ -32,62 +33,40 @@ StartPage = function(userId){
 	* @public
 	* @memberof! MainPage  
 	* @instance
-	* @description Initialize this model. Sets the elementTemplateString, the hamburgerMenu and the dropList
+	* @description Initialize this dbInterface. Sets the elementTemplateString, the hamburgerMenu and the dropList
 	*/ 
-	function init(){
-		initHamburgerMenu();
-		initModel();
-		initDropList(listElementsData);
-		initButtonControlls();		
-		addEventListeners();
+	function init(){		
+		initDBInterface();
+		requestDatesFromDB();
+		initHamburgerMenu();		
 	}
 
-	function initHamburgerMenu(){
-		hamburgerMenu = new HamburgerMenu(clickBoxId, burgerList, inVisibleClass, visibleClass);
-		hamburgerMenu.init();
-		hamburgerMenu.addEventListener("onOption", handleHamburgerClick);
+	function initDBInterface(){
+		dbInterface = StartPage.DBRequester(userID);
+		dbInterface.addEventListener("onResult", handleDBResult);
+		dbInterface.init();
 	}
 
-	function handleHamburgerClick(event){
-		let option = event.details.option;
-		switch(option){
-			case burgerOptionProfile : handleProfileOption();
-				break;
-			case burgerOptionHelp : handleHelpOption();
-				break;
-			case burgerOptionLogout : handleLogoutOption();
-				break;
-			default: break;
-		}
-	}
-
-	function handleProfileOption(){
-		sendEvent("showProfilePage","");
-	}
-
-	function sendEvent(type, id){
-		let event = new Event(type);
-		event.details = {};
-		event.details.horseId = id;
-		that.dispatchEvent(event);	
-	}
-
-	function handleHelpOption(){
-		sendEvent("showHelpPage","");
-	}
-
-	function handleLogoutOption(){
-		sendEvent("logoutUser","");
-	}
-
-	function initModel(){
-		model = StartPage.Model(userId);
-		model.addEventListener("onResult", handleDBResult);
+	function requestDatesFromDB(){
+		dbInterface.requestDatesFromDB();
 	}
 
 	function handleDBResult(ev){
-		let horseData = ev.details.data;
-		initDropList(horseData);
+		let horseData = ev.details.allHorses;
+		initModel(horseData);		
+	}
+
+	function initModel(horseData){
+		model = new StartPage.Model();
+		model.addEventListener("onDataConverted", handleOnDataConverted);
+		model.init(horseData);
+	}
+
+	function handleOnDataConverted(event){
+		let convertedHorseData = event.details.allHorses;
+		initDropList(convertedHorseData);
+		initButtonControlls();		
+		addButtonControllsListeners();
 	}
 
 	function initDropList(horseData){
@@ -121,14 +100,31 @@ StartPage = function(userId){
 	
 
 	function initDropLististener(){
-		dropList.addEventListener("onElementClick", handleLiClick);
+		//dropList.addEventListener("onElementClick", handleHorseBoxClick);
 	}
 
-	function handleLiClick(ev){
+	function handleHorseBoxClick(ev){
 		let id = ev.details.id;
 		if(lastBoxClicked(id)){
 			sendEvent("createNewHorse", "");			
 		}
+		else{
+			let horseAttributes = getHorseById(id);
+			sendShowHorseEvent(horseAttributes);
+			console.log("handleLiClick", horseAttributes);
+		}
+	}	
+
+	function getHorseById(id){
+		let horseAttributes = model.getHorseById(id);
+		return horseAttributes;
+	}
+
+	function sendShowHorseEvent(attributes){
+		let event = new Event("showHorseProfile");
+		event.details = {};
+		event.details.attributes = attributes;
+		that.dispatchEvent(event);	
 	}
 
 	function lastBoxClicked(id){
@@ -138,24 +134,65 @@ StartPage = function(userId){
 		return false;
 	}
 
+	function initHamburgerMenu(){
+		hamburgerMenu = new HamburgerMenu(clickBoxId, burgerList, inVisibleClass, visibleClass);
+		hamburgerMenu.init();
+		hamburgerMenu.addEventListener("onOption", handleHamburgerClick);
+	}
+
+	function handleHamburgerClick(event){
+		let option = event.details.option;
+		switch(option){
+			case burgerOptionProfile : handleProfileOption();
+				break;
+			case burgerOptionHelp : handleHelpOption();
+				break;
+			case burgerOptionLogout : handleLogoutOption();
+				break;
+			default: break;
+		}
+	}
+
+	function handleProfileOption(){
+		sendEvent("showProfilePage","");
+	}
+
+	function sendEvent(type, id){
+		let event = new Event(type);
+		event.details = {};
+		event.details.horseID = id;
+		that.dispatchEvent(event);	
+	}
+
+	function handleHelpOption(){
+		sendEvent("showHelpPage","");
+	}
+
+	function handleLogoutOption(){
+		console.log("logoutUser");
+		sendEvent("logoutUser","");
+	}
+
 	function initButtonControlls(){
 		buttonControlls = StartPage.Controlls(dateButtonClass, profileButtonClass);
 		buttonControlls.init();
 	}
 
-	function addEventListeners(){
+	function addButtonControllsListeners(){
 		buttonControlls.addEventListener("onDateClick", handleDateClick);
 		buttonControlls.addEventListener("onProfileClick", handleProfileClick);
 	}
 
 	function handleDateClick(ev){
 		let horseId = ev.details.id;
+		console.log("handleDateClick", horseId);
 		sendEvent("showHorseDates",horseId);
 	}
 
 	function handleProfileClick(ev){
-		let horseId = ev.details.id;
-		sendEvent("showHorseProfile", horseId);	
+		let horseId = ev.details.id,
+		horseAttributes = getHorseById(horseId);
+		sendShowHorseEvent(horseAttributes);
 	}	
 
 	that.init = init;

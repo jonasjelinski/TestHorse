@@ -3,31 +3,34 @@ var DatabaseClientInterface = DatabaseClientInterface || {};
 DatabaseClientInterface = function(){
 	
 	const ACTIONS = {
-		TRY_LOGIN: "loginUser",
+		TRY_LOGIN: "tryLogin",
 		LOGOUT: "logoutUser",
+		GET_USER_ID: "getUserID",
 		ALL_HORSES: "getAllHorsesOfUser",
 		SINGLE_HORSE: "getHorse",
-		ALL_DATES: "getAllDatesOfUser",
-		SINGLE_DATE: "getDate",
+		ALL_DATES: "getAllHorseDates",
+		SINGLE_DATE: "getHorseDate",
 		ALL_REMINDERS: "getAllRemindersOfUser",
-		SINGLE_REMINDER: "getReminder",
-		ALL_AGREEMENTS: "getAllAgreementsOfUser",
-		SINGLE_AGREEMENT: "getAgreement",
+		SINGLE_REMINDER: "getReminderNotification",
+		ALL_REGULAR_REMINDERS: "getAllAgreementsOfUser",
+		SINGLE_REGULAR_REMINDER: "getReminderRegular",
 		USER_DATA:"getUserData",
 		SET_USER : "setUserIntoDB",
 		SET_HORSE : "setHorseIntoDB",
 		SET_DATE : "setDateIntoDB",
 		SET_REMINDER : "setReminderIntoDB",
-		SET_AGREEMENT : "?????",
+		SET_REGULAR_REMINDER : "?????",
 		DELETE_USER : "deleteUserFromDB",
 		DELETE_HORSE : "deleteHorseFromDB",
 		DELETE_DATE : "deleteDateFromDB",
 		DELETE_REMINDER : "deleteReminderFromDB",
-		DELETE_AGREEMENT : "deleteAgreementFromDB",
+		DELETE_REGULAR_REMINDER : "deleteAgreementFromDB",
+		UPDATE_USER : "updateUser",
 		UPDATE_USER_NAME : "updateUserName",
 		UPDATE_USER_EMAIL : "?????",
 		UPDATE_USER_PASSWORD : "updateUserName",
 		UPDATE_USER_BIRTH : "updateUserDateOfBirth",
+		UPDATE_HORSE : "updateHorse",
 		UPDATE_HORSE_NAME : "updateHorseName",
 		UPDATE_HORSE_OWNER : "updateHorseOwner",
 		UPDATE_HORSE_RACE : "updateHorseRace",
@@ -36,9 +39,9 @@ DatabaseClientInterface = function(){
 		UPDATE_HORSE_SEX : "updateHorseSex",
 		UPDATE_HORSE_HEIGHT : "updateHorseHeight",
 		UPDATE_HORSE_GROWER : "updateHorseGrower",
-		UPDATE_DATE : "?????",
-		UPDATE_REMINDER : "????",
-		UPDATE_AGREEMENT: "????",
+		UPDATE_DATE : "updateDate",
+		UPDATE_SINGLE_REMINDER : "updateReminderNotification",
+		UPDATE_REGULAR_REMINDER: "updateReminderRegular",
 	}
 
 	let that = new EventTarget(),
@@ -52,121 +55,160 @@ DatabaseClientInterface = function(){
 		function sendResultData(ev){
 			let event = new Event("onResult");
 				event.details = {};
-				event.details.data = ev.details.data;
+				event.details.result = ev.details.result;			
 			that.dispatchEvent(event);
+		}
+
+		function allNecessaryDataHaveBeenParsed(necessaryAttributes, parsedObject){
+			for(let i = 0; i < necessaryAttributes.length; i++){
+				let attribute = necessaryAttributes[i],
+					parsedAttribute = parsedObject[attribute];
+				if(attributeIsMissing(parsedAttribute)){
+					return false;
+				}
+			}
+			return true;
+		}
+
+		function attributeIsMissing(attribute){
+			if(attribute === undefined){
+				return true;
+			}
+			return false;
 		}
 
 		//LOGIN AND LOGOUT
 
-		function tryLogin(wantsToStayLoggedIn, userId, password){
-			let data = {};
-				data.stayLoggedIn = wantsToStayLoggedIn;
-				data.id = userId;
-				data.password;
-			requestModul.tryLogin(ACTIONS.TRY_LOGIN, data);
+		function tryLogin(loginData){
+			let necessaryAttributes = ["email", "password"];
+			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, loginData)){
+				requestModul.tryLogin(ACTIONS.TRY_LOGIN, loginData);
+				return true;
+			}
+			else{
+				console.log("login failed");
+				return false;				
+			}		
 		}
 
 		function logoutUser(userId){
-			let data = {};
-				data.id = userId;
-			requestModul.tryLogout(ACTIONS.LOGOUT, data);
+			let necessaryAttributes = ["userID"],
+				data = {};
+				data.userID = userId;
+				console.log("logoutUser", data);
+			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, data)){
+				requestModul.tryLogout(ACTIONS.LOGOUT, data);
+				return true;
+			}
+			else{
+				console.log("logout failed");
+				return false;				
+			}				
 		}
 
 
 		//GET DATA
 
-		function getUserData(userId){
+		function getUserId(email){
 			let data = {};
-				data.id = userId;
+				data.email = email;
+			requestModul.getDataFromDB(ACTIONS.GET_USER_ID, data);
+		}
+
+		function getUserData(userID){
+			let data = {};
+				data.userID = userID;
 			requestModul.getDataFromDB(ACTIONS.USER_DATA, data);
 		}
 
-		function getAllHorsesOfUser(userId){
+		function getAllHorsesOfUser(userID){
 			let data = {};
-				data.id = userId;
+				data.userID = userID;
 			requestModul.getDataFromDB(ACTIONS.ALL_HORSES, data);
 		}
 
 		function getHorse(horseId){
 			let data = {};
-				data.id = horseId;
+				data.horseID = horseId;
 			requestModul.getDataFromDB(ACTIONS.SINGLE_HORSE, data);
 		}
 
-		function getAllDatesOfUser(userId){
+		function getAllDatesOfHorse(horseID){
 			let data = {};
-				data.id = userId;
+				data.horseID = horseID;
 			requestModul.getDataFromDB(ACTIONS.ALL_DATES, data);
 		}
 
 		function getDate(dateId){
 			let data = {};
-				data.id = dateId;
+				data.dateID = dateId;
 			requestModul.getDataFromDB(ACTIONS.SINGLE_DATE, data);
 		}
 
 		function getAllRemindersOfUser(userId){
 			let data = {};
-				data.id = userId;
+				data.dateID = userId;
 			requestModul.getDataFromDB(ACTIONS.ALL_REMINDERS, data);	
 		}
 
-		function getReminder(reminderId){
+		function getReminder(dateID){
 			let data = {};
-				data.id = reminderId;
+				data.dateID = dateID;
 			requestModul.getDataFromDB(ACTIONS.SINGLE_REMINDER, data);	
 		}
 
-		function getAllAgreementsOfUser(userId){
+		function getAllregularRemindersOfUser(userId){
 			let data = {};
 			data.id = userId;
 			requestModul.getDataFromDB(ACTIONS.ALL_AGREEMENTS, data);		
 		}
 
-		function getAgreement(agreementId){
+		function getregularReminder(regularReminderId){
 			let data = {};
-			data.id = agreementId;
+			data.id = regularReminderId;
 			requestModul.getDataFromDB(ACTIONS.SINGLE_AGREEMENT, data);		
 		}
 
 		//SET DATA
 
-		function setUserIntoDB(name, email, dateOfBirth, password){
-			let data = {
-				name: name,
-				email: email,
-				dateOfBirth: dateOfBirth,
-				password : password,
-			};
-			requestModul.setDataIntoDB(ACTIONS.SET_USER, data);
+		//newUser : name, email, dateOfBirth, password
+		function setUserIntoDB(newUser){
+			let necessaryAttributes = ["name", "email", "dateOfBirth", "password"];
+			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, newUser)){
+				requestModul.setDataIntoDB(ACTIONS.SET_USER, newUser);
+				return true;
+			}
+			else{
+				console.log("setUserIntoDB failed");
+				return false;				
+			}			
 		}
 
-		function setHorseIntoDB(name, owner, race, dateOfBirth, photoSrc, sex, height, grower, userID){
-			let data = {
-				name: name,
-				owner: owner,
-				race: race,
-				dateOfBirth : dateOfBirth,
-				photo: photoSrc,
-				sex : sex, 
-				height: height, 
-				grower: grower,
-				userID: userID,
-			};
-			requestModul.setDataIntoDB(ACTIONS.SET_HORSE, data);
+		function setHorseIntoDB(newHorse){
+			let standardPhoto = "https://h2795767.stratoserver.net/images/standardPhoto.jpg",
+				necessaryAttributes = ["name", "owner", "race", "dateOfBirth", "photo", "sex", "height", "grower", "userID"];
+			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, newHorse)){
+				newHorse.photo = standardPhoto;
+				requestModul.setDataIntoDB(ACTIONS.SET_HORSE, newHorse);
+				return true;
+			}
+			else{
+				console.log("setHorseIntoDB failed");
+				return false;				
+			}			
 		}
 
-		function setDateIntoDB(title, date, time, location, regular, reminder, userID){
-			let data = {
-				userID: userID,
-				title: title,
-				date: date,
-				time: time,
-				location : location,				
-				reminder : reminder,
-				regular: regular,
-			};
-			requestModul.setDataIntoDB(ACTIONS.SET_DATE, data);
+		//title, date, time, location, horseID, userID
+		function setDateIntoDB(newDate){
+				necessaryAttributes = ["title", "date", "time", "location", "horseID", "userID"];
+			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, newDate)){
+				requestModul.setDataIntoDB(ACTIONS.SET_DATE, newDate);
+				return true;
+			}
+			else{
+				console.log("setDateIntoDB failed");
+				return false;				
+			}				
 		}
 
 		function setReminderIntoDB(title, date, time, location, parentDate, dateID){
@@ -215,19 +257,35 @@ DatabaseClientInterface = function(){
 			deleteEntityFromDB(ACTIONS.DELETE_REMINDER, reminderId);
 		}
 
-		function deleteAgreementFromDB(agreementId){
+		function deleteregularReminderFromDB(agreementId){
 			deleteEntityFromDB(ACTIONS.DELETE_AGREEMENT, agreementId);
 		}
 
 		//UPDATE
 
-		function updateUser(userId, valueObject){
-			updateEntity(ACTIONS.UPDATE_USER, userId, valueObject);
+		function updateUser(oldUser){
+			let necessaryAttributes = ["name", "email", "dateOfBirth", "password", "userID"];
+			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, oldUser)){
+				requestModul.updateDataInDB(ACTIONS.UPDATE_USER, oldUser);
+				return true;
+			}
+			else{
+				console.log("updateUserIntoDB failed");
+				return false;				
+			}	
 		} 
 
-		function updateHorse(horseId, valueObject){
-			updateEntity(ACTIONS.UPDATE_HORSE, horseId, valueObject);
-		}
+		function updateHorse(oldHorse){
+			let necessaryAttributes = ["horseID", "name", "owner", "race", "dateOfBirth", "photo", "sex", "height", "grower", "userID"];
+			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, oldHorse)){
+				requestModul.updateDataInDB(ACTIONS.UPDATE_HORSE, oldHorse);
+				return true;
+			}
+			else{
+				console.log("updateUserIntoDB failed");
+				return false;				
+			}
+		}	
 
 		function updateEntity(url, id, valueObject){
 			data = {};
@@ -236,30 +294,55 @@ DatabaseClientInterface = function(){
 			requestModul.updateDataInDB(url, data);
 		}
 
-		function updateDate(dateId, valueObject){
-			updateEntity(ACTIONS.UPDATE_DATE, dateId, valueObject);
+		function updateDate(oldDate){
+			let necessaryAttributes = ["dateID", "horseID", "title", "date"];
+			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, oldDate)){
+				requestModul.updateDataInDB(ACTIONS.UPDATE_DATE, oldDate);
+				return true;
+			}
+			else{
+				console.log("updateUserIntoDB failed");
+				return false;				
+			}			
 		}
 
-		function updateReminder(reminderId, valueObject){
-			updateEntity(ACTIONS.UPDATE_REMINDER, reminderId, valueObject);
+		function updateSingleReminder(singleReminder){
+			let necessaryAttributes = ["dateID", "valueRegular", "unitRegular"];
+			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, singleReminder)){
+				requestModul.updateDataInDB(ACTIONS.UPDATE_SINGLE_REMINDER, singleReminder);
+				return true;
+			}
+			else{
+				console.log("updateUserIntoDB failed");
+				return false;				
+			}	
 		}
 
-		function updateAgreement(agreementId, valueObject){
-			updateEntity(ACTIONS.UPDATE_AGREEMENT, agreementId, valueObject);
+		function updateRegularReminder(regularreminder){
+			let necessaryAttributes = ["dateID", "valueRegular", "unitRegular", "name", "number"];
+			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, regularreminder)){
+				requestModul.updateDataInDB(ACTIONS.UPDATE_REGULAR_REMINDER, regularreminder);
+				return true;
+			}
+			else{
+				console.log("updateUserIntoDB failed");
+				return false;				
+			}	
 		}
 
 		that.init = init;
 		that.tryLogin = tryLogin;
 		that.logoutUser = logoutUser;
+		that.getUserId = getUserId;
 		that.getAllHorsesOfUser = getAllHorsesOfUser;
 		that.getAllRemindersOfUser = getAllRemindersOfUser;
-		that.getAllDatesOfUser = getAllDatesOfUser;
-		that.getAllAgreementsOfUser = getAllAgreementsOfUser;
+		that.getAllDatesOfHorse = getAllDatesOfHorse;
+		that.getAllregularRemindersOfUser = getAllregularRemindersOfUser;
 		that.getUserData = getUserData;
 		that.getHorse = getHorse;
 		that.getDate = getDate;
 		that.getReminder = getReminder;
-		that.getAgreement = getAgreement;
+		that.getregularReminder = getregularReminder;
 		that.setHorseIntoDB = setHorseIntoDB;
 		that.setUserIntoDB = setUserIntoDB;
 		that.setDateIntoDB = setDateIntoDB;
@@ -269,12 +352,12 @@ DatabaseClientInterface = function(){
 		that.deleteHorseFromDB = deleteHorseFromDB;
 		that.deleteDateFromDB = deleteDateFromDB;
 		that.deleteReminderFromDB = deleteReminderFromDB;
-		that.deleteAgreementFromDB = deleteAgreementFromDB;
+		that.deleteregularReminderFromDB = deleteregularReminderFromDB;
 		that.updateUser = updateUser;
 		that.updateHorse = updateHorse;
 		that.updateEntity = updateEntity;
 		that.updateDate = updateDate;
-		that.updateReminder = updateReminder;
-		that.updateAgreement = updateAgreement;
+		that.updateSingleReminder = updateSingleReminder;
+		that.updateRegularReminder = updateRegularReminder;
 		return that;
 }

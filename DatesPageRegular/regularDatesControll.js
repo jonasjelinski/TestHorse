@@ -24,10 +24,15 @@ RegularDatesPage.RegularDatesPageControll = function(deleteButtonClass, changeBu
 		}
 
 		function handleDelete(event){
+			let id = getIdFromEvent(event);
+			sendIdEvent("onDeleteClick", id);
+		}
+
+		function getIdFromEvent(event) {
 			let target = event.target,
 				li = target.closest("li"),
-				id = li.RegularDatesId;
-			sendIdEvent("onDeleteClick", id);
+				id = li.getAttribute("regulardateid");
+			return id;
 		}
 
 		function sendIdEvent(type, id){
@@ -38,9 +43,7 @@ RegularDatesPage.RegularDatesPageControll = function(deleteButtonClass, changeBu
 		}
 
 		function handleChange(event){
-			let target = event.target,
-				li = target.closest("li"),
-				id = li.RegularDatesId;
+			let id = getIdFromEvent(event);
 			sendIdEvent("onChangeClick", id);
 		}
 

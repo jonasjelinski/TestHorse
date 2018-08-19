@@ -20,7 +20,7 @@ HorseCreator.SliderPages = function() {
 				'<div>Geburtsdatum des Pferdes:</div>'+
 				'<input id="horseInteractionInput"></input>'+
 				'<div id=horseInteractionFeedback></div>'+
-				'<div id= "horseInteractionValueBox" property="birth" value="" opacity = 0 ></div>',
+				'<div id= "horseInteractionValueBox" property="dateOfBirth" value="" opacity = 0 ></div>',
 			PHOTO = 
 				'<div>Photo des Pferdes:</div>'+
 				'<input id="horseInteractionInput"></input>'+
@@ -40,7 +40,7 @@ HorseCreator.SliderPages = function() {
 				'<div>Züchter des Pferdes:</div>'+
 				'<input id="horseInteractionInput"></input>'+
 				'<div id=horseInteractionFeedback></div>'+
-				'<div id= "horseInteractionValueBox" property="raiser" value="" opacity = 0 ></div>';
+				'<div id= "horseInteractionValueBox" property="grower" value="" opacity = 0 ></div>';
 				
 	let pages = [NAME, OWNER, RACE, DATE_OF_BIRTH, PHOTO, SEX, HEIGHT, GROWER];
 	return pages;

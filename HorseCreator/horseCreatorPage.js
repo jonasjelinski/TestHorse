@@ -12,7 +12,7 @@ HorseCreatorPage = function(){
 				race: {value:undefined,
 					   isNecessary: false,
 				},
-				birth : {value:undefined,
+				dateOfBirth: {value:undefined,
 					   isNecessary: false,
 				},
 				photo: {value:undefined,
@@ -24,7 +24,7 @@ HorseCreatorPage = function(){
 				height: {value:undefined,
 					   isNecessary: false,
 				}, 
-				raiser: {value:undefined,
+				grower: {value:undefined,
 					   isNecessary: false,
 				},
 			};
