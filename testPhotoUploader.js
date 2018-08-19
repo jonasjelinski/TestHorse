@@ -1,5 +1,7 @@
 var TestPhotoUploader = TestPhotoUploader || {};
 
+
+//Quelle: https://www.youtube.com/watch?v=ut-NcYgFRKI
 TestPhotoUploader =function(inputId, buttonId){
 	let that = {},
 		button,
@@ -22,7 +24,6 @@ TestPhotoUploader =function(inputId, buttonId){
 
 	function sendPhoto(){
 		if(formData!==undefined){
-
 			makeAjaxRequest(formData);
 		}
 	}
