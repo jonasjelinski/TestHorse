@@ -66,7 +66,7 @@ DatesChangerPageSingle.DBRequester = function(userID, horseID){
 	}
 
 	function isSingleReminder(updatedData){
-		return false:
+		return false;
 	}
 
 
