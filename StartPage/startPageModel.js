@@ -6,12 +6,34 @@ StartPage.Model = function(){
 
 	function init(horses){
 		allHorses = JSON.parse(horses);
-		console.log("allHorses",horses);
+		changePropertyNames(allHorses);
 		sendOnDataConverted();
 	}
 
-	function getHorseById(id){
+	function changePropertyNames(allHorses){
+		for(let i = 0; i < allHorses.length;  i++){
+			let horse = allHorses[i];
+			changePropertyName(horse);
+		}
+	}
 
+	function changePropertyName(horse){
+		horse.dateOfBirth = horse.date_of_birth;
+		delete horse.date_of_birth;
+	}
+
+	function getHorseById(id){
+		let searchedHorse = getSearchedHorse(id);
+		return searchedHorse;
+	}
+
+	function getSearchedHorse(id){
+		for(let i = 0; i < allHorses.length; i++){
+			let horse = allHorses[i];
+			if(horse.id === id){
+				return horse;
+			}
+		}
 	}
 
 	function sendOnDataConverted(){

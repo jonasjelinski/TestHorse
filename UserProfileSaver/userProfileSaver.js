@@ -7,12 +7,14 @@ UserProfileSaver = function(data){
 
 	let that = new EventTarget(),
 		profil = {},
+		dbInterface,
 		attributes;
 
 	function init(newAttributes){		
 		attributes = newAttributes;
 		initPofil();
 		initModel();
+		initDBRequester();
 		addListeners();			
 	}
 
@@ -24,6 +26,11 @@ UserProfileSaver = function(data){
 	function initModel(){
 		model = new UserProfileSaver.Model();
 		model.init(attributes);
+	}
+
+	function initDBRequester(){
+		dbInterface = new UserProfileSaver.DBRequester();
+		dbInterface.init();
 	}
 
 	function addListeners(){
@@ -44,7 +51,9 @@ UserProfileSaver = function(data){
 	}
 
 	function handleOkayProfile(){
-		model.saveUserIntoDB();
+		let isNewUser = model.getIsNewUser(),
+			userData = model.getUserData();
+		dbInterface.saveUserIntoDB(isNewUser, userData);
 		sendEvent("onSaveUserProfile");
 	}
 

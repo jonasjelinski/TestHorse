@@ -4,44 +4,10 @@ UserProfileSaver.Model = function(){
 	let that = {},
 		attributes,
 		isNewUser = true,
-		user;
+		userData;
 
 	function init(newUser) {
-		user = newUser;
-		initRequester();
-	}
-
-	function initRequester() {
-		requester = new DatabaseClientInterface();
-		requester.init();
-	}
-
-	function addEventListeners(){
-		requester.addEventListener("onResult", handleResult);
-	}
-
-	function handleResult(event){
-		let data = event.details.data;
-    }
-
-	function saveUserIntoDB()
-	{	let hadCorrectParameter ={};
-		if(isNewUser){
-			hadCorrectParameter = requester.setUserIntoDB(user);
-		}
-		else{
-			hadCorrectParameter = requester.updateUser(user);
-		}		
-		handleParameterFeedBack(hadCorrectParameter);
-	}
-
-	function handleParameterFeedBack(hadCorrectParameter){
-		if(hadCorrectParameter){
-			console.log("hadCorrectParameter")
-		}
-		else{
-			console.log("not Enough attributes", newHorse);
-		}
+		userData = newUser;		
 	}
 
 	function createNewUser(){
@@ -52,8 +18,17 @@ UserProfileSaver.Model = function(){
 		isNewUser = false;
 	}
 
+	function getUserData(){
+		return userData;
+	}
+
+	function getIsNewUser(){
+		return isNewUser;
+	}	
+
 	that.init = init;
-	that.saveUserIntoDB = saveUserIntoDB;
+	that.getUserData = getUserData;
+	that.getIsNewUser = getIsNewUser;
 	that.createNewUser = createNewUser;
 	that.updateOldUser = updateOldUser;
 	return that;

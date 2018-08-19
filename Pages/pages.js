@@ -261,11 +261,10 @@ Pages = function(){
 	* @instance
 	* @description shows the data of one horse to the user
 	*/ 
-	function showHorseProfilePage(){
-		let horseId = "myHorse",
-		data = {name :"dieter", birth: "24.0488", race: "harfling",  comp: "ja", owner: "klaus", sex: "male", height :"1, 60m", raiser:"unknown"}
+	function showHorseProfilePage(event){
+		let attributes = event.details.attributes;
 		pageChanger.switchPage("HORSE_PROFILE");
-		horseProfilPage.init(data);
+		horseProfilPage.init(attributes);
 	}
 
 	function showHorseCreatorPage(event){

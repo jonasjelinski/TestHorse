@@ -109,17 +109,19 @@ StartPage = function(userID){
 			sendEvent("createNewHorse", "");			
 		}
 		else{
-			let attributes = getHorseById(id);
-			sendShowHorseEvent(attributes);
+			let horseAttributes = getHorseById(id);
+			sendShowHorseEvent(horseAttributes);
+			console.log("handleLiClick", horseAttributes);
 		}
 	}	
 
 	function getHorseById(id){
-
+		let horseAttributes = model.getHorseById(id);
+		return horseAttributes;
 	}
 
 	function sendShowHorseEvent(attributes){
-		let event = new Event("showHorse");
+		let event = new Event("showHorseProfile");
 		event.details = {};
 		event.details.attributes = attributes;
 		that.dispatchEvent(event);	
