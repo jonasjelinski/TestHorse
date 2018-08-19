@@ -25,6 +25,11 @@ HorseProfileSaver.DBRequester = function(userID){
 		if(isNewHorse){
 			hadCorrectParameter = requester.setHorseIntoDB(newHorse);
 		}
+		else{
+			newHorse.horseID = newHorse.id;
+			newHorse.userID = newHorse.user_id;			
+			hadCorrectParameter = requester.updateHorse(newHorse);
+		}
 		handleParameterFeedBack(hadCorrectParameter);
 	}
 
@@ -44,7 +49,6 @@ HorseProfileSaver.DBRequester = function(userID){
 	function setNewHorse(){
 		isNewHorse = true;
 	}
-
 
 	that.init = init;
 	that.saveHorseIntoDB = saveHorseIntoDB;

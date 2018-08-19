@@ -25,10 +25,12 @@ DatabaseClientInterface = function(){
 		DELETE_DATE : "deleteDateFromDB",
 		DELETE_REMINDER : "deleteReminderFromDB",
 		DELETE_REGULAR_REMINDER : "deleteAgreementFromDB",
+		UPDATE_USER : "updateUser",
 		UPDATE_USER_NAME : "updateUserName",
 		UPDATE_USER_EMAIL : "?????",
 		UPDATE_USER_PASSWORD : "updateUserName",
 		UPDATE_USER_BIRTH : "updateUserDateOfBirth",
+		UPDATE_HORSE : "updateHorse",
 		UPDATE_HORSE_NAME : "updateHorseName",
 		UPDATE_HORSE_OWNER : "updateHorseOwner",
 		UPDATE_HORSE_RACE : "updateHorseRace",
@@ -248,7 +250,7 @@ DatabaseClientInterface = function(){
 
 		//UPDATE
 
-		function updateUser(userId, valueObject){
+		function updateUser(oldUser){
 			let necessaryAttributes = ["name", "email", "dateOfBirth", "password", "userID"];
 			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, oldUser)){
 				requestModul.updateDataInDB(ACTIONS.UPDATE_USER, oldUser);
@@ -260,9 +262,17 @@ DatabaseClientInterface = function(){
 			}	
 		} 
 
-		function updateHorse(horseId, valueObject){
-			updateEntity(ACTIONS.UPDATE_HORSE, horseId, valueObject);
-		}
+		function updateHorse(oldHorse){
+			let necessaryAttributes = ["horseID", "name", "owner", "race", "dateOfBirth", "photo", "sex", "height", "grower", "userID"];
+			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, oldHorse)){
+				requestModul.updateDataInDB(ACTIONS.UPDATE_HORSE, oldHorse);
+				return true;
+			}
+			else{
+				console.log("updateUserIntoDB failed");
+				return false;				
+			}
+		}	
 
 		function updateEntity(url, id, valueObject){
 			data = {};
