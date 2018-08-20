@@ -53,7 +53,6 @@ DatabaseClientInterface.RequestModul = function () {
 	function convertAllValuesToTypeString(requestData){
 		Object.keys(requestData).forEach( function(i){
 			if (typeof requestData[i] === "object") {
-				console.log(requestData);
 				return convertAllValuesToTypeString(requestData[k]);
 			}
 			requestData[i] = '' + requestData[i];

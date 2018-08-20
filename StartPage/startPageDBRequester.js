@@ -18,8 +18,7 @@ StartPage.DBRequester = function(userID){
 	}
 
 	function handleResult(event){		
-		let results = event.details.result;
-		console.log("handleResult", results);		
+		let results = event.details.result;		
 		sendEvent("onResult", results);
 	}
 

@@ -171,7 +171,7 @@ Pages = function(){
 	function addListenersToHorseProfilePage(){
 		horseProfilPage.addEventListener("onChangeHorseProfile", changeHorse);
 		horseProfilPage.addEventListener("onSaveHorseProfile", showStartPage);
-		horseProfilPage.addEventListener("onDeleteNewHorseProfile", showStartPage);		
+		horseProfilPage.addEventListener("onDeleteHorseProfile", showStartPage);		
 	}
 
 	function addListenersToHorseProfileSaver(){
@@ -254,7 +254,10 @@ Pages = function(){
 	* @description shows all dates to the user
 	*/ 
 	function showAllDates(event){
-		let horseID = event.details.horseID;
+		let horseID;
+		if(event) {
+			horseID= event.details.horseID;
+		}
 		pageChanger.switchPage("DATES");
 		datesPage.init(horseID);
 	}
@@ -451,6 +454,7 @@ Pages = function(){
 
 	
 	that.init = init;
+	that.initAfterLogin = initAfterLogin;
 	that.showAllDates = showAllDates;
 	that.showRegularDates = showRegularDates;
 	that.showRegularDatescreatorPage = showRegularDatescreatorPage;
@@ -461,6 +465,7 @@ Pages = function(){
 	that.showUserProfilPage = showUserProfilPage;	
 	that.showUserCreatorPage = showUserCreatorPage;	
 	that.changeRegularDate = changeRegularDate;
+	that.showCreateSingleDate = showCreateSingleDate;
 	that.showUserProfileSaver = showUserProfileSaver;
 	return that;
 }

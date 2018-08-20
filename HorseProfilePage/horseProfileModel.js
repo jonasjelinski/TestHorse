@@ -11,8 +11,13 @@ HorseProfilePage.Model = function(horseId){
 	function getAttributes(){
 		return attributes;		
 	}
+
+	function getHorseId() {
+		return attributes.id;
+	}
 	
 	that.init = init;
 	that.getAttributes = getAttributes;
+	that.getHorseId = getHorseId;
 	return that;
 } 

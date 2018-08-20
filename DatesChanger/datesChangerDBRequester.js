@@ -5,6 +5,7 @@ DatesChangerPageSingle.DBRequester = function(userID, horseID){
 	function init(oldDate) {
 		oldDate = oldDate;
 		initRequester();
+		addEventListeners();
 	}
 
 	function initRequester() {
@@ -17,23 +18,44 @@ DatesChangerPageSingle.DBRequester = function(userID, horseID){
 	}
 
 	function handleResult(event){
-		let result = event.details.result;		
+		let result = event.details.result;	
+		console.log("result",result);	
 	}
 
 	function saveDateIntoDB(updatedData){
 		let changedDate = updatedData.date,
+			unit = updatedData.unit,
+			value = updatedData.value,
 			dateID = changedDate.id;
+			changedDate.valueRegular = value;
+			changedDate.unitRegular = unit;
 		updateDate(changedDate);
 		updateReminder(updatedData, dateID);
 	}
 
 
 	function updateDate(changedDate){
-		changedDate = changeAttributesAccordingToDBRequest(changedDate);
-		changedDate = changeAttributesAccordingToDBRequest(changedDate);
-		changeAttributesAccordingToDBRequest(changedDate);
-		hadCorrectParameter = requester.updateDate(changedDate);
-		handleParameterFeedBack(hadCorrectParameter, changedDate);
+		let dataToSave = {};
+		dataToSave = changeAttributesAccordingToDBRequest(changedDate);
+		dataToSave = getDateObjectForDBRequest(dataToSave);
+		hadCorrectParameter = requester.updateDate(dataToSave);
+		handleParameterFeedBack(hadCorrectParameter, dataToSave);
+	}
+
+	function getDateObjectForDBRequest(changedDate) {
+		let dataToSave= {
+			dateID: changedDate.dateID,
+			horseID: changedDate.horseID,
+			title: changedDate.title,
+			date: changedDate.date,
+			time: changedDate.time,
+			location: changedDate.location,
+			dateFuture: changedDate.date_future_date,
+			timeFuture: changedDate.time_future_time,
+			valueRegular: changedDate.valueRegular,
+			unitRegular: changedDate.unitRegular,
+		};
+		return dataToSave;
 	}
 
 	function changeAttributesAccordingToDBRequest(changedDate){
@@ -71,10 +93,14 @@ DatesChangerPageSingle.DBRequester = function(userID, horseID){
 
 
 	function createRegularReminderData(updatedData, dateID){
+		let date = updatedData.date,
+			reminder = updatedData.reminder,
+			name = "",
+			number = "";
 		let reminderData = {
-			dateID: dateID,
-			unitRegular: unit,
-			valueRegular: value,
+			dateID: date.dateID,
+			date: reminder.date,
+			time: reminder.time,
 			name: name,
 			number: number,
 		};
@@ -85,19 +111,19 @@ DatesChangerPageSingle.DBRequester = function(userID, horseID){
 		requester.updateRegularReminder(reminderData);
 	}
 
-	function createSingleReminderData(){
+	function createSingleReminderData(updatedData){
+		let date = updatedData.date,
+			reminder = updatedData.reminder;
 		let reminderData = {
-			dateID: dateID,
-			unitRegular: unit,
-			valueRegular: value,
-			name: name,
-			number: number,
+			dateID: date.dateID,
+			date: reminder.date,
+			time: reminder.time,
 		};
 		return reminderData;
 	}
 
-	function saveSingleReminderIntoDB(){
-		requester.SingleReminder(reminderData);
+	function saveSingleReminderIntoDB(reminderData){
+		requester.updateSingleReminder(reminderData);
 	}
 
 	that.init = init;

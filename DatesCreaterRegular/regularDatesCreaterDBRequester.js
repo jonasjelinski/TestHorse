@@ -4,11 +4,8 @@ RegulardatesCreatorPage.DBRequester = function(userID, horseID){
 	let that = {},
 		regularDate,
 		isSavingDate = true,
-		reminder,
-		name = "",
-		number = "",
-		unit,
-		value;
+		dateData,
+		reminder;
 
 	function init(newDate) {
 		regularDate = newDate;
@@ -27,16 +24,29 @@ RegulardatesCreatorPage.DBRequester = function(userID, horseID){
 	}
 
 	function saveDateIntoDB(data){
-		let newDate = data.date,
-			idData = {userID, horseID},
-			dataToSave = Object.assign(idData, newDate);
+		let	dataToSave = getDateObjectForDBRequest(data);
 			regularDate = dataToSave;
-			reminder = data.reminder;
-			unit = data.unit;
-			value = data.value;	
+			dateData = data;
+			console.log("saveDateIntoDB", "data", data, "dataToSave", dataToSave);	
 		hadCorrectParameter = requester.setDateIntoDB(dataToSave);
-		handleParameterFeedBack(hadCorrectParameter, newDate);
+		handleParameterFeedBack(hadCorrectParameter, dateData);
 		isSavingDate = false;
+	}
+
+	function getDateObjectForDBRequest(data) {
+		let dataToSave= {
+			userID: userID,
+			horseID: horseID,
+			title: data.date.title,
+			date: data.date.date,
+			time: data.date.time,
+			location: data.date.location,
+			dateFuture: "hasNoDate",
+			timeFuture: "hasNoDate",
+			valueRegular: data.value,
+			unitRegular: data.unit,
+		};
+		return dataToSave;
 	}
 
 	function handleParameterFeedBack(hadCorrectParameter, newDate){
@@ -68,10 +78,16 @@ RegulardatesCreatorPage.DBRequester = function(userID, horseID){
 
 
 	function createReminderData(dateID){
-		let reminderData = {
+		let reminderData = {},
+			date = dateData.reminder.date,
+			time = dateData.reminder.time,
+			name = "",
+			number = "";
+
+		reminderData = {
 			dateID: dateID,
-			unitRegular: unit,
-			valueRegular: value,
+			date: date,
+			time: time,
 			name: name,
 			number: number,
 		};

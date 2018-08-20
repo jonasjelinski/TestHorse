@@ -23,14 +23,55 @@
       
        function showPage(){
         let pages = new Pages();  
-            pages.init();   //initialisiert die pages, damit wird die login Seite initialisert
-            pages.showLoginPage(); //zeigt die login seite an
+            //pages.init();
+            //pages.initAfterLogin();
+            //pages.showStartPage();   //initialisiert die pages, damit wird die login Seite initialisert
+            //pages.showAllDates(); //zeigt die login seite an
            //im Ordner LoginPage wird in loginDBRequester ein login versuch gestartet
            //wenn dieser erfolgreich ist, wir die startSeite angezeigt
            //alle Instanzen der Seiten und die gesamten Seitenaufrufe befinden sich in Pages pages
 
             //let testphotoUploader = new TestPhotoUploader("testphotoinput");
             //testphotoUploader.init();
+
+            init();
+            delteSingleReminder(0);
+
+            function init(oldDate) {
+              initRequester();
+              addEventListeners();
+            }
+
+            function initRequester() {
+              requester = new DatabaseClientInterface();
+              requester.init();
+            }
+
+            function addEventListeners(){
+              requester.addEventListener("onResult", handleResult);
+            }
+
+            function delteSingleReminder(id){
+              requester.deleteSingleReminderFromDB(id);
+            }
+
+            function delteRegularReminder(id) {
+               requester.deleteRegularReminderFromDB(id);
+            }
+
+            function deleteDate(id) {
+              requester.deleteDateFromDB(id);
+            }
+
+            function delteUser(id) {
+              requester.deleteUserFromDB(id);
+            }
+
+            function handleResult(event) {
+              let result = event.details.result;
+              console.log("delte result", result);
+            }
+ 
         }
 
         function loaded(){

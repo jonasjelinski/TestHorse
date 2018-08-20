@@ -2,27 +2,32 @@ var HorseProfilePage = HorseProfilePage || {};
 
 HorseProfilePage = function(){
 	"user strict";
-	const 
-	HORSE_ID = "";
 
 	let that = new EventTarget(),
 		profil = {},
-		model;
+		model,
+		dbRquester;		
 
 	function init(newAttributes){		
 		initProfil(newAttributes);
 		initModel(newAttributes);
+		initDBRequester();
 		addEventListeners();		
 	}
 
 	function initProfil(attributes){
-		profil =  new  HorseProfilePage.HorseProfile(HORSE_ID);
+		profil =  new  HorseProfilePage.HorseProfile();
 		profil.init(attributes);	
 	}
 
 	function initModel(attributes){
 		model = new HorseProfilePage.Model();
 		model.init(attributes);	
+	}
+
+	function initDBRequester() {
+		dbRquester = new HorseProfilePage.DBRequester();
+		dbRquester.init();
 	}
 
 	function addEventListeners(){
@@ -49,7 +54,10 @@ HorseProfilePage = function(){
 	}
 
 	function handleDeleteProfile(){
-		sendEvent("onDeleteNewHorseProfile", "");
+		let id = model.getHorseId();
+		console.log("handleDeleteProfile id", id);
+		dbRquester.delteHorseFromDB(id);
+		sendEvent("onDeleteHorseProfile", "");
 	}
 
 	that.init = init;

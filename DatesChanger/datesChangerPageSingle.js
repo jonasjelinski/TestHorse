@@ -18,11 +18,16 @@ DatesChangerPageSingle = function(userID){
 		horseID;
 
 	function init(attributes){
+		initModuls();
+		addAttributesAndInitPage(attributes);
+		dbInterface.init();		
+	}
+
+	function initModuls() {
 		horseID = attributes.horseID;
 		standardPage = new SingleDatesCreatorPage.Standard(userID,horseID);
 		dbInterface = new DatesChangerPageSingle.DBRequester(userID, horseID);
-		addAttributesAndInitPage(attributes);
-		dbInterface.init();		
+		model = new DatesChangerPageSingle.Model();
 	}
 
 	function addAttributesAndInitPage(attributes) {
@@ -30,9 +35,9 @@ DatesChangerPageSingle = function(userID){
 			attributes = DEFAULT_DATA;
 		}
 		if(standardPage){
-			standardPage.init(horseID);	
-			addAttributes(attributes);
-					
+			standardPage.init();	
+			model.init(attributes);
+			addAttributes(attributes);					
 		}
 	}
 
@@ -48,11 +53,19 @@ DatesChangerPageSingle = function(userID){
 	}
 
 	function handleSave(event) {
+		let updatedDate = prepareDataForDBRequest(event);
+		saveDateIntoDB(changedDate);
+		sendEvent("onDataSaved");
+	}
+
+	function prepareDataForDBRequest(event){
 		let data = event.details.data,
-			changedDate = data.date;
-		console.log("handle save", data);
-		//saveDateIntoDB(changedDate);
-		//sendEvent("onDataSaved");
+			changedDate = data.date,
+			updatedDate;
+		model.updateDate(changedDate);
+		updatedDate = model.getDate();
+		data.date = updatedDate;
+		return data;
 	}
 
 	function saveDateIntoDB(changedDate) {

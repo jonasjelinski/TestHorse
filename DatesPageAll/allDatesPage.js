@@ -82,7 +82,6 @@ DatesPageAll = function(userID){
 
 
 	function handleRegularClick(){
-		console.log("showRegularDates");
 		sendEvent("showRegularDates");
 	}
 

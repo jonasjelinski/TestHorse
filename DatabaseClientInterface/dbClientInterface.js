@@ -23,8 +23,8 @@ DatabaseClientInterface = function(){
 		DELETE_USER : "deleteUserFromDB",
 		DELETE_HORSE : "deleteHorseFromDB",
 		DELETE_DATE : "deleteDateFromDB",
-		DELETE_REMINDER : "deleteReminderFromDB",
-		DELETE_REGULAR_REMINDER : "deleteAgreementFromDB",
+		DELETE_SINGLE_REMINDER : "deleteReminderNotificationFromDB",
+		DELETE_REGULAR_REMINDER : "deleteReminderNotificationFromDB",
 		UPDATE_USER : "updateUser",
 		UPDATE_USER_NAME : "updateUserName",
 		UPDATE_USER_EMAIL : "?????",
@@ -200,7 +200,7 @@ DatabaseClientInterface = function(){
 
 		//title, date, time, location, horseID, userID
 		function setDateIntoDB(newDate){
-				necessaryAttributes = ["title", "date", "time", "location", "horseID", "userID"];
+				necessaryAttributes = ["title", "date", "time", "location", "dateFuture","timeFuture", "valueRegular", "unitRegular"];
 			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, newDate)){
 				requestModul.setDataIntoDB(ACTIONS.SET_DATE, newDate);
 				return true;
@@ -235,30 +235,40 @@ DatabaseClientInterface = function(){
 
 		//DELETE ENTITY
 
-		function deleteUserFromDB(userId){
-			deleteEntityFromDB(ACTIONS.DELETE_USER, id);
+		function deleteUserFromDB(userID){
+			let data = {};
+			data.userID = userID;
+			requestModul.delteDataFromDB(ACTIONS.DELETE_USER, data);
 		}
 
-		function deleteEntityFromDB(url, id){
+		function deleteEntityFromDB(action, id){
 			let data = {};
 			data.id = id;
-			requestModul.delteDataFromDB(url, data);
+			requestModul.delteDataFromDB(action, data);
 		}
 
 		function deleteHorseFromDB(horseId){
-			deleteEntityFromDB(ACTIONS.DELETE_HORSE, horseId);
+			let data = {};
+			data.horseID = horseId;
+			requestModul.delteDataFromDB(ACTIONS.DELETE_HORSE, data);
 		}
 
-		function deleteDateFromDB(dateId){
-			deleteEntityFromDB(ACTIONS.DELETE_DATE, dateId);
+		function deleteDateFromDB(dateID){
+			let data = {};
+			data.dateID = dateID;
+			requestModul.delteDataFromDB(ACTIONS.DELETE_DATE, data);
 		}
 
-		function deleteReminderFromDB(reminderId){
-			deleteEntityFromDB(ACTIONS.DELETE_REMINDER, reminderId);
+		function deleteSingleReminderFromDB(dateID){
+			let data = {};
+			data.dateID = dateID;
+			requestModul.delteDataFromDB(ACTIONS.DELETE_SINGLE_REMINDER, data);
 		}
 
-		function deleteregularReminderFromDB(agreementId){
-			deleteEntityFromDB(ACTIONS.DELETE_AGREEMENT, agreementId);
+		function deleteRegularReminderFromDB(dateID){
+			let data = {};
+			data.dateID = dateID;
+			requestModul.delteDataFromDB(ACTIONS.DELETE_REGULAR_REMINDER, data);
 		}
 
 		//UPDATE
@@ -307,7 +317,7 @@ DatabaseClientInterface = function(){
 		}
 
 		function updateSingleReminder(singleReminder){
-			let necessaryAttributes = ["dateID", "valueRegular", "unitRegular"];
+			let necessaryAttributes = ["dateID", "date", "time"];
 			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, singleReminder)){
 				requestModul.updateDataInDB(ACTIONS.UPDATE_SINGLE_REMINDER, singleReminder);
 				return true;
@@ -319,7 +329,7 @@ DatabaseClientInterface = function(){
 		}
 
 		function updateRegularReminder(regularreminder){
-			let necessaryAttributes = ["dateID", "valueRegular", "unitRegular", "name", "number"];
+			let necessaryAttributes = ["dateID", "date", "time", "name", "number"];
 			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, regularreminder)){
 				requestModul.updateDataInDB(ACTIONS.UPDATE_REGULAR_REMINDER, regularreminder);
 				return true;
@@ -351,8 +361,8 @@ DatabaseClientInterface = function(){
 		that.deleteUserFromDB = deleteUserFromDB;
 		that.deleteHorseFromDB = deleteHorseFromDB;
 		that.deleteDateFromDB = deleteDateFromDB;
-		that.deleteReminderFromDB = deleteReminderFromDB;
-		that.deleteregularReminderFromDB = deleteregularReminderFromDB;
+		that.deleteSingleReminderFromDB = deleteSingleReminderFromDB;
+		that.deleteRegularReminderFromDB = deleteRegularReminderFromDB;
 		that.updateUser = updateUser;
 		that.updateHorse = updateHorse;
 		that.updateEntity = updateEntity;

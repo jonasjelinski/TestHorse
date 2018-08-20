@@ -103,6 +103,7 @@ ScriptLoader.Scripts = (function(){
 	"./HorseProfilePage/horseProfile.js",
 	"./HorseProfilePage/horseProfileControll.js",	
 	"./HorseProfilePage/horseProfileModel.js",
+	"./HorseProfilePage/horseProfilePageDBRequester.js",
 	"./DatesPageAll/allDatesPage.js",
 	"./DatesPageAll/allDatesPageControll.js",	
 	"./DatesPageAll/allDatesPageModel.js",

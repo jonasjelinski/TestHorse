@@ -20,7 +20,6 @@ DatesPageAll.DBRequester = function(userID, horseID){
 
 	function handleResult(event){		
 		let results = event.details.result;
-		console.log("allDates result", results);
 		sendEvent("onResult", results);
 	}
 
@@ -32,8 +31,7 @@ DatesPageAll.DBRequester = function(userID, horseID){
 	}
 
 	function requestDatesFromDB(){
-		console.log("requester horseID",horseID);
-		requester.getAllDatesOfHorse(38);
+		requester.getAllDatesOfHorse(horseID);
 	}	
 
 	that.init = init;

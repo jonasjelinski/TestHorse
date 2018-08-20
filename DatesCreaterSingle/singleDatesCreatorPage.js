@@ -30,7 +30,7 @@ SingleDatesCreatorPage = function(userID){
 	function handleSave(event) {
 		let data = event.details.data;
 		saveDateIntoDB(data);
-		sendEvent("onDataSaved");
+		//sendEvent("onDataSaved");
 	}
 
 	function saveDateIntoDB(date) {

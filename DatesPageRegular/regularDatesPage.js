@@ -36,7 +36,6 @@ RegularDatesPage = function(userID){
 
 	function requestDatesFromDB(){
 		dbInterface.requestDatesFromDB();
-		console.log("init RegularDatesPage");
 	}
 
 	function handleDBResult(event){
@@ -130,7 +129,6 @@ RegularDatesPage = function(userID){
 
 	function handleYes(){
 		let id = model.getDelteId();
-		console.log("delteDate", id);
 	}	
 
 	that.init = init;

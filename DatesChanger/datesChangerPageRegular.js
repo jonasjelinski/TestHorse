@@ -45,7 +45,6 @@ DatesChangerPageRegular = function(userID){
 	}
 
 	function addAttributes(attributes){
-		console.log("attributes",attributes);
 		let newDate = attributes,	//atrributes besitzt noch keinen reminder und duration value unit
 				reminder = attributes.reminder,
 				newDurationValue = attributes.durationValue,
@@ -68,14 +67,13 @@ DatesChangerPageRegular = function(userID){
 		let data = event.details.data,
 			changedDate = data.date,
 			updatedDate;
-			console.log("changedDate", changedDate, "data", data);
 		model.updateDate(changedDate);
 		updatedDate = model.getDate();
 		data.date = updatedDate;
 		return data;
 	}
 
-	function saveDateIntoDB(changedDate) {
+	function saveDateIntoDB(updatedData) {
 		dbInterface.saveDateIntoDB(updatedData);
 	}
 
@@ -87,8 +85,7 @@ DatesChangerPageRegular = function(userID){
 	function handleCancel() {
 		sendEvent("onCancel");
 	}
-
-
+	
 	that.init = init;
 	return that;
 }

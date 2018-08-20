@@ -5,12 +5,14 @@ SingleDatesCreatorPage.DBRequester = function(userID, horseID){
 		attributes,
 		isSavingDate,
 		singleDate,
+		dateData,
 		reminder;
 
 	function init(newDate) {
 		singleDate = newDate;
 		isSavingDate = true;
-		initRequester();		
+		initRequester();
+		addEventListeners();		
 	}
 
 	function initRequester() {
@@ -27,23 +29,41 @@ SingleDatesCreatorPage.DBRequester = function(userID, horseID){
 	}
 
 	function saveDateIntoDB(data){
-		let idData = {userID, horseID},
-			newDate = data.date,
-			dataToSave = Object.assign(idData, newDate);
+		let dataToSave = getDateObjectForDBRequest(data),
 			singleDate = dataToSave;
-			reminder = data.reminder;		
-			//hadCorrectParameter = requester.setDateIntoDB(dataToSave);
-			isSavingDate = false;
-			console.log("data",data, "reminder", reminder);
-		//handleParameterFeedBack(hadCorrectParameter, newDate);
+			dateData = data;
+			setDateIntoDB(dataToSave);
+			isSavingDate = false;		
+			
 	}
 
-	function handleParameterFeedBack(hadCorrectParameter, newDate){
+	function getDateObjectForDBRequest(data) {
+		let dataToSave= {
+			userID: userID,
+			horseID: horseID,
+			title: data.date.title,
+			date: data.date.date,
+			time: data.date.time,
+			location: data.date.location,
+			dateFuture: "hasNoDate",
+			timeFuture: "hasNoDate",
+			valueRegular: "isSingleDate",
+			unitRegular: "isSingleDate",
+		};
+		return dataToSave;
+	}
+
+	function setDateIntoDB(dataToSave) {
+		hadCorrectParameter = requester.setDateIntoDB(dataToSave);
+		handleParameterFeedBack(hadCorrectParameter);
+	}
+
+	function handleParameterFeedBack(hadCorrectParameter){
 		if(hadCorrectParameter){
 			console.log("hadCorrectParameter")
 		}
 		else{
-			console.log("not Enough attributes", newDate);
+			console.log("not Enough attributes");
 		}
 	}
 
@@ -53,7 +73,7 @@ SingleDatesCreatorPage.DBRequester = function(userID, horseID){
 			let result = event.details.result,
 				dateID = getOnlyNumbers(result),
 				reminderData = createReminderData(dateID);
-			saveRegularReminderIntoDB(reminderData);
+			saveSingleReminderIntoDB(reminderData);
 		}
 		else{
 			console.log(event.details.result);
@@ -66,19 +86,21 @@ SingleDatesCreatorPage.DBRequester = function(userID, horseID){
 			return dateID;
 	}
 
-
 	function createReminderData(dateID){
-		let reminderData = {
+		let reminderData = {},
+			date = dateData.reminder.date,
+			time = dateData.reminder.time;
+
+		reminderData = {
 			dateID: dateID,
-			unitRegular: unit,
-			valueRegular: value,
-			name: name,
-			number: number,
+			date: date,
+			time: time,
 		};
 		return reminderData;
 	}	
 
-	function saveRegularReminderIntoDB(reminderData){
+	function saveSingleReminderIntoDB(reminderData){
+		console.log("saveSingleReminderIntoDB", reminderData);
 		requester.updateSingleReminder(reminderData);
 		isSavingDate = true;
 	}
