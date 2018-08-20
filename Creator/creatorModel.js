@@ -1,3 +1,5 @@
+var CreatorModel = CreatorModel || {};
+
 /**
  * @class CreatorModel
  * @description <code>CreatorModel</code> is the model for Creator 
