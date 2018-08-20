@@ -1,5 +1,23 @@
 var DatesCreator = DatesCreator || {};
 
+/**
+ * @instance DatesCreator.View 
+ * @memberof! DatesCreator 
+ * @description View <code>DatesCreator.View </code> is the view controll modul of the DatesCreator
+ * @param {string} dateClass. class of dates
+ * @param {string} reminderClass. class of the reminder
+ * @param {string} containerElementId. id of the container
+ * @param {string} titleInputId. id of the input for title
+ * @param {string} dateInputId. id of the input for date
+ * @param {string} timeInputId. id of the input for time
+ * @param {string} locationInputId. id of the input for location
+ * @param {string} wantsReminderCheckboxId. id for the checkbox
+ * @param {string} dateButtonId. Id of the dateButton
+ * @param {string} reminderButtonId. Id of the reminderButton
+ * @param {string} saveButtonId. Id of the saveButton
+ * @param {string} cancelButtonId. Id of the cancelButton
+ */
+
 DatesCreator.View = function(dateClass, reminderClass, containerElementId, titleInputId, 
 	dateInputId, timeInputId, locationInputId, wantsReminderCheckboxId, dateButtonId, reminderButtonId,
 	saveButtonId, cancelButtonId){
@@ -17,12 +35,27 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 		saveButton,
 		cancelButton;
 
+	/**
+	* @function init
+	* @public
+	* @memberof! DatesCreator.View  
+	* @instance
+	* @description Initialize this modul. 
+	*/ 
 	function init(){
 		getDomElements();
 		addEventListeners();
 		hideReminderAndDateButtons();		
 	}
 
+	/**
+	* @function getDomElements
+	* @public
+	* @memberof! DatesCreator.View  
+	* @instance
+	* @description gets the domElements from the dom with the ids which were given
+	* as paramter of DatesCreator.View  
+	*/ 
 	function getDomElements(){
 		containerElement = document.getElementById(containerElementId);
 		titleInput = document.getElementById(titleInputId);
@@ -36,6 +69,14 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 		cancelButton = document.getElementById(cancelButtonId);
 	}
 
+
+	/**
+	* @function addEventListeners
+	* @public
+	* @memberof! DatesCreator.View  
+	* @instance
+	* @description adds event listeners to the domElements
+	*/
 	function addEventListeners(){
 		wantsReminderCheckBox.addEventListener("click", handleCheckboxInput)
 		saveButton.addEventListener("click", handleSaveButtonClick);
@@ -44,6 +85,16 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 		reminderButton.addEventListener("click", handleReminderButtonClick);
 	}
 
+
+	/**
+	* @function handleCheckboxInput
+	* @public
+	* @memberof! DatesCreator.View  
+	* @instance
+	* @description checkBox wantsReminderCheckBox is checked
+	* if the user wants a reminder 
+	* this function sends the appropriate event
+	*/
 	function handleCheckboxInput(){
 		let wantsReminder = wantsReminderCheckBox.checked;
 		if(wantsReminder){
@@ -57,6 +108,15 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 		}
 	}
 
+	/**
+	* @function sendEvent
+	* @private
+	* @memberof! DatesCreator.View  
+	* @instance
+	* @param{string} type
+	* @param{object} data
+	* @description sends event of type "type" and with the data
+	*/ 
 	function sendEvent(type, data){
 		let event = new Event(type);
 		if(data){
@@ -66,47 +126,65 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 		that.dispatchEvent(event);
 	}
 
+	/**
+	* @function showReminderAndDateButtons
+	* @private
+	* @memberof! DatesCreator.View    
+	* @instance
+	* @description changes the opacity of dateButton and reminderButton
+	* so user can switch between the different views of the creator
+	* of a reminder and the creator of a date
+	*/ 
 	function showReminderAndDateButtons(){
 		dateButton.style.opacity = VISIBLE;
-		reminderButton.style.opacity = VISIBLE;
-		
+		reminderButton.style.opacity = VISIBLE;		
 	}
 
+	/**
+	* @function disableDateButton
+	* @private
+	* @memberof! DatesCreator.View  
+	* @instance
+	* @description disables dateButton
+	*/ 
 	function disableDateButton() {
 		dateButton.disabled = true;
 	}
 
+	/**
+	* @function hideReminderAndDateButtons
+	* @private
+	* @memberof! DatesCreator.View  
+	* @instance
+	* @description changes the opacity of dateButton and reminderButton
+	* so user can't switch between the different views of the creator
+	* of a reminder and the creator of a date anymore
+	*/ 
 	function hideReminderAndDateButtons(){
 		dateButton.style.opacity = INVISIBLE;
 		reminderButton.style.opacity = INVISIBLE;	
 	}
 
+	/**
+	* @function handleSaveButtonClick
+	* @private
+	* @memberof! DatesCreator.View  
+	* @instance
+	* @description sends event with the input data
+	* so the model can save them and try to save the created date
+	*/ 
 	function handleSaveButtonClick(){
 		let data = getDateInputData();
 		sendEvent("onSaveButtonClick", data);
-	}	
-
-	function handleCancelButtonClick(){
-		sendEvent("onCancel");
 	}
 
-	function handleDateButtonClick(){
-		let data = getReminderInputData();
-		sendEvent("onDateButtonClicked", data);
-	}
-
-	function getReminderInputData(){
-		let data = {};
-		data.date = dateInput.value;
-		data.time = timeInput.value;
-		return data;
-	}
-
-	function handleReminderButtonClick(){
-		let data = getDateInputData();
-		sendEvent("onReminderButtonClick", data);
-	}
-
+	/**
+	* @function getDateInputData
+	* @private
+	* @memberof! DatesCreator.View  
+	* @instance
+	* @description gets the input data for the date
+	*/ 
 	function getDateInputData(){
 		let data = {};
 		data.title = titleInput.value;
@@ -114,8 +192,68 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 		data.time = timeInput.value;
 		data.location = locationInput.value;
 		return data;
+	}	
+
+	/**
+	* @function handleSaveButtonClick
+	* @private
+	* @memberof! DatesCreator.View  
+	* @instance
+	* @description sends event with the input data
+	*/ 
+	function handleCancelButtonClick(){
+		sendEvent("onCancel");
 	}
 
+	/**
+	* @function handleDateButtonClick
+	* @private
+	* @memberof! DatesCreator.View  
+	* @instance
+	* @description sends the reminderData after the dateButton has been clicked
+	* so the model can save them
+	*/ 
+	function handleDateButtonClick(){
+		let data = getReminderInputData();
+		sendEvent("onDateButtonClicked", data);
+	}
+
+	/**
+	* @function getReminderInputData
+	* @private
+	* @memberof! DatesCreator.View  
+	* @instance
+	* @description gets the input data for the reminder
+	*/ 
+	function getReminderInputData(){
+		let data = {};
+		data.date = dateInput.value;
+		data.time = timeInput.value;
+		return data;
+	}
+
+	/**
+	* @function handleReminderButtonClick
+	* @private
+	* @memberof! DatesCreator.View  
+	* @instance
+	* @description send the date data with an event
+	* after the reminderButton had been clicked so the model can save it
+	*/ 
+	function handleReminderButtonClick(){
+		let data = getDateInputData();
+		sendEvent("onReminderButtonClick", data);
+	}
+
+	/**
+	* @function showDateCreater
+	* @private
+	* @memberof! DatesCreator.View  
+	* @instance
+	* @param {object} data, data which contains date values
+	* @description changes the view so it looks like a dateCreator
+	* and fills it with the data
+	*/ 
 	function showDateCreater(data){
 		changeViewToDateView();
 		//containerElement.setClass = dateClass;
@@ -123,6 +261,13 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 
 	}
 
+	/**
+	* @function changeViewToDateView
+	* @private
+	* @memberof! DatesCreator.View  
+	* @instance
+	* @description changes the view so it looks like a dateCreator
+	*/ 
 	function changeViewToDateView() {
 		titleInput.style.opacity = VISIBLE;
 		locationInput.style.opacity = VISIBLE;
@@ -135,6 +280,14 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 
 	}
 
+	/**
+	* @function fillDateCreatorWithValues
+	* @private
+	* @memberof! DatesCreator.View  
+	* @instance
+	* @param {object} data, data which contains date values
+	* @description fills creatorview with the data
+	*/ 
 	function fillDateCreatorWithValues(data) {
 		titleInput.value = getFillValue(data.title);
 		dateInput.value = getFillValue(data.date);
@@ -142,6 +295,14 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 		locationInput.value = getFillValue(data.location);
 	}
 
+	/**
+	* @function getFillValue
+	* @private
+	* @memberof! DatesCreator.View  
+	* @instance
+	* @param {value} value, 
+	* @description prevents undefined in the view
+	*/ 
 	function getFillValue(value) {
 		if(value){
 			return value;
@@ -149,12 +310,28 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 		return "";
 	}
 
+	/**
+	* @function showReminderCreater
+	* @private
+	* @memberof! DatesCreator.View  
+	* @instance
+	* @param {object} data, data which contains date values
+	* @description changes the view so it looks like a reminderCreator
+	* and fills it with the data
+	*/ 
 	function showReminderCreater(data){
 		changeViewToReminderView();
 		fillDateCreatorWithValues(data);
 		//containerElement.setClass = reminderClass;
 	}
 
+	/**
+	* @function changeViewToReminderView
+	* @private
+	* @memberof! DatesCreator.View  
+	* @instance
+	* @description changes the view so it looks like a reminderCreator
+	*/ 
 	function changeViewToReminderView() {
 		titleInput.style.opacity = INVISIBLE;
 		locationInput.style.opacity = INVISIBLE;
@@ -166,32 +343,83 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 		wantsReminderCheckBox.disabled = true;
 	}
 
+	/**
+	* @function fillReminderWithValues
+	* @private
+	* @memberof! DatesCreator.View  
+	* @instance
+	* @param {object} data, data which contains date values
+	* @description fills reminder input with the data
+	*/ 
 	function fillReminderWithValues(data) {
 		dateInput.value = getFillValue(data.date);
 		timeInput.value = getFillValue(data.time);
 	}
 
+	/**
+	* @function giveNoTitleFeedback
+	* @private
+	* @memberof! DatesCreator.View  
+	* @instance
+	* @description gives Feedback to the user
+	*/ 
 	function giveNoTitleFeedback(){
 		setInputValue(titleInput, "Bitte Titel eingeben");
 	}
 
+	/**
+	* @function setInputValue
+	* @private
+	* @memberof! DatesCreator.View  
+	* @instance
+	* @description gives Feedback to the user
+	*/ 
 	function setInputValue(inputElement, text) {
 		inputElement.value = text;
 	}
 
+	/**
+	* @function giveNoDateFeedback
+	* @private
+	* @memberof! DatesCreator.View  
+	* @instance
+	* @description gives Feedback to the user
+	*/ 
 	function giveNoDateFeedback(){
 		setInputValue(dateInput, "Bitte Datum eingeben");
 	}
 
+	/**
+	* @function giveNoTimeFeedback
+	* @private
+	* @memberof! DatesCreator.View  
+	* @instance
+	* @description gives Feedback to the user
+	*/ 
 	function giveNoTimeFeedback(){
 		setInputValue(timeInput, "Bitte Zeitpunkt eingeben");
 
 	}
 
+	/**
+	* @function giveNoLocationFeedback
+	* @private
+	* @memberof! DatesCreator.View  
+	* @instance
+	* @description gives Feedback to the user
+	*/ 
 	function giveNoLocationFeedback(){
 		setInputValue(locationInput, "Bitte Ort eingeben");
 	}
 
+	/**
+	* @function setReminderTrue
+	* @private
+	* @memberof! DatesCreator.View  
+	* @instance
+	* @description tells the view that it has to allow
+	* the user to create a reminder
+	*/ 
 	function setReminderTrue(){
 		wantsReminderCheckBox.checked = true;
 		showReminderAndDateButtons();
