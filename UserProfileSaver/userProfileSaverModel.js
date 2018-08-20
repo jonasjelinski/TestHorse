@@ -3,23 +3,33 @@ var UserProfileSaver = UserProfileSaver || {};
 UserProfileSaver.Model = function(){
 	let that = {},
 		attributes,
-		newHorse;
+		isNewUser = true,
+		userData;
 
-	function init(horseObject) {
-		newHorse = horseObject;
-		initRequester();
+	function init(newUser) {
+		userData = newUser;		
 	}
 
-	function initRequester() {
-		requester = new DatabaseClientInterface.SimpleRequester(newHorse, "setUserIntoDB");
-		requester.init();
+	function createNewUser(){
+		isNewUser= true;
 	}
 
-	function saveHorseIntoDB(){
-		requester.request();
+	function updateOldUser(){
+		isNewUser = false;
 	}
+
+	function getUserData(){
+		return userData;
+	}
+
+	function getIsNewUser(){
+		return isNewUser;
+	}	
 
 	that.init = init;
-	that.saveHorseIntoDB = saveHorseIntoDB;
+	that.getUserData = getUserData;
+	that.getIsNewUser = getIsNewUser;
+	that.createNewUser = createNewUser;
+	that.updateOldUser = updateOldUser;
 	return that;
 }

@@ -1,6 +1,23 @@
 var HorseProfilePage = HorseProfilePage || {};
 
-HorseProfilePage.HorseProfileModel = function(horseId){
-	const DATABASE_REQUEST = "getHorseData";
-	return Profil.ProfilModel(horseId, DATABASE_REQUEST); 
+HorseProfilePage.Model = function(horseId){
+	let that = {},
+	attributes;
+
+	function init(newAttributes){
+		attributes = newAttributes;
+	}
+
+	function getAttributes(){
+		return attributes;		
+	}
+
+	function getHorseId() {
+		return attributes.id;
+	}
+	
+	that.init = init;
+	that.getAttributes = getAttributes;
+	that.getHorseId = getHorseId;
+	return that;
 } 

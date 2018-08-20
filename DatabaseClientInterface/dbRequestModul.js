@@ -22,15 +22,24 @@ DatabaseClientInterface.RequestModul = function () {
 	}
 
 	let that = new EventTarget(),
-	requestModul = new DatabaseClientInterface.AJAXModul();
+	requestModul = new DatabaseClientInterface.JQAJAXModul();
+	requestModul.addEventListener("onResult", sendResults);
 
 	function askDataBase(url, action, data){
 		let requestData = createRequestDataObject(action, data);
-		requestModul.request(getDBAnswer, showError, METHODS.POST, url, requestData);
+		requestModul.doAjaxRequest(url, METHODS.POST, requestData);
 	}
 
 	function showError(){
 		console.log("error");
+	}
+
+	function sendResults(ev){
+		let requestResult = ev.details.result,
+		event = new Event("onResult");
+		event.details = {};
+		event.details.result = requestResult;
+		that.dispatchEvent(event);		
 	}
 
 	function createRequestDataObject(action, data){
@@ -62,7 +71,7 @@ DatabaseClientInterface.RequestModul = function () {
 		askDataBase(URLS.LOGIN, action, data);
 	}
 
-	function tryLogout(data, action){
+	function tryLogout(action, data){
 		askDataBase(URLS.LOGOUT, action, data);
 	}	
 

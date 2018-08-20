@@ -5,7 +5,7 @@ var LoginPage = LoginPage || {};
  * @memberOf! LoginPage
  * @description Centermodul the LoginPage
  * <p><code>Centermodul</code> Directs the communication between 
- * the moduls <code>loginModel</code> and the <code>loginView</code>
+ * the moduls <code>dbRequester</code> and the <code>loginView</code>
  * inits both moduls and sets their listeners 
  * <code>loginView</code> needs DOM-Elements to init
  * the ids of those elements are given to this modul as paramater
@@ -26,7 +26,7 @@ LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBack
 
 	let loginPage = new EventTarget(),
 		loginView,
-		loginModel,
+		dbRequester,
 		loginButton,
 		newUserButton,
 		stayLoggedInBox,
@@ -38,12 +38,12 @@ LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBack
 		* @public
 		* @memberof! LoginPage  
 		* @instance
-		* @description Initialize this model. Inits the loginModel, the loginView and their listeners.
+		* @description Initialize this model. Inits the dbRequester, the loginView and their listeners.
 		*/ 
 		function init(){
 			getDomElements();
 			initLoginView();
-			initLoginModel();
+			initdbRequester();
 			addListeners();
 		}
 
@@ -84,15 +84,15 @@ LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBack
 		}
 
 		/**
-		* @function initLoginModel
+		* @function initdbRequester
 		* @private
 		* @memberof! LoginPage  
 		* @instance
-		* @description Inits the loginModel.
+		* @description Inits the dbRequester.
 		*/ 
-		function initLoginModel(){
-			loginModel = new LoginPage.LoginModel();
-			loginModel.init();			
+		function initdbRequester(){
+			dbRequester = new LoginPage.DBRequester();
+			dbRequester.init();			
 		}
 
 		/**
@@ -100,11 +100,11 @@ LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBack
 		* @private
 		* @memberof! LoginPage  
 		* @instance
-		* @description Adds the listeners to the loginModel and the loginView
+		* @description Adds the listeners to the dbRequester and the loginView
 		*/ 
 		function addListeners(){
-			loginModel.addEventListener("isValid", handleIsValid);			
-			loginModel.addEventListener("isInvalid", handleIsInvalid);
+			dbRequester.addEventListener("isValid", handleIsValid);			
+			dbRequester.addEventListener("isInvalid", handleIsInvalid);
 			loginView.addEventListener("tryLogin", handleLoginTry);
 			loginView.addEventListener("newUser", handleNewUser);	
 		}
@@ -118,8 +118,8 @@ LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBack
 		* @description Reads the userId from the event and send this usedId with sendChangePageEvent
 		*/ 
 		function handleIsValid(event){
-			let userId = event.details.userId;
-			sendChangePageEvent(userId);
+			let userID = event.details.userID;
+			sendChangePageEvent(userID);
 		}
 
 		/**
@@ -133,7 +133,7 @@ LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBack
 		function sendChangePageEvent(userId){
 			let event = new Event("showStartPage");
 			event.details = {};
-			event.details.userId = userId;
+			event.details.userID = userId;
 			loginPage.dispatchEvent(event);
 		}
 
@@ -154,14 +154,13 @@ LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBack
 		* @memberof! LoginPage  
 		* @instance
 		* @param {Event} event is the event which contains the details stayLoggedIn, userId and pw
-		* @description Tells the loginModel that it has to try a login with the details of the event
+		* @description Tells the dbRequester that it has to try a login with the details of the event
 		*/ 
 		function handleLoginTry(event){
 			let stayLoggedIn = event.details.stayLoggedIn,
 				userId = event.details.userId,				
 				pw = event.details.pw;
-			loginModel.tryLogin(stayLoggedIn, userId, pw);
-			sendChangePageEvent(1);
+			dbRequester.tryLogin(stayLoggedIn, userId, pw);
 		}
 
 		/**
@@ -172,7 +171,7 @@ LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBack
 		* @description Dispatches an event of the type "newUser"
 		*/ 
 		function handleNewUser(){
-			let event = new Event("newUser");
+			let event = new Event("createNewUser");
 			loginPage.dispatchEvent(event);
 		}
 
