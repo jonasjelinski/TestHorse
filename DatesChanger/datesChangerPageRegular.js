@@ -1,5 +1,13 @@
 var DatesChangerPageRegular = DatesChangerPageRegular || {};
 
+/**
+ * @instance DatesChangerPageRegular
+ * @description Modul <code>DatesChangerPageRegular</code> is used to change a regulat date
+ * @param {string} userID. Id of the user
+ * @description receives new attributes at inititalisation. Those attributes are shown to
+ * the user in a view so he can change them.
+ */
+
 DatesChangerPageRegular = function(userID){
 
 	const DATE = {
@@ -20,6 +28,14 @@ DatesChangerPageRegular = function(userID){
 		model,
 		horseID;
 
+	/**
+	* @function init
+	* @public
+	* @memberof! DatesChangerPageRegular
+	* @instance
+	* @param {object} attributes
+	* @description Initialize this modul.
+	*/
 	function init(attributes){
 		horseID = attributes.horseID;
 		initModuls(horseID);		
@@ -27,12 +43,27 @@ DatesChangerPageRegular = function(userID){
 		addListeners();		
 	}
 
+	/**
+	* @function initModuls
+	* @public
+	* @memberof! DatesChangerPageRegular
+	* @instance
+	* @description creats the instances of the modles of this modul.
+	*/
 	function initModuls(horseID){
 		standardPage = new RegulardatesCreatorPage.Standard (userID);
-		dbInterface = new DatesChangerPageSingle.DBRequester(userID, horseID);
-		model = new DatesChangerPageSingle.Model();
+		dbInterface = new DatesChangerPage.DBRequester(userID, horseID);
+		model = new DatesChangerPage.Model();
 	}
 
+	/**
+	* @function addAttributesAndInitPage
+	* @public
+	* @memberof! DatesChangerPageRegular
+	* @instance
+	* @param {object} attributes
+	* @description inits modul with attributes
+	*/	
 	function addAttributesAndInitPage(attributes) {
 		if(!attributes){
 			attributes = DEFAULT_DATA;
@@ -44,6 +75,15 @@ DatesChangerPageRegular = function(userID){
 		}
 	}
 
+	/**
+	* @function addAttributesAndUpdateCreator
+	* @public
+	* @memberof! DatesChangerPageRegular
+	* @instance
+	* @param {object} attributes
+	* @description updates the creator with attributes
+	* so the creator has those attributes and can show them to the user
+	*/
 	function addAttributes(attributes){
 		let newDate = attributes,	//atrributes besitzt noch keinen reminder und duration value unit
 				reminder = attributes.reminder,
@@ -52,17 +92,43 @@ DatesChangerPageRegular = function(userID){
 			standardPage.updateCreator(newDate, reminder, newDurationValue, newDurationUnit);
 	}
 
+	/**
+	* @function addListeners
+	* @public
+	* @memberof! DatesChangerPageRegular
+	* @instance
+	* @description addListeners to the standaraPage
+	* the standardPage tells this modul if the user saved new values
+	* or if he want to cancel the creation of the entity
+	*/
 	function addListeners() {
 		standardPage.addEventListener("onSave", handleSave);
 		standardPage.addEventListener("onCancel", handleCancel);
 	}
 
+	/**
+	* @function handleSave
+	* @public
+	* @memberof! DatesChangerPageRegular
+	* @instance
+	* @param {event} event, contains the changed date
+	* @description prepares changed date so it can be safed into the database
+	* after that it saved the changed date
+	*/
 	function handleSave(event) {
 		let updatedData = prepareDataForDBRequest(event);	
 		saveDateIntoDB(updatedData);
 		sendEvent("onDataSaved");
 	}
 
+	/**
+	* @function prepareDataForDBRequest
+	* @public
+	* @memberof! DatesChangerPageRegular
+	* @instance
+	* @param {event} event, contains the changed date
+	* @description prepares changed date so it can be safed into the database
+	*/
 	function prepareDataForDBRequest(event){
 		let data = event.details.data,
 			changedDate = data.date,
@@ -73,15 +139,39 @@ DatesChangerPageRegular = function(userID){
 		return data;
 	}
 
+	/**
+	* @function saveDateIntoDB
+	* @public
+	* @memberof! DatesChangerPageRegular
+	* @instance
+	* @param {object} changedDate, date which is updated in the database
+	* @description saves the date in the database
+	*/
 	function saveDateIntoDB(updatedData) {
 		dbInterface.saveDateIntoDB(updatedData);
 	}
 
+	/**
+	* @function sendEvent
+	* @public
+	* @memberof! DatesChangerPageRegular
+	* @instance
+	* @param {string} type,type of event
+	* @description sends event of type "type"
+	*/
 	function sendEvent(type) {
 		let event = new Event(type);
 		that.dispatchEvent(event);
 	}
 
+	/**
+	* @function handleCancel
+	* @public
+	* @memberof! DatesChangerPageRegular
+	* @instance
+	* @description sends event of type "onCancel"
+	* to signal other moduls that the user doesnt want to save the changes in the databse
+	*/
 	function handleCancel() {
 		sendEvent("onCancel");
 	}

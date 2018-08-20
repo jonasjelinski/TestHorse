@@ -1,7 +1,7 @@
 var CreatorModel = CreatorModel || {};
 
 /**
- * @class CreatorModel
+ * @instance CreatorModel
  * @description <code>CreatorModel</code> is the model for Creator 
  * @param {object} newAttributes. Attributes of the Creator.
  */

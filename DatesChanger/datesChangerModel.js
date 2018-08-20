@@ -1,4 +1,14 @@
-DatesChangerPageSingle.Model = function(){
+var DatesChangerPage = DatesChangerPage || {};
+
+/**
+ * @instance DatesChangerPageSingle
+ * @description Modul <code>DatesChangerPageSingle.Model</code> is the model of DatesChangerPageSingle
+ * @param {string} userID. Id of the user
+ * @description receives new attributes at inititalisation. Those attributes are shown to
+ * the user in a view so he can change them.
+ */
+
+DatesChangerPage.Model = function(){
 	let that = {},
 		oldDate;
 
