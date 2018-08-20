@@ -63,7 +63,7 @@ DatabaseClientInterface.SimpleRequester = function(requestParamater, requestFunc
 	function handleResult(event){
 		let data = event.details.data;
 		sendEvent("onDataReceived", data);
-	}	
+	}		
 
 	/**
 	* @function sendEvent

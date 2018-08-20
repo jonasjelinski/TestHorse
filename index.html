@@ -2,29 +2,106 @@
 <html lang="de">
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="./testhorse.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Titel</title>
   </head>
   <body>
-    <div id = "parentPage"></div>
-    
+    <div id = "parentPage">
 
+      <!-- Dies ist der Input und der Button für das Script testPhotoUploader.js-->
+     <!--   <input type="file" id= "testphotoinput"></input>-->
+     <!--   <button id= "testphotobutton"></button>-->
+
+    </div>
     <script src="ScriptLoader/scriptLoader.js"></script> 
-    <script src="ScriptLoader/scripts.js"></script> 
+    <script src="ScriptLoader/scripts.js"></script>     
+    <script src="./testPhotoUploader.js"></script>     
+    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
     <script >  
     	
-    	//Zeigt die HauptSeite an
-    	// auskommentiert, um automatisches laden zu verhindern
-    	//bitte schlechten Programmierstil zu entschuldigen
-    	//wird geändert sobald das passende Modul erstellt wurde 
+      
        function showPage(){
-        let pages = new Pages();     
+        let pages = new Pages();  
             pages.init();
+            pages.initAfterLogin();
             pages.showStartPage();
+            //pages.showStartPage();   //initialisiert die pages, damit wird die login Seite initialisert
+            //pages.showAllDates(); //zeigt die login seite an
+           //im Ordner LoginPage wird in loginDBRequester ein login versuch gestartet
+           //wenn dieser erfolgreich ist, wir die startSeite angezeigt
+           //alle Instanzen der Seiten und die gesamten Seitenaufrufe befinden sich in Pages pages
+
+            //let testphotoUploader = new TestPhotoUploader("testphotoinput");
+            //testphotoUploader.init();
+
+            init();
+            getSingleReminder(314);
+
+            function init(oldDate) {
+              initRequester();
+              addEventListeners();
+            }
+
+            function initRequester() {
+              requester = new DatabaseClientInterface();
+              requester.init();
+            }
+
+            function addEventListeners(){
+              requester.addEventListener("onResult", handleResult);
+            }
+
+
+            function getSingleReminder(dateID) {
+              requester.getSingleReminder(dateID);
+            }
+
+            //ergebnis noresult
+            function delteSingleReminder(id){
+              requester.deleteSingleReminderFromDB(id);
+            }
+
+             //ergebnis noresult
+            function delteRegularReminder(id) {
+               requester.deleteRegularReminderFromDB(id);
+            }
+
+            function deleteDate(id) {
+              requester.deleteDateFromDB(id);
+            }
+
+            function delteUser(id) {
+              requester.deleteUserFromDB(id);
+            }
+
+            function handleResult(event) {
+              let result = event.details.result;
+              console.log("delte result", result);
+            }
+ 
         }
 
         function loaded(){
-        	console.log("loaded");
+        	let dbRequester = new DatabaseClientInterface(),
+          name, owner, race, dateOfBirth, photoSrc, sex, height, grower, userID
+            name = "Pferdchen", 
+            owner = "Hansi"
+            race = "haflinger"
+            dateOfBirth = "01.04.1966", 
+            photo = "https://h2795767.stratoserver.net/images/standardPhoto.jpg",
+            sex = "M",
+            height = "1,60",
+            grower= "growergrows",
+            userID= "100";
+            dbRequester.init();
+            //dbRequester.setHorseIntoDB(name, owner,race,dateOfBirth,photo, sex, height, grower, userID); 
+            dbRequester.addEventListener("onResult", handleResult)
+
+            function handleResult(event){
+              let data = event.details.data;
+              console.log("data", data);
+            }
         }
         
      

@@ -18,13 +18,14 @@ Pages.PageChanger = function(domElement){
 		START_PAGE: "START",
 		DATES_PAGE: "DATES",
 		REGULAR_DATES_PAGE : "REGULAR_DATES_PAGE",
+		REGULAR_DATES_CREATER_PAGE : "REGULAR_DATES_CREATER_PAGE",
+		SINGLE_DATE_CREATER_PAGE: "SINGLE_DATE_CREATER_PAGE",
 		USER_PAGE: "USER_PROFILE",
-		HORSE_PAGE: "HORSE_PROFILE",
-		CREATE_DATE: "CREATE_DATE",
+		USER_PROFILE_SAVER: "USER_PROFILE_SAVER",
+		HORSE_PAGE: "HORSE_PROFILE",		
 		CREATE_USER: "CREATE_USER",
 		CREATE_HORSEBOX: "CREATE_HORSEBOX",
-		HORSE_PROFILE_SAVER:"HORSE_PROFILE_SAVER",
-		USER_PROFILE_SAVER: "USER_PROFILE_SAVER",
+		HORSE_PROFILE_SAVER:"HORSE_PROFILE_SAVER",		
 	}
 
 	/**
@@ -66,18 +67,18 @@ Pages.PageChanger = function(domElement){
 			case PAGES.REGULAR_DATES_PAGE:
 				handlePageSwitch(pageContent.REGULAR_DATES_PAGE);
 				break;
+			case PAGES.REGULAR_DATES_CREATER_PAGE:
+				handlePageSwitch(pageContent.REGULAR_DATES_CREATER_PAGE);
+				break;
+			case PAGES.SINGLE_DATE_CREATER_PAGE:
+				handlePageSwitch(pageContent.CREATE_SINGLE_DATE);
+				break;
 			case PAGES.USER_PAGE:
 				handlePageSwitch(pageContent.USER_PAGE);
 				break;
 			case PAGES.HORSE_PAGE:
 				handlePageSwitch(pageContent.HORSE_PROFIL);
-				break;
-			case PAGES.CREATE_DATE:
-				handlePageSwitch();
-				break;
-			case PAGES.CREATE_USER:
-				handlePageSwitch();
-				break;
+				break;			
 			case PAGES.CREATE_HORSEBOX:
 				handlePageSwitch(pageContent.CREATE_HORSEBOX);
 				break;

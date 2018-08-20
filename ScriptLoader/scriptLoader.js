@@ -9,6 +9,8 @@ var ScriptLoader = ScriptLoader || {};
 ScriptLoader = function(){
 	"use strict";
 
+	const LOADING_TIME = 1000;
+
 	let that = new EventTarget();
 
 	//async scripts 
@@ -31,7 +33,7 @@ ScriptLoader = function(){
 	}
 
 	function waitAndSendEvent(){
-		 setTimeout(sendLoadedEvent, 1000);
+		 setTimeout(sendLoadedEvent, LOADING_TIME);
 	}
 
 	function sendLoadedEvent(){
