@@ -48,6 +48,7 @@ HorseProfileSaver = function(userID){
 
 	function handleOkayProfile(){
 		dbInterface.saveHorseIntoDB();
+		sendEvent("onSaveHorseProfile");
 	}
 
 	function handleDeleteProfile(){

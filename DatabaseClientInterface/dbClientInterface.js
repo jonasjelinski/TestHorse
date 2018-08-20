@@ -10,10 +10,8 @@ DatabaseClientInterface = function(){
 		SINGLE_HORSE: "getHorse",
 		ALL_DATES: "getAllHorseDates",
 		SINGLE_DATE: "getHorseDate",
-		ALL_REMINDERS: "getAllRemindersOfUser",
-		SINGLE_REMINDER: "getReminderNotification",
-		ALL_REGULAR_REMINDERS: "getAllAgreementsOfUser",
-		SINGLE_REGULAR_REMINDER: "getReminderRegular",
+		GET_SINGLE_REMINDER: "getReminderNotification",
+		GET_REGULAR_REMINDER: "getReminderRegular",
 		USER_DATA:"getUserData",
 		SET_USER : "setUserIntoDB",
 		SET_HORSE : "setHorseIntoDB",
@@ -145,28 +143,16 @@ DatabaseClientInterface = function(){
 			requestModul.getDataFromDB(ACTIONS.SINGLE_DATE, data);
 		}
 
-		function getAllRemindersOfUser(userId){
-			let data = {};
-				data.dateID = userId;
-			requestModul.getDataFromDB(ACTIONS.ALL_REMINDERS, data);	
-		}
-
-		function getReminder(dateID){
+		function getSingleReminder(dateID){
 			let data = {};
 				data.dateID = dateID;
-			requestModul.getDataFromDB(ACTIONS.SINGLE_REMINDER, data);	
+			requestModul.getDataFromDB(ACTIONS.GET_SINGLE_REMINDER, data);	
 		}
 
-		function getAllregularRemindersOfUser(userId){
+		function getRegularReminder(dateId){
 			let data = {};
-			data.id = userId;
-			requestModul.getDataFromDB(ACTIONS.ALL_AGREEMENTS, data);		
-		}
-
-		function getregularReminder(regularReminderId){
-			let data = {};
-			data.id = regularReminderId;
-			requestModul.getDataFromDB(ACTIONS.SINGLE_AGREEMENT, data);		
+			data.dateID = dateId;
+			requestModul.getDataFromDB(ACTIONS.GET_REGULAR_REMINDER, data);		
 		}
 
 		//SET DATA
@@ -345,14 +331,12 @@ DatabaseClientInterface = function(){
 		that.logoutUser = logoutUser;
 		that.getUserId = getUserId;
 		that.getAllHorsesOfUser = getAllHorsesOfUser;
-		that.getAllRemindersOfUser = getAllRemindersOfUser;
 		that.getAllDatesOfHorse = getAllDatesOfHorse;
-		that.getAllregularRemindersOfUser = getAllregularRemindersOfUser;
 		that.getUserData = getUserData;
 		that.getHorse = getHorse;
 		that.getDate = getDate;
-		that.getReminder = getReminder;
-		that.getregularReminder = getregularReminder;
+		that.getSingleReminder = getSingleReminder;
+		that.getRegularReminder = getRegularReminder;
 		that.setHorseIntoDB = setHorseIntoDB;
 		that.setUserIntoDB = setUserIntoDB;
 		that.setDateIntoDB = setDateIntoDB;

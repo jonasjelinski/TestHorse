@@ -128,7 +128,8 @@ RegularDatesPage = function(userID){
 	}
 
 	function handleYes(){
-		let id = model.getDelteId();
+		let id = model.getDeleteId();
+		dbInterface.deleteDate(id);
 	}	
 
 	that.init = init;

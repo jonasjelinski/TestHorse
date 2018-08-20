@@ -36,7 +36,7 @@
             //testphotoUploader.init();
 
             init();
-            //delteSingleReminder(0);
+            getSingleReminder(314);
 
             function init(oldDate) {
               initRequester();
@@ -52,10 +52,17 @@
               requester.addEventListener("onResult", handleResult);
             }
 
+
+            function getSingleReminder(dateID) {
+              requester.getSingleReminder(dateID);
+            }
+
+            //ergebnis noresult
             function delteSingleReminder(id){
               requester.deleteSingleReminderFromDB(id);
             }
 
+             //ergebnis noresult
             function delteRegularReminder(id) {
                requester.deleteRegularReminderFromDB(id);
             }

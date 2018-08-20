@@ -110,8 +110,7 @@ StartPage = function(userID){
 		}
 		else{
 			let horseAttributes = getHorseById(id);
-			sendShowHorseEvent(horseAttributes);
-			console.log("handleLiClick", horseAttributes);
+			//sendShowHorseEvent(horseAttributes);
 		}
 	}	
 

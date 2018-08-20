@@ -13,6 +13,7 @@ Profil.ProfilModel = function(userID){
 		* @description Initialize this model. Inits the dbRequester and its listeners. Starts a request for the user data
 		*/ 	
    		function init(userDataAsStrings){
+   			console.log("userDataAaStrings", userDataAsStrings);
    			let userDataAsArray = JSON.parse(userDataAsStrings);
    			userData = userDataAsArray[0];
    			changePropertyNames(userData);

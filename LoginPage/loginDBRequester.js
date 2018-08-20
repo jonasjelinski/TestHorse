@@ -50,6 +50,9 @@ LoginPage.DBRequester = function(){
 		* @memberof! LoginModul.LoginPage  
 		* @instance
 		* @description Dispatches the event depending on the result of the db request
+		* the logginResult contains the value true or false if the user can login
+		* the ID result contains the userID which is necessary to display the correct page after
+		* a succesful loggin
 		*/ 	
 		function handleResult(event){
 			if(isLogginTry){
@@ -61,6 +64,13 @@ LoginPage.DBRequester = function(){
 			
 		}
 
+		/**
+		* @function handleLogginResult
+		* @private
+		* @memberof! LoginModul.LoginPage  
+		* @instance
+		* @description reads the result of the event. If the result is valdid the user can log in else not
+		*/ 	
 		function handleLogginResult(event){
 			let result = event.details.result;
 			if(isResultValid(result)){
@@ -72,11 +82,27 @@ LoginPage.DBRequester = function(){
 			}
 		}
 
+		/**
+		* @function isResultValid
+		* @private
+		* @memberof! LoginModul.LoginPage  
+		* @instance
+		* @param{string} result, result of the request
+		* @description returns true if the result contains the validMessage
+		*/ 	
 		function isResultValid(result){
 			let validMessage = "true";
 			return result.includes(validMessage);
 		}
 
+		/**
+		* @function handleIDResult
+		* @private
+		* @memberof! LoginModul.LoginPage  
+		* @instance
+		* @param{event} event, event
+		* @description get the userID from the event, with this userID the user can log in
+		*/ 	
 		function handleIDResult(event){
 			let userID = event.details.result;
 			handleIsValid(userID);
@@ -87,6 +113,7 @@ LoginPage.DBRequester = function(){
 		* @private
 		* @memberof! LoginModul.LoginPage  
 		* @instance
+		* @param{string} userID, id of the user
 		* @description Dispatches the event of the type "isValid" and the userID
 		*/ 	
 		function handleIsValid(userID){
@@ -95,6 +122,15 @@ LoginPage.DBRequester = function(){
 			sendEvent("isValid", data);
 		}
 
+		/**
+		* @function getOnlyNumbers
+		* @private
+		* @memberof! LoginModul.LoginPage  
+		* @instance
+		* @param{string} userID, id of the user
+		* @description retruns the userID with only numbers
+		* reason is that the request results sometimes contains NaNs
+		*/ 	
 		function getOnlyNumbers(userID){
 			userID = userID.replace(/[^0-9]/, '');
 			return userID;

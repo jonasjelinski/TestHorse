@@ -2,9 +2,11 @@ var RegularDatesPage = RegularDatesPage || {};
 
 RegularDatesPage.DBRequester = function(userID, horseID){
 	
-	let that = new EventTarget();
+	let that = new EventTarget(),
+	isDeletingDate;
 
 	function init() {
+		isDeletingDate = false;
 		initRequester();
 		addEventListeners();
 	}
@@ -18,9 +20,11 @@ RegularDatesPage.DBRequester = function(userID, horseID){
 		requester.addEventListener("onResult", handleResult);
 	}
 
-	function handleResult(event){		
-		let results = event.details.result;
-		sendEvent("onResult", results);
+	function handleResult(event){	
+		if(!isDeletingDate){
+			let results = event.details.result;
+			sendEvent("onResult", results);		
+		}
 	}
 
 	function sendEvent(type, data){
@@ -31,10 +35,17 @@ RegularDatesPage.DBRequester = function(userID, horseID){
 	}
 
 	function requestDatesFromDB(){
+		isDeletingDate = false;
 		requester.getAllDatesOfHorse(horseID);
-	}	
+	}
+
+	function deleteDate(id) {
+		isDeletingDate = true;
+       requester.deleteDateFromDB(id);
+    }	
 
 	that.init = init;
 	that.requestDatesFromDB = requestDatesFromDB;
+	that.deleteDate = deleteDate;
 	return that;
 }

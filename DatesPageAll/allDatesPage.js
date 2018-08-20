@@ -94,7 +94,6 @@ DatesPageAll = function(userID){
 	}
 
 	function handleSingleClick(){
-		console.log("handleSingleClick");
 		sendEvent("showCreateSingleDate");
 	}
 
