@@ -29,7 +29,7 @@ DatabaseClientInterface.RequestModul = function () {
 	}
 
 	let that = new EventTarget(),
-	requestModul = new DatabaseClientInterface.JQAJAXModul();
+	requestModul = new DatabaseClientInterface.AJAXModul();
 	requestModul.addEventListener("onResult", sendResults);
 
 	/**

@@ -2,6 +2,7 @@ var DatabaseClientInterface = DatabaseClientInterface || {};
 
 /**
  * @instance DatabaseClientInterface
+ * @memberof! DatabaseClientInterface 
  * @description <code>DatabaseClientInterface</code> is the interface for database requests.
  * It contains all functions which are used in the other moduls to make specified db requests.
  * The reason for this interface is to sperate the AXAJ Request from the other moduls so
@@ -67,7 +68,7 @@ DatabaseClientInterface = function(){
 		* @description inits this modul. The Request modul makes the AJAX requests.
 		*/ 	
 		function init(){
-			requestModul = new DatabaseClientInterface.RequestModul ();
+			requestModul = new DatabaseClientInterface.RequestModul();
 			requestModul.addEventListener("onResult", sendResultData);
 		}
 
@@ -543,8 +544,6 @@ DatabaseClientInterface = function(){
 		that.setHorseIntoDB = setHorseIntoDB;
 		that.setUserIntoDB = setUserIntoDB;
 		that.setDateIntoDB = setDateIntoDB;
-		that.setReminderIntoDB = setReminderIntoDB;
-		that.setAppointmentIntoDB = setAppointmentIntoDB;
 		that.deleteUserFromDB = deleteUserFromDB;
 		that.deleteHorseFromDB = deleteHorseFromDB;
 		that.deleteDateFromDB = deleteDateFromDB;

@@ -11,7 +11,6 @@ ScriptLoader.Scripts = (function(){
 	"./DatabaseClientInterface/dbClientInterface.js",
 	"./DatabaseClientInterface/dbRequestModul.js",
 	"./DatabaseClientInterface/ajaxModul.js",
-	"./DatabaseClientInterface/jQueryAjaxRequester.js",
 	"./DatabaseClientInterface/simpleRequester.js",	
 	"./libs/underscore/underscore.js",
 	"./libs/underscore/underscore-min.js",
