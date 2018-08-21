@@ -1,8 +1,21 @@
 var DatabaseClientInterface = DatabaseClientInterface || {}; 
 
+/**
+ * @instance DatabaseClientInterface
+ * @description <code>DatabaseClientInterface</code> is the interface for database requests.
+ * It contains all functions which are used in the other moduls to make specified db requests.
+ * The reason for this interface is to sperate the AXAJ Request from the other moduls so
+ * only correct requests can be send to the database.
+ */
+
 DatabaseClientInterface = function(){
 	
-	const ACTIONS = {
+	/*@const{obejct}, ACTIONS,
+	* @description: each action is a special information for the database
+	* the database knows from the name of the action which request is sended
+	* and what it has to do with the given parameters
+	*/
+const ACTIONS = {
 		TRY_LOGIN: "tryLogin",
 		LOGOUT: "logoutUser",
 		GET_USER_ID: "getUserID",
@@ -45,11 +58,27 @@ DatabaseClientInterface = function(){
 	let that = new EventTarget(),
 		requestModul;
 
+
+		/**
+		* @function init
+		* @public
+		* @memberof! DatabaseClientInterface  
+		* @instance
+		* @description inits this modul. The Request modul makes the AJAX requests.
+		*/ 	
 		function init(){
 			requestModul = new DatabaseClientInterface.RequestModul ();
 			requestModul.addEventListener("onResult", sendResultData);
 		}
 
+		/**
+		* @function sendResultData
+		* @public
+		* @memberof! DatabaseClientInterface  
+		* @instance
+		* @param {event} ev
+		* @description If the Ajax request has received the result his function sends the event
+		*/ 	
 		function sendResultData(ev){
 			let event = new Event("onResult");
 				event.details = {};
@@ -57,6 +86,15 @@ DatabaseClientInterface = function(){
 			that.dispatchEvent(event);
 		}
 
+		/**
+		* @function allNecessaryDataHaveBeenParsed
+		* @public
+		* @memberof! DatabaseClientInterface  
+		* @instance
+		* @param {array} necessaryAttributes, array of attributenames which are necessary for the request
+		* @param {object} parsedObject, object which is tested if it contains all necessary attributes
+		* @description If the Ajax request has received the result his function sends the event
+		*/ 	
 		function allNecessaryDataHaveBeenParsed(necessaryAttributes, parsedObject){
 			for(let i = 0; i < necessaryAttributes.length; i++){
 				let attribute = necessaryAttributes[i],
@@ -68,15 +106,31 @@ DatabaseClientInterface = function(){
 			return true;
 		}
 
+		/**
+		* @function attributeIsMissing
+		* @public
+		* @memberof! DatabaseClientInterface  
+		* @instance
+		* @param {object} attribute, object which is tested if it contains all necessary attributes
+		* @description returns true if the attribute is undefined
+		*/ 	
 		function attributeIsMissing(attribute){
 			if(attribute === undefined){
 				return true;
 			}
 			return false;
-		}
+		}		
 
 		//LOGIN AND LOGOUT
 
+		/**
+		* @function tryLogin
+		* @public
+		* @memberof! DatabaseClientInterface  
+		* @instance
+		* @param {object} loginData, contains an email and a password
+		* @description sends the database the email and the password to login the user into his account
+		*/ 	
 		function tryLogin(loginData){
 			let necessaryAttributes = ["email", "password"];
 			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, loginData)){
@@ -89,6 +143,14 @@ DatabaseClientInterface = function(){
 			}		
 		}
 
+		/**
+		* @function logoutUser
+		* @public
+		* @memberof! DatabaseClientInterface  
+		* @instance
+		* @param {string} userId, 
+		* @description logouts the user with the id userId
+		*/ 	
 		function logoutUser(userId){
 			let necessaryAttributes = ["userID"],
 				data = {};
@@ -104,51 +166,115 @@ DatabaseClientInterface = function(){
 			}				
 		}
 
-
 		//GET DATA
 
+		/**
+		* @function getUserId
+		* @public
+		* @memberof! DatabaseClientInterface  
+		* @instance
+		* @param {string} email, 
+		* @description requests the userId with the email of the user
+		* each email is unique in the databse
+		*/ 
 		function getUserId(email){
 			let data = {};
 				data.email = email;
 			requestModul.getDataFromDB(ACTIONS.GET_USER_ID, data);
 		}
 
+		/**
+		* @function getUserData
+		* @public
+		* @memberof! DatabaseClientInterface  
+		* @instance
+		* @param {string} userId, 
+		* @description requests the data of the user e.g. the name
+		*/ 
 		function getUserData(userID){
 			let data = {};
 				data.userID = userID;
 			requestModul.getDataFromDB(ACTIONS.USER_DATA, data);
 		}
 
+		/**
+		* @function getAllHorsesOfUser
+		* @public
+		* @memberof! DatabaseClientInterface  
+		* @instance
+		* @param {string} userID, 
+		* @description requests all horses of the user
+		*/ 
 		function getAllHorsesOfUser(userID){
 			let data = {};
 				data.userID = userID;
 			requestModul.getDataFromDB(ACTIONS.ALL_HORSES, data);
 		}
 
+		/**
+		* @function getHorse
+		* @public
+		* @memberof! DatabaseClientInterface  
+		* @instance
+		* @param {string} horseId, 
+		* @description requests a horse of the user, with the id horseId
+		*/ 
 		function getHorse(horseId){
 			let data = {};
 				data.horseID = horseId;
 			requestModul.getDataFromDB(ACTIONS.SINGLE_HORSE, data);
 		}
 
+		/**
+		* @function getAllDatesOfHorse
+		* @public
+		* @memberof! DatabaseClientInterface  
+		* @instance
+		* @param {string} horseId, 
+		* @description requests the dates of a horse, e.g. "smith"
+		*/ 
 		function getAllDatesOfHorse(horseID){
 			let data = {};
 				data.horseID = horseID;
 			requestModul.getDataFromDB(ACTIONS.ALL_DATES, data);
 		}
 
+		/**
+		* @function getDate
+		* @public
+		* @memberof! DatabaseClientInterface  
+		* @instance
+		* @param {string} dateId, 
+		* @description requests the date with the id, dateId
+		*/ 
 		function getDate(dateId){
 			let data = {};
 				data.dateID = dateId;
 			requestModul.getDataFromDB(ACTIONS.SINGLE_DATE, data);
 		}
 
+		/**
+		* @function getSingleReminder
+		* @public
+		* @memberof! DatabaseClientInterface  
+		* @instance
+		* @param {string} dateId, 
+		* @description requests the reminder with the id, dateId
+		*/ 
 		function getSingleReminder(dateID){
 			let data = {};
 				data.dateID = dateID;
 			requestModul.getDataFromDB(ACTIONS.GET_SINGLE_REMINDER, data);	
 		}
 
+		/**
+		* @function getRegularReminder
+		* @public
+		* @memberof! DatabaseClientInterface  
+		* @instance
+		* @param {string} dateId, 
+		* @description requests the regular reminder with the id, dateId
+		*/ 
 		function getRegularReminder(dateId){
 			let data = {};
 			data.dateID = dateId;
@@ -157,7 +283,14 @@ DatabaseClientInterface = function(){
 
 		//SET DATA
 
-		//newUser : name, email, dateOfBirth, password
+		/**
+		* @function setUserIntoDB
+		* @public
+		* @memberof! DatabaseClientInterface  
+		* @instance
+		* @param {object} newUser, 
+		* @description sets the newUser into the database
+		*/ 
 		function setUserIntoDB(newUser){
 			let necessaryAttributes = ["name", "email", "dateOfBirth", "password"];
 			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, newUser)){
@@ -170,6 +303,14 @@ DatabaseClientInterface = function(){
 			}			
 		}
 
+		/**
+		* @function setHorseIntoDB
+		* @public
+		* @memberof! DatabaseClientInterface  
+		* @instance
+		* @param {object} newHorse, 
+		* @description sets the newHorse into the database
+		*/ 
 		function setHorseIntoDB(newHorse){
 			let standardPhoto = "https://h2795767.stratoserver.net/images/standardPhoto.jpg",
 				necessaryAttributes = ["name", "owner", "race", "dateOfBirth", "photo", "sex", "height", "grower", "userID"];
@@ -184,7 +325,14 @@ DatabaseClientInterface = function(){
 			}			
 		}
 
-		//title, date, time, location, horseID, userID
+		/**
+		* @function setDateIntoDB
+		* @public
+		* @memberof! DatabaseClientInterface  
+		* @instance
+		* @param {object} newDate, 
+		* @description sets the newDate into the database
+		*/ 
 		function setDateIntoDB(newDate){
 				necessaryAttributes = ["title", "date", "time", "location", "dateFuture","timeFuture", "valueRegular", "unitRegular"];
 			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, newDate)){
@@ -195,62 +343,79 @@ DatabaseClientInterface = function(){
 				console.log("setDateIntoDB failed");
 				return false;				
 			}				
-		}
-
-		function setReminderIntoDB(title, date, time, location, parentDate, dateID){
-			let data = {
-				title: title,
-				date: date,
-				time: time,
-				location : location,
-				dateID: dateID,
-			};
-			requestModul.setDataIntoDB(ACTIONS.SET_REMINDER, data);
-		}
-
-		function setAppointmentIntoDB(title, dateToShow, timeToShow, dateOfFutureDate, timeOfFutureDate){
-			let data = {
-				title: title,
-				dateToShow: date,
-				timeToShow: time,
-				dateOfFutureDate : location,
-				timeOfFutureDate: dateId,
-			};
-			requestModul.setDataIntoDB(ACTIONS.SET_APPOINTMENT, data);
-		}		
+		}				
 
 		//DELETE ENTITY
 
+
+		/**
+		* @function deleteUserFromDB
+		* @public
+		* @memberof! DatabaseClientInterface  
+		* @instance
+		* @param {string} userID, 
+		* @description deletes user with id userID from the database
+		*/ 
 		function deleteUserFromDB(userID){
 			let data = {};
 			data.userID = userID;
 			requestModul.delteDataFromDB(ACTIONS.DELETE_USER, data);
 		}
 
-		function deleteEntityFromDB(action, id){
-			let data = {};
-			data.id = id;
-			requestModul.delteDataFromDB(action, data);
-		}
-
+		/**
+		* @function deleteHorseFromDB
+		* @public
+		* @memberof! DatabaseClientInterface  
+		* @instance
+		* @param {string} userID, 
+		* @description deletes horse with id horseId from the database
+		*/ 
 		function deleteHorseFromDB(horseId){
 			let data = {};
 			data.horseID = horseId;
 			requestModul.delteDataFromDB(ACTIONS.DELETE_HORSE, data);
 		}
 
+		/**
+		* @function deleteDateFromDB
+		* @public
+		* @memberof! DatabaseClientInterface  
+		* @instance
+		* @param {string} dateID, 
+		* @description deletes date with id horseId from the database
+		*/ 
 		function deleteDateFromDB(dateID){
 			let data = {};
 			data.dateID = dateID;
 			requestModul.delteDataFromDB(ACTIONS.DELETE_DATE, data);
 		}
 
+		/**
+		* @function deleteSingleReminderFromDB
+		* @public
+		* @memberof! DatabaseClientInterface  
+		* @instance
+		* @param {string} dateID, 
+		* @description deletes the single reminder from the database
+		* each reminder has a 1:1 relation to a date
+		* therefore it can be delted with the dateID
+		*/ 
 		function deleteSingleReminderFromDB(dateID){
 			let data = {};
 			data.dateID = dateID;
 			requestModul.delteDataFromDB(ACTIONS.DELETE_SINGLE_REMINDER, data);
 		}
 
+		/**
+		* @function deleteRegularReminderFromDB
+		* @public
+		* @memberof! DatabaseClientInterface  
+		* @instance
+		* @param {string} dateID, 
+		* @description deletes the regular reminder from the database
+		* each reminder has a 1:1 relation to a date
+		* therefore it can be delted with the dateID
+		*/
 		function deleteRegularReminderFromDB(dateID){
 			let data = {};
 			data.dateID = dateID;
@@ -259,6 +424,15 @@ DatabaseClientInterface = function(){
 
 		//UPDATE
 
+		/**
+		* @function updateUser
+		* @public
+		* @memberof! DatabaseClientInterface  
+		* @instance
+		* @param {object} oldUser, 
+		* @description updates the oldUser in the database
+		* oldUser contains the new values
+		*/
 		function updateUser(oldUser){
 			let necessaryAttributes = ["name", "email", "dateOfBirth", "password", "userID"];
 			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, oldUser)){
@@ -269,8 +443,17 @@ DatabaseClientInterface = function(){
 				console.log("updateUserIntoDB failed");
 				return false;				
 			}	
-		} 
+		}
 
+		/**
+		* @function updateHorse
+		* @public
+		* @memberof! DatabaseClientInterface  
+		* @instance
+		* @param {object} oldHorse, 
+		* @description updates the oldHorse in the database
+		* oldHorse contains the new values
+		*/
 		function updateHorse(oldHorse){
 			let necessaryAttributes = ["horseID", "name", "owner", "race", "dateOfBirth", "photo", "sex", "height", "grower", "userID"];
 			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, oldHorse)){
@@ -281,15 +464,17 @@ DatabaseClientInterface = function(){
 				console.log("updateUserIntoDB failed");
 				return false;				
 			}
-		}	
-
-		function updateEntity(url, id, valueObject){
-			data = {};
-			data.id = id;
-			data = Object.assign(data, valueObject);
-			requestModul.updateDataInDB(url, data);
 		}
 
+		/**
+		* @function updateDate
+		* @public
+		* @memberof! DatabaseClientInterface  
+		* @instance
+		* @param {object} oldDate, 
+		* @description updates the oldDate in the database
+		* oldDate contains the new values
+		*/
 		function updateDate(oldDate){
 			let necessaryAttributes = ["dateID", "horseID", "title", "date"];
 			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, oldDate)){
@@ -302,6 +487,15 @@ DatabaseClientInterface = function(){
 			}			
 		}
 
+		/**
+		* @function updateSingleReminder
+		* @public
+		* @memberof! DatabaseClientInterface  
+		* @instance
+		* @param {object} singleReminder, 
+		* @description updates the singleReminder in the database
+		* singleReminder contains the new values
+		*/
 		function updateSingleReminder(singleReminder){
 			let necessaryAttributes = ["dateID", "date", "time"];
 			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, singleReminder)){
@@ -314,6 +508,15 @@ DatabaseClientInterface = function(){
 			}	
 		}
 
+		/**
+		* @function updateRegularReminder
+		* @public
+		* @memberof! DatabaseClientInterface  
+		* @instance
+		* @param {object} regularreminder, 
+		* @description updates the regularreminder in the database
+		* regularreminder contains the new values
+		*/
 		function updateRegularReminder(regularreminder){
 			let necessaryAttributes = ["dateID", "date", "time", "name", "number"];
 			if(allNecessaryDataHaveBeenParsed(necessaryAttributes, regularreminder)){
@@ -349,7 +552,6 @@ DatabaseClientInterface = function(){
 		that.deleteRegularReminderFromDB = deleteRegularReminderFromDB;
 		that.updateUser = updateUser;
 		that.updateHorse = updateHorse;
-		that.updateEntity = updateEntity;
 		that.updateDate = updateDate;
 		that.updateSingleReminder = updateSingleReminder;
 		that.updateRegularReminder = updateRegularReminder;

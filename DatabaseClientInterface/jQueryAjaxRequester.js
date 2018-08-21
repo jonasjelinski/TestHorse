@@ -9,7 +9,6 @@ DatabaseClientInterface.JQAJAXModul = function () {
 	"use strict";	 
 
 	let that = new EventTarget(),
-	requestModul = new DatabaseClientInterface.AJAXModul();
 
 	function doAjaxRequest(url, type , data){
 		console.log("url, type, data", url, type, data);
