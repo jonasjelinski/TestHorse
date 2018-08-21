@@ -70,6 +70,7 @@ DatabaseClientInterface = function(){
 		function init(){
 			requestModul = new DatabaseClientInterface.RequestModul();
 			requestModul.addEventListener("onResult", sendResultData);
+			requestModul.init();
 		}
 
 		/**

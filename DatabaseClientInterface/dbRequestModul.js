@@ -9,10 +9,10 @@ var DatabaseClientInterface = DatabaseClientInterface || {};
 DatabaseClientInterface.RequestModul = function () {
 	"use strict";
 
-	/*@const{object}, METHODS,
-	* @description: contains the method "POST" for the ajax request
+	/*@const{object}, Types,
+	* @description: contains the type "POST" for the ajax request
 	*/
-	const METHODS = {		
+	const Types = {		
     	POST: "POST",      
     };
 
@@ -29,8 +29,20 @@ DatabaseClientInterface.RequestModul = function () {
 	}
 
 	let that = new EventTarget(),
-	requestModul = new DatabaseClientInterface.AJAXModul();
-	requestModul.addEventListener("onResult", sendResults);
+		requestModul;
+	
+
+	/**
+	* @function init
+	* @public
+	* @memberof! DatabaseClientInterface.RequestModul
+	* @instance
+	* @description Initialize this modul.
+	*/ 	
+	function init(){
+		requestModul = new DatabaseClientInterface.AJAXModul();
+		requestModul.addEventListener("onResult", sendResults);
+	}
 
 	/**
 	* @function askDataBase
@@ -44,7 +56,7 @@ DatabaseClientInterface.RequestModul = function () {
 	*/ 	
 	function askDataBase(url, action, data){
 		let requestData = createRequestDataObject(action, data);
-		requestModul.doAjaxRequest(url, METHODS.POST, requestData);
+		requestModul.doAjaxRequest(url, Types.POST, requestData);
 	}
 
 	/**
@@ -190,6 +202,7 @@ DatabaseClientInterface.RequestModul = function () {
 		askDataBase(URLS.DELETE, action, data);
 	}
 
+	that.init = init;
 	that.tryLogin = tryLogin;
 	that.tryLogout = tryLogout;
 	that.getDataFromDB = getDataFromDB;
