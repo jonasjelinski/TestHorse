@@ -1,8 +1,26 @@
+/**
+ * @class AttributesConverter
+ * @description Class <code>AttributesConverter</code> converts attributes
+ * @param{object} creator, instance of the Class creator
+ * @param{object} necessaryAttributes, necessaryAttributes define which attributes are necessary and which are optional
+ * @description To create an entity the EntiyCreator modul needs an object which constits of attributes
+ * with properties of value und isNecessary. Other moduls can't work with this object so isNecessary has to be remove.
+ * The <code>AttributesConverter</code> converts the attributes in the correct form
+ */
+
 class AttributesConverter{
 	constructor(necessaryAttributes){
 		this.necessaryAttributes = necessaryAttributes;		
 	}
 
+	/**
+	* @function addIsNecessaryToAttributes
+	* @public
+	* @memberof! ChangerPage
+	* @instance
+	* @param{object} attributes, attributes which have to be changed
+	* @description changes the attributes so the entityCreator can use them
+	*/ 	
 	addIsNecessaryToAttributes(attributes){
 		let attributesWithNecessary = {},
 			that = this,
@@ -13,6 +31,16 @@ class AttributesConverter{
 		return attributesWithNecessary;		
 	}
 
+	/**
+	* @function createNewAttribute
+	* @public
+	* @memberof! ChangerPage
+	* @instance
+	* @param{object} attributes, attributes which have to be changed
+	* @param{string} name, attributes which have to be changed
+	* @description creates a new object containing isNecessary
+	* if the name of the attribute is in the array of necessary attributes 
+	*/ 	
 	createNewAttribute(attributes, name){
 		let value = attributes[name],
 			isNecessary = this.necessaryAttributes.includes(name),
@@ -23,6 +51,15 @@ class AttributesConverter{
 		return newAttribute;
 	}
 
+
+	/**
+	* @function removeIsNecessaryFromAttributes
+	* @public
+	* @memberof! ChangerPage
+	* @instance
+	* @param{object} attributes, attributes which have to be changed
+	* @description changes the attributes so the other moduls as entityCreator can use them
+	*/ 
 	removeIsNecessaryFromAttributes(attributes){
 		let attributesWithoutIsNecessary = {},
 			attributeNames = Object.keys(attributes);
