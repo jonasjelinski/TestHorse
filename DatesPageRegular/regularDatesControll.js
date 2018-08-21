@@ -1,62 +1,146 @@
 var RegularDatesPage = RegularDatesPage || {};
 
+/**
+ * @instance RegularDatesPage.RegularDatesPageControll 
+ * @memberof! RegularDatesPage
+ * @param {string} deleteButtonClass, class of the delte buttons
+ * @param {string} changeButtonClass, class of the change buttons
+ * @param {string} backButtonId, id of the backbutton
+ * @description the modul <code>RegularDatesPage.RegularDatesPageControll </code> is a view controll modul
+ * to manage all buttons of the regular dates. Each regular date has two buttons. The page has a backbutton.
+ */
+
 RegularDatesPage.RegularDatesPageControll = function(deleteButtonClass, changeButtonClass, backButtonId){
 		let that = new EventTarget(),
 			backButton;
 
-		function init(){
-			initListControlls();
-			initBackButtonControlls();						
-		}
 
-		function initListControlls(){
-			let delteButtons = document.getElementsByClassName(deleteButtonClass),
-				changeButtons = document.getElementsByClassName(changeButtonClass);
-			addListener(delteButtons, handleDelete);
-			addListener(changeButtons, handleChange);		
-		}
+	/**
+	* @function init
+	* @public
+	* @memberof! RegularDatesPage.RegularDatesPageControll 
+	* @instance
+	* @description Initialize this modul
+	*/
+	function init(){
+		initListControlls();
+		initBackButtonControlls();						
+	}
 
-		function addListener(buttons, handler){
-			for(let i = 0; i < buttons.length; i++){
-				let button = buttons[i];
-				button.addEventListener("click", handler);				
-			}
-		}
 
-		function handleDelete(event){
-			let id = getIdFromEvent(event);
-			sendIdEvent("onDeleteClick", id);
-		}
+	/**
+	* @function initListControlls
+	* @private
+	* @memberof! RegularDatesPage.RegularDatesPageControll 
+	* @instance
+	* @description gets all buttons of the classes "deleteButtonClass" and "changeButtonClass"
+	* uses the arrays to add listeners to the buttons
+	*/
+	function initListControlls(){
+		let delteButtons = document.getElementsByClassName(deleteButtonClass),
+			changeButtons = document.getElementsByClassName(changeButtonClass);
+		addListener(delteButtons, handleDelete);
+		addListener(changeButtons, handleChange);		
+	}
 
-		function getIdFromEvent(event) {
-			let target = event.target,
-				li = target.closest("li"),
-				id = li.getAttribute("regulardateid");
-			return id;
+	/**
+	* @function addListener
+	* @private
+	* @memberof! RegularDatesPage.RegularDatesPageControll 
+	* @instance
+	* @param{array}, buttons
+	* @param{function}, handler, a function which is called if the event "click" is dispatched
+	* @description adds a "click" listener to each button
+	*/
+	function addListener(buttons, handler){
+		for(let i = 0; i < buttons.length; i++){
+			let button = buttons[i];
+			button.addEventListener("click", handler);				
 		}
+	}
 
-		function sendIdEvent(type, id){
-			let event = new Event(type);
-			event.details = {};
-			event.details.id = id;
-			that.dispatchEvent(event);			
-		}
+	/**
+	* @function handleDelete
+	* @private
+	* @memberof! RegularDatesPage.RegularDatesPageControll 
+	* @instance
+	* @param{event}, event, contains the event.target
+	* @description sends the id of the domElement which has called this function
+	*/
+	function handleDelete(event){
+		let id = getIdFromEvent(event);
+		sendIdEvent("onDeleteClick", id);
+	}
 
-		function handleChange(event){
-			let id = getIdFromEvent(event);
-			sendIdEvent("onChangeClick", id);
-		}
+	/**
+	* @function getIdFromEvent
+	* @private
+	* @memberof! RegularDatesPage.RegularDatesPageControll 
+	* @instance
+	* @param{event}, event, contains the event.target
+	* @description returns the id of the event.target
+	*/
+	function getIdFromEvent(event) {
+		let target = event.target,
+			li = target.closest("li"),
+			id = li.getAttribute("regulardateid");
+		return id;
+	}
 
-		function initBackButtonControlls(){
-			backButton = document.getElementById(backButtonId);
-			backButton.addEventListener("click", handleBack)
-		}
+	/**
+	* @function sendIdEvent
+	* @private
+	* @memberof! RegularDatesPage.RegularDatesPageControll 
+	* @instance
+	* @param{string}, type, event type
+	* @param{string}, id, id to send with the event
+	* @description sends the given id with an event
+	*/
+	function sendIdEvent(type, id){
+		let event = new Event(type);
+		event.details = {};
+		event.details.id = id;
+		that.dispatchEvent(event);			
+	}
 
-		function handleBack(){
-			let event = new Event("onBackButtonClicked");
-			that.dispatchEvent(event);
-		}
+	/**
+	* @function handleChange
+	* @private
+	* @memberof! RegularDatesPage.RegularDatesPageControll 
+	* @instance
+	* @param{event}, event, contains the id of the clicked element
+	* @description sends the id of the clicked element with an event
+	*/
+	function handleChange(event){
+		let id = getIdFromEvent(event);
+		sendIdEvent("onChangeClick", id);
+	}
 
-		that.init = init;
-		return that;
+	/**
+	* @function initBackButtonControlls
+	* @private
+	* @memberof! RegularDatesPage.RegularDatesPageControll 
+	* @instance
+	* @description adds "click" listener to the backbutton
+	*/
+	function initBackButtonControlls(){
+		backButton = document.getElementById(backButtonId);
+		backButton.addEventListener("click", handleBack)
+	}
+
+	/**
+	* @function handleBack
+	* @private
+	* @memberof! RegularDatesPage.RegularDatesPageControll 
+	* @instance
+	* @description  sends event of the type "onBackButtonClicked" to 
+	* inform other moduls that the user wants to change the page
+	*/
+	function handleBack(){
+		let event = new Event("onBackButtonClicked");
+		that.dispatchEvent(event);
+	}
+
+	that.init = init;
+	return that;
 }
