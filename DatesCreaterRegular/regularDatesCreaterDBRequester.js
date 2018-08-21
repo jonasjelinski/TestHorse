@@ -59,6 +59,28 @@ RegulardatesCreatorPage.DBRequester = function(userID, horseID){
 	}
 
 	/**
+	* @function handleResult
+	* @private
+	* @memberof! RegulardatesCreater
+	* @instance
+	* @param {event} event
+	* @description if the date has been saved into the database the databse sends back the id of the date
+	* this dateID is used to add it to the reminder. The database has a 1:1 relation between date and reminder.
+	* Then the reminder is saved into the database
+	*/
+	function handleResult(event){
+		if(!isSavingDate){
+			let result = event.details.result,
+				dateID = getOnlyNumbers(result),
+				reminderData = createReminderData(dateID);
+			saveRegularReminderIntoDB(reminderData);
+		}
+		else{
+			console.log(event.details.result);
+		}
+	}
+
+	/**
 	* @function saveDateIntoDB
 	* @public
 	* @memberof! RegulardatesCreater
@@ -115,29 +137,7 @@ RegulardatesCreatorPage.DBRequester = function(userID, horseID){
 		else{
 			console.log("not Enough attributes", newDate);
 		}
-	}
-
-	/**
-	* @function handleResult
-	* @private
-	* @memberof! RegulardatesCreater
-	* @instance
-	* @param {event} event
-	* @description if the date has been saved into the database the databse sends back the id of the date
-	* this dateID is used to add it to the reminder. The database has a 1:1 relation between date and reminder.
-	* Then the reminder is saved into the database
-	*/
-	function handleResult(event){
-		if(!isSavingDate){
-			let result = event.details.result,
-				dateID = getOnlyNumbers(result),
-				reminderData = createReminderData(dateID);
-			saveRegularReminderIntoDB(reminderData);
-		}
-		else{
-			console.log(event.details.result);
-		}
-	}
+	}	
 
 	/**
 	* @function getOnlyNumbers

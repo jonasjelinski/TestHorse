@@ -76,7 +76,7 @@ RegulardatesCreatorPage.Standard = function(userID){
 	* @memberof! DatesChangerPageRegular
 	* @instance
 	* @param {event} event
-	* @description sends the data of the event to toher moduls
+	* @description sends the data of the event to other moduls
 	*/
 	function handleSave(event) {
 		let data = event.details.data;

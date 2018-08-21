@@ -59,7 +59,6 @@ DatabaseClientInterface = function(){
 	let that = new EventTarget(),
 		requestModul;
 
-
 		/**
 		* @function init
 		* @public
