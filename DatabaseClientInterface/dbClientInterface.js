@@ -10,12 +10,12 @@ var DatabaseClientInterface = DatabaseClientInterface || {};
 
 DatabaseClientInterface = function(){
 	
-	/*@const{obejct}, ACTIONS,
+	/*@const{object}, ACTIONS,
 	* @description: each action is a special information for the database
 	* the database knows from the name of the action which request is sended
 	* and what it has to do with the given parameters
 	*/
-const ACTIONS = {
+	const ACTIONS = {
 		TRY_LOGIN: "tryLogin",
 		LOGOUT: "logoutUser",
 		GET_USER_ID: "getUserID",

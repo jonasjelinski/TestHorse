@@ -1,17 +1,24 @@
-/*
-This modul allows to set or get data from the database of the server
-https://www.w3resource.com/ajax/working-with-PHP-and-MySQL.php
-*/
-
 var DatabaseClientInterface = DatabaseClientInterface || {};
+
+/**
+ * @instance DatabaseClientInterface.RequestModul
+ * @memberof! DatabaseClientInterface 
+ * @description <code>RequestModul</code> contains the correct urls for the ajax requests
+ */
 
 DatabaseClientInterface.RequestModul = function () {
 	"use strict";
 
+	/*@const{object}, METHODS,
+	* @description: contains the method "POST" for the ajax request
+	*/
 	const METHODS = {		
     	POST: "POST",      
     };
 
+    /*@const{object}, URLS,
+	* @description: contains the method urls for the ajax request
+	*/
     const URLS = {
     	LOGIN: " https://h2795767.stratoserver.net/database/actions/login.php",
     	GET: " https://h2795767.stratoserver.net/database/actions/get.php",
@@ -25,15 +32,41 @@ DatabaseClientInterface.RequestModul = function () {
 	requestModul = new DatabaseClientInterface.JQAJAXModul();
 	requestModul.addEventListener("onResult", sendResults);
 
+	/**
+	* @function askDataBase
+	* @private
+	* @memberof! DatabaseClientInterface  
+	* @instance
+	* @param {string} url, url for the request
+	* @param {string} action, action so the php code know that to do with parameters in data
+	* @param {object} data, contains the values for the database requests
+	* @description makes the axajRequest with the given paramaters by calling the function <code>doAjaxRequest</code>
+	*/ 	
 	function askDataBase(url, action, data){
 		let requestData = createRequestDataObject(action, data);
 		requestModul.doAjaxRequest(url, METHODS.POST, requestData);
 	}
 
+	/**
+	* @function showError
+	* @private
+	* @memberof! DatabaseClientInterface  
+	* @instance
+	* @description function which is called if the ajax request fails
+	*/ 
 	function showError(){
-		console.log("error");
+		console.log("ajax request error");
 	}
 
+	/**
+	* @function sendResults
+	* @private
+	* @memberof! DatabaseClientInterface  
+	* @instance
+	* @param {event} ev, contains the result of the request
+	* @description function which is called if the ajax request is sucessfull
+	* sends the results in an event
+	*/ 
 	function sendResults(ev){
 		let requestResult = ev.details.result,
 		event = new Event("onResult");
@@ -42,6 +75,15 @@ DatabaseClientInterface.RequestModul = function () {
 		that.dispatchEvent(event);		
 	}
 
+	/**
+	* @function createRequestDataObject
+	* @private
+	* @memberof! DatabaseClientInterface  
+	* @instance
+	* @param {string} action, action so the php code know that to do with parameters in data
+	* @param {object} data, contains the values for the database requests
+	* @description returns a object which can be used for the request
+	*/ 
 	function createRequestDataObject(action, data){
 		let requestData = {};
 			requestData.action = action;
@@ -50,6 +92,15 @@ DatabaseClientInterface.RequestModul = function () {
 		return requestData;
 	}
 
+	/**
+	* @function convertAllValuesToTypeString
+	* @private
+	* @memberof! DatabaseClientInterface  
+	* @instance
+	* @param {object} requestData, contains the values for the database requests
+	* @description converts all values in the object to strings. Prevents errors,
+	* because the database php code expect strings as paraamters
+	*/ 
 	function convertAllValuesToTypeString(requestData){
 		Object.keys(requestData).forEach( function(i){
 			if (typeof requestData[i] === "object") {
@@ -60,33 +111,81 @@ DatabaseClientInterface.RequestModul = function () {
 		return requestData;
 	}
 
-	function getDBAnswer(requestResult){
-		let event = new Event("onResult");
-		event.details = {};
-		event.details.result = requestResult;
-		that.dispatchEvent(event);		
-	}
-
+	/**
+	* @function tryLogin
+	* @public
+	* @memberof! DatabaseClientInterface  
+	* @instance
+	* @param {string} action, action so the php code know that to do with parameters in data
+	* @param {object} data, contains the values for the database requests
+	* @description public function to allow other moduls making a request for a login
+	*/ 
 	function tryLogin(action, data){
 		askDataBase(URLS.LOGIN, action, data);
 	}
 
+	/**
+	* @function tryLogout
+	* @public
+	* @memberof! DatabaseClientInterface  
+	* @instance
+	* @param {string} action, action so the php code know that to do with parameters in data
+	* @param {object} data, contains the values for the database requests
+	* @description public function to allow other moduls making a request for a logout
+	*/ 
 	function tryLogout(action, data){
 		askDataBase(URLS.LOGOUT, action, data);
-	}	
+	}
 
+	/**
+	* @function getDataFromDB
+	* @public
+	* @memberof! DatabaseClientInterface  
+	* @instance
+	* @param {string} action, action so the php code know that to do with parameters in data
+	* @param {object} data, contains the values for the database requests
+	* @description public function to allow other moduls making a request for data from the database
+	*/
 	function getDataFromDB(action, data){
 		askDataBase(URLS.GET, action, data);
 	}
 
+	/**
+	* @function setDataIntoDB
+	* @public
+	* @memberof! DatabaseClientInterface  
+	* @instance
+	* @param {string} action, action so the php code know that to do with parameters in data
+	* @param {object} data, contains the values for the database requests
+	* @description public function to allow other moduls making a request to set new data into the database
+	*/
 	function setDataIntoDB(action, data){
 		askDataBase(URLS.SET, action, data);
 	}
 
+	/**
+	* @function updateDataInDB
+	* @public
+	* @memberof! DatabaseClientInterface  
+	* @instance
+	* @param {string} action, action so the php code know that to do with parameters in data
+	* @param {object} data, contains the values for the database requests
+	* @description public function to allow other moduls making a request to update data in the database
+	*/
 	function updateDataInDB(action, data){
 		askDataBase(URLS.UPDATE, action, data);
 	}
 
+
+	/**
+	* @function delteDataFromDB
+	* @public
+	* @memberof! DatabaseClientInterface  
+	* @instance
+	* @param {string} action, action so the php code know that to do with parameters in data
+	* @param {object} data, contains the values for the database requests
+	* @description public function to allow other moduls making a request to delete data in the database
+	*/
 	function delteDataFromDB(action, data){
 		askDataBase(URLS.DELETE, action, data);
 	}
