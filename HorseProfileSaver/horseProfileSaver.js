@@ -14,7 +14,10 @@ HorseProfileSaver = function(userID){
 	const 
 	HORSE_ID = ""
 	PAGE_ID = "horseProfileSaver",
-	TEMPLATE_ID = "horseProfileTemplate";
+	TEMPLATE_ID = "horseProfileTemplate",
+	CHANGE_BUTTON_ID = "horseSaverChange",
+	OKAY_BUTTON_ID = "horseSaverOk",
+	DELETE_BUTTON_ID = "horseSaverDelete";	
 
 	let that = new EventTarget(),
 		profil = {},
@@ -45,7 +48,7 @@ HorseProfileSaver = function(userID){
 	* @description Initialize <code>profil</code> an instance of Profil
 	*/ 
 	function initPofil(){
-		profil = new Profil(PAGE_ID, TEMPLATE_ID, HorseProfileSaver.ViewControll);
+		profil = new Profil(PAGE_ID, TEMPLATE_ID, CHANGE_BUTTON_ID, OKAY_BUTTON_ID, DELETE_BUTTON_ID);
 		profil.init(attributes);		
 	}
 

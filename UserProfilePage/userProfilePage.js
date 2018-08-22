@@ -3,14 +3,17 @@ var UserProfilPage = UserProfilPage || {};
 UserProfilPage = function(userID){
 	const PAGE_ID = "mainpage",
 		TEMPLATE_ID = "userProfileTemplate",
-		REQUEST_FUNCTION = "getUserData";		
+		REQUEST_FUNCTION = "getUserData",
+		CHANGE_BUTTON_ID = "userProfileChange",
+		OKAY_BUTTON_ID = "userProfileOk",
+		DELETE_BUTTON_ID = "userProfileDelete";		
 		
 		
 	let testData = {name:"Hans", email: "h@h", password: "123", },
 		dbInterface,
 		model,
-		that = Profil(PAGE_ID, TEMPLATE_ID, UserProfilPage.UserProfilPageViewControll);
-
+		that = Profil(PAGE_ID, TEMPLATE_ID, CHANGE_BUTTON_ID, OKAY_BUTTON_ID, DELETE_BUTTON_ID);
+		
 		function initPage(){
 			initDBRequester();
 			getUserDataFromDB();			
@@ -28,7 +31,7 @@ UserProfilPage = function(userID){
 		}
 
 		function initModel(userData){
-			model = new Profil.ProfilModel();
+			model = new UserProfilPage.Model();
 			model.addEventListener("onDataConverted", handleConvertedData)
 			model.init(userData);
 		}

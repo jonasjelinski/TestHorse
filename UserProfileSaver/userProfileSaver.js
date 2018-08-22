@@ -3,7 +3,10 @@ var UserProfileSaver = UserProfileSaver || {};
 UserProfileSaver = function(){
 	"user strict";
 	const USER_PAGE_ID = "userProfileSaver",
-	USER_TEMPLATE_ID = "userProfileTemplate";
+		USER_TEMPLATE_ID = "userProfileTemplate",
+		CHANGE_BUTTON_ID = "userSaverChange",
+		OKAY_BUTTON_ID = "userSaverOk",
+		DELETE_BUTTON_ID = "userSaverDelete";	
 
 	let that = new EventTarget(),
 		profil = {},
@@ -19,7 +22,7 @@ UserProfileSaver = function(){
 	}
 
 	function initPofil(){
-		profil =  new Profil(USER_PAGE_ID, USER_TEMPLATE_ID, UserProfileSaver.ViewControll);
+		profil =  new Profil(USER_PAGE_ID, USER_TEMPLATE_ID,CHANGE_BUTTON_ID, OKAY_BUTTON_ID, DELETE_BUTTON_ID);
 		profil.init(attributes);		
 	}
 

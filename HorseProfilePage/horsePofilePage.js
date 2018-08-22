@@ -73,7 +73,7 @@ HorseProfilePage = function(){
 	* @memberof! HorseProfilePage  
 	* @instance
 	* @description adds evnetListener to the profil, so this page knows
-	* wehen the user wants to change or delte the horse which is displayed 
+	* when the user wants to change or delte the horse which is displayed 
 	* or if he doesnt want to do anything.
 	*/
 	function addEventListeners(){
