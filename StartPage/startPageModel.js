@@ -44,9 +44,9 @@ StartPage.Model = function(){
 		try {
 			JSON.parse(string);
 		} catch (e) {
-			return horses;
+			return false;
 		}
-		return horses;
+		return true;
 	}		
 		
 	function isArrayFullOfHorses(horses){
