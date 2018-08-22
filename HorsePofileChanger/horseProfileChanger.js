@@ -6,7 +6,7 @@ var HorseProfileChanger = HorseProfileChanger || {};
  * @description Creates and instance of the <code>ChangerPage</code> an returns that.
  * Uses the <code>Creator</code> of <code>HorseCreatorPage.StandardPage</code>
  * attributes are empty because they will later be given to the HorseProfileChanger
- * in the modul <code>pages</code> from other moduls
+ * in the modul <code>pages</code> from other moduls during init
  */
 HorseProfileChanger = function(){
 	let necessaryAttributes = [],
