@@ -1,7 +1,7 @@
 var Pages = Pages || {};
 
 /**
- * @namespace Pages
+ * @namespace Pages.Content
  * @memberOf! Pages
  * @description Contains the Strings of the different pages as constants and returns them.
  */
@@ -226,7 +226,7 @@ Pages.PageContent = function (){
                                     '<option value="Jahr">Jahr</option>'+
                                 '</select>',
 
-  REGULAR_DATES_CREATER_PAGE = CREATE_SINGLE_DATE + DROPDOWN_MENU_REGULAR_DATES + '<input id="regular_dates_unit" type="number" min=0 max=52 value=1>';          
+  REGULAR_DATES_CREATER_PAGE = CREATE_SINGLE_DATE + DROPDOWN_MENU_REGULAR_DATES + '<input id="regular_dates_value" type="number" min=0 max=52 value=1>';          
   
   that.LOGIN_PAGE = LOGIN_PAGE;
   that.START_PAGE = START_PAGE; 

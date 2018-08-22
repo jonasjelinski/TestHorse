@@ -1,5 +1,13 @@
 var UserCreator = UserCreator || {};
 
+/** 
+ * namespace UserCreator 
+ * @memberof! UserCreatorModel
+ * @param {object} newAttributes, attributes of the model
+ * @description uses and instance of the class <code>CreatorModel</code> to create
+ * a model for the UserCreatorModel. returns the instance.
+ */
+
 UserCreator.UserCreatorModel = function(newAttributes){
 	const ATTRIBUTES = {
 				name: {value:undefined,
@@ -15,20 +23,5 @@ UserCreator.UserCreatorModel = function(newAttributes){
 
 	let that = CreatorModel(ATTRIBUTES);
 
-	function validateInput(attribute){
-		switch(attribute){
-			case "email": validateEmailInput();
-			break;
-			case "password": validatePassword(); 
-		}
-	}
-
-	function validateEmailInput(){
-
-	}
-
-	function validatePassword(){
-		
-	}
 	return that;
 };

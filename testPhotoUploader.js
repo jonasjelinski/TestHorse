@@ -15,6 +15,7 @@ TestPhotoUploader =function(inputId, buttonId){
 		button.addEventListener("click", sendPhoto);
 	}
 
+    //horseID mitgeben
 	function handleInput(){
 		let photo = inputForm.files[0];
 			formData = new FormData();

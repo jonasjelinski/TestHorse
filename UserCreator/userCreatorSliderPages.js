@@ -1,5 +1,12 @@
 var UserCreator = UserCreator || {};
 
+/** 
+ * namespace SliderPages 
+ * @memberof! UserCreator
+ * @description Returns an array of html pages as stings, which are used for the <code>Slideshow</Slideshow> of the UserCreatot.
+ * those pages will be given to the <code>EntityCreator</code> instance in the  <code>UserCreatorPage.StandardPage</code>.  
+ */
+
 UserCreator.SliderPages = function() {
 	const  NAME = 
 				'<div>Ihr Name</div>'+
