@@ -10,19 +10,19 @@ Pages = function(){
 
 	let that = {},	
 		datesPage,
-		datesPageRegular,
-		horseProfilPage,
+		datesPageRegular,		
 		datesChangerPageRegular,
 		datesChangerPageSingle,
 		datescreatorPageRegular,
 		datesCreatorPageSingle,	
 		loginPage,
-		logoutPage,		
-		pageDomElement,
-		pageChanger,			
+		logoutPage,
+		horseProfilPage,			
 		horseCreatorPage,
 		horseProfileSaver,
-		horseProfileChanger,
+		horseProfileChanger,		
+		pageDomElement,
+		pageChanger,
 		startPage,	
 		user,
 		userCreatorPage,
@@ -170,7 +170,7 @@ Pages = function(){
 
 	function addListenersToHorseProfilePage(){
 		horseProfilPage.addEventListener("onChangeHorseProfile", changeHorse);
-		horseProfilPage.addEventListener("onSaveHorseProfile", showStartPage);
+		horseProfilPage.addEventListener("onOkayHorseProfile", showStartPage);
 		horseProfilPage.addEventListener("onDeleteHorseProfile", showStartPage);		
 	}
 

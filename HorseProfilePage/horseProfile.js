@@ -1,5 +1,10 @@
 var HorseProfilePage = HorseProfilePage || {};
 
+/** 
+ * namespace HorseProfile 
+ * @memberof! HorseProfilePage
+ * @description returns an instance of <code>Profil</code>
+ */
 HorseProfilePage.HorseProfile = function(){
 	"user strict";
 	const PAGE_ID = "horseProfile",

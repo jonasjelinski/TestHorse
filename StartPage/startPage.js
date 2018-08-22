@@ -13,8 +13,7 @@ StartPage = function(userID){
 		hamburgerMenu,
 		model,
 		dropList,
-		dropListId = "horseList",
-		listElementsData = [{id: "1", photo: "/src/xy"}, {id: "2", photo: "/src/xy"},{id: "3", photo: "/src/xy"}],		
+		dropListId = "horseList",	
 		elementTemplateString,
 		buttonControlls,
 		dateButtonClass = "horseDateButton",
@@ -107,23 +106,12 @@ StartPage = function(userID){
 		let id = ev.details.id;
 		if(lastBoxClicked(id)){
 			sendEvent("createNewHorse", "");			
-		}
-		else{
-			let horseAttributes = getHorseById(id);
-			//sendShowHorseEvent(horseAttributes);
-		}
+		}		
 	}	
 
 	function getHorseById(id){
 		let horseAttributes = model.getHorseById(id);
 		return horseAttributes;
-	}
-
-	function sendShowHorseEvent(attributes){
-		let event = new Event("showHorseProfile");
-		event.details = {};
-		event.details.attributes = attributes;
-		that.dispatchEvent(event);	
 	}
 
 	function lastBoxClicked(id){
@@ -168,7 +156,6 @@ StartPage = function(userID){
 	}
 
 	function handleLogoutOption(){
-		console.log("logoutUser");
 		sendEvent("logoutUser","");
 	}
 
@@ -184,7 +171,6 @@ StartPage = function(userID){
 
 	function handleDateClick(ev){
 		let horseId = ev.details.id;
-		console.log("handleDateClick", horseId);
 		sendEvent("showHorseDates",horseId);
 	}
 
@@ -192,6 +178,14 @@ StartPage = function(userID){
 		let horseId = ev.details.id,
 		horseAttributes = getHorseById(horseId);
 		sendShowHorseEvent(horseAttributes);
+	}
+
+	
+	function sendShowHorseEvent(attributes){
+		let event = new Event("showHorseProfile");
+		event.details = {};
+		event.details.attributes = attributes;
+		that.dispatchEvent(event);	
 	}	
 
 	that.init = init;
