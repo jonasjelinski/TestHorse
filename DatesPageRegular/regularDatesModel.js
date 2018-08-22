@@ -1,7 +1,7 @@
 var RegularDatesPage = RegularDatesPage || {};
 
 /**
- * @instance RegularDatesPage.Model 
+ * @namespace RegularDatesPage.Model 
  * @memberof! DatesPageAll
  * @description Modul <code>DatesPageAll.Model</code> is the model of RegularDatesPage
  * @ receives all dates of the db request at inititalisation as string. Transform
