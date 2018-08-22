@@ -46,7 +46,7 @@ ScriptLoader.Scripts = (function(){
 	"./Slideshow/slideshowProgress.js",
 	"./Slideshow/slideshowPageChanger.js",
 	"./Slideshow/slideshowModel.js",
-	"./Slideshow/slideshowView.js",
+	"./Slideshow/slideshowViewControll.js",
 	"./EntityCreator/entity.js",
 	"./EntityCreator/entityCreator.js",
 	"./EntityCreator/entityCreatorModel.js",

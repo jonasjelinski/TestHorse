@@ -9,8 +9,7 @@ UserProfilPage = function(userID){
 		DELETE_BUTTON_ID = "userProfileDelete";		
 		
 		
-	let testData = {name:"Hans", email: "h@h", password: "123", },
-		dbInterface,
+	let dbInterface,
 		model,
 		that = Profil(PAGE_ID, TEMPLATE_ID, CHANGE_BUTTON_ID, OKAY_BUTTON_ID, DELETE_BUTTON_ID);
 		
