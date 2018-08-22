@@ -1,5 +1,12 @@
 var HorseCreator = HorseCreator || {};
 
+/** 
+ * namespace HorseCreatorModel 
+ * @memberof! HorseCreator
+ * @param {object} newAttributes, attributes of the model
+ * @description uses and instance of the class <code>CreatorModel</code> to create
+ * a model for the HorseCreator. retunrs the instance.
+ */
 HorseCreator.HorseCreatorModel = function(newAttributes){
 	const ATTRIBUTES = {
 				name: {value:undefined,

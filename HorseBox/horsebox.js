@@ -1,5 +1,14 @@
 var Horsebox = Horsebox ||{};
 
+/**
+ * @instance Horsebox 
+ * @memberof! HamburgerMenu
+ * @param {string} horseBoxId,id of the horsebox
+ * @param {string} dateButtonClass, class of the datebutton
+ * @param {string} profileButtonClass, class of the profilebutoon
+ * @description simple viewcontroll to controll a horsebox
+ * IS NOT USED AT THE MOMENT, IS MAYBE REDUNDANT AND COULD BE DELTED
+ */
 Horsebox = function(horseBoxId, dateButtonClass, profileButtonClass){
 	let that = new EventTarget(),
 		horseBoxModel,

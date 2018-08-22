@@ -1,5 +1,11 @@
 var HorseCreator = HorseCreator || {};
 
+/** 
+ * namespace SliderPages 
+ * @memberof! HorseCreatorPage
+ * @description Retunrns array of html pages as stings, which are used for the <code>Slideshow</Slideshow> of the horsecreator.
+ * those pages will be given to the <code>EntityCreator</code> instance in the  <code>HorseCreatorPage.StandardPage</code>.  
+ */
 HorseCreator.SliderPages = function() {
 	const NAME = 
 				'<div>Name des Pferdes:</div>'+

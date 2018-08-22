@@ -1,7 +1,7 @@
 var Pages = Pages || {};
 
 /**
- * @namespace Pages
+ * @namespace Pages.Content
  * @memberOf! Pages
  * @description Contains the Strings of the different pages as constants and returns them.
  */
