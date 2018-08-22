@@ -7,7 +7,7 @@ var HorseProfileSaver = HorseProfileSaver || {};
  * @description <code>HorseProfileSaver</code> shows the profile of a horse to the user
  * and allows him to save it into the database. It is used after the user either created
  * a new horse with <code>HorseCreatorPage</code> or updated an old horse with <code>HorseProfileChanger</code>.
- * The use can cancel the saving, if he wants.
+ * The user can cancel the saving, if he wants.
  */
 HorseProfileSaver = function(userID){
 	"user strict";
@@ -37,7 +37,8 @@ HorseProfileSaver = function(userID){
 		attributes = newAttributes;
 		initPofil();
 		initDBRequester();
-		addListeners();			
+		addListeners();
+		initModel();			
 	}
 
 	/**
@@ -62,6 +63,18 @@ HorseProfileSaver = function(userID){
 	function initDBRequester(){
 		dbInterface = new HorseProfileSaver.DBRequester(userID);
 		dbInterface.init(attributes);
+	}
+
+	/**
+	* @function initModel
+	* @private
+	* @memberof! HorseProfileSaver
+	* @initModel
+	* @description Initialize the model
+	*/ 
+	function initModel(){
+		model = new HorseProfileSaver.Model(userID);
+		model.init(attributes);
 	}
 
 	/**
@@ -115,7 +128,10 @@ HorseProfileSaver = function(userID){
 	* @description saves the horse into the database and sends the event "onSaveHorseProfile"
 	*/
 	function handleOkayProfile(){
-		dbInterface.saveHorseIntoDB();
+		let isNewHorse = model.getIsNewHorse(),
+			horseData = model.getHorseData();
+		console.log("handleOkayProfile", horseData);
+		dbInterface.saveHorseIntoDB(isNewHorse, horseData);
 		sendEvent("onSaveHorseProfile");
 	}
 
@@ -131,31 +147,31 @@ HorseProfileSaver = function(userID){
 	}
 
 	/**
-	* @function setDBInterfaceToUpdate
+	* @function updateOldHorse
 	* @private
 	* @memberof! HorseProfileSaver
 	* @instance
-	* @description sets the dbInterface to update, so the dbInterface knows
+	* @description sets the model to update, so the model knows
 	* that it has to update and old horse and not saving a new one
 	*/
-	function setDBInterfaceToUpdate(){
-		dbInterface.setUpdateHorse();
+	function updateOldHorse(){
+		model.setUpdateHorse();
 	}
 
 	/**
-	* @function setDBInterfaceToNew
+	* @function createNewHorse
 	* @private
 	* @memberof! HorseProfileSaver
 	* @instance
-	* @description sets the dbInterface to new, so the dbInterface knows
-	* it has to save a new one horse  and not update an old one
+	* @description sets the model to new, so the model knows
+	* it has to save a new horse and not update an old one
 	*/
-	function setDBInterfaceToNew(){
-		dbInterface.setNewHorse();
+	function createNewHorse(){
+		model.setNewHorse();
 	}
 
-	that.createNewHorse = setDBInterfaceToNew;
-	that.updateOldHorse = setDBInterfaceToUpdate;
+	that.createNewHorse = createNewHorse;
+	that.updateOldHorse = updateOldHorse;
 	that.init = init;
 	return that;
 } 

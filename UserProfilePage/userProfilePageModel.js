@@ -8,6 +8,14 @@ var UserProfilPage = UserProfilPage || {};
  */
 
 UserProfilPage.Model = function(userId){
+
+	const EMPTY_PROFILE = {
+		name: "",
+		email :"",
+		dateOfBirth: "",
+		password: "",
+	}
+
 	let that = new EventTarget(),	
 		userData,
 		delteId;
@@ -25,9 +33,12 @@ UserProfilPage.Model = function(userId){
 		if(isParsableString(userDataAsStrings)){
 			JSON.parse(userDataAsStrings);
 			userData = userDataAsArray[0];
-			changePropertyNames(userData);
-			sendOnDataConverted();  
-		}   			 			
+			changePropertyNames(userData);			
+		}
+		else{
+			userData= EMPTY_PROFILE;
+		}   
+		sendOnDataConverted();  			 			
 	}
 
 	/**

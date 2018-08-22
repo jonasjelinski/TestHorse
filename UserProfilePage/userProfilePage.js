@@ -30,6 +30,7 @@ UserProfilPage = function(userID){
 	* @description Initialize this page.
 	*/ 	
 	function initPage(){
+		console.log("initPage");
 		initDBRequester();
 		requestUserDataFromDB();
 		addEventListeners();			
@@ -57,7 +58,7 @@ UserProfilPage = function(userID){
 	*/ 
 	function handleResult(event){
 		let userData = event.details.userData;
-		initModel(userData);			
+		initModel(userData);						
 	}
 
 	/**
@@ -69,7 +70,7 @@ UserProfilPage = function(userID){
 	* @description inits the model with userData
 	*/ 
 	function initModel(userData){
-		model = new UserProfilPage.Model();
+		model = new UserProfilPage.Model(userID);
 		model.addEventListener("onDataConverted", handleConvertedData)
 		model.init(userData);
 	}
@@ -124,9 +125,15 @@ UserProfilPage = function(userID){
 		that.addEventListener("onDeleteProfile", handleDeleteProfile);	
 	}
 
-	function handleDeleteProfile(){
-		let userID = model.getUserId();
-		dbInterface.delteProfil(userID);
+	/**
+	* @function handleDeleteProfile
+	* @private
+	* @memberof! HorseProfilePage  
+	* @instance
+	* @description deltes user profil from the database
+	*/
+	function handleDeleteProfile(){	
+		dbInterface.deleteUserFromDB();
 	}
 
 	that.initPage = initPage;

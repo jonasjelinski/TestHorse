@@ -90,6 +90,7 @@ Profil = function(pageId, templateId, changeButtonId, okayButtonId, delteButtonI
 	* so the another modul can change this profil
 	*/		
 	function handleChange(){
+		console.log("handleChange");
 		sendEvent("onChangeProfile", attributes);
 	}
 
@@ -118,6 +119,7 @@ Profil = function(pageId, templateId, changeButtonId, okayButtonId, delteButtonI
 	* @description sends event of type "onProfileOkay" and the attributes
 	*/
 	function handleOkay(){
+		console.log("handleOkay");
 		sendEvent("onProfileOkay",attributes);
 	}
 
@@ -151,6 +153,7 @@ Profil = function(pageId, templateId, changeButtonId, okayButtonId, delteButtonI
 	* @description sends event of type "onDeleteProfile"
 	*/
 	function handleYes(){
+		console.log("handleYes");
 		sendEvent("onDeleteProfile");
 	}
 

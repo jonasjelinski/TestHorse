@@ -103,13 +103,13 @@ UserProfilPage.DBRequester = function(userID){
 	* @param {string} userID
 	* @description delte the user with the id "userID" from the database
 	*/
-	function delteUserFromDB(userID) {
+	function deleteUserFromDB() {
 		isDeleting = true;
-		requester.delteUserFromDB(userID);
+		requester.deleteUserFromDB(userID);
 	}	
 
 	that.init = init;
 	that.requestUserDataFromDB = requestUserDataFromDB;
-	that.delteUserFromDB = delteUserFromDB;
+	that.deleteUserFromDB = deleteUserFromDB;
 	return that;
 }

@@ -1,8 +1,8 @@
 var HorseProfileSaver = HorseProfileSaver || {};
 
 /** 
- * namespace HorseProfileSaver
- * @memberof! DBRequester
+ * namespace DBRequester
+ * @memberof! HorseProfileSaver
  * @param {string}, userID id of the user
  * @description <code>HorseProfilePage.DBRequester</code> 
  * is used to save a horse into the database.
@@ -21,23 +21,9 @@ var HorseProfileSaver = HorseProfileSaver || {};
 	* @description Initialize this model
 	*/ 
 	function init(horse) {
-		newHorse = horse;
-		addUserId();
 		initRequester();
 	}
-
-	/**
-	* @function userID
-	* @private
-	* @memberof!  HorseProfileSaver.DBRequester 
-	* @instance
-	* @description adds the userID to the horse, because the database
-	* needs to know the userID for saving the horse
-	*/ 
-	function addUserId(){
-		newHorse.userID = userID;
-	}
-
+	
 	/**
 	* @function initRequester
 	* @private
@@ -74,14 +60,13 @@ var HorseProfileSaver = HorseProfileSaver || {};
 	* another request has to be called to the databse,
 	* therefore this function distincts between this two cases.
 	*/
-	function saveHorseIntoDB(){
+	function saveHorseIntoDB(isNewHorse, newHorse){
 		let hadCorrectParameter = {};
 		if(isNewHorse){
 			hadCorrectParameter = requester.setHorseIntoDB(newHorse);
 		}
 		else{
-			newHorse.horseID = newHorse.id;
-			newHorse.userID = newHorse.user_id;			
+			newHorse.horseID = newHorse.id;		
 			hadCorrectParameter = requester.updateHorse(newHorse);
 		}
 		handleParameterFeedBack(hadCorrectParameter);
@@ -104,34 +89,9 @@ var HorseProfileSaver = HorseProfileSaver || {};
 		}
 	}
 
-	/**
-	* @function setUpdateHorse
-	* @public
-	* @memberof! HorseProfileSaver.DBRequester 
-	* @instance
-	* @description sets <code>isNewHorse</code> false, so this modul
-	* know it has to update an old horse and not save a new horse in the database
-	*/
-	function setUpdateHorse(){
-		isNewHorse = false;
-	}
-
 	
-	/**
-	* @function setNewHorse
-	* @public
-	* @memberof! HorseProfileSaver.DBRequester 
-	* @instance
-	* @description sets <code>isNewHorse</code> true, so this modul
-	* know it has to save a new horse in the database
-	*/
-	function setNewHorse(){
-		isNewHorse = true;
-	}
 
 	that.init = init;
 	that.saveHorseIntoDB = saveHorseIntoDB;
-	that.setUpdateHorse = setUpdateHorse;
-	that.setNewHorse = setNewHorse;
 	return that;
 }

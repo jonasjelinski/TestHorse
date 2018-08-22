@@ -27,8 +27,7 @@ class UserCreatorClass extends Creator{
     this.addValidatorListeners();
     this.addViewListenersForValidation();
   }
-
-
+  
   /**
   * @function addValidatorListeners
   * @private
