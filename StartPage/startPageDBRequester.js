@@ -29,11 +29,11 @@ StartPage.DBRequester = function(userID){
 		that.dispatchEvent(event);
 	}
 
-	function requestDatesFromDB(){
+	function requestAllHorsesFromDB(){
 		requester.getAllHorsesOfUser(userID);
 	}	
 
 	that.init = init;
-	that.requestDatesFromDB = requestDatesFromDB;
+	that.requestAllHorsesFromDB = requestAllHorsesFromDB;
 	return that;
 }
