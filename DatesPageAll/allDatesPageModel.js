@@ -30,8 +30,7 @@ DatesPageAll.DatesPageModel = function(){
 			}
 			else{
 				sendNoDataEvent();
-			}   			
-			
+			}			
 	}
 
 	/**
@@ -108,6 +107,10 @@ DatesPageAll.DatesPageModel = function(){
 	function sendNoDataEvent(){
 		let event = new Event("onNoData");
 		that.dispatchEvent(event);
+	}
+
+	function updateData(newOrder){
+		console.log("newOrder", newOrder);
 	}
 	
 	that.init = init;

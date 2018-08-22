@@ -9,7 +9,7 @@ var ScriptLoader = ScriptLoader || {};
 ScriptLoader = function(){
 	"use strict";
 
-	const LOADING_TIME = 1000;
+	const LOADING_TIME = 4000;
 
 	let that = new EventTarget();
 

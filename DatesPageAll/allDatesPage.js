@@ -21,7 +21,7 @@ DatesPageAll = function(userID){
 	/**
 	* @function init
 	* @public
-	* @memberof! DatesChangerPageRegular
+	* @memberof! DatesPageAll
 	* @instance
 	* @param {string} newHorseID
 	* @description Initialize this modul. starts the database request for the dates.
@@ -37,7 +37,7 @@ DatesPageAll = function(userID){
 	/**
 	* @function initDBInterface
 	* @private
-	* @memberof! DatesChangerPageRegular
+	* @memberof! DatesPageAll
 	* @instance
 	* @param {string} newHorseID
 	* @description Initialize dbInterface
@@ -51,7 +51,7 @@ DatesPageAll = function(userID){
 	/**
 	* @function requestDatesFromDB
 	* @private
-	* @memberof! DatesChangerPageRegular
+	* @memberof! DatesPageAll
 	* @instance
 	* @description starts a database request to get the dates of the horse
 	*/
@@ -62,7 +62,7 @@ DatesPageAll = function(userID){
 	/**
 	* @function handleDBResult
 	* @private
-	* @memberof! DatesChangerPageRegular
+	* @memberof! DatesPageAll
 	* @instance
 	* @param {event} event
 	* @description inits the model with the results of the databse request
@@ -75,7 +75,7 @@ DatesPageAll = function(userID){
 	/**
 	* @function initModel
 	* @private
-	* @memberof! DatesChangerPageRegular
+	* @memberof! DatesPageAll
 	* @instance
 	* @param {string} allDatesAsStrings
 	* @description inits the model with the dates as a string
@@ -89,7 +89,7 @@ DatesPageAll = function(userID){
 	/**
 	* @function handleOnDataConverted
 	* @private
-	* @memberof! DatesChangerPageRegular
+	* @memberof! DatesPageAll
 	* @instance
 	* @param {event} event, contains the dates
 	* @description inits the droplist with the dates of the event
@@ -103,7 +103,7 @@ DatesPageAll = function(userID){
 	/**
 	* @function initDropList
 	* @private
-	* @memberof! DatesChangerPageRegular
+	* @memberof! DatesPageAll
 	* @instance
 	* @param {Object} listElementsData, contains the data in this modul data  are dates of the horse
 	* @description inits the droplist with the data of listElementsData
@@ -117,7 +117,7 @@ DatesPageAll = function(userID){
 	/**
 	* @function addDropListListeners
 	* @private
-	* @memberof! DatesChangerPageRegular
+	* @memberof! DatesPageAll
 	* @instance
 	* @description adds listener to the droplist to receive an event if the
 	* order of the elements in the dropLIst have changed it calls then hadnleNewOrder
@@ -129,7 +129,7 @@ DatesPageAll = function(userID){
 	/**
 	* @function handleNewOrder
 	* @private
-	* @memberof! DatesChangerPageRegular
+	* @memberof! DatesPageAll
 	* @instance
 	* @description updates the model if the order of the dropList has changed
 	*/
@@ -141,7 +141,7 @@ DatesPageAll = function(userID){
 	/**
 	* @function initControlls
 	* @private
-	* @memberof! DatesChangerPageRegular
+	* @memberof! DatesPageAll
 	* @instance
 	* @description inits the viewcontroll modul DatesPageAll.DatesPageControll
 	* which controlls three buttons
@@ -163,7 +163,7 @@ DatesPageAll = function(userID){
 	/**
 	* @function addControllListeners
 	* @private
-	* @memberof! DatesChangerPageRegular
+	* @memberof! DatesPageAll
 	* @instance
 	* @description adds listener to the instance of DatesPageAll.DatesPageControll
 	*/
@@ -176,7 +176,7 @@ DatesPageAll = function(userID){
 	/**
 	* @function handleRegularClick
 	* @private
-	* @memberof! DatesChangerPageRegular
+	* @memberof! DatesPageAll
 	* @instance
 	* @description sends an event of the type "showRegularDates"
 	*/
@@ -204,7 +204,7 @@ DatesPageAll = function(userID){
 	/**
 	* @function handleSingleClick
 	* @private
-	* @memberof! DatesChangerPageRegular
+	* @memberof! DatesPageAll
 	* @instance
 	* @description sends an event of the type "showCreateSingleDate"
 	*/
@@ -215,7 +215,7 @@ DatesPageAll = function(userID){
 	/**
 	* @function handleCancelClick
 	* @private
-	* @memberof! DatesChangerPageRegular
+	* @memberof! DatesPageAll
 	* @instance
 	* @description sends an event of the type "onCancel"
 	*/

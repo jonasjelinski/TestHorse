@@ -54,7 +54,7 @@ DatesPageAll.DBRequester = function(userID, horseID){
 	* @memberof! DatesPageAll
 	* @instance
 	* @param {event} event, contains the result of the db request (all dates of the horse)
-	* @description sends the result of the db request to toher moduls
+	* @description sends the result of the db request to other moduls
 	*/
 	function handleResult(event){		
 		let results = event.details.result;
