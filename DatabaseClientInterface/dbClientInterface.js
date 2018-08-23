@@ -302,7 +302,7 @@ DatabaseClientInterface = function(){
 	*/ 
 	function setHorseIntoDB(newHorse){
 		let standardPhoto = "https://h2795767.stratoserver.net/images/standardPhoto.jpg",
-			necessaryAttributes = ["name", "owner", "race", "dateOfBirth", "photo", "sex", "height", "grower", "userID"];
+			necessaryAttributes = ["name", "owner", "race", "dateOfBirth", "type", "sex", "height", "grower", "userID"];
 		if(allNecessaryDataHaveBeenParsed(necessaryAttributes, newHorse)){
 			newHorse.photo = standardPhoto;
 			requestModul.setDataIntoDB(ACTIONS.SET_HORSE, newHorse);
@@ -444,7 +444,7 @@ DatabaseClientInterface = function(){
 	* oldHorse contains the new values
 	*/
 	function updateHorse(oldHorse){
-		let necessaryAttributes = ["horseID", "name", "owner", "race", "dateOfBirth", "photo", "sex", "height", "grower", "userID"];
+		let necessaryAttributes = ["horseID", "name", "owner", "race", "dateOfBirth", "type", "sex", "height", "grower", "userID"];
 		if(allNecessaryDataHaveBeenParsed(necessaryAttributes, oldHorse)){
 			requestModul.updateDataInDB(ACTIONS.UPDATE_HORSE, oldHorse);
 			return true;

@@ -62,21 +62,22 @@ var HorseProfileSaver = HorseProfileSaver || {};
 	*/
 	function saveHorseIntoDB(isNewHorse, newHorse){
 		let hadCorrectParameter = {};
+		
 		if(isNewHorse){
-			newHorse.ADD_TYPE(newHorse);
+			newHorse = ADD_TYPE(newHorse);
+			console.log("newHorse", newHorse);
 			hadCorrectParameter = requester.setHorseIntoDB(newHorse);
 		}
 		else{
-			newHorse.horseID = newHorse.id;		
+		newHorse.horseID = newHorse.id;					
 			hadCorrectParameter = requester.updateHorse(newHorse);
 		}
 		handleParameterFeedBack(hadCorrectParameter);
 	}
 
 	//Vor abgabe löschen!!!!!!!!!!!!!!!!!!
-	function ADD_TYPE(newHorse){
-		console.log(newHorse);
-		newHorse.type = "";
+	function ADD_TYPE(newHorse){		
+		newHorse.type = "Einhorn";
 		delete newHorse.photo;
 		return newHorse;
 	}
