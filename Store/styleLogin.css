@@ -15,12 +15,12 @@ p{
   padding-top: 2%;
 
 }
-div{
+.loginDIV{
   text-align: center;
 }
 
 input{
-  text-align: center;
+
 }
 
 #userNameInput{
@@ -37,6 +37,7 @@ input{
 }
 
 #loginFailedText{
+
   color: var(--warning);
 }
 

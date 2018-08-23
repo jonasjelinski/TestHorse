@@ -11,11 +11,11 @@ Pages.PageContent = function (){
 						'<div id= "mainpage">' +
 							'<button id= "createNewAccount" type="button">neues Konto erstellen</button> '+
 							'<p id="userNameTag">Email</p>'+
-							'<div><input id= "userNameInput" placeholder="Email eingeben"></input></div> '+
+							'<div class="loginDIV"><input id= "userNameInput" placeholder="Email eingeben"></input></div> '+
 							'<p id="passwordTag">Passwort</p>'+
-							'<div><input id= "passwordInput" placeholder="Passwort eingeben"></input></div> '+
-							'<div id= "loginFailedText">Anmeldung leider fehlgeschlagen. Bitte überprüfe deine Daten und probiere es noch einmal.</div> '+
-							'<div><button id= "loginButton" type="button">OK</button> </div>'+
+							'<div class="loginDIV"><input id= "passwordInput" placeholder="Passwort eingeben"></input></div> '+
+							'<div class="loginDIV" id= "loginFailedText">Anmeldung leider fehlgeschlagen. Bitte überprüfe deine Daten und probiere es noch einmal.</div> '+
+							'<div class="loginDIV"><button id= "loginButton" type="button">OK</button> </div>'+
 							'<div class="checkbox"><label id="stayLoggedInTag"><input id= "stayLoggedInBox" type="checkbox" value = "stayLoggedIn"/><span>dauerhaft angemeldet bleiben?</span></label></div> '+
 							'<p id="userHint">Hast du deine Zugangsdaten vergessen? Bitte kontaktiere unser Team</p>'+
 						'</content>',
