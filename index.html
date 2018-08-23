@@ -2,9 +2,10 @@
 <html lang="de">
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="./testhorse.css">
+    <link rel="stylesheet" href="./store/stylesheet.css">
+    <link rel="stylesheet" href="./store/styleLogin.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Titel</title>
+    <title>Consilium Equorum</title>
   </head>
   <body>
     <div id = "parentPage">
@@ -14,27 +15,27 @@
      <!--   <button id= "testphotobutton"></button>-->
 
     </div>
-    <script src="ScriptLoader/scriptLoader.js"></script> 
-    <script src="ScriptLoader/scripts.js"></script>     
-    <script src="./testPhotoUploader.js"></script>     
+    <script src="ScriptLoader/scriptLoader.js"></script>
+    <script src="ScriptLoader/scripts.js"></script>
+    <script src="./testPhotoUploader.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
-    <script >  
-      
+    <script >
+
      function showPage(){
-      let pages = new Pages();  
+      let pages = new Pages();
           pages.init();
           pages.initAfterLogin();
           pages.showLoginPage();
-      }          
-     
+      }
+
       let scriptLoader = new ScriptLoader();
-      scriptLoader.addEventListener("onLoaded", showPage);             
+      scriptLoader.addEventListener("onLoaded", showPage);
       scriptLoader.loadScripts();
-   </script>   
+   </script>
     <script>
 
-     
+
     </script>
-   
+
   </body>
 </html>
