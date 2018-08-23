@@ -63,6 +63,7 @@ var HorseProfileSaver = HorseProfileSaver || {};
 	function saveHorseIntoDB(isNewHorse, newHorse){
 		let hadCorrectParameter = {};
 		if(isNewHorse){
+			newHorse.ADD_TYPE(newHorse);
 			hadCorrectParameter = requester.setHorseIntoDB(newHorse);
 		}
 		else{
@@ -70,6 +71,14 @@ var HorseProfileSaver = HorseProfileSaver || {};
 			hadCorrectParameter = requester.updateHorse(newHorse);
 		}
 		handleParameterFeedBack(hadCorrectParameter);
+	}
+
+	//Vor abgabe löschen!!!!!!!!!!!!!!!!!!
+	function ADD_TYPE(newHorse){
+		console.log(newHorse);
+		newHorse.type = "";
+		delete newHorse.photo;
+		return newHorse;
 	}
 
 	/**
