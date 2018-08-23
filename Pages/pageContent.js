@@ -71,34 +71,29 @@ Pages.PageContent = function (){
 	START_PAGE =  ' <content>'+
 						'<div id= "mainpage">' +
             '<input id="burger" type="checkbox" />' +
-
-       '<label for="burger">' +
+       			'<label for="burger">' +
             '<span></span>' +
             '<span></span>' +
             '<span></span>' +
-        '</label>' +
-        '<nav>'    +
-          '<ul id = "burgerListStartPage" >' +
-            '<li><a  id="burgerOptionProfile" href="#">Profil</a></li>' +
-            '<li ><a id="burgerOptionHelp" href="#">Help</a></li>' +
-            '<li ><a id= "burgerOptionLogout" href="#">Logout</a></li>' +
-          '</ul>'  +
-        '</nav>'  +
-							'<ul id="horseList" class="frames">'+
-							'</ul>'+
+        		'</label>' +
+        		'<nav>'    +
+          		'<ul id = "burgerListStartPage" >' +
+            		'<li><a  id="burgerOptionProfile" href="#">Profil</a></li>' +
+            		'<li ><a id="burgerOptionHelp" href="#">Hilfe</a></li>' +
+            		'<li ><a id= "burgerOptionLogout" href="#">Logout</a></li>' +
+          		'</ul>'  +
+        		'</nav>'  +
+						'<ul id="horseList" class="frames" >'+
+						'</ul>'+
 						'</div>'+
  					'</content>'+
 
 					'<script type="text/template" id="horseBoxElement">'+
 					'<li draggable="true" class= "horseListElement" horseId = <%= id %> '+
 						' <div class = "horseBox" horseBoxId = <%= id  %>' +
-              '</div>'+
               '<img class= "horsePic" horsePicId = <%=id%> src=<%=photo%>> </img>' +
-              '</div>'+
-              '<div>'+
               '<button class="horseDateButton" type="button">horseDateButton</button> '+
               '<button class="horseProfileButton" type="button">horseProfileButton</button> '+
-              '</div>'+
               '</div>'+
 					'</li>',
 
