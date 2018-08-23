@@ -30,8 +30,6 @@ DatabaseClientInterface = function(){
 		SET_USER : "setUserIntoDB",
 		SET_HORSE : "setHorseIntoDB",
 		SET_DATE : "setDateIntoDB",
-		SET_REMINDER : "setReminderIntoDB",
-		SET_REGULAR_REMINDER : "?????",
 		DELETE_USER : "deleteUserFromDB",
 		DELETE_HORSE : "deleteHorseFromDB",
 		DELETE_DATE : "deleteDateFromDB",
@@ -39,21 +37,11 @@ DatabaseClientInterface = function(){
 		DELETE_REGULAR_REMINDER : "deleteReminderNotificationFromDB",
 		UPDATE_USER : "updateUser",
 		UPDATE_USER_NAME : "updateUserName",
-		UPDATE_USER_EMAIL : "?????",
-		UPDATE_USER_PASSWORD : "updateUserName",
-		UPDATE_USER_BIRTH : "updateUserDateOfBirth",
 		UPDATE_HORSE : "updateHorse",
-		UPDATE_HORSE_NAME : "updateHorseName",
-		UPDATE_HORSE_OWNER : "updateHorseOwner",
-		UPDATE_HORSE_RACE : "updateHorseRace",
-		UPDATE_HORSE_BIRTH : "updateHorseDateOfBirth",
-		UPDATE_HORSE_PHOTO : "updateHorseDateOfBirth",
-		UPDATE_HORSE_SEX : "updateHorseSex",
-		UPDATE_HORSE_HEIGHT : "updateHorseHeight",
-		UPDATE_HORSE_GROWER : "updateHorseGrower",
 		UPDATE_DATE : "updateDate",
 		UPDATE_SINGLE_REMINDER : "updateReminderNotification",
 		UPDATE_REGULAR_REMINDER: "updateReminderRegular",
+		UPLOAD_HORSE_PICTURE: "updateHorsePicture",
 	}
 
 	let that = new EventTarget(),
@@ -530,6 +518,19 @@ DatabaseClientInterface = function(){
 		}	
 	}
 
+	//Upload
+
+	function uploadHorsePicture(file){
+		if(file instanceof FormData && file.get("horseID")!== undefined){
+			requestModul.uploadHorsePicture(file);
+			return true;
+		}
+		else{
+			console.log("uploadHorsePicture failed", file);
+			return false;				
+		}
+	}
+
 	that.init = init;
 	that.tryLogin = tryLogin;
 	that.logoutUser = logoutUser;
@@ -554,5 +555,6 @@ DatabaseClientInterface = function(){
 	that.updateDate = updateDate;
 	that.updateSingleReminder = updateSingleReminder;
 	that.updateRegularReminder = updateRegularReminder;
+	that.uploadHorsePicture = uploadHorsePicture;
 	return that;
 }
