@@ -57,6 +57,7 @@ Pages.PageContent = function (){
   '<div id= "horseProfileName">Name: <%= name %></div> '+
   '<div id= "horseProfileBirth">Geburtsdatum: <%= dateOfBirth %></div> '+
   '<div id= "horseProfileRace">Rasse: <%= race %></div> '+
+	'<div id= "horseProfileComp">Schlachtpferd: <%= comp %></div> '+
   '<div id= "horseProfileOwner">Besitzer: <%= owner %></div> '+
   '<div id= "horseProfileSex">Geschlecht: <%= sex %></div> '+
   '<div id= "horseProfileHeight">Höhe: <%= height %></div> '+

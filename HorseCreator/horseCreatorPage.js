@@ -1,11 +1,11 @@
 var HorseCreatorPage = HorseCreatorPage ||{};
 
-/** 
- * namespace HorseCreatorPage 
+/**
+ * namespace HorseCreatorPage
  * @memberof! HorseCreatorPage
  * @description page with is used to create a horse. Creates and instance
  * of the HorseCreatorPage.StandardPage and returns that instance.
- * Doenst have a dbRequester modul to save the horse because the attributes 
+ * Doenst have a dbRequester modul to save the horse because the attributes
  * of the horse will be send to HorseProfileSaver to save the horse into the database.
  */
 HorseCreatorPage = function(){
@@ -28,12 +28,15 @@ HorseCreatorPage = function(){
 				},
 				sex : {value:undefined,
 					   isNecessary: false,
-				}, 
+				},
 				height: {value:undefined,
 					   isNecessary: false,
-				}, 
+				},
 				grower: {value:undefined,
 					   isNecessary: false,
+				},
+				comp: {value: undefined,
+						isNecessary: false,
 				},
 			};
 
