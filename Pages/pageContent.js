@@ -53,6 +53,7 @@ Pages.PageContent = function (){
 '</script> ',
 
         HORSE_PROFILE_TEMPLATE = '<script type="text/template" id="horseProfileTemplate">'+
+
   '<div id= "horseProfileName">Name: <%= name %></div> '+
   '<div id= "horseProfileBirth">Geburtsdatum: <%= dateOfBirth %></div> '+
   '<div id= "horseProfileRace">Rasse: <%= race %></div> '+
@@ -144,9 +145,23 @@ Pages.PageContent = function (){
 
    HORSE_PROFIL = ' <content>'+
   '<div id= "horseProfile">' +
-    ' <button id= "horseProfileChange" type="button">ProfileChange</button> '+
-    ' <button id= "horseProfileOk" type="button">ProfileOk</button> '+
-    ' <button id= "horseProfileDelete" type="button">ProfileDelete</button> '+
+	'<input id="burger" type="checkbox" />' +
+	'<label for="burger">' +
+	'<span></span>' +
+	'<span></span>' +
+	'<span></span>' +
+	'</label>' +
+	'<nav>'    +
+		'<ul id = "burgerMenuHorseProfile" >' +
+			'<li><a  id="optionHProfileStart" href="#">Start</a></li>' +
+			'<li ><a id="optionHProfileHelp" href="#">Hilfe</a></li>' +
+			'<li ><a id= "optionHProfileUserProfile" href="#">Nutzerprofil</a></li>' +
+			'<li ><a id= "optionHProfileLogout" href="#">Logout</a></li>' +
+		'</ul>'  +
+	'</nav>'  +
+    ' <button id= "horseProfileChange" type="button">ändern</button> '+
+    ' <button id= "horseProfileOk" type="button">OK</button> '+
+    ' <button id= "horseProfileDelete" type="button">löschen</button> '+
     '<div id= "textBox">textBox</div> '+
     POPUP +
   '</div>'+
