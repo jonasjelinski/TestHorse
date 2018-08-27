@@ -33,8 +33,8 @@ RegularDatesPage.Model = function(){
 			let allDates = JSON.parse(allDatesAsStrings),
 			regularDatesAndSuggestions = removeSingleDates(allDates);
 			filterDatesAndSuggestions(regularDatesAndSuggestions);
-			convertData(regularDates);	
-			convertData(dateSuggestions);	
+			convertData(regularDates, REGULAR_POSTION_CODE);	
+			convertData(dateSuggestions, DATE_SUGGESTION_DATE);	
 			sendOnDataConverted();
 		}
 	}
@@ -64,10 +64,10 @@ RegularDatesPage.Model = function(){
 		return date.date === DATE_SUGGESTION_DATE;
 	}		
 
-	function convertData(dates){
+	function convertData(dates, posCode){
 		changePropertyNames(dates);
 		removeNullsAndUndefined(dates);
-		sortDates(dates);
+		sortDates(dates, posCode);
 	}
 
 	function removeSingleDates(allDates){
@@ -120,10 +120,10 @@ RegularDatesPage.Model = function(){
 		}
 	}
 
-	function sortDates(regularDates){
+	function sortDates(regularDates, posCode){
 		regularDates.sort(function(date1,date2){
-			let position1 = getPositionFromPositionCode(date1.orderPosition),
-				position2 = getPositionFromPositionCode(date2.orderPosition);
+			let position1 = getPositionFromPositionCode(date1.orderPosition, posCode),
+				position2 = getPositionFromPositionCode(date2.orderPosition, posCode);
 			if(position1 < position2){
 				return -1;
 			}
@@ -134,16 +134,16 @@ RegularDatesPage.Model = function(){
 		});
 	}
 
-	function getPositionFromPositionCode(positionString){
+	function getPositionFromPositionCode(positionString, posCode){
 		let position,
 			code;
 		if(positionString === ""){
 			position = allDates.length;
 		}
 		else{
-			code = positionString.match(POSTION_CODE+[0-9]),
+			regex = new RegExp(posCode+"\\d*")
+			code = positionString.match(regex),
 			position = code.replace( /^\D+/g, '');
-			console.log("code",code,"position",position);
 		}
 		return position;
 	}
