@@ -14,6 +14,8 @@ ScriptLoader.Scripts = (function(){
 	"./DatabaseClientInterface/simpleRequester.js",	
 	"./libs/underscore/underscore.js",
 	"./libs/underscore/underscore-min.js",
+	"./libs/jquery/ui/jquery-ui.js",
+	"./libs/jquery/ui/jquery-ui.min.js",
 	"./DropdownMenu/dropdownMenu.js",
 	"./DatesSuggestor/datesSuggestor.js",
 	"./DatesSuggestor/datesSuggestorDates.js",
