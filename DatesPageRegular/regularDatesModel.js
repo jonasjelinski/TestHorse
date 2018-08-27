@@ -31,8 +31,8 @@ RegularDatesPage.Model = function(){
 	function init(allDatesAsStrings){
 		if(isParsable(allDatesAsStrings)){
 			let allDates = JSON.parse(allDatesAsStrings),
-			regularDatesAndSuggestions = removeSingleDates(allDates),
-			filterDatesAndSuggestions(regularDatesAndSuggestions),
+			regularDatesAndSuggestions = removeSingleDates(allDates);
+			filterDatesAndSuggestions(regularDatesAndSuggestions);
 			convertData(regularDates);	
 			convertData(dateSuggestions);	
 			sendOnDataConverted();
@@ -81,8 +81,8 @@ RegularDatesPage.Model = function(){
 		return regularDatesAndSuggestions;
 	}
 
-	function isSingleDates(date){
-		if(date.unit_regular= "" || date.unit_regular = "isSingleDate"){
+	function isSingleDate(date){
+		if(date.unit_regular === "" || date.unit_regular === "isSingleDate"){
 				return true;
 		}
 		return false;
@@ -251,8 +251,8 @@ RegularDatesPage.Model = function(){
 
 	function updateSuggestionsOrder(){
 		for(let position = 0; position < dateSuggestions.length; position++){
-			let suggestion =  dateSuggestions[position],
-				updateOrderPosition(DATE_SUGGESTIONS_CODE ,suggestion, position);
+			let suggestion =  dateSuggestions[position];
+			updateOrderPosition(DATE_SUGGESTIONS_CODE ,suggestion, position);
 		}
 	}
 
@@ -260,8 +260,8 @@ RegularDatesPage.Model = function(){
 		let	listPosition = positonCode+position,
 			positionString = date.orderPosition,
 			code = positionString.match(positonCode+[0-9]),
-			position = positionString.replace( code, listPosition);
-			date.orderPosition = listPosition;
+			newPosition = positionString.replace(code, listPosition);
+			date.orderPosition = newPosition;
 	}
 
 	function getRegularDates(){

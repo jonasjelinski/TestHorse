@@ -99,14 +99,15 @@ DatesPageAll.DatesPageModel = function(){
 
 	function getPositionFromPositionCode(positionString){
 		let position,
-			code;
+			code,
+			regex;
 		if(positionString === ""){
 			position = allDates.length;
 		}
 		else{
-			code = positionString.match(POSTION_CODE+[0-9]),
+			regex = new RegExp(POSTION_CODE+"\\d*")
+			code = positionString.match(regex)[0],
 			position = code.replace( /^\D+/g, '');
-			console.log("code",code,"position",position);
 		}
 		return position;
 	}
