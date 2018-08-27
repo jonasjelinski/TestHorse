@@ -174,7 +174,7 @@ LoginPage.DBRequester = function(){
 			isLogginTry = true;
 			email = mail;
 			let logginData = {
-				stayLoggedIn : stayLoggedIn,
+				keepLogged : stayLoggedIn,
 				email: email,
 				password: pw,
 			};

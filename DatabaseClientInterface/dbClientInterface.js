@@ -121,7 +121,7 @@ DatabaseClientInterface = function(){
 	* @description sends the database the email and the password to login the user into his account
 	*/ 	
 	function tryLogin(loginData){
-		let necessaryAttributes = ["email", "password"];
+		let necessaryAttributes = ["email", "password", "keepLogged"];
 		if(allNecessaryDataHaveBeenParsed(necessaryAttributes, loginData)){
 			requestModul.tryLogin(ACTIONS.TRY_LOGIN, loginData);
 			return true;
