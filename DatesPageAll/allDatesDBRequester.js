@@ -10,7 +10,8 @@ var DatesPageAll = DatesPageAll || {};
 
 DatesPageAll.DBRequester = function(userID, horseID){
 	
-	let that = new EventTarget();
+	let that = new EventTarget(),
+		isUpdating;
 
 	/**
 	* @function init
@@ -22,6 +23,7 @@ DatesPageAll.DBRequester = function(userID, horseID){
 	function init() {
 		initRequester();
 		addEventListeners();
+		isUpdating = false;
 	}
 
 	/**
@@ -58,7 +60,13 @@ DatesPageAll.DBRequester = function(userID, horseID){
 	*/
 	function handleResult(event){		
 		let results = event.details.result;
-		sendEvent("onResult", results);
+		if(!isUpdating){
+			sendEvent("onResult", results);
+		}
+		else{
+			console.log("handleResult", results, isUpdating);
+		}
+		
 	}
 
 	/**
@@ -85,10 +93,20 @@ DatesPageAll.DBRequester = function(userID, horseID){
 	* @description request all dates of the horse with the id horseID from the database
 	*/
 	function requestDatesFromDB(){
-		requester.getAllDatesOfHorse(horseID);
-	}	
+		requester.getAllDatesOfHorse(38);
+	}
+
+	function updateAllDates(allDates){
+		isUpdating = true;
+		for(let i = 0; i < allDates.length; i++){
+			let date = allDates[i];
+			date.dateID = date.id;
+			requester.updateDate(date);
+		}			
+	}		
 
 	that.init = init;
 	that.requestDatesFromDB = requestDatesFromDB;
+	that.updateAllDates = updateAllDates;
 	return that;
 }

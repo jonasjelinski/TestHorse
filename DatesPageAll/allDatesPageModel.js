@@ -9,6 +9,8 @@ var DatesPageAll = DatesPageAll || {};
  */
 
 DatesPageAll.DatesPageModel = function(){
+	const POSTION_CODE = "AD";
+
 	let that = new EventTarget(),
 		dbRequester,		
 		allDates,
@@ -23,14 +25,90 @@ DatesPageAll.DatesPageModel = function(){
 	* @description Initialize this model. Transform allDatesAsStrings to an array
 	* and tells the other moduls trough an event that allDatesAsStrings has been converted
 	*/ 	
-		function init(allDatesAsStrings){
-			if(!isObjectEmpty(allDatesAsStrings)){
+	function init(allDatesAsStrings){
+			if(isParsable(allDatesAsStrings)){
 				allDates = JSON.parse(allDatesAsStrings);
+				convertData(allDates);
 				sendOnDataConverted();   			
 			}
 			else{
+				console.log("allDatesAsStrings", allDatesAsStrings);
 				sendNoDataEvent();
 			}			
+	}
+
+	function isParsable(string) {
+		try {
+			JSON.parse(string);
+		} catch (e) {
+			return false;
+		}
+		return true;
+	}		
+
+	function convertData(allDates){
+		changePropertyNames(allDates);
+		removeNullsAndUndefined(allDates);
+		sortDates(allDates);
+	}
+
+	function changePropertyNames(allDates){
+		for(let i = 0; i < allDates.length; i++){
+			let date = allDates[i];
+			date.horseID = date.horse_id;
+			date.dateFuture = date.date_future_date;
+			date.timeFuture = date.time_future_date;
+			date.valueRegular = date.value_regular;
+			date.unitRegular = date.unit_regular;
+			delete date.date_future_date;
+			delete date.time_future_date;
+			delete date.value_regular;
+			delete date.unit_regular;
+		}
+	}
+
+	function removeNullsAndUndefined(allDates){
+		for(let i = 0; i < allDates.length; i++){
+			let date = allDates[i],
+				attributes = Object.keys(date);
+
+			attributes.forEach(function(attribute){
+				let  value = date[attribute];
+				if(value === undefined || value === null){
+					value = "";
+				}
+				date[attribute] = value;
+			})
+		}
+	}
+
+	function sortDates(allDates){
+		allDates.sort(function(date1,date2){
+			let position1 = getPositionFromPositionCode(date1.order_position),
+				position2 = getPositionFromPositionCode(date2.order_position);
+				console.log("position1",position1,"position2",position2);
+			if(position1 < position2){
+				return -1;
+			}
+			if(position1 > position2){
+				return 1;
+			}
+			return 0;
+		});
+	}
+
+	function getPositionFromPositionCode(positionString){
+		let position,
+			code;
+		if(positionString === ""){
+			position = allDates.length;
+		}
+		else{
+			code = positionString.match(POSTION_CODE+[0-9]),
+			position = code.replace( /^\D+/g, '');
+			console.log("code",code,"position",position);
+		}
+		return position;
 	}
 
 	/**
@@ -109,13 +187,23 @@ DatesPageAll.DatesPageModel = function(){
 		that.dispatchEvent(event);
 	}
 
-	function updateData(newOrder){
-		console.log("newOrder", newOrder);
+	function updateDates(newDates){
+		allDates = newDates;
+		updateOrder();
+	}
+
+	function updateOrder(){
+		for(let position = 0; position < allDates.length; position++){
+			let date = allDates[position],
+				listPosition = POSTION_CODE+position;
+			date.orderPosition = listPosition;
+		}
 	}
 	
 	that.init = init;
 	that.setDelteId = setDelteId;
 	that.getDeleteId = getDeleteId;
 	that.getDatesData = getDatesData;
+	that.updateDates = updateDates;
 	return that;
 }

@@ -10,16 +10,18 @@ var RegularDatesPage = RegularDatesPage || {};
 
 RegularDatesPage = function(userID){
 	let that = new EventTarget(),
-		dropList,
+		regularDatesList,
+		dateSuggestionsList,
 		dbInterface,
 		model,
 		controlls,
-		ulDomElementId = "allRegularDates",
-		elementTemplateString,
-		elementTagId = "regularDateId",
+		datesListId = "allRegularDates",
+		regularDateTemplateString,
+		regularTagId = "regularDateId",
 		deleteButtonClass = "regularDateDelete",
 		changeButtonClass = "regularDateChange",
 		backbuttonId= "backToDates",
+		innerListCommunication,
 		popup,
 		changeId,
 		horseID;
@@ -49,7 +51,7 @@ RegularDatesPage = function(userID){
 	*/
 	function setHorseIDAndTemplateString(newHorseID){
 		horseID = newHorseID || 38;
-		elementTemplateString = document.getElementById("ul-element").innerHTML;
+		regularDateTemplateString = document.getElementById("ul-element").innerHTML;
 	}
 
 	/**
@@ -111,39 +113,53 @@ RegularDatesPage = function(userID){
 	* @memberof! DatesPageAll
 	* @instance
 	* @param {event} event, contains the dates
-	* @description inits the droplist with the dates of the event
+	* @description inits the regularDatesList with the dates of the event
 	* the dates are now objects and not a string because the model converted them
 	*/
 	function handleOnDataConverted(event){
-		let convertedDates = event.details.allDates;
-		initDropList(convertedDates);
-	}
-
-	/**
-	* @function initDropList
-	* @private
-	* @memberof! RegularDatesPage
-	* @instance
-	* @param {Object} listElementsData, contains the data in this modul data  are dates of the horse
-	* @description inits the droplist with the data of listElementsData
-	*/
-	function initDropList(listElementsData){
-		dropList = DropList(ulDomElementId, listElementsData, elementTemplateString, elementTagId);
-		dropList.init();
-		addDropListListeners();
+		let regularDates = event.details.regularDates,
+			dateSuggestions = event.details.dateSuggestions;
+		initRegularDatesList(regularDates);
+		initDatesSuggestionList(dateSuggestions);
+		initInterListCommunication();
+		addRegularDatesListListeners();
 		initControlls();	
 	}
 
 	/**
-	* @function addDropListListeners
+	* @function initRegularDatesList
 	* @private
 	* @memberof! RegularDatesPage
 	* @instance
-	* @description adds listener to the droplist to receive an event if the
-	* order of the elements in the dropList have changed it calls then hadnleNewOrder
+	* @param {Object} listElementsData, contains the data in this modul data  are dates of the horse
+	* @description inits the regularDatesList with the data of listElementsData
 	*/
-	function addDropListListeners(){
-		dropList.addEventListener("onNewOrder", handleNewOrder);
+	function initRegularDatesList(listElementsData){
+		regularDatesList = new DropList(datesListId, listElementsData, regularDateTemplateString, regularTagId);
+		regularDatesList.init();
+		
+	}
+
+	function initDatesSuggestionList(listElementsData){
+		dateSuggestionsList = new DropList(suggestionsListId, listElementsData, suggestionsTemplateString, suggestionsTagId);
+		dateSuggestionsList.init();
+	}
+
+	function initInterListCommunication(){
+		innerListCommunication = SortableLists(dateSuggestionsListId, suggestionsListId);
+		innerListCommunication.init();
+	}
+
+	/**
+	* @function addregularDatesListListeners
+	* @private
+	* @memberof! RegularDatesPage
+	* @instance
+	* @description adds listener to the regularDatesList to receive an event if the
+	* order of the elements in the regularDatesList have changed it calls then hadnleNewOrder
+	*/
+	function addRegularDatesListListeners(){
+		regularDatesList.addEventListener("onNewOrder", handleNewOrder);
 	}
 
 	/**
@@ -151,11 +167,11 @@ RegularDatesPage = function(userID){
 	* @private
 	* @memberof! RegularDatesPage
 	* @instance
-	* @description updates the model if the order of the dropList has changed
+	* @description updates the model if the order of the regularDatesList has changed
 	*/
 	function handleNewOrder(){
-		let newData = dropList.getElements();
-		model.updateData(newData);
+		let newData = regularDatesList.getElements();
+		model.updateRegularDates(newData);
 	}
 
 	/**
@@ -250,6 +266,7 @@ RegularDatesPage = function(userID){
 	* @description Sends an event "showAllDates" that he user wants to see all dates
 	*/ 
 	function handleBackClick(){
+		updateDatesAndSuggestions();
 		sendEvent("showAllDates");
 	}
 
@@ -276,6 +293,16 @@ RegularDatesPage = function(userID){
 	function handleYes(){
 		let id = model.getDeleteId();
 		dbInterface.deleteDate(id);
+	}
+
+	function updateDatesAndSuggestions(){
+		let regularDates = regularDatesList.getElements(),
+			suggestions = dateSuggestionsList.getElements(),
+			allDates;
+		model.updateDateSuggestions(suggestions);
+		model.updateRegularDates(regularDates);
+		allDates = model.getAllDates();
+		dbInterface.updateAllDates(allDates);
 	}	
 
 	that.init = init;
