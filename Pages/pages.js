@@ -29,7 +29,7 @@ Pages = function(){
 		userProfilPage,
 		userProfileSaver,
 		userProfileChanger,
-		isUserLoggedIn = false,
+		isUserLoggedIn = true,
 		userID = 141;
 
 	/**

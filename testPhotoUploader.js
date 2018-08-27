@@ -20,7 +20,7 @@ TestPhotoUploader =function(inputId, buttonId){
 		let photo = inputForm.files[0];
 			formData = new FormData();
 		formData.append("file", photo);
-		console.log("photo", formData);
+		console.log("photo", formData, typeof formData);
 	}
 
 	function sendPhoto(){

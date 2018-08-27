@@ -24,6 +24,7 @@ StartPage.Model = function(){
 	function init(horses){
 		if(isParsable(horses)){
 			allHorses = JSON.parse(horses);
+			console.log("allHorses", allHorses);
 			changePropertyNames(allHorses);
 			sendOnDataConverted();
 		}
