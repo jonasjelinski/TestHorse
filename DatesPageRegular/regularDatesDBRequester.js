@@ -90,7 +90,7 @@ RegularDatesPage.DBRequester = function(userID, horseID){
 	* @description request all dates of the horse with the id horseID from the database
 	* and sets isDeleting false
 	*/
-	function deleteDate(){
+	function requestDatesFromDB(){
 		isDeletingDate = false;
 		requester.getAllDatesOfHorse(horseID);
 	}
