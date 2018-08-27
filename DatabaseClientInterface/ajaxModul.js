@@ -24,10 +24,35 @@ DatabaseClientInterface.AJAXModul = function () {
 	*/ 	
 	function doAjaxRequest(url, type , data){
 		console.log("url, type, data", url, type, data);
-	$.ajax({
+		$.ajax({
 	    	type: type,
 	    	url: url,
 	   		data: data,
+		   	success: function(requestResult){
+		        sendDBAnswer(requestResult);
+		    }	   	
+	   	});
+	}
+
+	/**
+	* @function doAjaxRequest
+	* @public
+	* @memberof! DatabaseClientInterface  
+	* @instance
+	* @param {array} url, url of the request
+	* @param {object} type, type of the request e.g. POST
+	* @param {object} data, data to send to the database
+	* @description makes the ajax request
+	*/ 	
+	function doAjaxUpload(url, type , data){
+		console.log("url, type, data", url, type, data);
+		$.ajax({
+	    	type: type,
+	    	url: url,
+	   		data: data,
+	   		contentType: false,
+    		cache: false,
+    		processData: false,
 		   	success: function(requestResult){
 		        sendDBAnswer(requestResult);
 		    }	   	
@@ -50,6 +75,7 @@ DatabaseClientInterface.AJAXModul = function () {
 	}
 
 	that.doAjaxRequest = doAjaxRequest;
+	that.doAjaxUpload = doAjaxUpload;
 	return that;
 }
 
