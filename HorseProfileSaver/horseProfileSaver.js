@@ -35,7 +35,7 @@ HorseProfileSaver = function(userID){
 	*/ 
 	function init(newAttributes){	
 		attributes = newAttributes;
-		initPofil();
+		initProfil();
 		initDBRequester();
 		addListeners();
 		initModel();			
@@ -48,7 +48,7 @@ HorseProfileSaver = function(userID){
 	* @instance
 	* @description Initialize <code>profil</code> an instance of Profil
 	*/ 
-	function initPofil(){
+	function initProfil(){
 		profil = new Profil(PAGE_ID, TEMPLATE_ID, CHANGE_BUTTON_ID, OKAY_BUTTON_ID, DELETE_BUTTON_ID);
 		profil.init(attributes);		
 	}

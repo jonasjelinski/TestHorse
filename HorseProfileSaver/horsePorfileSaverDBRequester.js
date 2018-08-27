@@ -69,7 +69,7 @@ var HorseProfileSaver = HorseProfileSaver || {};
 			hadCorrectParameter = requester.setHorseIntoDB(newHorse);
 		}
 		else{
-		newHorse.horseID = newHorse.id;					
+			newHorse.horseID = newHorse.id;					
 			hadCorrectParameter = requester.updateHorse(newHorse);
 		}
 		handleParameterFeedBack(hadCorrectParameter);

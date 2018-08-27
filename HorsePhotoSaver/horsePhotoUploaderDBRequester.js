@@ -1,12 +1,12 @@
-var PhotoUploader = PhotoUploader || {};
+var HorsePhotoUploader = HorsePhotoUploader || {};
 
 
-PhotoUploader.DBRequester = function(horseID){
+HorsePhotoUploader.DBRequester = function(horseID){
 	"user strict";
 
 	const VALID_FILE_TYPES = ["gif","png","jpg","jpeg"],
 		MAX_FILE_SIZE = 2000000,
-		WRONG_TYPE_FEEDBACK = "Nur Fotos vom Tyo gif, png, jpg, jpeg erlaubt",
+		WRONG_TYPE_FEEDBACK = "Nur Fotos vom Typ gif, png, jpg, jpeg erlaubt",
 		TOO_BIG_FEEDBACK = "Foto ist zu groß";
 		
 
