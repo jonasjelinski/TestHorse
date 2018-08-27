@@ -8,7 +8,7 @@ var HorseProfileSaver = HorseProfileSaver || {};
  * is used to save a horse into the database.
  */
  HorseProfileSaver.DBRequester = function(userID){
-	let that = {},
+	let that = new EventTarget(),
 		isNewHorse,
 		newHorse;
 
@@ -20,7 +20,7 @@ var HorseProfileSaver = HorseProfileSaver || {};
 	* @param {object}, horse, horse which will be saved into the database
 	* @description Initialize this model
 	*/ 
-	function init(horse) {
+	function init() {
 		initRequester();
 	}
 	
@@ -46,8 +46,27 @@ var HorseProfileSaver = HorseProfileSaver || {};
 	* @description handles the result of the db request
 	*/
 	function handleResult(event){
-		let result = event.details.result;
-		console.log("horse saver result", result);
+		let result = event.details.result,
+			horseID;			
+		if(isNewHorse){
+			horseID = result;
+			sendOnNewHorseCreated(horseID);						
+		}
+		else{
+			sendOnHorseUpdated();
+		}		
+	}
+
+	function sendOnNewHorseCreated(horseID){
+		let event = new Event("onNewHorseCreated");
+		event.details = {};
+		event.details.horseID = horseID;
+		that.dispatchEvent(event);
+	}
+
+	function sendOnHorseUpdated(){
+		let event = new Event("onNewHorseUpdated");
+		that.dispatchEvent(event);
 	}
 
 	/**
@@ -60,12 +79,12 @@ var HorseProfileSaver = HorseProfileSaver || {};
 	* another request has to be called to the databse,
 	* therefore this function distincts between this two cases.
 	*/
-	function saveHorseIntoDB(isNewHorse, newHorse){
+	function saveHorseIntoDB(isNew, newHorse){
 		let hadCorrectParameter = {};
+			isNewHorse = isNew;
 		
 		if(isNewHorse){
 			newHorse = ADD_TYPE(newHorse);
-			console.log("newHorse", newHorse);
 			hadCorrectParameter = requester.setHorseIntoDB(newHorse);
 		}
 		else{

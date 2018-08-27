@@ -10,8 +10,9 @@ var HorseProfileSaver = HorseProfileSaver || {};
  */
 
 HorseProfileSaver.Model = function(userID){
-	let that = {},
+	let that = new EventTarget(),
 		newHorse,
+		photo,
 		isNewHorse;
 
 	/**
@@ -86,12 +87,38 @@ HorseProfileSaver.Model = function(userID){
 	*/
 	function getIsNewHorse(){
 		return isNewHorse;
+	}
+
+	function handleHorseCreated(horseID){
+		console.log("handleHorseCreated", horseID, isNewHorse);
+		if(isNewHorse){
+			
+			newHorse.id = horseID;
+			sendUploadPhotoEvent();
+		}		
+	}
+
+	function handleHorseUpdated(){
+		sendUploadPhotoEvent();
+	}
+
+	function sendUploadPhotoEvent(){
+		console.log("sendUploadPhotoEvent", photo);
+		if(photo){
+			let event = new Event("onUploadPhotos");
+			event.details = {};
+			event.details.photo = photo;
+			event.details.horseID = newHorse.id;
+			that.dispatchEvent(event);
+		}
 	}	
 
 	that.init = init;
 	that.setUpdateHorse = setUpdateHorse;
 	that.setNewHorse = setNewHorse;
 	that.getHorseData = getHorseData;
-	that.getIsNewHorse = getIsNewHorse;	
+	that.getIsNewHorse = getIsNewHorse;
+	that.handleHorseCreated = handleHorseCreated;	
+	that.handleHorseUpdated = handleHorseUpdated;	
 	return that;
 }

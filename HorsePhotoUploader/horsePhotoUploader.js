@@ -1,7 +1,7 @@
 var HorsePhotoUploader = HorsePhotoUploader || {};
 
 
-HorsePhotoUploader.DBRequester = function(horseID){
+HorsePhotoUploader = function(){
 	"user strict";
 
 	const VALID_FILE_TYPES = ["gif","png","jpg","jpeg"],

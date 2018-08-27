@@ -48,6 +48,8 @@ ScriptLoader.Scripts = (function(){
 	"./DropList/listElement.js",
 	"./DropList/listModel.js",
 	"./DropList/listView.js",
+	"./Dropbox/dropbox.js",
+	"./HorsePhotoUploader/horsePhotoUploader.js",
 	"./PhotoUploader/photoUploader.js",
 	"./PhotoUploader/photoUploaderDBRequester.js",
 	"./PhotoUploader/photoUploaderView.js",
