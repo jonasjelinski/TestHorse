@@ -21,9 +21,6 @@ HorseCreator.HorseCreatorModel = function(newAttributes){
 				birth : {value:undefined,
 					   isNecessary: false,
 				},
-				photo: {value:undefined,
-					   isNecessary: false,
-				},
 				sex : {value:undefined,
 					   isNecessary: false,
 				},
@@ -33,7 +30,7 @@ HorseCreator.HorseCreatorModel = function(newAttributes){
 				raiser: {value:undefined,
 					   isNecessary: false,
 				},
-				comp: {value: undefined,
+				type: {value: undefined,
 						isNecessary: false,
 				},
 			};

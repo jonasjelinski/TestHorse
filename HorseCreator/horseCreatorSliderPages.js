@@ -27,14 +27,14 @@ HorseCreator.SliderPages = function() {
 				'<input type="date" id="horseInteractionInput"></input>'+
 				'<div id=horseInteractionFeedback></div>'+
 				'<div id= "horseInteractionValueBox" property="dateOfBirth" value="" opacity = 0 ></div>',
-			PHOTO =
-				'<div>Photo des Pferdes:</div>'+
-				'<input type="file" id="horseInteractionInput"></input>'+
-				'<div id=horseInteractionFeedback></div>'+
-				'<div id= "horseInteractionValueBox" property="photo" value="" opacity = 0 ></div>',
 			SEX =
 				'<div>Geschlecht des Pferdes:</div>'+
-				'<input id="horseInteractionInput"></input>'+
+				'<select id="horseInteractionDropdown">'+
+				'<option value="horseInteractionPlaceholder"> </option>'+
+				'<option value="horseInteractionStallion">Hengst</option>'+
+				'<option value="horseInteractionGelding">Wallach</option>'+
+				'<option value="horseInteractionMare">Stute</option>'+
+  			'</select>'+
 				'<div id=horseInteractionFeedback></div>'+
 				'<div id= "horseInteractionValueBox" property="sex" value="" opacity = 0 ></div>',
 			HEIGHT =
@@ -47,12 +47,17 @@ HorseCreator.SliderPages = function() {
 				'<input id="horseInteractionInput"></input>'+
 				'<div id=horseInteractionFeedback></div>'+
 				'<div id= "horseInteractionValueBox" property="grower" value="" opacity = 0 ></div>',
-				COMP =
-				'<div>Schlachtpferde:</div>'+
-				'<input id="horseInteractionInput"></input>'+
+			TYPE =
+				'<div>Status des Pferdes?</div>'+
+				'<select id="horseInteractionDropdown">'+
+				'<option value="horseInteractionPlaceholder"> </option>'+
+				'<option value="horseInteractionComeptition">Turnierpferd</option>'+
+				'<option value="horseInteractionSlaugther">Schlachtpferd</option>'+
+				'<option value="horseInteractionNone">weder noch</option>'+
+  			'</select>'+
 				'<div id=horseInteractionFeedback></div>'+
-				'<div id= "horseInteractionValueBox" property="comp" value="" opacity = 0 ></div>';
+				'<div id= "horseInteractionValueBox" property="type" value="" opacity = 0 ></div>';
 
-	let pages = [NAME, OWNER, RACE, DATE_OF_BIRTH, PHOTO, SEX, HEIGHT, GROWER, COMP];
+	let pages = [NAME, OWNER, RACE, DATE_OF_BIRTH, SEX, HEIGHT, GROWER, TYPE];
 	return pages;
 };

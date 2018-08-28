@@ -46,10 +46,9 @@ Pages.PageContent = function (){
 
         USER_PROFILE_TEMPLATE = '<script type="text/template" id="userProfileTemplate">'+
   '<div id= "userProfileName">Name <%= name %></div> '+
-  '<div id= "userProfileMail">Geburtsdatum <%= dateOfBirth %></div> '+
+  '<div id= "userProfileBirth">Geburtsdatum <%= dateOfBirth %></div> '+
   '<div id= "userProfileMail">Email <%= email %></div> '+
   '<div id= "userProfilePassword">Password <%= password %></div> '+
-'</script> '
 '</script> ',
 
         HORSE_PROFILE_TEMPLATE = '<script type="text/template" id="horseProfileTemplate">'+
@@ -57,7 +56,7 @@ Pages.PageContent = function (){
   '<div id= "horseProfileName">Name: <%= name %></div> '+
   '<div id= "horseProfileBirth">Geburtsdatum: <%= dateOfBirth %></div> '+
   '<div id= "horseProfileRace">Rasse: <%= race %></div> '+
-	'<div id= "horseProfileComp">Schlachtpferd: <%= comp %></div> '+
+	'<div id= "horseProfileType">Schlachtpferd: <%= type %></div> '+
   '<div id= "horseProfileOwner">Besitzer: <%= owner %></div> '+
   '<div id= "horseProfileSex">Geschlecht: <%= sex %></div> '+
   '<div id= "horseProfileHeight">Höhe: <%= height %></div> '+
@@ -93,7 +92,8 @@ Pages.PageContent = function (){
 					'<script type="text/template" id="horseBoxElement">'+
 					'<li draggable="true" class= "horseListElement" horseId = <%= id %> '+
 						' <div class = "horseBox" horseBoxId = <%= id  %>' +
-              '<img class= "horsePic" horsePicId = <%=id%> src=<%=photo%>> </img>' +
+              '<img class= "horsePic" horsePicId = <%=id%> src=<%=photo%> </img>' +
+							'<div class="horseName"> <%=name%></div>'+
               '<button class="horseDateButton" type="button">horseDateButton</button> '+
               '<button class="horseProfileButton" type="button">horseProfileButton</button> '+
               '</div>'+
@@ -101,9 +101,24 @@ Pages.PageContent = function (){
 
   USER_PAGE = ' <content>'+
   '<div id= "mainpage">' +
-    ' <button id= "userProfileChange" type="button">userProfileChange</button> '+
-    ' <button id= "userProfileOk" type="button">userProfileOk</button> '+
-    ' <button id= "userProfileDelete" type="button">userProfileDelete</button> '+
+
+	'<input id="burger" type="checkbox" />' +
+	'<label for="burger">' +
+	'<span></span>' +
+	'<span></span>' +
+	'<span></span>' +
+	'</label>' +
+	'<nav>'    +
+		'<ul id = "burgerListUserPage" >' +
+			'<li><a  id="burgerOptionUserProfile" href="#">Profil</a></li>' +
+			'<li ><a id="burgerOptionUserHelp" href="#">Hilfe</a></li>' +
+			'<li ><a id= "burgerOptionUserLogout" href="#">Logout</a></li>' +
+		'</ul>'  +
+	'</nav>'  +
+
+    ' <button id= "userProfileChange" type="button">Ändern</button> '+
+    ' <button id= "userProfileOk" type="button">Ok</button> '+
+    ' <button id= "userProfileDelete" type="button">löschen</button> '+
     '<div id= "textBox">textBox</div> '+
   '</div>'+
    POPUP+
@@ -113,10 +128,24 @@ Pages.PageContent = function (){
 
   DATES_PAGE =' <content>'+
  '<div id = "allDates" >' +
-  	'<ul id="allDates">'+
+ '<input id="burger" type="checkbox" />' +
+ '<label for="burger">' +
+ '<span></span>' +
+ '<span></span>' +
+ '<span></span>' +
+ '</label>' +
+ '<nav>'    +
+	 '<ul id = "burgerListAllDates" >' +
+		 '<li><a  id="burgerOptionAllDatesProfile" href="#">Profil</a></li>' +
+		 '<li ><a id="burgerOptionAllDatesHelp" href="#">Hilfe</a></li>' +
+		  '<li ><a id="burgerOptionAllDatesStart" href="#">Startseite</a></li>' +
+		 '<li ><a id= "burgerOptionAllDatesLogout" href="#">Logout</a></li>' +
+	 '</ul>'  +
+ '</nav>'  +
+  	'<ul id="allDatesList">'+
   	'</ul>'+
-  	' <button id= "manageRegularDates" type="button">manageRegularDates</button> '+
-	' <button id= "manageSingleDates" type="button">manageSingleDates</button> '+
+  	' <button id= "manageRegularDates" type="button">reguläre Termine verwalten</button> '+
+	' <button id= "manageSingleDates" type="button">neuen Einzeltermin hinzufügen</button> '+
   '<button id= "cancelDatesPage" type="button">Zum Hauptmenu</button> '+
 
   '</div>'+
@@ -129,20 +158,49 @@ Pages.PageContent = function (){
   '</li>',
 
   REGULAR_DATES_PAGE = 	  	'<content>'+
+	'<input id="burger" type="checkbox" />' +
+  '<label for="burger">' +
+  '<span></span>' +
+  '<span></span>' +
+  '<span></span>' +
+  '</label>' +
+  '<nav>'    +
+ 	 '<ul id = "burgerListRegularDates" >' +
+ 		 '<li><a  id="burgerOptionRegularDatesProfile" href="#">Profil</a></li>' +
+ 		 '<li ><a id="burgerOptionRegularDatesHelp" href="#">Hilfe</a></li>' +
+ 		  '<li ><a id="burgerOptionRegularDatesStart" href="#">Startseite</a></li>' +
+ 		 '<li ><a id= "burgerOptionRegularDatesLogout" href="#">Logout</a></li>' +
+ 	 '</ul>'  +
+  '</nav>'  +
 
     '<ul id="allRegularDates">'+
   	'</ul>'+
+		'<ul id="regularDatesRecommendation">'+
+		'</ul>'+
     POPUP +
- ' <button id= "backToDates" type="button">backToDates</button> '+
+ '<button id= "backToDates" type="button">zurück zur Terminübersicht</button> '+
+ '<button id= "createNewDate" type="button">neuen Termin erstellen</button> '+
+ '<button id= "createNewRecommendation" type="button">neuen Terminvorschlag erstelen</button> '+
   '</div>'+
  '</content>'+
 
   '<script type="text/template" id="ul-element">'+
-  '<li draggable="true" regularDateId = <%= id %>>'+
-    ' <button class= "regularDateDelete" type="button">Delete</button> '+
-	' <button class= "regularDateChange" type="button">Change</button> '+
-    '<p ><%= title %></p>'+
+  '<li draggable="true" regularDateId = <%= id %>'+
+    ' <button class= "regularDateDelete" type="button">löschen</button> '+
+	' <button class= "regularDateChange" type="button">ändern</button> '+
+    '<p class="regularDateTitle"><%= title %></p>'+
+		'<p class="regularDateDay"><%= day %></p>'+
+		'<p class="regularDateTime"><%= time %></p>'+
+  '</li>' +
+	TEMPLATE_DATE_RECOMMENDATION,
+
+	TEMPLATE_DATE_RECOMMENDATION =
+	'<script type="text/template" id="ul-element">'+
+  '<li draggable="true" dateRecommendationId = <%= id %>'+
+	' <button class= "dateRecommendationDelete" type="button">löschen</button> '+
+' <button class= "dateRecommandationChange" type="button">ändern</button> '+
   '</li>',
+
 
    HORSE_PROFIL = ' <content>'+
   '<div id= "horseProfile">' +
@@ -160,6 +218,9 @@ Pages.PageContent = function (){
 			'<li ><a id= "optionHProfileLogout" href="#">Logout</a></li>' +
 		'</ul>'  +
 	'</nav>'  +
+	'<div id="horseProfileImgContainer">'+
+	'<img id="horseProfileImg" src="" alt="Profil Bild Pferd">'+
+	'</div>'
     ' <button id= "horseProfileChange" type="button">ändern</button> '+
     ' <button id= "horseProfileOk" type="button">OK</button> '+
     ' <button id= "horseProfileDelete" type="button">löschen</button> '+
@@ -184,6 +245,9 @@ Pages.PageContent = function (){
     ' <button id= "horseSaverDelete" type="button">Verwerfen</button> '+
     '<div id= "textBox">textBox</div> '+
     POPUP +
+		'<div id="horseProfileSaverImgContainer">'+
+		'<img id="horseProfileSaverImg" src="" alt="Profil Bild Pferd">'+
+		'</div>'+
   '</div>'+
   '</content>'+
     HORSE_PROFILE_TEMPLATE ,
@@ -194,6 +258,7 @@ Pages.PageContent = function (){
     ' <button id= "userInteractionForward" type="button">Forward</button>' +
     ' <button id= "userInteractionBack" type="button">Backwards</button> '+
     '<div id= "userInteractionProgress"></div> '+
+
     ' <content>' +
     USER_PROFILE_TEMPLATE,
 
@@ -209,7 +274,12 @@ Pages.PageContent = function (){
     USER_PROFILE_TEMPLATE ,
 
     CREATE_SINGLE_DATE =   '<content>'+
-  '<div id= "dateCreater">' +
+  '<div class="createSingleDate" id= "dateCreater">' +
+
+	'<div id="createDatePopup">' +
+						 '<p id="createDatePopupText">Bitte erst alle Felder ausfüllen, bevor der Dialog verlassen werden kann!</p>'+
+						 '<button id="createDatePopupClose" type="button">schließen</button> '+
+				 '</div>'+
    '<div id= "dateTitleInputHeader">Title</div>' +
    '<input id= "dateTitleInput">Title</input> '+
    '<div id= "dateDateInputHeader">Datum</div>' +
@@ -219,7 +289,7 @@ Pages.PageContent = function (){
    '<div id= "dateLocationInputHeader">Ort</div>' +
    '<input id= "dateLocationInput">Ort</input> '+
    ' <input type="checkbox" id="dateCreaterCheckbox">'+
-    '<label>Erinnerung erstellen</label>'+
+    '<labelid="singeDateCheckboxLabel">Erinnerung erstellen</label>'+
     '<p>'+
     ' <button id= "dateCreaterReminderButton" type="button">Erinnerung</button> '+
     ' <button id= "dateCreaterDateButton" type="button">Termin</button> '+
@@ -232,14 +302,26 @@ Pages.PageContent = function (){
   '</div>'+
   '</content>',
 
-  DROPDOWN_MENU_REGULAR_DATES = '<select>'+
-                                    '<option value="Tag">Tag</option>'+
-                                    '<option value="Woche">Woche</option>'+
-                                    '<option value="Monat">Monat</option>'+
-                                    '<option value="Jahr">Jahr</option>'+
+  DROPDOWN_MENU_REGULAR_DATES = '<select class="createRegularDate">'+
+                                    '<option id="regularDatesDay" value="Tag">Tag</option>'+
+                                    '<option id="regularDatesWeek" value="Woche">Woche</option>'+
+                                    '<option id="regularDatesMonth" value="Monat">Monat</option>'+
+                                    '<option id="regularDatesYear" value="Jahr">Jahr</option>'+
                                 '</select>',
 
-  REGULAR_DATES_CREATER_PAGE = CREATE_SINGLE_DATE + DROPDOWN_MENU_REGULAR_DATES + '<input id="regular_dates_value" type="number" min=0 max=52 value=1>';
+  REGULAR_DATES_CREATER_PAGE = CREATE_SINGLE_DATE + '<input class="createRegularDate" id="regularDatesDalue" type="number" min=0 max=52 value=1>' + DROPDOWN_MENU_REGULAR_DATES +
+	'<div class="createRegularDate">' +
+	'<div id= "regularDateNameHeader">Name des Dienstleisters</div>' +
+	'<input id= "regularDateName">Name d. Dienstleisters</input> '+
+	'<div id= "regularDatePhoneHeader">Telefonnummer</div>' +
+	'<input id= "regularDatePhone">Telefonnummer</input>'+
+	'</div>',
+
+	POPUP_VET = '<div id="popupVet">' +
+							'<p id="popupVetText">Achtung, Pferd hat Schlachtpferdestatus, nicht alle MEdikamente zugelassen. Tierarzt darauf hinweisen.</p>'+
+							'<button id="popupTextOk" type="button">ok</button> '+
+					'</div>';
+
 
   that.LOGIN_PAGE = LOGIN_PAGE;
   that.START_PAGE = START_PAGE;
