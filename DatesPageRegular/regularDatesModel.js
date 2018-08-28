@@ -257,11 +257,12 @@ RegularDatesPage.Model = function(){
 	}
 
 	function updateOrderPosition(positonCode, date, position){
-		let	listPosition = positonCode+position,
-			positionString = date.orderPosition,
-			code = positionString.match(positonCode+[0-9]),
-			newPosition = positionString.replace(code, listPosition);
-			date.orderPosition = newPosition;
+		 let regex = new RegExp(positonCode+"\\d*"),
+		 	newPosition = positonCode+position+1,
+			oldPositionString = date.orderPosition,
+			code = oldPositionString.match(regex),
+			newCode = oldPositionString.replace(code, newPosition);
+			date.orderPosition = newCode;
 	}
 
 	function getRegularDates(){

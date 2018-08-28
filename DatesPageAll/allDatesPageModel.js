@@ -195,10 +195,19 @@ DatesPageAll.DatesPageModel = function(){
 
 	function updateOrder(){
 		for(let position = 0; position < allDates.length; position++){
-			let date = allDates[position],
-				listPosition = POSTION_CODE+position;
-			date.orderPosition = listPosition;
+			let date = allDates[position];
+			updateOrderPosition(POSTION_CODE, date, position);
 		}
+	}
+
+	
+	function updateOrderPosition(positonCode, date, position){
+		 let regex = new RegExp(positonCode+"\\d*"),
+		 	newPosition = positonCode+position+1,
+			oldPositionString = date.orderPosition,
+			code = oldPositionString.match(regex),
+			newCode = oldPositionString.replace(code, newPosition);
+			date.orderPosition = newCode;
 	}
 	
 	that.init = init;
