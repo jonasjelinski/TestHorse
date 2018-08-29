@@ -15,7 +15,14 @@ UserProfilPage = function(userID){
 		REQUEST_FUNCTION = "getUserData",
 		CHANGE_BUTTON_ID = "userProfileChange",
 		OKAY_BUTTON_ID = "userProfileOk",
-		DELETE_BUTTON_ID = "userProfileDelete";		
+		DELETE_BUTTON_ID = "userProfileDelete"
+		BURGER_CLICK_BOX_ID = "burger",
+		BURGER_LIST_ID = "burgerListUserPage",
+		inVisibleClass = "",
+		visibleClass = "",
+		BURGER_OPTION_PROFILE = "burgerOptionProfile",
+		BURGER_OPTION_HELP = "burgerOptionHelp",
+		BURGER_OPTION_LOGOUT = "burgerOptionLogout";			
 		
 		
 	let dbInterface,
@@ -32,6 +39,7 @@ UserProfilPage = function(userID){
 	function initPage(){
 		console.log("initPage");
 		initDBRequester();
+		initHamburgerMenu();
 		requestUserDataFromDB();
 		addEventListeners();			
 	}
@@ -134,6 +142,89 @@ UserProfilPage = function(userID){
 	*/
 	function handleDeleteProfile(){	
 		dbInterface.deleteUserFromDB();
+	}
+
+		/**
+	* @function initHamburgerMenu
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @description initts the hamburger menu
+	*/
+	function initHamburgerMenu(){
+		hamburgerMenu = new HamburgerMenu(BURGER_CLICK_BOX_ID, BURGER_LIST_ID, inVisibleClass, visibleClass);
+		hamburgerMenu.init();
+		hamburgerMenu.addEventListener("onOption", handleHamburgerClick);
+	}
+
+	/**
+	* @function handleHamburgerClick
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @param{event}, event, contains the option of the burger menu, which has been clicked by the user
+	* @description handles the click of the options of the burgermenu
+	*/
+	function handleHamburgerClick(event){
+		let option = event.details.option;
+		switch(option){
+			case BURGER_OPTION_PROFILE : handleProfileOption();
+				break;
+			case BURGER_OPTION_HELP : handleHelpOption();
+				break;
+			case BURGER_OPTION_LOGOUT : handleLogoutOption();
+				break;
+			default: break;
+		}
+	}
+
+	/**
+	* @function handleProfileOption
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @description sends event "showProfilePage" 
+	*/
+	function handleProfileOption(){
+		sendEvent("showProfilePage","");
+	}
+
+	/**
+	* @function sendEvent
+	* @private
+	* @memberof! Slideshow.ViewControll  
+	* @instance
+	* @param {string}, type event type
+	* @param {string}, id of the horse
+	* @description sends event of type type and the id
+	*/
+	function sendEvent(type, id){
+		let event = new Event(type);
+		event.details = {};
+		event.details.horseID = id;
+		that.dispatchEvent(event);	
+	}
+
+	/**
+	* @function handleProfileOption
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @description sends event "showHelpPage" 
+	*/
+	function handleHelpOption(){
+		sendEvent("showHelpPage","");	
+	}
+
+	/**
+	* @function handleProfileOption
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @description sends event "logoutUser" 
+	*/
+	function handleLogoutOption(){
+		sendEvent("logoutUser","");
 	}
 
 	that.initPage = initPage;
