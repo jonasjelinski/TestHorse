@@ -1,0 +1,72 @@
+:root{
+  --warning: #801515
+}
+
+#createNewAccount{
+  position: absolute;
+  right: 0%;
+}
+
+.loginP{
+  text-align: center;
+}
+
+#userNameTag{
+  padding-top: 2%;
+
+}
+.loginDIV{
+  text-align: center;
+}
+
+#userNameInput{
+
+}
+
+
+#passwordTag{
+
+}
+
+#passwordInput{
+
+}
+
+#loginFailedText{
+
+  color: var(--warning);
+}
+
+
+#loginButton{
+
+}
+
+.checkbox{
+  text-align: center;
+}
+.checkbox label{
+  display: block;
+  float: center;
+  padding-right: 10px;
+  white-space: nowrap;
+}
+
+.checkbox input{
+  vertical-align: middle;
+}
+
+.checkboxes label span {
+  vertical-align: middle;
+}
+#stayLoggedInBox{
+
+}
+
+#stayLoggedInTag{
+
+}
+
+#userHint{
+
+}
