@@ -11,7 +11,8 @@ var RegularDatesPage = RegularDatesPage || {};
 RegularDatesPage.DBRequester = function(userID, horseID){
 	
 	let that = new EventTarget(),
-	isDeletingDate;
+	isDeletingDate,
+	isUpdating;
 
 
 	/**
@@ -23,6 +24,7 @@ RegularDatesPage.DBRequester = function(userID, horseID){
 	*/
 	function init() {
 		isDeletingDate = false;
+		isUpdating = false;
 		initRequester();
 		addEventListeners();
 	}
@@ -60,9 +62,12 @@ RegularDatesPage.DBRequester = function(userID, horseID){
 	* @description sends the result of the db request to other moduls
 	*/
 	function handleResult(event){	
-		if(!isDeletingDate){
+		if(!isDeletingDate && !isUpdating){
 			let results = event.details.result;
 			sendEvent("onResult", results);		
+		}
+		if(isUpdating){
+
 		}
 	}
 
@@ -90,7 +95,7 @@ RegularDatesPage.DBRequester = function(userID, horseID){
 	* @description request all dates of the horse with the id horseID from the database
 	* and sets isDeleting false
 	*/
-	function deleteDate(){
+	function requestDatesFromDB(){
 		isDeletingDate = false;
 		requester.getAllDatesOfHorse(horseID);
 	}
@@ -107,10 +112,20 @@ RegularDatesPage.DBRequester = function(userID, horseID){
 	function deleteDate(id) {
 		isDeletingDate = true;
        requester.deleteDateFromDB(id);
-    }	
+    }
+
+    function updateAllDates(allDates){
+		isUpdating = true;
+		for(let i = 0; i < allDates.length; i++){
+			let date = allDates[i];
+			date.dateID = date.id;
+			requester.updateDate(date);
+		}			
+	}
 
 	that.init = init;
 	that.requestDatesFromDB = requestDatesFromDB;
 	that.deleteDate = deleteDate;
+	that.updateAllDates = updateAllDates;
 	return that;
 }

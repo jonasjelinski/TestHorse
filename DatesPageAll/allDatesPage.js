@@ -182,6 +182,7 @@ DatesPageAll = function(userID){
 	*/
 	function handleRegularClick(){
 		sendEvent("showRegularDates");
+		updateList();
 	}
 
 
@@ -223,6 +224,13 @@ DatesPageAll = function(userID){
 		sendEvent("onCancel");
 	}
 
+	function updateList(){
+		let elements = dropList.getElements(),
+			allDates;
+		model.updateDates(elements);
+		allDates = model.getDatesData();
+		dbInterface.updateAllDates(allDates);
+	}
 	that.init = init;
 	return that;
 }

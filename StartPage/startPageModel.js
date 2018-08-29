@@ -9,6 +9,9 @@ var StartPage = StartPage || {};
  */
 
 StartPage.Model = function(){
+
+	const POSTION_CODE = "AH";
+
 	let that = new EventTarget(),
 		allHorses;
 
@@ -24,7 +27,7 @@ StartPage.Model = function(){
 	function init(horses){
 		if(isParsable(horses)){
 			allHorses = JSON.parse(horses);
-			changePropertyNames(allHorses);
+			convertData(allHorses);		
 			sendOnDataConverted();
 		}
 		else{
@@ -48,10 +51,26 @@ StartPage.Model = function(){
 		}
 		return true;
 	}		
-		
-	function isArrayFullOfHorses(horses){
-		let horseAttribute = "date_of_birth";
-		return horses.includes(horseAttribute);
+
+	function convertData(allHorses){
+		changePropertyNames(allHorses);
+		removeNullsAndUndefined(allHorses);
+		sortHorses(allHorses);
+	}
+
+	function removeNullsAndUndefined(allHorses){
+		for(let i = 0; i < allHorses.length; i++){
+			let horse = allHorses[i],
+				attributes = Object.keys(horse);
+
+			attributes.forEach(function(attribute){
+				let  value = horse[attribute];
+				if(value === undefined || value === null){
+					value = "";
+				}
+				horse[attribute] = value;
+			})
+		}
 	}
 
 	/**
@@ -80,7 +99,34 @@ StartPage.Model = function(){
 	*/ 
 	function changePropertyName(horse){
 		horse.dateOfBirth = horse.date_of_birth;
+		horse.userID = horse.user_id;
 		delete horse.date_of_birth;
+		delete horse.user_id;
+	}
+
+	function sortHorses(allHorses){
+		allHorses.sort(function(horse1,horse2){
+			let position1 = getPositionFromPositionCode(horse1.order_position),
+				position2 = getPositionFromPositionCode(horse2.order_position);
+			if(position1 < position2){
+				return -1;
+			}
+			if(position1 > position2){
+				return 1;
+			}
+			return 0;
+		});
+	}
+
+	function getPositionFromPositionCode(positionString){
+		let position;
+		if(positionString === ""){
+			position = allHorses.length;
+		}
+		else{
+			position = positionString.replace( /^\D+/g, '');
+		}
+		return position;
 	}
 
 	/**
@@ -125,9 +171,28 @@ StartPage.Model = function(){
 			event.details = {};
 			event.details.allHorses = allHorses;
 			that.dispatchEvent(event);
+	}
+
+	function update(horses){
+		allHorses = horses;
+		updateOrder();
+	}
+
+	function updateOrder(){
+		for(let position = 0; position < allHorses.length; position++){
+			let horse = allHorses[position],
+				listPosition = POSTION_CODE+position;
+			horse.orderPosition = listPosition;
 		}
+	}
+
+	function getAllHorses(){
+		return allHorses;
+	}
 
 	that.init = init;
 	that.getHorseById = getHorseById;
+	that.update = update;
+	that.getAllHorses = getAllHorses;
 	return that;
 }

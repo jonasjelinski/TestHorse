@@ -91,6 +91,6 @@ DropList.ListModel = (function(listElementsData, nameOfId){
 	that.addNewElement = addNewElement;
 	that.removeElementById = removeElementById;
 	that.updateElementOrder = updateElementOrder;
-	that.getElements = elements;	
+	that.getElements = getElements;	
 	return that;
 });

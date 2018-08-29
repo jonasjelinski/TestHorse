@@ -10,7 +10,8 @@ var StartPage = StartPage || {};
  */
 
 StartPage.DBRequester = function(userID){
-	let that = new EventTarget();
+	let that = new EventTarget(),
+		isUpdating;
 
 
 	/**
@@ -23,6 +24,7 @@ StartPage.DBRequester = function(userID){
 	function init() {
 		initRequester();
 		addEventListeners();
+		isUpdating = false;
 	}
 
 	/**
@@ -57,8 +59,14 @@ StartPage.DBRequester = function(userID){
 	* @description sends the result of the db request to other moduls
 	*/
 	function handleResult(event){		
-		let results = event.details.result;		
-		sendEvent("onResult", results);
+		let results = event.details.result;
+		if(!isUpdating){
+			sendEvent("onResult", results);
+		}
+		else{
+			console.log("handleResult",results);
+		}		
+		
 	}
 
 	/**
@@ -87,9 +95,20 @@ StartPage.DBRequester = function(userID){
 	*/
 	function requestAllHorsesFromDB(){
 		requester.getAllHorsesOfUser(userID);
+	}
+
+	function updateAllHorses(allHorses){
+		isUpdating = true;
+		for(let i = 0; i < allHorses.length; i++){
+			let horse = allHorses[i];
+			horse.horseID = horse.id;
+			requester.updateHorse(horse);
+		}					
+			
 	}	
 
 	that.init = init;
 	that.requestAllHorsesFromDB = requestAllHorsesFromDB;
+	that.updateAllHorses = updateAllHorses;
 	return that;
 }

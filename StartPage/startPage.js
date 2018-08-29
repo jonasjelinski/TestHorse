@@ -157,7 +157,7 @@ StartPage = function(userID){
 	* @description pushs the last box to the array of horses
 	*/ 
 	function appendLastBox(horseData){
-		let lastElement = {id:lastBoxId, photo: "src/xzy"};
+		let lastElement = {id:lastBoxId, photo: ""};
 		horseData.push(lastElement);	
 	}
 	
@@ -273,6 +273,7 @@ StartPage = function(userID){
 	*/
 	function handleHelpOption(){
 		sendEvent("showHelpPage","");
+		updateList();
 	}
 
 	/**
@@ -363,6 +364,14 @@ StartPage = function(userID){
 		event.details = {};
 		event.details.attributes = attributes;
 		that.dispatchEvent(event);	
+	}
+
+	function updateList(){
+		let elements = dropList.getElements(),
+			allHorses;
+		model.update(elements);
+		allHorses = model.getAllHorses();
+		dbInterface.updateAllHorses(allHorses);
 	}	
 
 	that.init = init;

@@ -30,8 +30,6 @@ DatabaseClientInterface = function(){
 		SET_USER : "setUserIntoDB",
 		SET_HORSE : "setHorseIntoDB",
 		SET_DATE : "setDateIntoDB",
-		SET_REMINDER : "setReminderIntoDB",
-		SET_REGULAR_REMINDER : "?????",
 		DELETE_USER : "deleteUserFromDB",
 		DELETE_HORSE : "deleteHorseFromDB",
 		DELETE_DATE : "deleteDateFromDB",
@@ -39,21 +37,11 @@ DatabaseClientInterface = function(){
 		DELETE_REGULAR_REMINDER : "deleteReminderNotificationFromDB",
 		UPDATE_USER : "updateUser",
 		UPDATE_USER_NAME : "updateUserName",
-		UPDATE_USER_EMAIL : "?????",
-		UPDATE_USER_PASSWORD : "updateUserName",
-		UPDATE_USER_BIRTH : "updateUserDateOfBirth",
 		UPDATE_HORSE : "updateHorse",
-		UPDATE_HORSE_NAME : "updateHorseName",
-		UPDATE_HORSE_OWNER : "updateHorseOwner",
-		UPDATE_HORSE_RACE : "updateHorseRace",
-		UPDATE_HORSE_BIRTH : "updateHorseDateOfBirth",
-		UPDATE_HORSE_PHOTO : "updateHorseDateOfBirth",
-		UPDATE_HORSE_SEX : "updateHorseSex",
-		UPDATE_HORSE_HEIGHT : "updateHorseHeight",
-		UPDATE_HORSE_GROWER : "updateHorseGrower",
 		UPDATE_DATE : "updateDate",
 		UPDATE_SINGLE_REMINDER : "updateReminderNotification",
 		UPDATE_REGULAR_REMINDER: "updateReminderRegular",
+		UPLOAD_HORSE_PICTURE: "updateHorsePicture",
 	}
 
 	let that = new EventTarget(),
@@ -133,7 +121,7 @@ DatabaseClientInterface = function(){
 	* @description sends the database the email and the password to login the user into his account
 	*/ 	
 	function tryLogin(loginData){
-		let necessaryAttributes = ["email", "password"];
+		let necessaryAttributes = ["email", "password", "keepLogged"];
 		if(allNecessaryDataHaveBeenParsed(necessaryAttributes, loginData)){
 			requestModul.tryLogin(ACTIONS.TRY_LOGIN, loginData);
 			return true;
@@ -314,7 +302,7 @@ DatabaseClientInterface = function(){
 	*/ 
 	function setHorseIntoDB(newHorse){
 		let standardPhoto = "https://h2795767.stratoserver.net/images/standardPhoto.jpg",
-			necessaryAttributes = ["name", "owner", "race", "dateOfBirth", "photo", "sex", "height", "grower", "userID"];
+			necessaryAttributes = ["name", "owner", "race", "dateOfBirth", "type", "sex", "height", "grower", "userID"];
 		if(allNecessaryDataHaveBeenParsed(necessaryAttributes, newHorse)){
 			newHorse.photo = standardPhoto;
 			requestModul.setDataIntoDB(ACTIONS.SET_HORSE, newHorse);
@@ -456,13 +444,13 @@ DatabaseClientInterface = function(){
 	* oldHorse contains the new values
 	*/
 	function updateHorse(oldHorse){
-		let necessaryAttributes = ["horseID", "name", "owner", "race", "dateOfBirth", "photo", "sex", "height", "grower", "userID"];
+		let necessaryAttributes = ["horseID", "name", "owner", "race", "dateOfBirth", "type", "sex", "height", "grower", "userID"];
 		if(allNecessaryDataHaveBeenParsed(necessaryAttributes, oldHorse)){
 			requestModul.updateDataInDB(ACTIONS.UPDATE_HORSE, oldHorse);
 			return true;
 		}
 		else{
-			console.log("updateUserIntoDB failed");
+			console.log("updateHorse failed");
 			return false;				
 		}
 	}
@@ -530,6 +518,19 @@ DatabaseClientInterface = function(){
 		}	
 	}
 
+	//Upload
+
+	function uploadHorsePicture(file){
+		if(file instanceof FormData && file.get("horseID")!== undefined){
+			requestModul.uploadHorsePicture(file);
+			return true;
+		}
+		else{
+			console.log("uploadHorsePicture failed", file);
+			return false;				
+		}
+	}
+
 	that.init = init;
 	that.tryLogin = tryLogin;
 	that.logoutUser = logoutUser;
@@ -554,5 +555,6 @@ DatabaseClientInterface = function(){
 	that.updateDate = updateDate;
 	that.updateSingleReminder = updateSingleReminder;
 	that.updateRegularReminder = updateRegularReminder;
+	that.uploadHorsePicture = uploadHorsePicture;
 	return that;
 }

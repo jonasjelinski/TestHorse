@@ -9,9 +9,10 @@
   <body>
     <div id = "parentPage">
 
-      <!-- Dies ist der Input und der Button für das Script testPhotoUploader.js-->
-     <!--   <input type="file" id= "testphotoinput"></input>-->
-     <!--   <button id= "testphotobutton"></button>-->
+      <!-- Dies ist der Input und der Button für das Script testPhotoUploader.js -->
+      <input type="file" id= "testphotoinput"></input>
+   <button id= "testphotobutton"></button>
+    <p id="feedBackBox"> </p>
 
     </div>
     <script src="ScriptLoader/scriptLoader.js"></script>
@@ -20,13 +21,12 @@
     <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
     <script >
 
-     function showPage(){
+    function showPage(){
       let pages = new Pages();
           pages.init();
           pages.initAfterLogin();
           pages.showHorseCreatorPage();
       }
-
       let scriptLoader = new ScriptLoader();
       scriptLoader.addEventListener("onLoaded", showPage);
       scriptLoader.loadScripts();

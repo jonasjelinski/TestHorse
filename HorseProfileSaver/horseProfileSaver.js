@@ -21,7 +21,9 @@ HorseProfileSaver = function(userID){
 
 	let that = new EventTarget(),
 		profil = {},
+		dropbox,
 		dbInterface,
+		horsePhotoUploader,
 		attributes;
 
 
@@ -35,10 +37,12 @@ HorseProfileSaver = function(userID){
 	*/ 
 	function init(newAttributes){	
 		attributes = newAttributes;
-		initPofil();
+		initProfil();
+		initDropbox();
 		initDBRequester();
-		addListeners();
-		initModel();			
+		initHorsePhotoUploader();
+		initModel();
+		addListeners();				
 	}
 
 	/**
@@ -48,9 +52,13 @@ HorseProfileSaver = function(userID){
 	* @instance
 	* @description Initialize <code>profil</code> an instance of Profil
 	*/ 
-	function initPofil(){
+	function initProfil(){
 		profil = new Profil(PAGE_ID, TEMPLATE_ID, CHANGE_BUTTON_ID, OKAY_BUTTON_ID, DELETE_BUTTON_ID);
 		profil.init(attributes);		
+	}
+
+	function initDropbox(){
+
 	}
 
 	/**
@@ -63,7 +71,15 @@ HorseProfileSaver = function(userID){
 	function initDBRequester(){
 		dbInterface = new HorseProfileSaver.DBRequester(userID);
 		dbInterface.init(attributes);
+		
 	}
+
+	function initHorsePhotoUploader(){
+		horsePhotoUploader = new HorsePhotoUploader();
+		horsePhotoUploader.init();
+	}
+
+	
 
 	/**
 	* @function initModel
@@ -77,6 +93,9 @@ HorseProfileSaver = function(userID){
 		model.init(attributes);
 	}
 
+
+
+
 	/**
 	* @function initPofil
 	* @private
@@ -88,7 +107,10 @@ HorseProfileSaver = function(userID){
 	function addListeners(){
 		profil.addEventListener("onChangeProfile", handleChangeProfile);
 		profil.addEventListener("onProfileOkay", handleOkayProfile);
-		profil.addEventListener("onDeleteProfile", handleDeleteProfile);	
+		profil.addEventListener("onDeleteProfile", handleDeleteProfile);
+		dbInterface.addEventListener("onNewHorseCreated", handleOnNewHorseCreated);
+		dbInterface.addEventListener("onNewHorseUpdated", handleOnHorseUpdated);
+		model.addEventListener("onUploadPhotos", handlePhotoUpload);	
 	}
 
 	/**
@@ -144,8 +166,26 @@ HorseProfileSaver = function(userID){
 	*/
 	function handleDeleteProfile(){
 		sendEvent("onDeleteNewHorseProfile", "");
+	}	
+
+	function handleOnNewHorseCreated(event){
+		let horseID = event.details.horseID;
+		console.log("handleOnNewHorseCreated", horseID);	
+		model.handleHorseCreated(horseID);
 	}
 
+	function handleOnHorseUpdated(){
+		model.handleHorseUpdated();
+	}
+
+	function handlePhotoUpload(event){
+		let horseID = event.details.horseID,
+			photo = event.details.photo;			
+			horsePhotoUploader.setHorseID(horseID);
+			horsePhotoUploader.uploadNewPhoto(photo);
+	}
+
+	
 	/**
 	* @function updateOldHorse
 	* @private

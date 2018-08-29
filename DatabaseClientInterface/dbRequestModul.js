@@ -26,6 +26,7 @@ DatabaseClientInterface.RequestModul = function () {
 		DELETE: "https://h2795767.stratoserver.net/database/actions/delete.php",
 		UPDATE: "https://h2795767.stratoserver.net/database/actions/update.php",
 		LOGOUT: "https://h2795767.stratoserver.net/database/actions/logout.php",
+		UPLOAD:"https://h2795767.stratoserver.net/database/actions/upload.php",
 	}
 
 	let that = new EventTarget(),
@@ -202,6 +203,10 @@ DatabaseClientInterface.RequestModul = function () {
 		askDataBase(URLS.DELETE, action, data);
 	}
 
+	function uploadHorsePicture(file){
+		requestModul.doAjaxUpload(URLS.UPLOAD, Types.POST, file);
+	}
+
 	that.init = init;
 	that.tryLogin = tryLogin;
 	that.tryLogout = tryLogout;
@@ -209,5 +214,6 @@ DatabaseClientInterface.RequestModul = function () {
 	that.setDataIntoDB = setDataIntoDB;
 	that.updateDataInDB = updateDataInDB;
 	that.delteDataFromDB = delteDataFromDB;
+	that.uploadHorsePicture = uploadHorsePicture;
 	return that;
 }
