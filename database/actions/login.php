@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once '../core/init.php';
 
 if(Input::exists($_SERVER['REQUEST_METHOD'])){
@@ -11,6 +12,21 @@ if(Input::exists($_SERVER['REQUEST_METHOD'])){
 			
 			if($checkUserAndPassword>0){
 				ActionLogin::loginAllowed();
+				
+				$userID=$dbSelect->getUserID($_POST['email']);
+				$_SESSION['userid'] = $userID;
+				
+				if($_POST['keepLogged']=='true'){
+					
+					setcookie("userid", $userID, time() + 3600, "/");
+					$_COOKIE['userid'] = $userID;
+					print_r($_COOKIE['userid']);
+								
+				}
+				
+	
+
+
 				}
 			else{
 				ActionLogin::loginDenied();

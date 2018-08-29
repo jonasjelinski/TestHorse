@@ -15,14 +15,16 @@ if(Input::exists($_SERVER['REQUEST_METHOD'])){
 			$userMail=$dbSelect->getUserID($_POST['email']);
 
 			if(empty($userMail)){
-				$dbInsert->insertUser($_POST['name'],$_POST['email'],$_POST['dateOfBirth'],$_POST['password']);
+				$dbInsert->insertUser($_POST['name'],$_POST['email'],$_POST['dateOfBirth'],$_POST['password'],$_POST['orderPosition']);
 				$userID=$dbSelect->getUserID($_POST['email']);
-
-				if($sendMail->checkSMTPServerStatus()){
+				
+				if(!empty($userID)){
+					if($sendMail->checkSMTPServerStatus()){
 					$sendMail->sendConfirmationMail($_POST['email'],$userID);
 				}
 				else{
 					ActionSet::mailServerDown();
+				}
 				}
 			}
 			else{
@@ -31,12 +33,12 @@ if(Input::exists($_SERVER['REQUEST_METHOD'])){
 			break;
 
 			case ActionSet::SET_HORSE:
-				$dbInsert->insertHorse($_POST['name'],$_POST['owner'],$_POST['race'],$_POST['dateOfBirth'],$_POST['photo'],$_POST['sex'],$_POST['height'],$_POST['grower'],$_POST['userID']);
-				
+				$dbInsert->insertHorse($_POST['name'],$_POST['owner'],$_POST['race'],$_POST['dateOfBirth'],$_POST['sex'],$_POST['height'],$_POST['grower'],$_POST['type'],$_POST['userID'],$_POST['orderPosition']);
+			
 			break;
 
 			case ActionSet::SET_DATE:
-			$dbInsert->insertDate($_POST['horseID'],  $_POST['title'],$_POST['date'],$_POST['time'],$_POST['location'],$_POST['dateFuture'],$_POST['timeFuture'],$_POST['valueRegular'],$_POST['unitRegular']);
+			$dbInsert->insertDate($_POST['horseID'],  $_POST['title'],$_POST['date'],$_POST['time'],$_POST['location'],$_POST['dateFuture'],$_POST['timeFuture'],$_POST['valueRegular'],$_POST['unitRegular'],$_POST['orderPosition']);
 			break;
 
 
