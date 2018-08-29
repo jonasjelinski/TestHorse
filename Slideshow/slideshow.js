@@ -118,6 +118,7 @@ Slideshow = function(forwardButtonId, backwardsButtonId, progressBoxId, numberOf
 	*/
 	function setPage(pageNumber){
 		slideShowPageChanger.setPage(pageNumber);
+		slideShowProgress.setPage(pageNumber);
 	}
 
 	/**

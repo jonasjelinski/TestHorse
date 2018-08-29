@@ -22,7 +22,12 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 	dateInputId, timeInputId, locationInputId, wantsReminderCheckboxId, dateButtonId, reminderButtonId,
 	saveButtonId, cancelButtonId){
 	const INVISIBLE = 0,
-		VISIBLE = 1;
+		VISIBLE = 1,
+		POPUP_TEXT = "",
+		POPUP_ELEMENT_ID = "createDatePopup",
+		HAS_TWO_BUTTONS = false,
+		POPUP_TEXT_ID = "createDatePopupText",
+		YES_BUTTON_ID = "createDatePopupClose";
 
 	let that = new EventTarget(),
 		containerElement,
@@ -33,7 +38,8 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 		dateButton,
 		reminderButton,
 		saveButton,
-		cancelButton;
+		cancelButton,
+		popup;
 
 	/**
 	* @function init
@@ -43,9 +49,16 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 	* @description Initialize this modul. 
 	*/ 
 	function init(){
+		initPopup();
 		getDomElements();
 		addEventListeners();
 		hideReminderAndDateButtons();		
+	}
+
+	function initPopup(){
+		popup = new Popup(POPUP_TEXT, HAS_TWO_BUTTONS, POPUP_ELEMENT_ID, POPUP_TEXT_ID, 
+	YES_BUTTON_ID);
+		popup.init();
 	}
 
 	/**
@@ -193,6 +206,10 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 		data.location = locationInput.value;
 		return data;
 	}	
+
+	function showPopup(){
+		popup.setPopupVisible();
+	}
 
 	/**
 	* @function handleSaveButtonClick
@@ -426,6 +443,7 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 	}
 
 	that.init = init;
+	that.showPopup = showPopup;
 	that.showDateCreater = showDateCreater;
 	that.showReminderCreater = showReminderCreater;
 	that.giveNoTitleFeedback = giveNoTitleFeedback;

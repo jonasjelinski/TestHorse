@@ -23,6 +23,7 @@ DatesCreator = function(dateClass, reminderClass, containerElementId, titleInput
 	saveButtonId, cancelButtonId){
 	let that = new EventTarget(),
 		model,
+		popup,
 		view;
 
 	/**
@@ -80,6 +81,7 @@ DatesCreator = function(dateClass, reminderClass, containerElementId, titleInput
 		model.addEventListener("onFinaleSaveOkay", handleFinaleSave);
 		model.addEventListener("onShowDateOkay", handleShowDateOkay);
 		model.addEventListener("onShowReminderOkay", handleShowReminderOkay);
+		model.addEventListener("showPopup", handleShowPopup);
 	}
 
 	/**
@@ -136,6 +138,7 @@ DatesCreator = function(dateClass, reminderClass, containerElementId, titleInput
 	*/
 	function handleFinaleSave(event){
 		let data = event.details.data;
+		console.log("handleFinaleSave");
 		sendEvent("onSave", data);
 	}
 
@@ -256,6 +259,7 @@ DatesCreator = function(dateClass, reminderClass, containerElementId, titleInput
 	* model tests the data if they are correct
 	*/
 	function handleViewSave(event) {
+		console.log("handleViewSave");
 		let inputData = event.details.input;
 		model.tryToSaveAtTheEnd(inputData);
 	}
@@ -269,7 +273,12 @@ DatesCreator = function(dateClass, reminderClass, containerElementId, titleInput
 	* wants to cancel the creation
 	*/
 	function handleCancle() {
+		console.log("onCancel");
 		sendEvent("onCancel");	
+	}
+
+	function handleShowPopup(){
+		view.showPopup();
 	}
 
 	/**

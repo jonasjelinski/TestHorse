@@ -23,6 +23,7 @@ RegulardatesCreatorPage = function(userID){
 	* @description Initialize this modul.
 	*/	
 	function init(newHorseID) {
+		console.log("init",init);
  		newHorseID = newHorseID || 38;
 		horseID = newHorseID;
 		initModuls();
@@ -92,6 +93,7 @@ RegulardatesCreatorPage = function(userID){
 	* @description sends event of type "type"
 	*/
 	function sendEvent(type) {
+		console.log("type",type);
 		let event = new Event(type);
 		that.dispatchEvent(event);
 	}

@@ -70,6 +70,12 @@ class CreatorView extends EventTarget{
 	changeValueBoxAfterInput() {		
 		let text = this.input.value;
 		this.valueBox.setAttribute("value", text);
+		this.sendEvent("onInput");
+	}
+
+	sendEvent(type){
+		let event = new Event(type);
+		this.dispatchEvent(event);
 	}
 
 	/**

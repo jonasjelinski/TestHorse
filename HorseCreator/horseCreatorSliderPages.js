@@ -29,7 +29,7 @@ HorseCreator.SliderPages = function() {
 				'<div id= "horseInteractionValueBox" property="dateOfBirth" value="" opacity = 0 ></div>',
 			SEX =
 				'<div>Geschlecht des Pferdes:</div>'+
-				'<select id="horseInteractionDropdown">'+
+				'<select id="horseInteractionInput">'+
 				'<option value="horseInteractionPlaceholder"> </option>'+
 				'<option value="horseInteractionStallion">Hengst</option>'+
 				'<option value="horseInteractionGelding">Wallach</option>'+
@@ -49,11 +49,11 @@ HorseCreator.SliderPages = function() {
 				'<div id= "horseInteractionValueBox" property="grower" value="" opacity = 0 ></div>',
 			TYPE =
 				'<div>Status des Pferdes?</div>'+
-				'<select id="horseInteractionDropdown">'+
+				'<select id="horseInteractionInput">'+
 				'<option value="horseInteractionPlaceholder"> </option>'+
-				'<option value="horseInteractionComeptition">Turnierpferd</option>'+
-				'<option value="horseInteractionSlaugther">Schlachtpferd</option>'+
-				'<option value="horseInteractionNone">weder noch</option>'+
+				'<option value="Turnierpferd">Turnierpferd</option>'+
+				'<option value="Schlachtpferd">Schlachtpferd</option>'+
+				'<option value="">weder noch</option>'+
   			'</select>'+
 				'<div id=horseInteractionFeedback></div>'+
 				'<div id= "horseInteractionValueBox" property="type" value="" opacity = 0 ></div>';

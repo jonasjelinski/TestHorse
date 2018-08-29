@@ -25,7 +25,6 @@ HorseProfileSaver.Model = function(userID){
 	*/ 
 	function init(horse){
 		newHorse = horse;
-		console.log("init", newHorse);
 		addUserId();
 	}
 
@@ -74,7 +73,6 @@ HorseProfileSaver.Model = function(userID){
 	* @description return userData
 	*/ 
 	function getHorseData(){
-		console.log("getHorseData", newHorse);
 		return newHorse;
 	}
 
@@ -90,9 +88,7 @@ HorseProfileSaver.Model = function(userID){
 	}
 
 	function handleHorseCreated(horseID){
-		console.log("handleHorseCreated", horseID, isNewHorse);
-		if(isNewHorse){
-			
+		if(isNewHorse){			
 			newHorse.id = horseID;
 			sendUploadPhotoEvent();
 		}		
@@ -111,6 +107,10 @@ HorseProfileSaver.Model = function(userID){
 			event.details.horseID = newHorse.id;
 			that.dispatchEvent(event);
 		}
+	}
+
+	function setPhoto(newPhoto){
+		photo = newPhoto;
 	}	
 
 	that.init = init;
@@ -120,5 +120,6 @@ HorseProfileSaver.Model = function(userID){
 	that.getIsNewHorse = getIsNewHorse;
 	that.handleHorseCreated = handleHorseCreated;	
 	that.handleHorseUpdated = handleHorseUpdated;	
+	that.setPhoto = setPhoto;
 	return that;
 }

@@ -10,9 +10,11 @@ var RegularDatesPage = RegularDatesPage || {};
  * to manage all buttons of the regular dates. Each regular date has two buttons. The page has a backbutton.
  */
 
-RegularDatesPage.RegularDatesPageControll = function(deleteButtonClass, changeButtonClass, backButtonId){
+RegularDatesPage.RegularDatesPageControll = function(deleteButtonClass, changeButtonClass, backButtonId, newDateId, newSuggestionId){
 		let that = new EventTarget(),
-			backButton;
+			backButton,
+			newDateButton,
+			newSuggestionButton;
 
 
 	/**
@@ -23,8 +25,23 @@ RegularDatesPage.RegularDatesPageControll = function(deleteButtonClass, changeBu
 	* @description Initialize this modul
 	*/
 	function init(){
-		initListControlls();
+		initNewDatesAndSuggestionControlls();
 		initBackButtonControlls();						
+	}
+
+	function initNewDatesAndSuggestionControlls(){
+		newDateButton = document.getElementById(newDateId);
+		newSuggestionButton = document.getElementById(newSuggestionId);
+		newDateButton.addEventListener("click", handleNewDate);
+		newSuggestionButton:addEventListener("click", handleNewSuggestion);
+	}
+
+	function handleNewDate(){
+		sendEvent("onNewDate");
+	}
+
+	function handleNewSuggestion(){
+		sendEvent("onNewSuggestion");
 	}
 
 
@@ -69,7 +86,7 @@ RegularDatesPage.RegularDatesPageControll = function(deleteButtonClass, changeBu
 	*/
 	function handleDelete(event){
 		let id = getIdFromEvent(event);
-		sendIdEvent("onDeleteClick", id);
+		sendEvent("onDeleteClick", id);
 	}
 
 	/**
@@ -88,7 +105,7 @@ RegularDatesPage.RegularDatesPageControll = function(deleteButtonClass, changeBu
 	}
 
 	/**
-	* @function sendIdEvent
+	* @function sendEvent
 	* @private
 	* @memberof! RegularDatesPage.RegularDatesPageControll 
 	* @instance
@@ -96,10 +113,12 @@ RegularDatesPage.RegularDatesPageControll = function(deleteButtonClass, changeBu
 	* @param{string}, id, id to send with the event
 	* @description sends the given id with an event
 	*/
-	function sendIdEvent(type, id){
+	function sendEvent(type, id){
 		let event = new Event(type);
-		event.details = {};
-		event.details.id = id;
+		if(id){
+			event.details = {};
+			event.details.id = id;		
+		}
 		that.dispatchEvent(event);			
 	}
 
@@ -113,7 +132,7 @@ RegularDatesPage.RegularDatesPageControll = function(deleteButtonClass, changeBu
 	*/
 	function handleChange(event){
 		let id = getIdFromEvent(event);
-		sendIdEvent("onChangeClick", id);
+		sendEvent("onChangeClick", id);
 	}
 
 	/**
@@ -142,5 +161,6 @@ RegularDatesPage.RegularDatesPageControll = function(deleteButtonClass, changeBu
 	}
 
 	that.init = init;
+	that.initListControlls = initListControlls;
 	return that;
 }

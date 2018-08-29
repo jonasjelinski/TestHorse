@@ -21,7 +21,7 @@ HorseProfileSaver = function(userID){
 
 	let that = new EventTarget(),
 		profil = {},
-		dropbox,
+		potraitView,
 		dbInterface,
 		horsePhotoUploader,
 		attributes;
@@ -38,7 +38,7 @@ HorseProfileSaver = function(userID){
 	function init(newAttributes){	
 		attributes = newAttributes;
 		initProfil();
-		initDropbox();
+		initPotraitView();
 		initDBRequester();
 		initHorsePhotoUploader();
 		initModel();
@@ -57,9 +57,11 @@ HorseProfileSaver = function(userID){
 		profil.init(attributes);		
 	}
 
-	function initDropbox(){
-
+	function initPotraitView(){
+		potraitView = new HorseProfileSaver.PotraitView("horseProfileSaverImgContainer");
+		potraitView.init();
 	}
+	
 
 	/**
 	* @function initPofil
@@ -111,6 +113,7 @@ HorseProfileSaver = function(userID){
 		dbInterface.addEventListener("onNewHorseCreated", handleOnNewHorseCreated);
 		dbInterface.addEventListener("onNewHorseUpdated", handleOnHorseUpdated);
 		model.addEventListener("onUploadPhotos", handlePhotoUpload);	
+		potraitView.addEventListener("onNewPhoto", handleNewPhoto);
 	}
 
 	/**
@@ -183,6 +186,11 @@ HorseProfileSaver = function(userID){
 			photo = event.details.photo;			
 			horsePhotoUploader.setHorseID(horseID);
 			horsePhotoUploader.uploadNewPhoto(photo);
+	}
+
+	function handleNewPhoto(event){
+		let photo = event.details.photo;
+		model.setPhoto(photo);	
 	}
 
 	

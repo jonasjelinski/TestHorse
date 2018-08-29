@@ -64,6 +64,7 @@ RegulardatesCreater = function(dateClass, reminderClass, containerElementId, tit
 	* @description inits the view
 	*/
 	function initView() {
+		console.log("dropDownMenuId", dropDownMenuId, "unitInputId", unitInputId);
 		view = RegulardatesCreater.View(dropDownMenuId, unitInputId);
 		view.init();
 	}
@@ -90,6 +91,7 @@ RegulardatesCreater = function(dateClass, reminderClass, containerElementId, tit
 	* sends new data to other moduls
 	*/
 	function handleSave(event) {
+		console.log("handleSave of RegCreater");
 		let regularDateData = event.details.data,
 			duration = view.getUnitAndValue(),
 			data = Object.assign(regularDateData, duration);

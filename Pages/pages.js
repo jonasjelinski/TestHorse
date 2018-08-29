@@ -155,10 +155,16 @@ Pages = function(){
 		datesPageRegular.addEventListener("onDataSaved", showStartPage);				
 		datesPageRegular.addEventListener("onCancel", showStartPage);			
 		datesPageRegular.addEventListener("onChangeDate", changeRegularDate);			
+		datesPageRegular.addEventListener("showCreateRegularDate", showCreateRegularDate);			
+		//datesPageRegular.addEventListener("showCreateDateSuggestion", showCreateRegularDate);			
 		datesCreatorPageSingle.addEventListener("onDataSaved", showStartPage);				
 		datesCreatorPageSingle.addEventListener("onCancel", showStartPage);			
 		datesCreatorPageSingle.addEventListener("onChangeClick", changeSingleDate);
+		datesCreatorPageRegular.addEventListener("onDataSaved", showRegularDates);
+		datesCreatorPageRegular.addEventListener("onCancel", showRegularDates);
+		datesCreatorPageRegular.addEventListener("onCancel", showRegularDates);
 		datesChangerPageRegular.addEventListener("onDataSaved", showRegularDates);			
+		datesChangerPageRegular.addEventListener("onCancel", showRegularDates);			
 	}	
 
 	function addListenersForHorse() {
@@ -226,7 +232,6 @@ Pages = function(){
 	}
 
 	function logoutUser(){
-		console.log("logout");
 		logoutPage.init();
 		logoutPage.logout();
 	}
@@ -238,7 +243,6 @@ Pages = function(){
 		isUserLoggedIn = true;
 		initAfterLogin();
 		showStartPage();
-		console.log("showStartPage userID", userID)
 	}
 
 	function initAfterLogin(){
@@ -274,7 +278,7 @@ Pages = function(){
 		datesPageRegular.init();
 	}
 
-	function showRegularDatescreatorPage() {
+	function showCreateRegularDate() {
 		pageChanger.switchPage("REGULAR_DATES_CREATER_PAGE");		
 		datesCreatorPageRegular.init();
 	}
@@ -457,7 +461,7 @@ Pages = function(){
 	that.initAfterLogin = initAfterLogin;
 	that.showAllDates = showAllDates;
 	that.showRegularDates = showRegularDates;
-	that.showRegularDatescreatorPage = showRegularDatescreatorPage;
+	that.showCreateRegularDate = showCreateRegularDate;
 	that.showHorseProfilePage = showHorseProfilePage;	
 	that.showHorseCreatorPage = showHorseCreatorPage;	
 	that.showLoginPage = showLoginPage;

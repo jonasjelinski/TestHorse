@@ -8,13 +8,14 @@ var RegularDatesPage = RegularDatesPage || {};
  * this string to an array of objects and sorts out the regular dates.
  */
 
-RegularDatesPage.Model = function(){
+RegularDatesPage.Model = function(horseID){
 	const REGULAR_POSTION_CODE = "RD",
 		DATE_SUGGESTIONS_CODE = "DS",
-		DATE_SUGGESTION_DATE = "0000-00-00";
+		DATE_SUGGESTION_DATE = "666-666-666",
+		DATE_SUGGESTION_TIME = "666-666-666";
 
-	let that = new EventTarget(),
-		dbRequester,		
+	let that = new EventTarget(),	
+		allDates,	
 		regularDates = [],
 		dateSuggestions =[],
 		delteId;
@@ -30,12 +31,18 @@ RegularDatesPage.Model = function(){
 	*/ 	
 	function init(allDatesAsStrings){
 		if(isParsable(allDatesAsStrings)){
-			let allDates = JSON.parse(allDatesAsStrings),
-			regularDatesAndSuggestions = removeSingleDates(allDates);
-			filterDatesAndSuggestions(regularDatesAndSuggestions);
-			convertData(regularDates, REGULAR_POSTION_CODE);	
-			convertData(dateSuggestions, DATE_SUGGESTION_DATE);	
-			sendOnDataConverted();
+			let parsedDates = JSON.parse(allDatesAsStrings),
+				allDatesCopy;
+			if(isArray(parsedDates)){
+				allDates = parsedDates;
+				allDatesCopy = allDates.slice(0),
+				regularDatesAndSuggestions = removeSingleDates(allDatesCopy);
+				filterDatesAndSuggestions(regularDatesAndSuggestions);
+				convertData(regularDates, REGULAR_POSTION_CODE);	
+				convertData(dateSuggestions, DATE_SUGGESTION_DATE);	
+				sendOnDataConverted();
+			}
+			
 		}
 	}
 
@@ -48,16 +55,22 @@ RegularDatesPage.Model = function(){
 		return true;
 	}
 
+	function isArray(parsedDates){
+		return Array.isArray(parsedDates);
+	}
+
 	function filterDatesAndSuggestions(regularDatesAndSuggestions){
 		for(let i = 0; i < regularDatesAndSuggestions.length; i++){
-			let date = allDates[i];
-			if(!isDateSuggestion(date)){
+			let date = regularDatesAndSuggestions[i];
+			if(isDateSuggestion(date)){
 				dateSuggestions.push(date);
 			}
 			else{
 				regularDates.push(date);
 			}			
 		}
+		let TESTDATE = {id: "testid"};
+		dateSuggestions.push(TESTDATE);
 	}
 
 	function isDateSuggestion(date){
@@ -122,8 +135,9 @@ RegularDatesPage.Model = function(){
 
 	function sortDates(regularDates, posCode){
 		regularDates.sort(function(date1,date2){
-			let position1 = getPositionFromPositionCode(date1.orderPosition, posCode),
-				position2 = getPositionFromPositionCode(date2.orderPosition, posCode);
+			let numberOfDates = regularDates.length,
+				position1 = getPositionFromPositionCode(date1.orderPosition, posCode, numberOfDates),
+				position2 = getPositionFromPositionCode(date2.orderPosition, posCode, numberOfDates);
 			if(position1 < position2){
 				return -1;
 			}
@@ -134,11 +148,11 @@ RegularDatesPage.Model = function(){
 		});
 	}
 
-	function getPositionFromPositionCode(positionString, posCode){
+	function getPositionFromPositionCode(positionString, posCode, numberOfDates){
 		let position,
 			code;
 		if(positionString === ""){
-			position = allDates.length;
+			position = numberOfDates.length;
 		}
 		else{
 			regex = new RegExp(posCode+"\\d*")
@@ -208,8 +222,8 @@ RegularDatesPage.Model = function(){
 	}
 
 	function updateDateSuggestions(newSuggestions){
-		dateSuggestions = newSuggestions();
-		updateSuggestionsOrder();
+		dateSuggestions = newSuggestions;
+		convertDatesToSuggestionsAndUpdateOrder();
 	}
 
 	/**
@@ -234,8 +248,8 @@ RegularDatesPage.Model = function(){
 	* @description returns date with the id "id"
 	*/
 	function getSearchedDate(id){
-		for(let i = 0; i < regularDates.length; i++){
-			let date = regularDates[i];
+		for(let i = 0; i < allDates.length; i++){
+			let date = allDates[i];
 			if(date.id === id){
 				return date;
 			}
@@ -249,9 +263,10 @@ RegularDatesPage.Model = function(){
 		}
 	}
 
-	function updateSuggestionsOrder(){
+	function convertDatesToSuggestionsAndUpdateOrder(){
 		for(let position = 0; position < dateSuggestions.length; position++){
 			let suggestion =  dateSuggestions[position];
+			suggestion = convertDateToSuggestion(suggestion);
 			updateOrderPosition(DATE_SUGGESTIONS_CODE ,suggestion, position);
 		}
 	}
@@ -274,8 +289,17 @@ RegularDatesPage.Model = function(){
 	}
 
 	function getAllDates(){
-		let allDates = regularDates.concat(dateSuggestions);
 		return allDates;
+	}
+
+	function getHorseID(){
+		return horseID;
+	}
+
+	function convertDateToSuggestion(date){
+		date.dateFuture = DATE_SUGGESTION_DATE;
+		date.timeFuture = DATE_SUGGESTION_TIME;
+		return date;
 	}
 
 	
@@ -288,5 +312,6 @@ RegularDatesPage.Model = function(){
 	that.getRegularDates = getRegularDates;
 	that.getDatesSuggestions = getDatesSuggestions;
 	that.getAllDates = getAllDates;
+	that.getHorseID = getHorseID;
 	return that;
 }

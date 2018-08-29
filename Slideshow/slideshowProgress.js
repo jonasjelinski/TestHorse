@@ -180,13 +180,19 @@ Slideshow.SlideshowProgress = function(forwardButtonId, backwardsButtonId, progr
 	* @public
 	* @memberof! SlideshowProgress  
 	* @instance
-	* @description called if slideshow is over
+	* @description allowToChange the page or not
 	*/
 	function setPageCanChange(booleanValue){
 		slideshowModel.setPageCanChange(booleanValue);
 	} 
+
+	function setPage(pageNumber){
+		slideshowModel.setPageNumber(pageNumber);
+		slideshowView.setPageNumber(pageNumber);
+	}
 	
 	that.init = init;
 	that.setPageCanChange = setPageCanChange;
+	that.setPage = setPage;
 	return that;
 } 

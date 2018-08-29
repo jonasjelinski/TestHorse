@@ -32,7 +32,6 @@ DatesPageAll.DatesPageModel = function(){
 				sendOnDataConverted();   			
 			}
 			else{
-				console.log("allDatesAsStrings", allDatesAsStrings);
 				sendNoDataEvent();
 			}			
 	}
@@ -86,7 +85,6 @@ DatesPageAll.DatesPageModel = function(){
 		allDates.sort(function(date1,date2){
 			let position1 = getPositionFromPositionCode(date1.order_position),
 				position2 = getPositionFromPositionCode(date2.order_position);
-				console.log("position1",position1,"position2",position2);
 			if(position1 < position2){
 				return -1;
 			}

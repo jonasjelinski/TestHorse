@@ -1,20 +1,17 @@
 var EntityCreator = EntityCreator || {};
 
 /**
- * @namespace EntityCreator.EntityCreatorView
+ * @namespace EntityCreator.Controll
  * @memberOf! EntityCreator
  * @param {string} valueBoxId, id of the valueBox, is used to get the dom element document.getElementById 
  * @param {string} feedBackBoxId, id of the feedbackBox, is used to get the dom element document.getElementById 
  * @description This modul <code>EntityCreatorView</code> is the viewControll modul of EntityCreator*/
 
-EntityCreator.EntityCreatorView = function(valueBoxId, feedBackBoxId){
+EntityCreator.Controll = function(valueBoxId){
 	"use strict";
 
-	const NO_VALUES_MESSAGE = "Bitte Wert eingeben";
-
-	let that = {},
-		valueBox,
-		feedBackBox;
+	let that = new EventTarget(),
+		valueBox;
 
 	/**
 	* @function init
@@ -28,7 +25,7 @@ EntityCreator.EntityCreatorView = function(valueBoxId, feedBackBoxId){
 	*/ 
 	function init(){
 		valueBox = document.getElementById(valueBoxId);
-		feedBackBox = document.getElementById(feedBackBoxId);
+		valueBox.addEventListener("onchange")
 	}
 
 

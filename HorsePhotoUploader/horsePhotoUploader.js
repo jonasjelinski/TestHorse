@@ -4,7 +4,7 @@ var HorsePhotoUploader = HorsePhotoUploader || {};
 HorsePhotoUploader = function(){
 	"user strict";
 
-	const VALID_FILE_TYPES = ["gif","png","jpg","jpeg"],
+	const VALID_FILE_TYPES = ["gif","png","jpg","jpeg", "image/jpeg"],
 		MAX_FILE_SIZE = 2000000,
 		WRONG_TYPE_FEEDBACK = "Nur Fotos vom Typ gif, png, jpg, jpeg erlaubt",
 		TOO_BIG_FEEDBACK = "Foto ist zu groß";
@@ -28,12 +28,6 @@ HorsePhotoUploader = function(){
 	}
 
 	function uploadNewPhoto(photo){
-		if(isValid(photo)){
-
-		}
-	}
-
-	function isValid(photo){
 		if(photo !==undefined && isValidFileType(photo)){
 			if(isNotTooBig(photo)){
 				peparePhotoAndSendIt(photo);

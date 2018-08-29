@@ -42,6 +42,7 @@ LoginPage.LoginView = function(options){
 	function init(){
 		initViewElements();
 		initListeners();
+		hideNegativeFeedback();
 	}
 
 	/**

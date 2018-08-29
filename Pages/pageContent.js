@@ -63,6 +63,13 @@ Pages.PageContent = function (){
   '<div id= "horseProfileGrower">Züchter: <%= grower %></div> '+
 '</script> ' ,
 
+  TEMPLATE_DATE_RECOMMENDATION =
+  '<script type="text/template" id="TEMPLATE_DATE_RECOMMENDATION">'+
+  '<li draggable="true" dateRecommendationId = <%= id %>'+
+  ' <button class= "dateRecommendationDelete" type="button">löschen</button> '+
+' <button class= "dateRecommandationChange" type="button">ändern</button> '+
+  '</li>',
+
         POPUP = '<div id="popup">' +
                     '<p id="popupText"></p>'+
                     '<button id="popupTextYes" type="button">Yes</button> '+
@@ -189,17 +196,12 @@ Pages.PageContent = function (){
     ' <button class= "regularDateDelete" type="button">löschen</button> '+
 	' <button class= "regularDateChange" type="button">ändern</button> '+
     '<p class="regularDateTitle"><%= title %></p>'+
-		'<p class="regularDateDay"><%= day %></p>'+
+		'<p class="regularDateDay"><%= date %></p>'+
 		'<p class="regularDateTime"><%= time %></p>'+
-  '</li>' +
+  '</li></script>' +
 	TEMPLATE_DATE_RECOMMENDATION,
 
-	TEMPLATE_DATE_RECOMMENDATION =
-	'<script type="text/template" id="ul-element">'+
-  '<li draggable="true" dateRecommendationId = <%= id %>'+
-	' <button class= "dateRecommendationDelete" type="button">löschen</button> '+
-' <button class= "dateRecommandationChange" type="button">ändern</button> '+
-  '</li>',
+
 
 
    HORSE_PROFIL = ' <content>'+
@@ -220,7 +222,7 @@ Pages.PageContent = function (){
 	'</nav>'  +
 	'<div id="horseProfileImgContainer">'+
 	'<img id="horseProfileImg" src="" alt="Profil Bild Pferd">'+
-	'</div>'
+	'</div>'+
     ' <button id= "horseProfileChange" type="button">ändern</button> '+
     ' <button id= "horseProfileOk" type="button">OK</button> '+
     ' <button id= "horseProfileDelete" type="button">löschen</button> '+
@@ -309,7 +311,7 @@ Pages.PageContent = function (){
                                     '<option id="regularDatesYear" value="Jahr">Jahr</option>'+
                                 '</select>',
 
-  REGULAR_DATES_CREATER_PAGE = CREATE_SINGLE_DATE + '<input class="createRegularDate" id="regularDatesDalue" type="number" min=0 max=52 value=1>' + DROPDOWN_MENU_REGULAR_DATES +
+  REGULAR_DATES_CREATER_PAGE = CREATE_SINGLE_DATE + '<input class="createRegularDate" id="regularDatesValue" type="number" min=0 max=52 value=1>' + DROPDOWN_MENU_REGULAR_DATES +
 	'<div class="createRegularDate">' +
 	'<div id= "regularDateNameHeader">Name des Dienstleisters</div>' +
 	'<input id= "regularDateName">Name d. Dienstleisters</input> '+

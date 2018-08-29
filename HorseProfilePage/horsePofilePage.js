@@ -11,6 +11,7 @@ HorseProfilePage = function(){
 	
 	let that = new EventTarget(),
 		profil = {},
+		potrait,
 		model,
 		dbRquester;	
 
@@ -24,6 +25,7 @@ HorseProfilePage = function(){
 	*/ 
 	function init(newAttributes){		
 		initProfil(newAttributes);
+		initPotrait(newAttributes);
 		initModel(newAttributes);
 		initDBRequester();
 		addEventListeners();		
@@ -40,6 +42,14 @@ HorseProfilePage = function(){
 	function initProfil(attributes){
 		profil =  new HorseProfilePage.HorseProfile();
 		profil.init(attributes);	
+	}
+
+	function initPotrait(attributes){
+		console.log(attributes);
+		let src = attributes.photo;
+		potrait = new Potrait("horseProfileImgContainer");
+		potrait.init();
+		potrait.setPicture(src);
 	}
 
 	/**

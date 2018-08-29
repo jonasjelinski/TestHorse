@@ -16,11 +16,16 @@ RegularDatesPage = function(userID){
 		model,
 		controlls,
 		datesListId = "allRegularDates",
+		suggestionsListId = "regularDatesRecommendation",
 		regularDateTemplateString,
+		dateSuggestionTemplateString,
 		regularTagId = "regularDateId",
+		suggestionsTagId = "dateRecommendationId",
 		deleteButtonClass = "regularDateDelete",
 		changeButtonClass = "regularDateChange",
 		backbuttonId= "backToDates",
+		newDateButtonId = "createNewDate",
+		newSuggestionButtonId = "createNewRecommendation",
 		innerListCommunication,
 		popup,
 		changeId,
@@ -35,10 +40,12 @@ RegularDatesPage = function(userID){
 	* @description Initialize this modul. starts the database request for the dates.
 	*/
 	function init(newHorseID){		
+		dateSuggestionTemplateString = document.getElementById("TEMPLATE_DATE_RECOMMENDATION").innerHTML;
 		setHorseIDAndTemplateString(newHorseID);
 		initDBInterface();
 		requestDatesFromDB();
 		initPopup();
+		initControlls();
 	}
 
 	/**
@@ -102,7 +109,7 @@ RegularDatesPage = function(userID){
 	* @description inits the model with the dates as a string
 	*/
 	function initModel(allDatesAsStrings){
-		model = new RegularDatesPage.Model();
+		model = new RegularDatesPage.Model(horseID);
 		model.addEventListener("onDataConverted", handleOnDataConverted);
 		model.init(allDatesAsStrings);	
 	}
@@ -123,7 +130,8 @@ RegularDatesPage = function(userID){
 		initDatesSuggestionList(dateSuggestions);
 		initInterListCommunication();
 		addRegularDatesListListeners();
-		initControlls();	
+		controlls.initListControlls();
+			
 	}
 
 	/**
@@ -141,13 +149,13 @@ RegularDatesPage = function(userID){
 	}
 
 	function initDatesSuggestionList(listElementsData){
-		dateSuggestionsList = new DropList(suggestionsListId, listElementsData, suggestionsTemplateString, suggestionsTagId);
+		dateSuggestionsList = new DropList(suggestionsListId, listElementsData, dateSuggestionTemplateString, suggestionsTagId);
 		dateSuggestionsList.init();
 	}
 
 	function initInterListCommunication(){
-		innerListCommunication = SortableLists(dateSuggestionsListId, suggestionsListId);
-		innerListCommunication.init();
+		innerListCommunication = SortableLists(datesListId, suggestionsListId);
+		//innerListCommunication.init();
 	}
 
 	/**
@@ -183,7 +191,7 @@ RegularDatesPage = function(userID){
 	* which controlls three buttons
 	*/
 	function initControlls(){
-		controlls = RegularDatesPage.RegularDatesPageControll(deleteButtonClass, changeButtonClass,backbuttonId);
+		controlls = RegularDatesPage.RegularDatesPageControll(deleteButtonClass, changeButtonClass,backbuttonId, newDateButtonId, newSuggestionButtonId);
 		controlls.init();
 		addControllListeners();
 	}
@@ -199,6 +207,8 @@ RegularDatesPage = function(userID){
 		controlls.addEventListener("onDeleteClick", handleDeleteClick);
 		controlls.addEventListener("onChangeClick", handleChangeClick);
 		controlls.addEventListener("onBackButtonClicked", handleBackClick);
+		controlls.addEventListener("onNewDate", handleNewDate);
+		controlls.addEventListener("onNewSuggestion", handleNewSuggestion);
 	}
 
 	/**
@@ -266,8 +276,19 @@ RegularDatesPage = function(userID){
 	* @description Sends an event "showAllDates" that he user wants to see all dates
 	*/ 
 	function handleBackClick(){
+		let id = {
+			horseID: horseID,
+		};
 		updateDatesAndSuggestions();
-		sendEvent("showAllDates");
+		sendEvent("showAllDates", id);
+	}
+
+	function handleNewDate(){
+		sendEvent("showCreateRegularDate");
+	}
+
+	function handleNewSuggestion(){
+		sendEvent("showCreateDateSuggestion");
 	}
 
 	/**

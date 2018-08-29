@@ -24,8 +24,8 @@ RegulardatesCreatorPage.Standard = function(userID){
 		REMINDER_BUTTON_ID = "dateCreaterReminderButton",
 		SAVE_BUTTON_ID = "dateCreaterSaveButton",
 		CANCLE_BUTTON_ID = "dateCreaterCancelButton",
-		UNIT_INPUT_ID = "??????",
-		VALUE_INPUT_ID = "regular_dates_value";
+		UNIT_INPUT_ID = "createRegularDate",
+		VALUE_INPUT_ID = "regularDatesValue";
 
 	let that = new EventTarget(),
 	regularDatesCreater;
@@ -39,6 +39,7 @@ RegulardatesCreatorPage.Standard = function(userID){
 	* @description Initialize this modul.
 	*/
 	function init(newHorseID){
+		console.log("init");
 		initRegularDatesCreator();
 		addEventListeners();
 	}

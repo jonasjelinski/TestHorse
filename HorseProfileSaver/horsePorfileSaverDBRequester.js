@@ -84,7 +84,7 @@ var HorseProfileSaver = HorseProfileSaver || {};
 			isNewHorse = isNew;
 		
 		if(isNewHorse){
-			newHorse = ADD_TYPE(newHorse);
+			delete newHorse.photo;
 			hadCorrectParameter = requester.setHorseIntoDB(newHorse);
 		}
 		else{
@@ -92,13 +92,6 @@ var HorseProfileSaver = HorseProfileSaver || {};
 			hadCorrectParameter = requester.updateHorse(newHorse);
 		}
 		handleParameterFeedBack(hadCorrectParameter);
-	}
-
-	//Vor abgabe löschen!!!!!!!!!!!!!!!!!!
-	function ADD_TYPE(newHorse){		
-		newHorse.type = "Einhorn";
-		delete newHorse.photo;
-		return newHorse;
 	}
 
 	/**
