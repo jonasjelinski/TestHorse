@@ -162,7 +162,9 @@ Pages = function(){
 		datesCreatorPageSingle.addEventListener("onChangeClick", changeSingleDate);
 		datesCreatorPageRegular.addEventListener("onDataSaved", showRegularDates);
 		datesCreatorPageRegular.addEventListener("onCancel", showRegularDates);
+		datesCreatorPageRegular.addEventListener("onCancel", showRegularDates);
 		datesChangerPageRegular.addEventListener("onDataSaved", showRegularDates);			
+		datesChangerPageRegular.addEventListener("onCancel", showRegularDates);			
 	}	
 
 	function addListenersForHorse() {

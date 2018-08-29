@@ -196,7 +196,7 @@ Pages.PageContent = function (){
     ' <button class= "regularDateDelete" type="button">löschen</button> '+
 	' <button class= "regularDateChange" type="button">ändern</button> '+
     '<p class="regularDateTitle"><%= title %></p>'+
-		'<p class="regularDateDay"><%= day %></p>'+
+		'<p class="regularDateDay"><%= date %></p>'+
 		'<p class="regularDateTime"><%= time %></p>'+
   '</li>' +
 	TEMPLATE_DATE_RECOMMENDATION,

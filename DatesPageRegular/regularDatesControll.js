@@ -26,7 +26,6 @@ RegularDatesPage.RegularDatesPageControll = function(deleteButtonClass, changeBu
 	*/
 	function init(){
 		initNewDatesAndSuggestionControlls();
-		initListControlls();
 		initBackButtonControlls();						
 	}
 
@@ -162,5 +161,6 @@ RegularDatesPage.RegularDatesPageControll = function(deleteButtonClass, changeBu
 	}
 
 	that.init = init;
+	that.initListControlls = initListControlls;
 	return that;
 }

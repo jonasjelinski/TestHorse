@@ -77,7 +77,16 @@ DatesChangerPage.DBRequester = function(userID, horseID){
 			changedDate.valueRegular = value;
 			changedDate.unitRegular = unit;
 		updateDate(changedDate);
-		updateReminder(updatedData, dateID);
+		if(hasReminder(updatedData)){
+			updateReminder(updatedData, dateID);
+		}		
+	}
+
+	function hasReminder(updatedData){
+		if (updatedData.reminder === undefined){
+			return false;
+		}
+		return true;
 	}
 
 

@@ -8,13 +8,13 @@ var RegularDatesPage = RegularDatesPage || {};
  * this string to an array of objects and sorts out the regular dates.
  */
 
-RegularDatesPage.Model = function(){
+RegularDatesPage.Model = function(horseID){
 	const REGULAR_POSTION_CODE = "RD",
 		DATE_SUGGESTIONS_CODE = "DS",
 		DATE_SUGGESTION_DATE = "0000-00-00";
 
-	let that = new EventTarget(),
-		dbRequester,		
+	let that = new EventTarget(),	
+		allDates,	
 		regularDates = [],
 		dateSuggestions =[],
 		delteId;
@@ -29,15 +29,19 @@ RegularDatesPage.Model = function(){
 	* and tells the other moduls trough an event that regularDatesAsStrings has been converted
 	*/ 	
 	function init(allDatesAsStrings){
-		console.log("allDatesAsStrings", allDatesAsStrings);
 		if(isParsable(allDatesAsStrings)){
-			let allDates = JSON.parse(allDatesAsStrings),
-			regularDatesAndSuggestions = removeSingleDates(allDates);
-			console.log("regularDatesAndSuggestions",regularDatesAndSuggestions);
-			filterDatesAndSuggestions(regularDatesAndSuggestions);
-			convertData(regularDates, REGULAR_POSTION_CODE);	
-			convertData(dateSuggestions, DATE_SUGGESTION_DATE);	
-			sendOnDataConverted();
+			let parsedDates = JSON.parse(allDatesAsStrings),
+				allDatesCopy;
+			if(isArray(parsedDates)){
+				allDates = parsedDates;
+				allDatesCopy = allDates.slice(0),
+				regularDatesAndSuggestions = removeSingleDates(allDatesCopy);
+				filterDatesAndSuggestions(regularDatesAndSuggestions);
+				convertData(regularDates, REGULAR_POSTION_CODE);	
+				convertData(dateSuggestions, DATE_SUGGESTION_DATE);	
+				sendOnDataConverted();
+			}
+			
 		}
 	}
 
@@ -50,9 +54,13 @@ RegularDatesPage.Model = function(){
 		return true;
 	}
 
+	function isArray(parsedDates){
+		return Array.isArray(parsedDates);
+	}
+
 	function filterDatesAndSuggestions(regularDatesAndSuggestions){
 		for(let i = 0; i < regularDatesAndSuggestions.length; i++){
-			let date = allDates[i];
+			let date = regularDatesAndSuggestions[i];
 			if(!isDateSuggestion(date)){
 				dateSuggestions.push(date);
 			}
@@ -124,8 +132,9 @@ RegularDatesPage.Model = function(){
 
 	function sortDates(regularDates, posCode){
 		regularDates.sort(function(date1,date2){
-			let position1 = getPositionFromPositionCode(date1.orderPosition, posCode),
-				position2 = getPositionFromPositionCode(date2.orderPosition, posCode);
+			let numberOfDates = regularDates.length,
+				position1 = getPositionFromPositionCode(date1.orderPosition, posCode, numberOfDates),
+				position2 = getPositionFromPositionCode(date2.orderPosition, posCode, numberOfDates);
 			if(position1 < position2){
 				return -1;
 			}
@@ -136,11 +145,11 @@ RegularDatesPage.Model = function(){
 		});
 	}
 
-	function getPositionFromPositionCode(positionString, posCode){
+	function getPositionFromPositionCode(positionString, posCode, numberOfDates){
 		let position,
 			code;
 		if(positionString === ""){
-			position = allDates.length;
+			position = numberOfDates.length;
 		}
 		else{
 			regex = new RegExp(posCode+"\\d*")
@@ -210,7 +219,7 @@ RegularDatesPage.Model = function(){
 	}
 
 	function updateDateSuggestions(newSuggestions){
-		dateSuggestions = newSuggestions();
+		dateSuggestions = newSuggestions;
 		updateSuggestionsOrder();
 	}
 
@@ -236,8 +245,9 @@ RegularDatesPage.Model = function(){
 	* @description returns date with the id "id"
 	*/
 	function getSearchedDate(id){
-		for(let i = 0; i < regularDates.length; i++){
-			let date = regularDates[i];
+		for(let i = 0; i < allDates.length; i++){
+			let date = allDates[i];
+			console.log("getSearchedDate", date, "id", id);
 			if(date.id === id){
 				return date;
 			}
@@ -276,8 +286,11 @@ RegularDatesPage.Model = function(){
 	}
 
 	function getAllDates(){
-		let allDates = regularDates.concat(dateSuggestions);
 		return allDates;
+	}
+
+	function getHorseID(){
+		return horseID;
 	}
 
 	
@@ -290,5 +303,6 @@ RegularDatesPage.Model = function(){
 	that.getRegularDates = getRegularDates;
 	that.getDatesSuggestions = getDatesSuggestions;
 	that.getAllDates = getAllDates;
+	that.getHorseID = getHorseID;
 	return that;
 }

@@ -39,6 +39,7 @@ RegulardatesCreatorPage.Standard = function(userID){
 	* @description Initialize this modul.
 	*/
 	function init(newHorseID){
+		console.log("init");
 		initRegularDatesCreator();
 		addEventListeners();
 	}

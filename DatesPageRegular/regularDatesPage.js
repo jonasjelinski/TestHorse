@@ -43,6 +43,7 @@ RegularDatesPage = function(userID){
 		initDBInterface();
 		requestDatesFromDB();
 		initPopup();
+		initControlls();
 	}
 
 	/**
@@ -107,7 +108,7 @@ RegularDatesPage = function(userID){
 	*/
 	function initModel(allDatesAsStrings){
 		console.log("initModel");
-		model = new RegularDatesPage.Model();
+		model = new RegularDatesPage.Model(horseID);
 		model.addEventListener("onDataConverted", handleOnDataConverted);
 		model.init(allDatesAsStrings);	
 	}
@@ -128,7 +129,8 @@ RegularDatesPage = function(userID){
 		initDatesSuggestionList(dateSuggestions);
 		initInterListCommunication();
 		addRegularDatesListListeners();
-		initControlls();	
+		controlls.initListControlls();
+			
 	}
 
 	/**
@@ -140,14 +142,12 @@ RegularDatesPage = function(userID){
 	* @description inits the regularDatesList with the data of listElementsData
 	*/
 	function initRegularDatesList(listElementsData){
-		console.log("initRegularDatesList", listElementsData);
 		regularDatesList = new DropList(datesListId, listElementsData, regularDateTemplateString, regularTagId);
 		regularDatesList.init();
 		
 	}
 
 	function initDatesSuggestionList(listElementsData){
-		console.log("initDatesSuggestionList", listElementsData);
 		dateSuggestionsList = new DropList(suggestionsListId, listElementsData, regularDateTemplateString, suggestionsTagId);
 		dateSuggestionsList.init();
 	}
@@ -276,9 +276,11 @@ RegularDatesPage = function(userID){
 	* @description Sends an event "showAllDates" that he user wants to see all dates
 	*/ 
 	function handleBackClick(){
-		console.log("handleBackClick");
+		let id = {
+			horseID: horseID,
+		};
 		updateDatesAndSuggestions();
-		sendEvent("showAllDates");
+		sendEvent("showAllDates", id);
 	}
 
 	function handleNewDate(){

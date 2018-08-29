@@ -8,6 +8,8 @@ var DatesCreator = DatesCreator || {};
  */
 DatesCreator.Model = function(){
 
+	const DEFAULT_REMINDER = { date:"noReminder", time: "noReminder"};
+
 	let that = new EventTarget,
 		wantsReminder,
 		status,
@@ -213,6 +215,9 @@ DatesCreator.Model = function(){
 		data.date = date;
 		if(wantsReminder){
 			data.reminder = reminder;
+		}
+		else{
+			data.reminder = DEFAULT_REMINDER;
 		}
 		sendEvent("onFinaleSaveOkay", data);
 	}
