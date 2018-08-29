@@ -13,16 +13,16 @@ UserCreatorPage = function(){
 
 	const ATTRIBUTES = {
 				name: {value:undefined,
-					   isNecessary: false,
+					   isNecessary: true,
 				},
 				dateOfBirth:{value:undefined,
-					   isNecessary: false,					
+					   isNecessary: true,					
 				},
 				email: {value:undefined,
-					   isNecessary: false,
+					   isNecessary: true,
 				},
 				password: {value:undefined,
-					   isNecessary: false,
+					   isNecessary: true,
 				},				
 			};
 

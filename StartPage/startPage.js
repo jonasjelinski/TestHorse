@@ -272,8 +272,7 @@ StartPage = function(userID){
 	* @description sends event "showHelpPage" 
 	*/
 	function handleHelpOption(){
-		sendEvent("showHelpPage","");
-		updateList();
+		sendEvent("showHelpPage","");	
 	}
 
 	/**

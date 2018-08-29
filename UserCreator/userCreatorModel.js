@@ -11,13 +11,13 @@ var UserCreator = UserCreator || {};
 UserCreator.UserCreatorModel = function(newAttributes){
 	const ATTRIBUTES = {
 				name: {value:undefined,
-					   isNecessary: false,
+					   isNecessary: true,
 				},
 				email: {value:undefined,
-					   isNecessary: false,
+					   isNecessary: true,
 				},
 				password: {value:undefined,
-					   isNecessary: false,
+					   isNecessary: true,
 				},				
 			};
 

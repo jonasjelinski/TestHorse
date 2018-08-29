@@ -28,6 +28,7 @@ EntityCreator = function(innerPageId, forwardButtonId, backwardsButtonId, textBo
 		initModel();
 		initView();
 		checkIfThereAreAlreadyValuesForTheNewPageAndSendThem();
+		checkInput();
 	}
 
 	/**
@@ -72,6 +73,14 @@ EntityCreator = function(innerPageId, forwardButtonId, backwardsButtonId, textBo
 		slideshow.showFirstPage(); 
 	}
 
+	function enableSlideshow(){
+		slideshow.setPageCanChange(true);
+	}
+
+	function disableSlideshow(){
+		slideshow.setPageCanChange(false);
+	}
+
 	/**
 	* @function handleSliderPageChange
 	* @private
@@ -86,12 +95,15 @@ EntityCreator = function(innerPageId, forwardButtonId, backwardsButtonId, textBo
 	* after that it sends the old values with an event  
 	*/ 
 	function handleSliderPageChange(event){
-		let pageNumber = event.details.pageNumber;		
-		getCurrentDataFromViewAndUpdateModel();		
-		getCurrentDataFromViewAndSendThem();
-		switchToNewPageAndUpdateViewController(pageNumber);
-		checkIfThereAreAlreadyValuesForTheNewPageAndSendThem();		
+		let pageNumber = event.details.pageNumber;
+			getCurrentDataFromViewAndUpdateModel();		
+			getCurrentDataFromViewAndSendThem();
+			switchToNewPageAndUpdateViewController(pageNumber);
+			checkIfThereAreAlreadyValuesForTheNewPageAndSendThem();
+			checkInput();
 	}
+
+	
 
 	/**
 	* @function reloadViewForNewPage
@@ -243,6 +255,22 @@ EntityCreator = function(innerPageId, forwardButtonId, backwardsButtonId, textBo
 		view.showHasNotEnoughValues();
 	}
 
+	function checkInput(){
+		if(isNecessaryAttributeFilled()){
+			view.hideHasNotEnoughValues();	
+			enableSlideshow();
+		}
+		else{
+			disableSlideshow();
+			view.showHasNotEnoughValues();	
+		}
+	}
+
+	function isNecessaryAttributeFilled(){
+		let valueData = view.getValue();		
+		return model.isNecessaryAttributeFilled(valueData.property, valueData.value);
+	}
+
 	/**
 	* @function sendValuesData
 	* @private
@@ -315,6 +343,7 @@ EntityCreator = function(innerPageId, forwardButtonId, backwardsButtonId, textBo
 	that.init = init;
 	that.setPageCanChange = setPageCanChange;
 	that.updateModel = updateModel;
+	that.checkInput = checkInput;
 	that.overrideConstructorAttributes = overrideConstructorAttributes;
 	return that;
 }

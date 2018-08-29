@@ -311,7 +311,7 @@ Pages.PageContent = function (){
                                     '<option id="regularDatesYear" value="Jahr">Jahr</option>'+
                                 '</select>',
 
-  REGULAR_DATES_CREATER_PAGE = CREATE_SINGLE_DATE + '<input class="createRegularDate" id="regularDatesDalue" type="number" min=0 max=52 value=1>' + DROPDOWN_MENU_REGULAR_DATES +
+  REGULAR_DATES_CREATER_PAGE = CREATE_SINGLE_DATE + '<input class="createRegularDate" id="regularDatesValue" type="number" min=0 max=52 value=1>' + DROPDOWN_MENU_REGULAR_DATES +
 	'<div class="createRegularDate">' +
 	'<div id= "regularDateNameHeader">Name des Dienstleisters</div>' +
 	'<input id= "regularDateName">Name d. Dienstleisters</input> '+

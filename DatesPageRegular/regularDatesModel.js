@@ -29,9 +29,11 @@ RegularDatesPage.Model = function(){
 	* and tells the other moduls trough an event that regularDatesAsStrings has been converted
 	*/ 	
 	function init(allDatesAsStrings){
+		console.log("allDatesAsStrings", allDatesAsStrings);
 		if(isParsable(allDatesAsStrings)){
 			let allDates = JSON.parse(allDatesAsStrings),
 			regularDatesAndSuggestions = removeSingleDates(allDates);
+			console.log("regularDatesAndSuggestions",regularDatesAndSuggestions);
 			filterDatesAndSuggestions(regularDatesAndSuggestions);
 			convertData(regularDates, REGULAR_POSTION_CODE);	
 			convertData(dateSuggestions, DATE_SUGGESTION_DATE);	

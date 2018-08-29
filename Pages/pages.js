@@ -155,9 +155,13 @@ Pages = function(){
 		datesPageRegular.addEventListener("onDataSaved", showStartPage);				
 		datesPageRegular.addEventListener("onCancel", showStartPage);			
 		datesPageRegular.addEventListener("onChangeDate", changeRegularDate);			
+		datesPageRegular.addEventListener("showCreateRegularDate", showCreateRegularDate);			
+		//datesPageRegular.addEventListener("showCreateDateSuggestion", showCreateRegularDate);			
 		datesCreatorPageSingle.addEventListener("onDataSaved", showStartPage);				
 		datesCreatorPageSingle.addEventListener("onCancel", showStartPage);			
 		datesCreatorPageSingle.addEventListener("onChangeClick", changeSingleDate);
+		datesCreatorPageRegular.addEventListener("onDataSaved", showRegularDates);
+		datesCreatorPageRegular.addEventListener("onCancel", showRegularDates);
 		datesChangerPageRegular.addEventListener("onDataSaved", showRegularDates);			
 	}	
 
@@ -270,11 +274,13 @@ Pages = function(){
 	* @description shows all regular dates to the user
 	*/ 
 	function showRegularDates(){
+		console.log("showRegularDates");
 		pageChanger.switchPage("REGULAR_DATES_PAGE");
 		datesPageRegular.init();
 	}
 
-	function showRegularDatescreatorPage() {
+	function showCreateRegularDate() {
+		console.log("showCreateRegularDate");
 		pageChanger.switchPage("REGULAR_DATES_CREATER_PAGE");		
 		datesCreatorPageRegular.init();
 	}
@@ -457,7 +463,7 @@ Pages = function(){
 	that.initAfterLogin = initAfterLogin;
 	that.showAllDates = showAllDates;
 	that.showRegularDates = showRegularDates;
-	that.showRegularDatescreatorPage = showRegularDatescreatorPage;
+	that.showCreateRegularDate = showCreateRegularDate;
 	that.showHorseProfilePage = showHorseProfilePage;	
 	that.showHorseCreatorPage = showHorseCreatorPage;	
 	that.showLoginPage = showLoginPage;

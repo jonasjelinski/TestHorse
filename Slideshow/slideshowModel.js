@@ -34,6 +34,9 @@ Slideshow.SlideshowModel = function(numberOfPages){
 	function setNextPage(){
 		if(pageCanChange){
 			increasePageNumberAndSendIt();
+		}
+		else{
+			sendWantsChangePage();
 		}		
 	}
 
@@ -91,6 +94,9 @@ Slideshow.SlideshowModel = function(numberOfPages){
 		if(pageCanChange){
 			decreasePackeNumberAndSendIt();
 		}
+		else{
+			sendWantsChangePage();
+		}
 	}
 		
 	/**
@@ -132,6 +138,11 @@ Slideshow.SlideshowModel = function(numberOfPages){
 		that.dispatchEvent(event);
 	}
 
+	function sendWantsChangePage(){
+		let event = new Event("onWantsChange");
+		that.dispatchEvent(event);
+	}
+
 	/**
 	* @function setPageCanChange
 	* @public
@@ -143,9 +154,14 @@ Slideshow.SlideshowModel = function(numberOfPages){
 		pageCanChange = booleanValue;
 	}
 
+	function setPageNumber(number){
+		pageNumber = pageNumber;
+	}
+
 	that.init = init;
 	that.setNextPage = setNextPage;
 	that.setPreviousPage = setPreviousPage;
 	that.setPageCanChange = setPageCanChange;
+	that.setPageNumber = setPageNumber;
 	return that;
 }

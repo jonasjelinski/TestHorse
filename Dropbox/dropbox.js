@@ -27,6 +27,7 @@ Dropbox = class Dropbox extends EventTarget {
   */  
   constructor(target, validFileTypes, hoverClass) {
     super();
+    console.log(target, validFileTypes, hoverClass);
     this.target = target;
     this.validFileTypes = validFileTypes;
     this.target.addEventListener("dragover", this.onDragOver.bind(this), false);
@@ -80,7 +81,6 @@ Dropbox = class Dropbox extends EventTarget {
     this.target.classList.remove(this.hoverClass);   
     event.stopPropagation();
     event.preventDefault();
-
     if (file && this.validFileTypes.includes(file.type)) {   
       this.handleFileDrop(file);
     }

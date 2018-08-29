@@ -11,7 +11,8 @@ class Creator extends EventTarget{
 		super();
 		this.entityCreator = entityCreator;
 		this.model = creatorModel;
-		this.view = view;	
+		this.view = view;
+		this.sideCanChange = true;	
 	}
 
 	/**
@@ -181,6 +182,13 @@ class Creator extends EventTarget{
 	*/ 
 	initView(){
 		this.view.init();
+		this.view.addEventListener("onInput", this.handleInput.bind(this));
+	}
+
+	handleInput(){
+		if(this.sideCanChange){
+			this.entityCreator.checkInput();
+		}		
 	}
 
 	/**
@@ -207,6 +215,7 @@ class Creator extends EventTarget{
 	* if user puts in wrong values on no values
 	*/ 
 	stopPageSlider(){ 
+	  this.sideCanChange = false;
       this.entityCreator.setPageCanChange(false); 
     }
 
@@ -219,6 +228,7 @@ class Creator extends EventTarget{
 	* if user puts in correct values.
 	*/  
     proceedPageSlider(){ 
+      this.sideCanChange = true;
       this.entityCreator.setPageCanChange(true); 
     }
 

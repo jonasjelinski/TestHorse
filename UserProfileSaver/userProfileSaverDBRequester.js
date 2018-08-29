@@ -49,7 +49,6 @@ UserProfileSaver.DBRequester = function(){
 	*/
 	function handleResult(event){
 		let data = event.details.data;
-		console.log("onResult", data);
     }
 
 

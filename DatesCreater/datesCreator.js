@@ -136,6 +136,7 @@ DatesCreator = function(dateClass, reminderClass, containerElementId, titleInput
 	*/
 	function handleFinaleSave(event){
 		let data = event.details.data;
+		console.log("handleFinaleSave");
 		sendEvent("onSave", data);
 	}
 
@@ -256,6 +257,7 @@ DatesCreator = function(dateClass, reminderClass, containerElementId, titleInput
 	* model tests the data if they are correct
 	*/
 	function handleViewSave(event) {
+		console.log("handleViewSave");
 		let inputData = event.details.input;
 		model.tryToSaveAtTheEnd(inputData);
 	}

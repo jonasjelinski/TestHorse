@@ -16,11 +16,15 @@ RegularDatesPage = function(userID){
 		model,
 		controlls,
 		datesListId = "allRegularDates",
+		suggestionsListId = "regularDatesRecommendation",
 		regularDateTemplateString,
 		regularTagId = "regularDateId",
+		suggestionsTagId = "dateRecommendationId",
 		deleteButtonClass = "regularDateDelete",
 		changeButtonClass = "regularDateChange",
 		backbuttonId= "backToDates",
+		newDateButtonId = "createNewDate",
+		newSuggestionButtonId = "createNewRecommendation",
 		innerListCommunication,
 		popup,
 		changeId,
@@ -102,6 +106,7 @@ RegularDatesPage = function(userID){
 	* @description inits the model with the dates as a string
 	*/
 	function initModel(allDatesAsStrings){
+		console.log("initModel");
 		model = new RegularDatesPage.Model();
 		model.addEventListener("onDataConverted", handleOnDataConverted);
 		model.init(allDatesAsStrings);	
@@ -135,18 +140,20 @@ RegularDatesPage = function(userID){
 	* @description inits the regularDatesList with the data of listElementsData
 	*/
 	function initRegularDatesList(listElementsData){
+		console.log("initRegularDatesList", listElementsData);
 		regularDatesList = new DropList(datesListId, listElementsData, regularDateTemplateString, regularTagId);
 		regularDatesList.init();
 		
 	}
 
 	function initDatesSuggestionList(listElementsData){
-		dateSuggestionsList = new DropList(suggestionsListId, listElementsData, suggestionsTemplateString, suggestionsTagId);
+		console.log("initDatesSuggestionList", listElementsData);
+		dateSuggestionsList = new DropList(suggestionsListId, listElementsData, regularDateTemplateString, suggestionsTagId);
 		dateSuggestionsList.init();
 	}
 
 	function initInterListCommunication(){
-		innerListCommunication = SortableLists(dateSuggestionsListId, suggestionsListId);
+		innerListCommunication = SortableLists(datesListId, suggestionsListId);
 		innerListCommunication.init();
 	}
 
@@ -183,7 +190,7 @@ RegularDatesPage = function(userID){
 	* which controlls three buttons
 	*/
 	function initControlls(){
-		controlls = RegularDatesPage.RegularDatesPageControll(deleteButtonClass, changeButtonClass,backbuttonId);
+		controlls = RegularDatesPage.RegularDatesPageControll(deleteButtonClass, changeButtonClass,backbuttonId, newDateButtonId, newSuggestionButtonId);
 		controlls.init();
 		addControllListeners();
 	}
@@ -199,6 +206,8 @@ RegularDatesPage = function(userID){
 		controlls.addEventListener("onDeleteClick", handleDeleteClick);
 		controlls.addEventListener("onChangeClick", handleChangeClick);
 		controlls.addEventListener("onBackButtonClicked", handleBackClick);
+		controlls.addEventListener("onNewDate", handleNewDate);
+		controlls.addEventListener("onNewSuggestion", handleNewSuggestion);
 	}
 
 	/**
@@ -250,6 +259,7 @@ RegularDatesPage = function(userID){
 	* an send the attributes of the date with the event
 	*/ 
 	function handleChangeClick(event){
+		console.log("handleChangeClick");
 		let id = event.details.id,
 			attributes = model.getDateAttributesById(id),
 			data = {
@@ -266,8 +276,17 @@ RegularDatesPage = function(userID){
 	* @description Sends an event "showAllDates" that he user wants to see all dates
 	*/ 
 	function handleBackClick(){
+		console.log("handleBackClick");
 		updateDatesAndSuggestions();
 		sendEvent("showAllDates");
+	}
+
+	function handleNewDate(){
+		sendEvent("showCreateRegularDate");
+	}
+
+	function handleNewSuggestion(){
+		sendEvent("showCreateDateSuggestion");
 	}
 
 	/**

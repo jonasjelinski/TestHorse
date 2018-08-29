@@ -134,6 +134,8 @@ class UserCreatorView extends CreatorView{
 	* @description setter for the feedBackBox
 	*/ 
 	setFeedback(text){
+		let visible = 1;
+		this.feedBackBox.style.opacity = visible;
 		this.feedBackBox.innerHTML = text;
 	}
 

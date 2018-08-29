@@ -22,6 +22,7 @@ EntityCreator.EntityCreatorModel = function(attr){
 	function init(){
 		attributes = attr;
 		entity = new Entity(attributes);
+		checkInput();
 	}
 
 	/**
@@ -131,6 +132,19 @@ EntityCreator.EntityCreatorModel = function(attr){
 		return entity.getAttribute(attributeName);
 	}
 
+	function isNecessaryAttributeFilled(attributeName, value){
+		let attribute = entity.getAttribute(attributeName);
+		return !isEmptyAndNecessary(attribute, value);
+	}
+
+	function isEmptyAndNecessary(attribute, value){
+		return attribute.isNecessary && value === "";
+	}
+
+	function checkInput(){
+		sendEvent("onCheckInput","");
+	}
+
 	
 	that.init = init;
 	that.checkIfEntityHasEnoughValues = checkIfEntityHasEnoughValues;
@@ -138,6 +152,7 @@ EntityCreator.EntityCreatorModel = function(attr){
 	that.setPage = setPage;
 	that.updateModel = updateModel;
 	that.getAttribute = getAttribute;
+	that.isNecessaryAttributeFilled = isNecessaryAttributeFilled;
 	return that;
 
 }

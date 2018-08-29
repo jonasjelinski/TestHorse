@@ -11,7 +11,7 @@
 class UserCreatorClass extends Creator{
   constructor(entityCreator, creatorModel, view){
     super(entityCreator, creatorModel, view);
-    this.validator = new UserCreator.InputValidator();
+    this.validator = new UserCreator.InputValidator();    
   }
 
 
