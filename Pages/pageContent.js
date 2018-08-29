@@ -180,7 +180,6 @@ Pages.PageContent = function (){
     POPUP +
  '<button id= "backToDates" type="button">zurück zur Terminübersicht</button> '+
  '<button id= "createNewDate" type="button">neuen Termin erstellen</button> '+
- '<button id= "createNewRecommendation" type="button">neuen Terminvorschlag erstelen</button> '+
   '</div>'+
  '</content>'+
 
