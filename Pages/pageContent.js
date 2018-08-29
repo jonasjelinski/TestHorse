@@ -64,7 +64,7 @@ Pages.PageContent = function (){
 '</script> ' ,
 
   TEMPLATE_DATE_RECOMMENDATION =
-  '<script type="text/template" id="ul-element">'+
+  '<script type="text/template" id="TEMPLATE_DATE_RECOMMENDATION">'+
   '<li draggable="true" dateRecommendationId = <%= id %>'+
   ' <button class= "dateRecommendationDelete" type="button">löschen</button> '+
 ' <button class= "dateRecommandationChange" type="button">ändern</button> '+
@@ -198,7 +198,7 @@ Pages.PageContent = function (){
     '<p class="regularDateTitle"><%= title %></p>'+
 		'<p class="regularDateDay"><%= date %></p>'+
 		'<p class="regularDateTime"><%= time %></p>'+
-  '</li>' +
+  '</li></script>' +
 	TEMPLATE_DATE_RECOMMENDATION,
 
 

@@ -232,7 +232,6 @@ Pages = function(){
 	}
 
 	function logoutUser(){
-		console.log("logout");
 		logoutPage.init();
 		logoutPage.logout();
 	}
@@ -244,7 +243,6 @@ Pages = function(){
 		isUserLoggedIn = true;
 		initAfterLogin();
 		showStartPage();
-		console.log("showStartPage userID", userID)
 	}
 
 	function initAfterLogin(){
@@ -276,13 +274,11 @@ Pages = function(){
 	* @description shows all regular dates to the user
 	*/ 
 	function showRegularDates(){
-		console.log("showRegularDates");
 		pageChanger.switchPage("REGULAR_DATES_PAGE");
 		datesPageRegular.init();
 	}
 
 	function showCreateRegularDate() {
-		console.log("showCreateRegularDate");
 		pageChanger.switchPage("REGULAR_DATES_CREATER_PAGE");		
 		datesCreatorPageRegular.init();
 	}

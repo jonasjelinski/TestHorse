@@ -149,6 +149,7 @@ DatesCreator.Model = function(){
 					case "location": sendEvent("onNoLocation");
 						break;
 				}
+				sendEvent("showPopup");
 			}
 		});
 	}

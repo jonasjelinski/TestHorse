@@ -101,6 +101,9 @@ class ListView extends EventTarget{
 			id = event.details.id,
 			droppedElement = this.getLiElementyById(id),    		
 			element = event.target.element;
+		if(element === undefined || droppedElement === undefined){
+			return;
+		}
 		if(!this.isDroppingOnItsself(element, droppedElement)){
 			this.insertDroppedElement(element, droppedElement);
 		}    		

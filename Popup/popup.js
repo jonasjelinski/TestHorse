@@ -6,7 +6,8 @@ var Popup = Popup || {};
  * @param {string} text, text which is shown in the popup
  */
 
-Popup = function (text) {
+Popup = function (text, hasTwoButtons = true, popupElementId = "popup", popupTextId ="popupText", 
+	yesButtonId = "popupTextYes", noButtonId = "popupTextNo") {
 	let that = new EventTarget(),
 		popupElement,
 		popupText,
@@ -23,7 +24,14 @@ Popup = function (text) {
 	function init(){
 		getDomElements();
 		addEventListeners();
-		setPopupText();
+		if(hasText()){
+			setPopupText();
+		}
+		
+	}
+
+	function hasText(){
+		return text.length > 0 ;
 	}
 
 	/**
@@ -34,10 +42,12 @@ Popup = function (text) {
 	* @description gets the domElement through the id
 	*/
 	function getDomElements(){
-		popupElement = document.getElementById("popup");
-		popupText = document.getElementById("popupText");
-		yesButton = document.getElementById("popupTextYes");
-		noButton = document.getElementById("popupTextNo");
+		popupElement = document.getElementById(popupElementId);
+		popupText = document.getElementById(popupTextId);
+		yesButton = document.getElementById(yesButtonId);
+		if(hasTwoButtons){
+			noButton = document.getElementById(noButtonId);
+		}		
 		setPopupInVisible();		
 	}
 
@@ -50,7 +60,9 @@ Popup = function (text) {
 	*/
 	function addEventListeners(){
 		yesButton.addEventListener("click", handleYesClick);
-		noButton.addEventListener("click", handleNoClick);
+		if(hasTwoButtons){
+			noButton.addEventListener("click", handleNoClick);
+		}		
 	}
 
 	/**

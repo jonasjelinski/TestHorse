@@ -18,6 +18,7 @@ RegularDatesPage = function(userID){
 		datesListId = "allRegularDates",
 		suggestionsListId = "regularDatesRecommendation",
 		regularDateTemplateString,
+		dateSuggestionTemplateString,
 		regularTagId = "regularDateId",
 		suggestionsTagId = "dateRecommendationId",
 		deleteButtonClass = "regularDateDelete",
@@ -39,6 +40,7 @@ RegularDatesPage = function(userID){
 	* @description Initialize this modul. starts the database request for the dates.
 	*/
 	function init(newHorseID){		
+		dateSuggestionTemplateString = document.getElementById("TEMPLATE_DATE_RECOMMENDATION").innerHTML;
 		setHorseIDAndTemplateString(newHorseID);
 		initDBInterface();
 		requestDatesFromDB();
@@ -107,7 +109,6 @@ RegularDatesPage = function(userID){
 	* @description inits the model with the dates as a string
 	*/
 	function initModel(allDatesAsStrings){
-		console.log("initModel");
 		model = new RegularDatesPage.Model(horseID);
 		model.addEventListener("onDataConverted", handleOnDataConverted);
 		model.init(allDatesAsStrings);	
@@ -148,13 +149,13 @@ RegularDatesPage = function(userID){
 	}
 
 	function initDatesSuggestionList(listElementsData){
-		dateSuggestionsList = new DropList(suggestionsListId, listElementsData, regularDateTemplateString, suggestionsTagId);
+		dateSuggestionsList = new DropList(suggestionsListId, listElementsData, dateSuggestionTemplateString, suggestionsTagId);
 		dateSuggestionsList.init();
 	}
 
 	function initInterListCommunication(){
 		innerListCommunication = SortableLists(datesListId, suggestionsListId);
-		innerListCommunication.init();
+		//innerListCommunication.init();
 	}
 
 	/**
@@ -259,7 +260,6 @@ RegularDatesPage = function(userID){
 	* an send the attributes of the date with the event
 	*/ 
 	function handleChangeClick(event){
-		console.log("handleChangeClick");
 		let id = event.details.id,
 			attributes = model.getDateAttributesById(id),
 			data = {

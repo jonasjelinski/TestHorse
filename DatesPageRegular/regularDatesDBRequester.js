@@ -40,7 +40,6 @@ RegularDatesPage.DBRequester = function(userID, horseID){
 	function initRequester() {
 		requester = new DatabaseClientInterface();
 		requester.init();
-		console.log("initRequester");
 	}
 
 	/**
@@ -63,11 +62,8 @@ RegularDatesPage.DBRequester = function(userID, horseID){
 	* @description sends the result of the db request to other moduls
 	*/
 	function handleResult(event){
-	console.log("handleResult", isDeletingDate, isUpdating);	
 		if(!isDeletingDate && !isUpdating){
 			let results = event.details.result;
-			console.log("handleResult", results);	
-
 			sendEvent("onResult", results);		
 		}
 		if(isUpdating){

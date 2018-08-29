@@ -11,7 +11,8 @@ var RegularDatesPage = RegularDatesPage || {};
 RegularDatesPage.Model = function(horseID){
 	const REGULAR_POSTION_CODE = "RD",
 		DATE_SUGGESTIONS_CODE = "DS",
-		DATE_SUGGESTION_DATE = "0000-00-00";
+		DATE_SUGGESTION_DATE = "666-666-666",
+		DATE_SUGGESTION_TIME = "666-666-666";
 
 	let that = new EventTarget(),	
 		allDates,	
@@ -61,13 +62,15 @@ RegularDatesPage.Model = function(horseID){
 	function filterDatesAndSuggestions(regularDatesAndSuggestions){
 		for(let i = 0; i < regularDatesAndSuggestions.length; i++){
 			let date = regularDatesAndSuggestions[i];
-			if(!isDateSuggestion(date)){
+			if(isDateSuggestion(date)){
 				dateSuggestions.push(date);
 			}
 			else{
 				regularDates.push(date);
 			}			
 		}
+		let TESTDATE = {id: "testid"};
+		dateSuggestions.push(TESTDATE);
 	}
 
 	function isDateSuggestion(date){
@@ -220,7 +223,7 @@ RegularDatesPage.Model = function(horseID){
 
 	function updateDateSuggestions(newSuggestions){
 		dateSuggestions = newSuggestions;
-		updateSuggestionsOrder();
+		convertDatesToSuggestionsAndUpdateOrder();
 	}
 
 	/**
@@ -247,7 +250,6 @@ RegularDatesPage.Model = function(horseID){
 	function getSearchedDate(id){
 		for(let i = 0; i < allDates.length; i++){
 			let date = allDates[i];
-			console.log("getSearchedDate", date, "id", id);
 			if(date.id === id){
 				return date;
 			}
@@ -261,9 +263,10 @@ RegularDatesPage.Model = function(horseID){
 		}
 	}
 
-	function updateSuggestionsOrder(){
+	function convertDatesToSuggestionsAndUpdateOrder(){
 		for(let position = 0; position < dateSuggestions.length; position++){
 			let suggestion =  dateSuggestions[position];
+			suggestion = convertDateToSuggestion(suggestion);
 			updateOrderPosition(DATE_SUGGESTIONS_CODE ,suggestion, position);
 		}
 	}
@@ -291,6 +294,12 @@ RegularDatesPage.Model = function(horseID){
 
 	function getHorseID(){
 		return horseID;
+	}
+
+	function convertDateToSuggestion(date){
+		date.dateFuture = DATE_SUGGESTION_DATE;
+		date.timeFuture = DATE_SUGGESTION_TIME;
+		return date;
 	}
 
 	
