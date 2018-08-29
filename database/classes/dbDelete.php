@@ -18,6 +18,13 @@ class DBDelete extends Database{
 		$this->sql = "DELETE FROM horses WHERE id ='$id'";
 		$this->executeDeleteSql($this->sql);
 	}
+	
+		public function deleteHorsePicture($id){
+			
+		$this->sql = "UPDATE horses set photo = 'https://h2795767.stratoserver.net/database/img/standardPhoto.jpg' WHERE id='$id' ";
+
+		$this->executeDeleteSql($this->sql);
+		}
 
 
 		public function deleteDate($id){

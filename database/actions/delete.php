@@ -16,6 +16,10 @@ if(Input::exists($_SERVER['REQUEST_METHOD'])){
 			case ActionDelete::DELETE_HORSE_FROM_DB:
 			$dbDelete->deleteHorse($_POST['horseID']);
        		break;
+			
+			case ActionDelete::DELETE_HORSE_PICTURE_FROM_DB:
+			$dbDelete->deleteHorsePicture($_POST['horseID']);
+			break;
 
 			case ActionDelete::DELETE_DATE_FROM_DB:
 			$dbDelete->deleteDate($_POST['dateID']);

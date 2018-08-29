@@ -32,10 +32,18 @@ class MailerConstants{
 	const MAIL_PASSWORD ="ultima001";
 	const MAIL_SECURE = "tls";
 	
-	const MAIL_CONFIRMATION_URL ='../confirmationMail/confirmationMail.html';
-	const MAIL_SUBJECT_MAIL ='Sie haben sich bei consilium equorum registriert';
-	const MAIL_ALT_EMAIL_TEXT = 'Bitte bestätigen Sie Ihr Konto bei consilium equorum: ';
-	const MAIL_ALT_EMAIL_URL ='https://h2795767.stratoserver.net/database/actions/confirm.php/?ConfirmationId=%id%';
+	const MAIL_CONFIRMATION_URL ='../mailTemplates/confirmationMail.html';
+	const MAIL_FORGOT_PASSWORD_URL ='../mailTemplates/forgotPwMail.html';
+
+	
+	const MAIL_SUBJECT_CONFIRM_MAIL ='Sie haben sich bei consilium equorum registriert';
+	const MAIL_SUBJECT_FORGOT_PW_MAIL = 'Sie haben ihr Passwort bei consilium equorum zurückgesetzt';
+	
+	const MAIL_ALT_EMAIL_CONFIRM_TEXT = 'Bitte bestätigen Sie Ihr Konto bei consilium equorum: ';
+	const MAIL_ALT_EMAIL_FORGOT_PW_TEXT = 'Sie haben ihr Passwort zurückgesetzt';
+	
+	const MAIL_ALT_EMAIL_CONFIRM_URL ='https://h2795767.stratoserver.net/database/actions/confirm.php/?ConfirmationId=%id%';
+	const MAIL_ALT_FORGOT_PW_URL = 'https://h2795767.stratoserver.net/';
 }
 
 class ActionSet{
@@ -102,6 +110,7 @@ class ActionGet{
 class ActionDelete{
 	const DELETE_USER_FROM_DB = "deleteUserFromDB";
 	const DELETE_HORSE_FROM_DB = "deleteHorseFromDB";
+	const DELETE_HORSE_PICTURE_FROM_DB = "deleteHorsePictureFromDB";
 	const DELETE_DATE_FROM_DB = "deleteDateFromDB";
 	
 	const DELETE_REMINDER_NOTIFICATOIN_DB="deleteReminderNotificationFromDB";
@@ -116,6 +125,7 @@ class ActionUpdate{
 	const UPDATE_DATE ="updateDate";
 	const UPDATE_REMINDER_NOTIFICATION="updateReminderNotification";
 	const UPDATE_REMINDER_REGULAR="updateReminderRegular";
+	const UPDATE_FORGOT_PASSWORD="updateForgotPassword";
 }
 
 class Action {
@@ -124,8 +134,8 @@ class Action {
 	const WRONG_ACTION = "Your Action request was wrong";
 	const FIELDS_MISSING = "Not all Fields were filled";
 	const REDIRECT_LINK = "Location: https://h2795767.stratoserver.net/";
-	const SUCCESS_SITE = "Location: https://h2795767.stratoserver.net/database/confirmationMail/successSite.html";
-	const FAILURE_SITE = "Location: https://h2795767.stratoserver.net/database/confirmationMail/failureSite.html";
+	const SUCCESS_SITE = "Location: https://h2795767.stratoserver.net/database/mailTemplates/successSite.html";
+	const FAILURE_SITE = "Location: https://h2795767.stratoserver.net/database/mailTemplates/failureSite.html";
 	
 	public static function wrongAction(){
 		echo self::WRONG_ACTION;

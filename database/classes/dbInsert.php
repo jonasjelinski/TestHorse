@@ -8,18 +8,21 @@ class DBInsert extends Database{
 		parent::__construct();
 	}
 	
-		public function insertUser($name,$email,$dateOfBirth,$password){
-		$this->sql = "INSERT INTO users (name,email,date_of_birth,password) VALUES ('$name','$email','$dateOfBirth','$password')";
+		public function insertUser($name,$email,$dateOfBirth,$password,$orderPosition){
+		$this->sql = "INSERT INTO users (name,email,date_of_birth,password,order_position) VALUES ('$name','$email','$dateOfBirth','$password','$orderPosition')";
 		$this->executeInsertSql($this->sql);
 	}
 
-	public function insertHorse($name,$owner,$race,$dateOfBirth,$photo,$sex,$height,$grower,$userID){
-		$this->sql = "INSERT INTO horses (name,owner,race,date_of_birth,photo,sex,height,grower,user_id) VALUES ('$name','$owner','$race','$dateOfBirth','$photo','$sex','$height','$grower','$userID')";
-		$this->executeInsertSql($this->sql);
+	public function insertHorse($name,$owner,$race,$dateOfBirth,$sex,$height,$grower,$type,$userID,$orderPosition){
+		$this->sql = "INSERT INTO horses (name,owner,race,date_of_birth,sex,height,grower,type,user_id,order_position) VALUES ('$name','$owner','$race','$dateOfBirth','$sex','$height','$grower','$type','$userID','$orderPosition')";
+		$this->executeInsertSql($this->sql,true);
+		$lastID=$this->pdo->lastInsertId();
+		echo $lastID;
+		
 	}
 
-	public function insertDate($horseID,$title,$date,$time,$location,$dateFuture,$timeFuture){
-		$this->sql = "INSERT INTO dates (horse_id,title,date,time,location,date_future_date,time_future_time)VALUES ('$horseID','$title','$date','$time','$location','$dateFuture','$timeFuture')";
+	public function insertDate($horseID,$title,$date,$time,$location,$dateFuture,$timeFuture,$valueRegular,$unitRegular,$orderPosition){
+		$this->sql = "INSERT INTO dates (horse_id,title,date,time,location,date_future_date,time_future_time,value_regular,unit_regular,order_position)VALUES ('$horseID','$title','$date','$time','$location','$dateFuture','$timeFuture','$valueRegular','$unitRegular','$orderPosition')";
 		$this->executeInsertSql($this->sql,true);
 
 		$lastID=$this->pdo->lastInsertId();

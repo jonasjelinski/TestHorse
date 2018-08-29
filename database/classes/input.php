@@ -28,6 +28,19 @@ class Input{
 		}
 	return false;
 	}
+	
+	public static function fileUpload($file){
+
+		 if(!empty($file)){
+			 return false;
+		 }else{
+			 return true;
+		 }
+		
+		
+  }
+
+	
 }
 
 ?>
