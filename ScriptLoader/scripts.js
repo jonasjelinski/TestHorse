@@ -17,6 +17,7 @@ ScriptLoader.Scripts = (function(){
 	"./libs/jquery/ui/jquery-ui.js",
 	"./libs/jquery/ui/jquery-ui.min.js",
 	"./DropdownMenu/dropdownMenu.js",
+	"./Potrait/potrait.js",
 	"./SortableList/sortableLists.js",
 	"./DatesSuggestor/datesSuggestor.js",
 	"./DatesSuggestor/datesSuggestorDates.js",

@@ -32,6 +32,7 @@ Profil = function(pageId, templateId, changeButtonId, okayButtonId, delteButtonI
 	* @description Initialize this page.
 	*/
 	function init(newAttributes){
+		console.log("templateId",templateId);
 		profilViewTemplateString = document.getElementById(templateId).innerHTML;
 		attributes = newAttributes;	
 		initViewControll();		
