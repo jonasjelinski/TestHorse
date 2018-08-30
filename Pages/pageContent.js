@@ -7,7 +7,13 @@ var Pages = Pages || {};
  */
 Pages.PageContent = function (){
 	let that = {};
-	const LOGIN_PAGE = ' <content>'+
+	const PASSWORD_POPUP = '<div id="popupPassword">' +
+	'<p id="popupPasswordText">Trage deine Mailadresse ein, mit der du dich registriert hast.</p>'+
+	'<div class="forgotPasswordContainer"><input id= "forgotPasswordInput" placeholder="Mailadresse eingeben"></input></div> '+
+	'<button id="passwordButton">neues Passwort generieren</button>'+
+	'</div>',
+
+	LOGIN_PAGE = ' <content>'+
 						'<div id= "mainpage">' +
 							'<button id= "createNewAccount" type="button">neues Konto erstellen</button> '+
 							'<p class="loginP" id="userNameTag">Email</p>'+
@@ -17,7 +23,8 @@ Pages.PageContent = function (){
 							'<div class="loginDIV" id= "loginFailedText">Anmeldung leider fehlgeschlagen. Bitte überprüfe deine Daten und probiere es noch einmal.</div> '+
 							'<div class="loginDIV"><button id= "loginButton" type="button">OK</button> </div>'+
 							'<div class="checkbox"><label id="stayLoggedInTag"><input id= "stayLoggedInBox" type="checkbox" value = "stayLoggedIn"/><span>dauerhaft angemeldet bleiben?</span></label></div> '+
-							'<p class="loginP" id="userHint">Hast du deine Zugangsdaten vergessen? Bitte kontaktiere unser Team</p>'+
+							'<p class="loginP" id="userHint">Hast du dein Passwort vergessen?</p>'+
+							PASSWORD_POPUP +
 						'</content>',
 
           DROPDOWN_MENU = '<div class="dropdown">'+
@@ -63,19 +70,29 @@ Pages.PageContent = function (){
   '<div id= "horseProfileGrower">Züchter: <%= grower %></div> '+
 '</script> ' ,
 
-  TEMPLATE_DATE_RECOMMENDATION =
-  '<script type="text/template" id="TEMPLATE_DATE_RECOMMENDATION">'+
+  DATE_RECOMMENDATION_TEMPLATE =
+  '<script type="text/template" id="dateRecommendationTemplate">'+
   '<li draggable="true" dateRecommendationId = <%= id %>'+
   ' <button class= "dateRecommendationDelete" type="button">löschen</button> '+
 ' <button class= "dateRecommandationChange" type="button">ändern</button> '+
-  '</li>',
+  '</li>'+
+	'</script> ',
 
         POPUP = '<div id="popup">' +
                     '<p id="popupText"></p>'+
                     '<button id="popupTextYes" type="button">Yes</button> '+
                     '<button id="popupTextNo"  type="button">No</button> '+
                 '</div>',
-
+HORSEBOXELEMENT_TEMPLATE= '<script type="text/template" id="horseBoxElementTemplate">'+
+'<li draggable="true" class= "horseListElement" horseId = <%= id %> '+
+	' <div class = "horseBox" horseBoxId = <%= id  %>' +
+		'<img class= "horsePic" horsePicId = <%=id%> src=<%=photo%> </img>' +
+		'<div class="horseName"> <%=name%></div>'+
+		'<button class="horseDateButton" type="button">horseDateButton</button> '+
+		'<button class="horseProfileButton" type="button">horseProfileButton</button> '+
+		'</div>'+
+'</li>' +
+'</script> ',
 	START_PAGE =  ' <content>'+
 						'<div id= "mainpage">' +
             '<input id="burger" type="checkbox" />' +
@@ -95,16 +112,7 @@ Pages.PageContent = function (){
 						'</ul>'+
 						'</div>'+
  					'</content>'+
-
-					'<script type="text/template" id="horseBoxElement">'+
-					'<li draggable="true" class= "horseListElement" horseId = <%= id %> '+
-						' <div class = "horseBox" horseBoxId = <%= id  %>' +
-              '<img class= "horsePic" horsePicId = <%=id%> src=<%=photo%> </img>' +
-							'<div class="horseName"> <%=name%></div>'+
-              '<button class="horseDateButton" type="button">horseDateButton</button> '+
-              '<button class="horseProfileButton" type="button">horseProfileButton</button> '+
-              '</div>'+
-					'</li>',
+					HORSEBOXELEMENT_TEMPLATE,
 
   USER_PAGE = ' <content>'+
   '<div id= "mainpage">' +
@@ -117,7 +125,7 @@ Pages.PageContent = function (){
 	'</label>' +
 	'<nav>'    +
 		'<ul id = "burgerListUserPage" >' +
-			'<li><a  id="burgerOptionUserProfile" href="#">Profil</a></li>' +
+			'<li><a  id="burgerOptionUserStart" href="#">Startseite</a></li>' +
 			'<li ><a id="burgerOptionUserHelp" href="#">Hilfe</a></li>' +
 			'<li ><a id= "burgerOptionUserLogout" href="#">Logout</a></li>' +
 		'</ul>'  +
@@ -132,6 +140,11 @@ Pages.PageContent = function (){
                '</content>'+
     USER_PROFILE_TEMPLATE,
 
+LIST_ELEMENT_TEMPLATE = '<script type="text/template" id="ulElementTemplate">'+
+'<li draggable="true" dateId = <%= id %>>'+
+	'<p ><%= title %></p>'+
+'</li>'+
+'</script> ',
 
   DATES_PAGE =' <content>'+
  '<div id = "allDates" >' +
@@ -153,16 +166,20 @@ Pages.PageContent = function (){
   	'</ul>'+
   	' <button id= "manageRegularDates" type="button">reguläre Termine verwalten</button> '+
 	' <button id= "manageSingleDates" type="button">neuen Einzeltermin hinzufügen</button> '+
-  '<button id= "cancelDatesPage" type="button">Zum Hauptmenu</button> '+
 
   '</div>'+
 
     '</content>'+
+		LIST_ELEMENT_TEMPLATE,
 
-  '<script type="text/template" id="ul-element">'+
-  '<li draggable="true" dateId = <%= id %>>'+
-    '<p ><%= title %></p>'+
-  '</li>',
+DATE_LIST_TEMPLATE  = '<script type="text/template" id="dateListTemplate">'+
+'<li draggable="true" regularDateId = <%= id %>'+
+	'<button class= "regularDateDelete" type="button">löschen</button> '+
+	'<button class= "regularDateChange" type="button">ändern</button> '+
+	'<p class="regularDateTitle"><%= title %></p>'+
+	'<p class="regularDateDay"><%= date %></p>'+
+	'<p class="regularDateTime"><%= time %></p>'+
+'</li></script>' ,
 
   REGULAR_DATES_PAGE = 	  	'<content>'+
 	'<input id="burger" type="checkbox" />' +
@@ -189,16 +206,9 @@ Pages.PageContent = function (){
  '<button id= "createNewDate" type="button">neuen Termin erstellen</button> '+
   '</div>'+
  '</content>'+
-
-  '<script type="text/template" id="ul-element">'+
-  '<li draggable="true" regularDateId = <%= id %>'+
-    ' <button class= "regularDateDelete" type="button">löschen</button> '+
-	' <button class= "regularDateChange" type="button">ändern</button> '+
-    '<p class="regularDateTitle"><%= title %></p>'+
-		'<p class="regularDateDay"><%= date %></p>'+
-		'<p class="regularDateTime"><%= time %></p>'+
-  '</li></script>' +
-	TEMPLATE_DATE_RECOMMENDATION,
+DATE_LIST_TEMPLATE
+  +
+	DATE_RECOMMENDATION_TEMPLATE,
 
 
 
@@ -275,12 +285,12 @@ Pages.PageContent = function (){
     USER_PROFILE_TEMPLATE ,
 
     CREATE_SINGLE_DATE =   '<content>'+
-  '<div class="createSingleDate" id= "dateCreater">' +
+  '<div class="createDate" id= "dateCreater">' +
 
 	'<div id="createDatePopup">' +
-						 '<p id="createDatePopupText">Bitte erst alle Felder ausfüllen, bevor der Dialog verlassen werden kann!</p>'+
-						 '<button id="createDatePopupClose" type="button">schließen</button> '+
-				 '</div>'+
+	'<p id="createDatePopupText">Bitte erst alle Felder ausfüllen, bevor der Dialog verlassen werden kann!</p>'+
+	'<button id="createDatePopupClose" type="button">schließen</button> '+
+	'</div>'+
    '<div id= "dateTitleInputHeader">Title</div>' +
    '<input id= "dateTitleInput">Title</input> '+
    '<div id= "dateDateInputHeader">Datum</div>' +
@@ -298,12 +308,12 @@ Pages.PageContent = function (){
      '<p>' +
     ' <button id= "dateCreaterSaveButton" type="button">Speichern</button> '+
     ' <button id= "dateCreaterCancelButton" type="button">Abbrechen</button> '+
-      '</p>' +
+    '</p>' +
 
   '</div>'+
   '</content>',
 
-  DROPDOWN_MENU_REGULAR_DATES = '<select class="createRegularDate">'+
+  DROPDOWN_MENU_REGULAR_DATES = '<select>'+
                                     '<option id="regularDatesDay" value="Tag">Tag</option>'+
                                     '<option id="regularDatesWeek" value="Woche">Woche</option>'+
                                     '<option id="regularDatesMonth" value="Monat">Monat</option>'+
@@ -311,7 +321,7 @@ Pages.PageContent = function (){
                                 '</select>',
 
   REGULAR_DATES_CREATER_PAGE = CREATE_SINGLE_DATE + '<input class="createRegularDate" id="regularDatesValue" type="number" min=0 max=52 value=1>' + DROPDOWN_MENU_REGULAR_DATES +
-	'<div class="createRegularDate">' +
+	'<div>' +
 	'<div id= "regularDateNameHeader">Name des Dienstleisters</div>' +
 	'<input id= "regularDateName">Name d. Dienstleisters</input> '+
 	'<div id= "regularDatePhoneHeader">Telefonnummer</div>' +
