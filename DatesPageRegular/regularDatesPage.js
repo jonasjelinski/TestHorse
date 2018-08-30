@@ -92,6 +92,7 @@ RegularDatesPage = function(userID){
 		dbInterface.init();
 		dbInterface.addEventListener("onDates", handleDatesResult);
 		dbInterface.addEventListener("onHorse", handleHorseResult);
+		dbInterface.addEventListener("onDateId", handleNewDateId);
 	}
 
 	/**
@@ -194,14 +195,27 @@ RegularDatesPage = function(userID){
 	}
 
 	function isDroppingSuggestionOnDates(listId, elementID){
-		console.log("listID", listId, "elementID", elementID);
-		let attributes = {};
+		let data = {};
 		if(listIsDateList(listId) && isDateSuggestion(elementID)){
-				attributes.attributes = model.getDateAttributesById(elementID);
-				console.log("isDroppingSuggestionOnDates", attributes);
-				sendEvent("onChangeDate", attributes);
+				data.attributes = model.getDateAttributesById(elementID);
+				data.horseID = horseID;
+				console.log(data.attributes);
+				if(isNewSuggestion(data.attributes)){
+					dbInterface.requestDateIdFromDB(data.attributes);
+				}	
+				else{
+					sendEvent("showCreateRegularDate", data);
+				}				
 		}
+	}
 
+	function handleNewDateId(event){
+		let newDateId = event.details.results;
+		console.log("newDateId", newDateId);
+	}
+
+	function isNewSuggestion(attributes){
+		return attributes.id < 0;
 	}
 
 	function listIsDateList(listId){

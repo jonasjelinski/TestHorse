@@ -302,15 +302,15 @@ Pages = function(){
 	* @instance
 	* @description shows all regular dates to the user
 	*/ 
-	function showRegularDates(){
-		console.log("showRegularDates");
+	function showRegularDates(){;
 		pageChanger.switchPage("REGULAR_DATES_PAGE");
 		datesPageRegular.init();
 	}
 
 	function showCreateRegularDate(event) {
+		let attributes = event.details.attributes;
 		pageChanger.switchPage("REGULAR_DATES_CREATER_PAGE");		
-		datesCreatorPageRegular.init();
+		datesCreatorPageRegular.init(attributes);
 	}
 
 	function changeSingleDate(event){

@@ -341,7 +341,6 @@ RegularDatesPage.Model = function(horseID){
 		else{
 			regex = new RegExp(positonCode+"\\d*");
 		 	newPosition = positonCode+position;
-		 	console.log("date",date);
 			oldPositionString = date.orderPosition;
 			match = oldPositionString.match(regex);
 			if(match){
