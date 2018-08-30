@@ -29,7 +29,15 @@ RegularDatesPage = function(userID){
 		innerListCommunication,
 		popup,
 		changeId,
-		horseID;
+		horseID,
+		BURGER_CLICK_BOX_ID = "burger",
+		BURGER_LIST_ID = "burgerListRegularDates",
+		inVisibleClass = "",
+		visibleClass = "",
+		BURGER_OPTION_PROFILE = "burgerOptionRegularDatesProfile",
+		BURGER_OPTION_HELP = "burgerOptionRegularDatesHelp",
+		BURGER_OPTION_START = "burgerOptionRegularDatesStart",
+		BURGER_OPTION_LOGOUT = "burgerOptionRegularDatesLogout";
 
 	/**
 	* @function init
@@ -46,6 +54,7 @@ RegularDatesPage = function(userID){
 		requestDatesFromDB();
 		initPopup();
 		initControlls();
+		initHamburgerMenu();
 	}
 
 	/**
@@ -155,7 +164,7 @@ RegularDatesPage = function(userID){
 
 	function initInterListCommunication(){
 		innerListCommunication = SortableLists(datesListId, suggestionsListId);
-		//innerListCommunication.init();
+		innerListCommunication.init();
 	}
 
 	/**
@@ -326,6 +335,100 @@ RegularDatesPage = function(userID){
 		dbInterface.updateAllDates(allDates);
 	}	
 
+
+	/**
+	* @function initHamburgerMenu
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @description initts the hamburger menu
+	*/
+	function initHamburgerMenu(){
+		hamburgerMenu = new HamburgerMenu(BURGER_CLICK_BOX_ID, BURGER_LIST_ID, inVisibleClass, visibleClass);
+		hamburgerMenu.init();
+		hamburgerMenu.addEventListener("onOption", handleHamburgerClick);
+	}
+
+	/**
+	* @function handleHamburgerClick
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @param{event}, event, contains the option of the burger menu, which has been clicked by the user
+	* @description handles the click of the options of the burgermenu
+	*/
+	function handleHamburgerClick(event){
+		let option = event.details.option;
+		switch(option){
+			case BURGER_OPTION_START : handleStartOption();
+				break;
+			case BURGER_OPTION_PROFILE : handleProfileOption();
+				break;
+			case BURGER_OPTION_HELP : handleHelpOption();
+				break;
+			case BURGER_OPTION_LOGOUT : handleLogoutOption();
+				break;
+			default: break;
+		}
+	}
+
+	function handleStartOption(){
+		updateDatesAndSuggestions();
+		sendEvent("showStartPage","");
+	}
+
+	/**
+	* @function handleProfileOption
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @description sends event "showProfilePage" 
+	*/
+	function handleProfileOption(){
+		updateDatesAndSuggestions();
+		sendEvent("showProfilePage","");
+	}
+
+	/**
+	* @function sendEvent
+	* @private
+	* @memberof! Slideshow.ViewControll  
+	* @instance
+	* @param {string}, type event type
+	* @param {string}, id of the horse
+	* @description sends event of type type and the id
+	*/
+	function sendEvent(type, id){
+		console.log(type);
+		let event = new Event(type);
+		event.details = {};
+		event.details.horseID = id;
+		that.dispatchEvent(event);	
+	}
+
+	/**
+	* @function handleProfileOption
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @description sends event "showHelpPage" 
+	*/
+	function handleHelpOption(){
+		updateDatesAndSuggestions();
+		sendEvent("showHelpPage","");	
+	}
+
+	/**
+	* @function handleProfileOption
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @description sends event "logoutUser" 
+	*/
+	function handleLogoutOption(){
+		updateDatesAndSuggestions();
+		sendEvent("logoutUser","");
+	}
 	that.init = init;
 	return that;
 }

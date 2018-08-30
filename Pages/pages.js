@@ -148,18 +148,38 @@ Pages = function(){
 	}
 
 	function addListenersForDates(){	
+		addListenersForDatesPage();
+		addListenersToDatesPageRegular();
+		addListenersToDatesCreatorPageSingle();				
+		addListenersToDatesCreatorPageRegular();
+		
+	}
+
+	function addListenersForDatesPage(){
 		datesPage.addEventListener("showRegularDates", showRegularDates);
 		datesPage.addEventListener("showCreateSingleDate", showCreateSingleDate);		
 		datesPage.addEventListener("onCancel", showStartPage);		
+	}
+
+	function addListenersToDatesPageRegular(){
 		datesPageRegular.addEventListener("showAllDates", showAllDates);
 		datesPageRegular.addEventListener("onDataSaved", showStartPage);				
 		datesPageRegular.addEventListener("onCancel", showStartPage);			
 		datesPageRegular.addEventListener("onChangeDate", changeRegularDate);			
-		datesPageRegular.addEventListener("showCreateRegularDate", showCreateRegularDate);			
-		//datesPageRegular.addEventListener("showCreateDateSuggestion", showCreateRegularDate);			
+		datesPageRegular.addEventListener("showCreateRegularDate", showCreateRegularDate);	
+		datesPageRegular.addEventListener("showStartPage", showStartPage);	
+		datesPageRegular.addEventListener("showProfilePage", showUserProfilPage);	
+		datesPageRegular.addEventListener("showHelpPage", showHelpPage);	
+		datesPageRegular.addEventListener("logoutUser", logoutUser);	
+	}
+
+	function addListenersToDatesCreatorPageSingle(){
 		datesCreatorPageSingle.addEventListener("onDataSaved", showStartPage);				
 		datesCreatorPageSingle.addEventListener("onCancel", showStartPage);			
 		datesCreatorPageSingle.addEventListener("onChangeClick", changeSingleDate);
+	}
+
+	function addListenersToDatesCreatorPageRegular(){
 		datesCreatorPageRegular.addEventListener("onDataSaved", showRegularDates);
 		datesCreatorPageRegular.addEventListener("onCancel", showRegularDates);
 		datesCreatorPageRegular.addEventListener("onCancel", showRegularDates);
@@ -212,6 +232,8 @@ Pages = function(){
 		userProfilPage.addEventListener("onProfileOkay", handleChangeProfileOkay);
 		userProfilPage.addEventListener("onChangeProfile", changeUser);
 		userProfilPage.addEventListener("onDeleteProfile", handleChangeProfileDelete);
+		userProfilPage.addEventListener("showHelpPage", showHelpPage);
+		userProfilPage.addEventListener("logoutUser", logoutUser);
 	}
 
 
