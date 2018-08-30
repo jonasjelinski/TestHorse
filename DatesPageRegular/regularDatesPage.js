@@ -9,6 +9,17 @@ var RegularDatesPage = RegularDatesPage || {};
  */
 
 RegularDatesPage = function(userID){
+	"use strict";
+
+	const BURGER_CLICK_BOX_ID = "burger",
+		BURGER_LIST_ID = "burgerListRegularDates",
+		inVisibleClass = "",
+		visibleClass = "",
+		BURGER_OPTION_PROFILE = "burgerOptionRegularDatesProfile",
+		BURGER_OPTION_HELP = "burgerOptionRegularDatesHelp",
+		BURGER_OPTION_START = "burgerOptionRegularDatesStart",
+		BURGER_OPTION_LOGOUT = "burgerOptionRegularDatesLogout";
+
 	let that = new EventTarget(),
 		regularDatesList,
 		dateSuggestionsList,
@@ -27,9 +38,11 @@ RegularDatesPage = function(userID){
 		newDateButtonId = "createNewDate",
 		newSuggestionButtonId = "createNewRecommendation",
 		innerListCommunication,
+		hamburgerMenu,
 		popup,
 		changeId,
 		horseID;
+		
 
 	/**
 	* @function init
@@ -46,6 +59,7 @@ RegularDatesPage = function(userID){
 		requestDatesFromDB();
 		initPopup();
 		initControlls();
+		initHamburgerMenu();
 	}
 
 	/**
@@ -155,7 +169,7 @@ RegularDatesPage = function(userID){
 
 	function initInterListCommunication(){
 		innerListCommunication = SortableLists(datesListId, suggestionsListId);
-		//innerListCommunication.init();
+		innerListCommunication.init();
 	}
 
 	/**
@@ -320,11 +334,88 @@ RegularDatesPage = function(userID){
 		let regularDates = regularDatesList.getElements(),
 			suggestions = dateSuggestionsList.getElements(),
 			allDates;
-		model.updateDateSuggestions(suggestions);
-		model.updateRegularDates(regularDates);
+		model.updateAllDates(regularDates, suggestions);
 		allDates = model.getAllDates();
 		dbInterface.updateAllDates(allDates);
 	}	
+
+
+	/**
+	* @function initHamburgerMenu
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @description initts the hamburger menu
+	*/
+	function initHamburgerMenu(){
+		hamburgerMenu = new HamburgerMenu(BURGER_CLICK_BOX_ID, BURGER_LIST_ID, inVisibleClass, visibleClass);
+		hamburgerMenu.init();
+		hamburgerMenu.addEventListener("onOption", handleHamburgerClick);
+	}
+
+	/**
+	* @function handleHamburgerClick
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @param{event}, event, contains the option of the burger menu, which has been clicked by the user
+	* @description handles the click of the options of the burgermenu
+	*/
+	function handleHamburgerClick(event){
+		let option = event.details.option;
+		switch(option){
+			case BURGER_OPTION_START : handleStartOption();
+				break;
+			case BURGER_OPTION_PROFILE : handleProfileOption();
+				break;
+			case BURGER_OPTION_HELP : handleHelpOption();
+				break;
+			case BURGER_OPTION_LOGOUT : handleLogoutOption();
+				break;
+			default: break;
+		}
+	}
+
+	function handleStartOption(){
+		updateDatesAndSuggestions();
+		sendEvent("showStartPage","");
+	}
+
+	/**
+	* @function handleProfileOption
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @description sends event "showProfilePage" 
+	*/
+	function handleProfileOption(){
+		updateDatesAndSuggestions();
+		sendEvent("showProfilePage","");
+	}
+
+	/**
+	* @function handleProfileOption
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @description sends event "showHelpPage" 
+	*/
+	function handleHelpOption(){
+		updateDatesAndSuggestions();
+		sendEvent("showHelpPage","");	
+	}
+
+	/**
+	* @function handleProfileOption
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @description sends event "logoutUser" 
+	*/
+	function handleLogoutOption(){
+		updateDatesAndSuggestions();
+		sendEvent("logoutUser","");
+	}
 
 	that.init = init;
 	return that;
