@@ -10,7 +10,8 @@ var StartPage = StartPage || {};
 StartPage = function(userID){
 
 	const BURGER_CLICK_BOX_ID = "burger",
-			BURGER_LIST_ID = "burgerListStartPage";		
+			BURGER_LIST_ID = "burgerListStartPage",
+			BOX_TEMPLATE_ID = "horseBoxElementTemplate";		
 
 	let that = new EventTarget(),
 		dbInterface, 
@@ -121,7 +122,7 @@ StartPage = function(userID){
 	* appends a last box to the list for creating new horses if there is no
 	*/ 
 	function initDropList(horseData){
-		elementTemplateString = document.getElementById("horseBoxElement").innerHTML;
+		elementTemplateString = document.getElementById(BOX_TEMPLATE_ID).innerHTML;
 		viewDomElement = document.getElementById("mainpage");
 		if(horseData){
 			if(!hasLastBox(horseData)){

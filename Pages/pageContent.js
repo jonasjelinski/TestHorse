@@ -19,7 +19,7 @@ Pages.PageContent = function (){
 							'<p class="loginP" id="userNameTag">Email</p>'+
 							'<div class="loginDIV"><input id= "userNameInput" placeholder="Email eingeben"></input></div> '+
 							'<p class="loginP" id="passwordTag">Passwort</p>'+
-							'<div class="loginDIV"><input id= "passwordInput" placeholder="Passwort eingeben"></input></div> '+
+				 			'<div class="loginDIV"><input id= "passwordInput" placeholder="Passwort eingeben"></input></div> '+
 							'<div class="loginDIV" id= "loginFailedText">Anmeldung leider fehlgeschlagen. Bitte überprüfe deine Daten und probiere es noch einmal.</div> '+
 							'<div class="loginDIV"><button id= "loginButton" type="button">OK</button> </div>'+
 							'<div class="checkbox"><label id="stayLoggedInTag"><input id= "stayLoggedInBox" type="checkbox" value = "stayLoggedIn"/><span>dauerhaft angemeldet bleiben?</span></label></div> '+

@@ -18,7 +18,9 @@ RegularDatesPage = function(userID){
 		BURGER_OPTION_PROFILE = "burgerOptionRegularDatesProfile",
 		BURGER_OPTION_HELP = "burgerOptionRegularDatesHelp",
 		BURGER_OPTION_START = "burgerOptionRegularDatesStart",
-		BURGER_OPTION_LOGOUT = "burgerOptionRegularDatesLogout";
+		BURGER_OPTION_LOGOUT = "burgerOptionRegularDatesLogout",
+		DATE_TEMPLATE_ID = "dateListTemplate",
+		SUGGESTION_TEMPLATE_ID = "dateRecommendationTemplate";
 
 	let that = new EventTarget(),
 		regularDatesList,
@@ -53,7 +55,7 @@ RegularDatesPage = function(userID){
 	* @description Initialize this modul. starts the database request for the dates.
 	*/
 	function init(newHorseID){		
-		dateSuggestionTemplateString = document.getElementById("TEMPLATE_DATE_RECOMMENDATION").innerHTML;
+		
 		setHorseIDAndTemplateString(newHorseID);
 		initDBInterface();
 		requestDatesFromDB();
@@ -72,7 +74,8 @@ RegularDatesPage = function(userID){
 	*/
 	function setHorseIDAndTemplateString(newHorseID){
 		horseID = newHorseID || 38;
-		regularDateTemplateString = document.getElementById("ul-element").innerHTML;
+		regularDateTemplateString = document.getElementById(DATE_TEMPLATE_ID).innerHTML;
+		dateSuggestionTemplateString = document.getElementById(SUGGESTION_TEMPLATE_ID).innerHTML;
 	}
 
 	/**
@@ -177,7 +180,16 @@ RegularDatesPage = function(userID){
 		let listId = event.details.listID,
 			elementID = event.details.elementID;
 		console.log("listId",listId,"elementID",elementID);
+		updateBothDropLists();
 	}
+
+	function updateBothDropLists(){
+		let newElementIdsDates = regularDatesList.getCurrentElementIds(),
+			newElementIdsSuggestions = dateSuggestionsList.getCurrentElementIds();
+			console.log("newElementIdsDates", newElementIdsDates);
+			console.log("newElementIdsSuggestions", newElementIdsSuggestions);
+	}
+
 
 	/**
 	* @function addregularDatesListListeners
