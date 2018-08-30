@@ -200,7 +200,6 @@ UserProfilPage = function(userID){
 	* @description sends event of type type and the id
 	*/
 	function sendEvent(type, id){
-		console.log(type);
 		let event = new Event(type);
 		event.details = {};
 		event.details.horseID = id;

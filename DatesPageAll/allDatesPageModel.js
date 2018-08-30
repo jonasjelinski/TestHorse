@@ -202,7 +202,7 @@ DatesPageAll.DatesPageModel = function(){
 	function updateOrderPosition(positonCode, date, position){
 		 let regex = new RegExp(positonCode+"\\d*"),
 		 	newPosition = positonCode+position+1,
-			oldPositionString = date.orderPosition,
+			oldPositionString = date.orderPosition || date.order_position,
 			code = oldPositionString.match(regex),
 			newCode = oldPositionString.replace(code, newPosition);
 			date.orderPosition = newCode;

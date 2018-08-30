@@ -159,6 +159,10 @@ Pages = function(){
 		datesPage.addEventListener("showRegularDates", showRegularDates);
 		datesPage.addEventListener("showCreateSingleDate", showCreateSingleDate);		
 		datesPage.addEventListener("onCancel", showStartPage);		
+		datesPage.addEventListener("showStartPage", showStartPage);		
+		datesPage.addEventListener("showProfilePage", showUserProfilPage);		
+		datesPage.addEventListener("showHelpPage", showHelpPage);		
+		datesPage.addEventListener("logoutUser", logoutUser);		
 	}
 
 	function addListenersToDatesPageRegular(){

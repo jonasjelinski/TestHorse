@@ -329,8 +329,7 @@ RegularDatesPage = function(userID){
 		let regularDates = regularDatesList.getElements(),
 			suggestions = dateSuggestionsList.getElements(),
 			allDates;
-		model.updateDateSuggestions(suggestions);
-		model.updateRegularDates(regularDates);
+		model.updateAllDates(regularDates, suggestions);
 		allDates = model.getAllDates();
 		dbInterface.updateAllDates(allDates);
 	}	
@@ -429,6 +428,7 @@ RegularDatesPage = function(userID){
 		updateDatesAndSuggestions();
 		sendEvent("logoutUser","");
 	}
+
 	that.init = init;
 	return that;
 }
