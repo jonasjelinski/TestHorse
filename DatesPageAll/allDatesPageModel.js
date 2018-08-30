@@ -59,10 +59,12 @@ DatesPageAll.DatesPageModel = function(){
 			date.timeFuture = date.time_future_date;
 			date.valueRegular = date.value_regular;
 			date.unitRegular = date.unit_regular;
+			date.orderPosition = date.order_position;
 			delete date.date_future_date;
 			delete date.time_future_date;
 			delete date.value_regular;
 			delete date.unit_regular;
+			delete date.order_position;
 		}
 	}
 
@@ -83,8 +85,9 @@ DatesPageAll.DatesPageModel = function(){
 
 	function sortDates(allDates){
 		allDates.sort(function(date1,date2){
-			let position1 = getPositionFromPositionCode(date1.order_position),
-				position2 = getPositionFromPositionCode(date2.order_position);
+			let numberOfDates = allDates.length,
+				position1 = getPositionFromPositionCode(date1.orderPosition, POSTION_CODE, numberOfDates),
+				position2 = getPositionFromPositionCode(date2.orderPosition, POSTION_CODE, numberOfDates);				
 			if(position1 < position2){
 				return -1;
 			}
@@ -95,18 +98,19 @@ DatesPageAll.DatesPageModel = function(){
 		});
 	}
 
-	function getPositionFromPositionCode(positionString){
-		let position,
-			code,
-			regex;
-		if(positionString === ""){
-			position = allDates.length;
-		}
-		else{
-			regex = new RegExp(POSTION_CODE+"\\d*")
-			code = positionString.match(regex)[0],
-			position = code.replace( /^\D+/g, '');
-		}
+	function getPositionFromPositionCode(positionString, posCode, numberOfDates){
+		let position = numberOfDates,
+			regex,
+			match,
+			code;
+			
+			regex = new RegExp(posCode+"\\d*");
+			match = positionString.match(regex);
+			if(match){
+				code = match[0];
+				position = code.replace( /^\D+/g, '');
+			}
+			position = parseInt(position);			
 		return position;
 	}
 
@@ -193,19 +197,38 @@ DatesPageAll.DatesPageModel = function(){
 
 	function updateOrder(){
 		for(let position = 0; position < allDates.length; position++){
-			let date = allDates[position];
-			updateOrderPosition(POSTION_CODE, date, position);
+			let date = allDates[position],
+				newPosition = position + 1;
+			updateOrderPosition(POSTION_CODE, date, newPosition);
 		}
 	}
 
 	
 	function updateOrderPosition(positonCode, date, position){
-		 let regex = new RegExp(positonCode+"\\d*"),
-		 	newPosition = positonCode+position+1,
-			oldPositionString = date.orderPosition || date.order_position,
-			code = oldPositionString.match(regex),
-			newCode = oldPositionString.replace(code, newPosition);
-			date.orderPosition = newCode;
+		let newCode,
+			regex,
+			newPosition,
+			oldPositionString,
+			match,
+			code;
+		if(date.orderPosition == ""){
+			newCode = positonCode+position; 
+		}
+		else{
+			regex = new RegExp(positonCode+"\\d*");
+		 	newPosition = positonCode+position;
+			oldPositionString = date.orderPosition || date.order_position;
+			match = oldPositionString.match(regex);
+			if(match){
+				code = match[0];
+				newCode = oldPositionString.replace(code, newPosition);	
+			}
+			else{
+				newCode = oldPositionString + positonCode+position;
+			}
+					
+		}
+		date.orderPosition = newCode;		 
 	}
 	
 	that.init = init;

@@ -169,7 +169,8 @@ RegularDatesPage.Model = function(horseID){
 			if(match){
 				code = match[0];
 				position = code.replace( /^\D+/g, '');
-			}			
+			}
+			position = parseInt(position);			
 		return position;
 	}
 

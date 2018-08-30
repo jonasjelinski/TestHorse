@@ -311,8 +311,8 @@ RegularDatesPage = function(userID){
 			horseID: horseID,
 		};
 		updateDatesAndSuggestions();
-		sendEvent("showAllDates", id);
 		closePage();
+		sendEvent("showAllDates", id);
 	}
 
 	function handleNewDate(){
@@ -352,7 +352,6 @@ RegularDatesPage = function(userID){
 		let allDates;
 		updateBothListsInModel();
 		allDates = model.getAllDates();
-		console.log("update allDates", allDates)
 		dbInterface.updateAllDates(allDates);
 	}	
 
@@ -435,7 +434,7 @@ RegularDatesPage = function(userID){
 	}
 
 	function closePage(){
-		dbInterface = {};
+		dbInterface.stoppListening();
 	}
 
 	that.init = init;

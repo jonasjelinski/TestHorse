@@ -125,8 +125,13 @@ RegularDatesPage.DBRequester = function(userID, horseID){
 		isUpdating = false;			
 	}
 
+	function stoppListening(){
+		requester.removeEventListener("onResult", handleResult);
+	}
+
 	that.init = init;
 	that.requestDatesFromDB = requestDatesFromDB;
+	that.stoppListening = stoppListening;
 	that.deleteDate = deleteDate;
 	that.updateAllDates = updateAllDates;
 	return that;
