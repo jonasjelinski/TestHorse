@@ -54,8 +54,7 @@ RegularDatesPage = function(userID){
 	* @param {string} newHorseID
 	* @description Initialize this modul. starts the database request for the dates.
 	*/
-	function init(newHorseID){		
-		
+	function init(newHorseID){
 		setHorseIDAndTemplateString(newHorseID);
 		initDBInterface();
 		requestDatesFromDB();
@@ -113,7 +112,7 @@ RegularDatesPage = function(userID){
 	* @description inits the model with the results of the databse request
 	*/
 	function handleDBResult(event){
-		let allDatesAsStrings = event.details.allDates;		
+		let allDatesAsStrings = event.details.allDates;	
 		initModel(allDatesAsStrings);		
 	}
 
@@ -180,14 +179,13 @@ RegularDatesPage = function(userID){
 			elementID = event.details.elementID;
 		regularDatesList.cleanWrongTagsIds(suggestionsTagId);
 		dateSuggestionsList.cleanWrongTagsIds(regularTagId);
-		updateBothDropLists();
+		updateBothListsInModel();
 	}
 
-	function updateBothDropLists(){
+	function updateBothListsInModel(){
 		let newElementIdsDates = regularDatesList.getCurrentElementIds(),
 			newElementIdsSuggestions = dateSuggestionsList.getCurrentElementIds();
-			console.log("newElementIdsDates", newElementIdsDates);
-			console.log("newElementIdsSuggestions", newElementIdsSuggestions);
+		model.updateDatesAndSuggestionsByIds(newElementIdsDates, newElementIdsSuggestions);
 	}
 
 
@@ -314,6 +312,7 @@ RegularDatesPage = function(userID){
 		};
 		updateDatesAndSuggestions();
 		sendEvent("showAllDates", id);
+		closePage();
 	}
 
 	function handleNewDate(){
@@ -350,10 +349,8 @@ RegularDatesPage = function(userID){
 	}
 
 	function updateDatesAndSuggestions(){
-		let regularDates = regularDatesList.getElements(),
-			suggestions = dateSuggestionsList.getElements(),
-			allDates;
-		model.updateAllDates(regularDates, suggestions);
+		let allDates;
+		updateBothListsInModel();
 		allDates = model.getAllDates();
 		dbInterface.updateAllDates(allDates);
 	}	
@@ -434,6 +431,10 @@ RegularDatesPage = function(userID){
 	function handleLogoutOption(){
 		updateDatesAndSuggestions();
 		sendEvent("logoutUser","");
+	}
+
+	function closePage(){
+		dbInterface = {};
 	}
 
 	that.init = init;

@@ -305,7 +305,46 @@ RegularDatesPage.Model = function(horseID){
 	function convertDateToSuggestion(date){
 		date.dateFuture = DATE_SUGGESTION_DATE;
 		date.timeFuture = DATE_SUGGESTION_TIME;
-		return date;
+		return date;	
+	}
+
+	function updateDatesAndSuggestionsByIds(dateIds, suggestionIds){		
+		updateRegularDatesByIds(dateIds);
+		updateSuggestionsByIds(suggestionIds);
+	}
+
+	function updateRegularDatesByIds(dateIds){
+		let newRegularDates = [];
+		for(let i = 0; i < dateIds.length; i ++ ){
+			let dateId = dateIds[i],
+				newDate = getDateById(dateId);
+				if(newDate){
+					newRegularDates.push(newDate);
+				}				
+		}
+		updateRegularDates(newRegularDates);
+	}
+
+
+	function updateSuggestionsByIds(suggestionIds){
+		let	newSuggestions = [];		
+		for(let i = 0; i < suggestionIds.length; i ++ ){
+			let suggestionId = suggestionIds[i];
+				newSuggestion = getDateById(suggestionId);
+				if(newSuggestion){
+					newSuggestions.push(newSuggestion);
+				}
+		}
+		updateDateSuggestions(newSuggestions);
+	}	
+
+	function getDateById(dateId){
+		for(let i = 0; i < allDates.length; i ++){
+			let date = allDates[i];
+			if(date.id === dateId){
+				return date;
+			}
+		}
 	}
 
 	
@@ -320,5 +359,6 @@ RegularDatesPage.Model = function(horseID){
 	that.getDatesSuggestions = getDatesSuggestions;
 	that.getAllDates = getAllDates;
 	that.getHorseID = getHorseID;
+	that.updateDatesAndSuggestionsByIds = updateDatesAndSuggestionsByIds;
 	return that;
 }

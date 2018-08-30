@@ -82,8 +82,7 @@ Pages = function(){
 		addListenersToUserProfileSaver();
 		addListenersToUserProfileChanger();
 		addListenersToUserProfileCreator();
-	}
-	
+	}	
 
 	function initUserCreatorPage(){
 		userCreatorPage = new UserCreatorPage(userID);
@@ -304,6 +303,7 @@ Pages = function(){
 	* @description shows all regular dates to the user
 	*/ 
 	function showRegularDates(){
+		console.log("showRegularDates");
 		pageChanger.switchPage("REGULAR_DATES_PAGE");
 		datesPageRegular.init();
 	}

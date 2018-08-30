@@ -22,7 +22,6 @@ SortableLists = function(firstListID, secondListID, firstIDTag= "id", secondIDTa
 		  $("#"+firstListID).sortable({
 			connectWith: "#"+secondListID,
 			receive: function(event, ui){
-				console.log("firstList fires, secondIDTag", secondIDTag, ui.item, $(ui.item).attr(secondIDTag));
 				var id = $(ui.item).find("li").attr(firstIDTag);
 				sendEvent("onItemReceived", firstListID, id);
 			}
@@ -41,7 +40,6 @@ SortableLists = function(firstListID, secondListID, firstIDTag= "id", secondIDTa
 		$("#"+secondListID).sortable({
 			connectWith: "#"+firstListID,
 			receive: function(event, ui){
-				console.log("secondList fires, firstIDTag", firstIDTag, ui.item, $(ui.item).attr(firstIDTag));
 				var id = $(ui.item).attr(secondIDTag);
 				sendEvent("onItemReceived", secondListID, id);
 			}

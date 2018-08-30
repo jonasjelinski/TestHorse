@@ -71,7 +71,8 @@ DatabaseClientInterface = function(){
 	function sendResultData(ev){
 		let event = new Event("onResult");
 			event.details = {};
-			event.details.result = ev.details.result;			
+			event.details.result = ev.details.result;
+			event.details.resultAction = ev.details.resultAction;			
 		that.dispatchEvent(event);
 	}
 
