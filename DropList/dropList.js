@@ -167,6 +167,10 @@ DropList = (function(domElementId, listElementsData, elementTemplateString, elem
 		return  listView.getCurrentOrder();
 	}
 
+	function cleanWrongTagsIds(wrongTag){
+		listView.cleanWrongTagsIds(wrongTag);
+	}
+
 	dropList.init = init;
 	dropList.addNewElement = addNewElement;
 	dropList.removeElementById = removeElementById;
@@ -174,5 +178,6 @@ DropList = (function(domElementId, listElementsData, elementTemplateString, elem
 	dropList.getElements = getElements;
 	dropList.setElements = setElements;
 	dropList.getCurrentElementIds = getCurrentElementIds;
+	dropList.cleanWrongTagsIds = cleanWrongTagsIds;
 	return dropList;
 });

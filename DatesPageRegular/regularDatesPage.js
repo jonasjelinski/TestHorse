@@ -32,8 +32,8 @@ RegularDatesPage = function(userID){
 		suggestionsListId = "regularDatesRecommendation",
 		regularDateTemplateString,
 		dateSuggestionTemplateString,
-		regularTagId = "regularDateId",
-		suggestionsTagId = "dateRecommendationId",
+		regularTagId = "regulardateid",
+		suggestionsTagId = "daterecommendationid",
 		deleteButtonClass = "regularDateDelete",
 		changeButtonClass = "regularDateChange",
 		backbuttonId= "backToDates",
@@ -161,8 +161,7 @@ RegularDatesPage = function(userID){
 	*/
 	function initRegularDatesList(listElementsData){
 		regularDatesList = new DropList(datesListId, listElementsData, regularDateTemplateString, regularTagId);
-		regularDatesList.init();
-		
+		regularDatesList.init();		
 	}
 
 	function initDatesSuggestionList(listElementsData){
@@ -179,7 +178,8 @@ RegularDatesPage = function(userID){
 	function handleOnItemsReceived(event){
 		let listId = event.details.listID,
 			elementID = event.details.elementID;
-		console.log("listId",listId,"elementID",elementID);
+		regularDatesList.cleanWrongTagsIds(suggestionsTagId);
+		dateSuggestionsList.cleanWrongTagsIds(regularTagId);
 		updateBothDropLists();
 	}
 
