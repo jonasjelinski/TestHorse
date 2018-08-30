@@ -1,7 +1,27 @@
-.createSingleDate{
-
+.createDate{
+  background: green;
 }
 
-.createRegularDate{
+.createDateReminder {
+  background: blue;
+}
 
+.reminderSingleDate{
+    background: yellow;
+}
+
+.reminderRegularDate {
+  background: red;
+}
+
+#allRegularDates{
+  height: 50%;
+  width: 40%;
+  left: 10px;
+}
+
+#regularDatesRecommendation{
+  height: 50%;
+  width: 40%;
+  right: 10px
 }
