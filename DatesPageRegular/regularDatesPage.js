@@ -199,19 +199,26 @@ RegularDatesPage = function(userID){
 		if(listIsDateList(listId) && isDateSuggestion(elementID)){
 				data.attributes = model.getDateAttributesById(elementID);
 				data.horseID = horseID;
-				console.log(data.attributes);
 				if(isNewSuggestion(data.attributes)){
+					model.setNewDateId(elementID);
 					dbInterface.requestDateIdFromDB(data.attributes);
 				}	
 				else{
-					sendEvent("showCreateRegularDate", data);
+					sendEvent("onChangeDate", data);
 				}				
 		}
 	}
 
 	function handleNewDateId(event){
-		let newDateId = event.details.results;
-		console.log("newDateId", newDateId);
+		let newDateId = event.details.results,
+			data = {},
+		attributes = model.getNewDate();
+		attributes.id = newDateId;
+		attributes.horseID = horseID;
+		data = {
+			attributes: attributes,
+		};
+		sendEvent("onChangeDate", data);
 	}
 
 	function isNewSuggestion(attributes){

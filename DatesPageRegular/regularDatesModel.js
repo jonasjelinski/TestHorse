@@ -23,7 +23,8 @@ RegularDatesPage.Model = function(horseID){
 		delteId,
 		datesSuggestor,
 		hasNewHorse = false,
-		hasAllDatesAndSuggestions = false;
+		hasAllDatesAndSuggestions = false,
+		newDateId;
 
 	/**
 	* @function init
@@ -441,6 +442,18 @@ RegularDatesPage.Model = function(horseID){
 		return false;
 	}
 
+	function setNewDateId(id){
+		newDateId = id;
+	}
+
+	function getNewDateId(){
+		return newDateId;
+	}
+
+	function getNewDate(){
+		return getDateAttributesById(newDateId);
+	}
+
 	
 	that.init = init;
 	that.setDelteId = setDelteId;
@@ -458,5 +471,8 @@ RegularDatesPage.Model = function(horseID){
 	that.setNewDatesAsStrings = setNewDatesAsStrings;
 	that.checkIfReadyForSendingData = checkIfReadyForSendingData;
 	that.isDateSuggestion = isDateSuggestion;
+	that.setNewDateId = setNewDateId;
+	that.getNewDateId = getNewDateId,
+	that.getNewDate = getNewDate;
 	return that;
 }

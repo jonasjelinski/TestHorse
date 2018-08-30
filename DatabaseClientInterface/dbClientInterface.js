@@ -493,7 +493,7 @@ DatabaseClientInterface = function(){
 			return true;
 		}
 		else{
-			console.log("updateUserIntoDB failed");
+			console.log("updateSingleReminderIntoDB failed");
 			return false;				
 		}	
 	}
@@ -514,7 +514,7 @@ DatabaseClientInterface = function(){
 			return true;
 		}
 		else{
-			console.log("updateUserIntoDB failed");
+			console.log("updateRegularReminderIntoDB failed");
 			return false;				
 		}	
 	}

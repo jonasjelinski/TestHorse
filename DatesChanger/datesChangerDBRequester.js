@@ -58,7 +58,8 @@ DatesChangerPage.DBRequester = function(userID, horseID){
 	* @description adds event listener
 	*/
 	function handleResult(event){
-		let result = event.details.result;		
+		let result = event.details.result;	
+		console.log("updateResult", result);	
 	}
 	
 	/**
@@ -100,7 +101,8 @@ DatesChangerPage.DBRequester = function(userID, horseID){
 	*/
 	function updateDate(changedDate){
 		let dataToSave = {};
-		dataToSave = getDateObjectForDBRequest(dataToSave);
+		dataToSave = getDateObjectForDBRequest(changedDate);
+		console.log("changedDate", changedDate, "dataToSave", dataToSave);
 		hadCorrectParameter = requester.updateDate(dataToSave);
 		handleParameterFeedBack(hadCorrectParameter);
 	}
@@ -116,13 +118,13 @@ DatesChangerPage.DBRequester = function(userID, horseID){
 	function getDateObjectForDBRequest(changedDate) {
 		let dataToSave= {
 			dateID: changedDate.id,
-			horseID: changedDate.horse_id,
+			horseID: changedDate.horse_id || changedDate.horseID,
 			title: changedDate.title,
 			date: changedDate.date,
 			time: changedDate.time,
 			location: changedDate.location,
-			dateFuture: changedDate.date_future_date,
-			timeFuture: changedDate.time_future_time,
+			dateFuture: changedDate.date_future_date || changedDate.dateFuture,
+			timeFuture: changedDate.time_future_time || changedDate.timeFuture,
 			valueRegular: changedDate.valueRegular,
 			unitRegular: changedDate.unitRegular,
 		};
