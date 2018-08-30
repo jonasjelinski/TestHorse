@@ -308,7 +308,7 @@ Pages = function(){
 		datesPageRegular.init();
 	}
 
-	function showCreateRegularDate() {
+	function showCreateRegularDate(event) {
 		pageChanger.switchPage("REGULAR_DATES_CREATER_PAGE");		
 		datesCreatorPageRegular.init();
 	}

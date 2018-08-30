@@ -187,10 +187,29 @@ RegularDatesPage = function(userID){
 	function handleOnItemsReceived(event){
 		let listId = event.details.listID,
 			elementID = event.details.elementID;
-			console.log("listID", listId, "elementID", elementID);
+			isDroppingSuggestionOnDates(listId, elementID);			
 		regularDatesList.cleanWrongTagsIds(suggestionsTagId);
 		dateSuggestionsList.cleanWrongTagsIds(regularTagId);
 		updateBothListsInModel();
+	}
+
+	function isDroppingSuggestionOnDates(listId, elementID){
+		console.log("listID", listId, "elementID", elementID);
+		let attributes = {};
+		if(listIsDateList(listId) && isDateSuggestion(elementID)){
+				attributes.attributes = model.getDateAttributesById(elementID);
+				console.log("isDroppingSuggestionOnDates", attributes);
+				sendEvent("onChangeDate", attributes);
+		}
+
+	}
+
+	function listIsDateList(listId){
+		return listId === datesListId;
+	}
+
+	function isDateSuggestion(elementID){
+		return model.isDateSuggestion(elementID);
 	}
 
 	function updateBothListsInModel(){

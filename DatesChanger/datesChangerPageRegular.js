@@ -51,7 +51,6 @@ DatesChangerPageRegular = function(userID){
 	* @description creats the instances of the modles of this modul.
 	*/
 	function initModuls(horseID){
-		console.log("initModuls");
 		standardPage = new RegulardatesCreatorPage.Standard (userID);
 		dbInterface = new DatesChangerPage.DBRequester(userID, horseID);
 		model = new DatesChangerPage.Model();
@@ -176,7 +175,6 @@ DatesChangerPageRegular = function(userID){
 	*/
 	function handleCancel() {
 		sendEvent("onCancel");
-		console.log("onCancel");
 	}
 	
 	that.init = init;

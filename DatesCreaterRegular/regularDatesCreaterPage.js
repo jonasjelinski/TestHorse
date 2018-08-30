@@ -23,7 +23,6 @@ RegulardatesCreatorPage = function(userID){
 	* @description Initialize this modul.
 	*/	
 	function init(newHorseID) {
-		console.log("init",init);
  		newHorseID = newHorseID || 38;
 		horseID = newHorseID;
 		initModuls();

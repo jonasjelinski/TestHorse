@@ -64,6 +64,7 @@ RegularDatesPage.Model = function(horseID){
 
 	function getHorseSuggestions(){
 		horseDateSuggestions = datesSuggestor.getDateSuggestions();
+		allDates = allDates.concat(horseDateSuggestions);
 	}
 
 	function isParsable(string) {
@@ -265,7 +266,7 @@ RegularDatesPage.Model = function(horseID){
 	function updateAllDates(newDates, newSuggestions){
 		updateRegularDates(newDates);
 		updateDateSuggestions(newSuggestions);
-		allDates = regularDates.concat(regularDates);
+		allDates = regularDates.concat(dateSuggestions);
 	}
 
 	function updateRegularDates(newDates){
@@ -300,6 +301,7 @@ RegularDatesPage.Model = function(horseID){
 	* @description returns date with the id "id"
 	*/
 	function getSearchedDate(id){
+		console.log(allDates);
 		for(let i = 0; i < allDates.length; i++){
 			let date = allDates[i];
 			if(date.id === id){
@@ -339,6 +341,7 @@ RegularDatesPage.Model = function(horseID){
 		else{
 			regex = new RegExp(positonCode+"\\d*");
 		 	newPosition = positonCode+position;
+		 	console.log("date",date);
 			oldPositionString = date.orderPosition;
 			match = oldPositionString.match(regex);
 			if(match){
@@ -428,6 +431,17 @@ RegularDatesPage.Model = function(horseID){
 		sendOnDataConverted();
 	}
 
+	function isDateSuggestion(elementId){
+		for(let i = 0; i < dateSuggestions.length; i++){
+			let suggestion = dateSuggestions[i],
+				suggestionId = suggestion.id;
+			if(elementId === suggestionId){
+				return true;
+			}
+		}
+		return false;
+	}
+
 	
 	that.init = init;
 	that.setDelteId = setDelteId;
@@ -444,5 +458,6 @@ RegularDatesPage.Model = function(horseID){
 	that.setNewHorseAsStrings = setNewHorseAsStrings;
 	that.setNewDatesAsStrings = setNewDatesAsStrings;
 	that.checkIfReadyForSendingData = checkIfReadyForSendingData;
+	that.isDateSuggestion = isDateSuggestion;
 	return that;
 }
