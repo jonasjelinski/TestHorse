@@ -20,13 +20,14 @@ UserProfilPage = function(userID){
 		BURGER_LIST_ID = "burgerListUserPage",
 		inVisibleClass = "",
 		visibleClass = "",
-		BURGER_OPTION_PROFILE = "burgerOptionProfile",
-		BURGER_OPTION_HELP = "burgerOptionHelp",
-		BURGER_OPTION_LOGOUT = "burgerOptionLogout";			
+		BURGER_OPTION_PROFILE = "burgerOptionUserProfile",
+		BURGER_OPTION_HELP = "burgerOptionUserHelp",
+		BURGER_OPTION_LOGOUT = "burgerOptionUserLogout";			
 		
 		
 	let dbInterface,
 		model,
+		hamburgerMenu,
 		that = Profil(PAGE_ID, TEMPLATE_ID, CHANGE_BUTTON_ID, OKAY_BUTTON_ID, DELETE_BUTTON_ID);
 	
 	/**
@@ -37,7 +38,6 @@ UserProfilPage = function(userID){
 	* @description Initialize this page.
 	*/ 	
 	function initPage(){
-		console.log("initPage");
 		initDBRequester();
 		initHamburgerMenu();
 		requestUserDataFromDB();
@@ -144,7 +144,7 @@ UserProfilPage = function(userID){
 		dbInterface.deleteUserFromDB();
 	}
 
-		/**
+	/**
 	* @function initHamburgerMenu
 	* @private
 	* @memberof! MainPage  
@@ -152,6 +152,7 @@ UserProfilPage = function(userID){
 	* @description initts the hamburger menu
 	*/
 	function initHamburgerMenu(){
+		console.log("initHamburgerMenu");
 		hamburgerMenu = new HamburgerMenu(BURGER_CLICK_BOX_ID, BURGER_LIST_ID, inVisibleClass, visibleClass);
 		hamburgerMenu.init();
 		hamburgerMenu.addEventListener("onOption", handleHamburgerClick);
@@ -199,6 +200,7 @@ UserProfilPage = function(userID){
 	* @description sends event of type type and the id
 	*/
 	function sendEvent(type, id){
+		console.log(type);
 		let event = new Event(type);
 		event.details = {};
 		event.details.horseID = id;
