@@ -72,9 +72,20 @@ Pages.PageContent = function (){
 
   DATE_RECOMMENDATION_TEMPLATE =
   '<script type="text/template" id="dateRecommendationTemplate">'+
-  '<li draggable="true" dateRecommendationId = <%= id %>'+
-  ' <button class= "dateRecommendationDelete" type="button">löschen </button> '+
-' <button class= "dateRecommandationChange" type="button">ändern </button> '+
+  '<li draggable="true" dateRecommendationId = <%= id %> >'+
+'<div> '+
+	'<button class= "dateRecommendationDelete" type="button">löschen</button> '+
+	'</div> '+
+	'<div> '+
+	'<button class= "dateRecommendationChange" type="button">ändern</button> '+
+	'</div> '+
+	'<p class="recommendationDateTitle"> <%= title %> </p> '+
+	'<p class="recommendationDateDay"> <%= date %> </p> '+
+	'<p class="recommendationDateTime"> <%= time %> </p> '+
+
+
+
+
   '</li> '+
 	'</script> ',
 
@@ -84,12 +95,12 @@ Pages.PageContent = function (){
                     '<button id="popupTextNo"  type="button">No</button> '+
                 '</div>',
 HORSEBOXELEMENT_TEMPLATE= '<script type="text/template" id="horseBoxElementTemplate">'+
-'<li draggable="true" class= "horseListElement" horseId = <%= id %> '+
-	' <div class = "horseBox" horseBoxId = <%= id %>' +
-		'<img class= "horsePic" horsePicId = <%= id %> src=<%=photo%> </img>' +
+'<li draggable="true" class= "horseListElement" horseId = <%= id %> > '+
+	' <div class = "horseBox" horseBoxId = <%= id %> ' +
+		'<img class= "horsePic" horsePicId = <%= id %> src=<%=photo%> </img> ' +
 		'<div class="horseName"> <%=name%> </div> '+
-		'<button class="horseDateButton" type="button">horseDateButton </button> '+
-		'<button class="horseProfileButton" type="button">horseProfileButton </button> '+
+		'<div> <button class="horseDateButton" type="button">horseDateButton </button> </div> '+
+		'<div> <button class="horseProfileButton" type="button">horseProfileButton </button> </div> '+
 		'</div> '+
 '</li> ' +
 '</script> ',
@@ -140,9 +151,17 @@ HORSEBOXELEMENT_TEMPLATE= '<script type="text/template" id="horseBoxElementTempl
                '</content>'+
     USER_PROFILE_TEMPLATE,
 
-LIST_ELEMENT_TEMPLATE = '<script type="text/template" id="ulElementTemplate">'+
-'<li draggable="true" dateId = <%= id %> '+
-	'<p > <%= title %> </p> '+
+LIST_ELEMENT_TEMPLATE = '<script type="text/template" id="ulElementTemplate"> '+
+'<li draggable="true" dateId = <%= id %> > '+
+'<div> '+
+	'<button class= "singleDateDelete" type="button">löschen</button> '+
+	'</div> '+
+	'<div> '+
+	'<button class= "singleDateChange" type="button">ändern</button> '+
+	'</div> '+
+	'<p class="singleDateTitle"> <%= title %> </p> '+
+	'<p class="singleDateDay"> <%= date %> </p> '+
+	'<p class="singleDateTime"> <%= time %> </p> '+
 '</li> '+
 '</script> ',
 
@@ -174,12 +193,12 @@ LIST_ELEMENT_TEMPLATE = '<script type="text/template" id="ulElementTemplate">'+
 
 DATE_LIST_TEMPLATE  = '<script type="text/template" id="dateListTemplate">'+
 '<li draggable="true" regularDateId = <%= id %> > '+
-'<div>'+
+'<div> '+
 	'<button class= "regularDateDelete" type="button">löschen</button> '+
-	'</div>'+
-	'<div>'+
+	'</div> '+
+	'<div> '+
 	'<button class= "regularDateChange" type="button">ändern</button> '+
-	'</div>'+
+	'</div> '+
 	'<p class="regularDateTitle"> <%= title %> </p> '+
 	'<p class="regularDateDay"> <%= date %> </p> '+
 	'<p class="regularDateTime"> <%= time %> </p> '+
