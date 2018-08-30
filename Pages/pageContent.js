@@ -72,9 +72,20 @@ Pages.PageContent = function (){
 
   DATE_RECOMMENDATION_TEMPLATE =
   '<script type="text/template" id="dateRecommendationTemplate">'+
-  '<li draggable="true" dateRecommendationId = <%= id %>'+
-  ' <button class= "dateRecommendationDelete" type="button">löschen </button> '+
-' <button class= "dateRecommandationChange" type="button">ändern </button> '+
+  '<li draggable="true" dateRecommendationId = <%= id %> >'+
+'<div> '+
+	'<button class= "dateRecommendationDelete" type="button">löschen</button> '+
+	'</div> '+
+	'<div> '+
+	'<button class= "dateRecommendationChange" type="button">ändern</button> '+
+	'</div> '+
+	'<p class="recommendationDateTitle"> <%= title %> </p> '+
+	'<p class="recommendationDateDay"> <%= date %> </p> '+
+	'<p class="recommendationDateTime"> <%= time %> </p> '+
+
+
+
+
   '</li> '+
 	'</script> ',
 
@@ -84,12 +95,12 @@ Pages.PageContent = function (){
                     '<button id="popupTextNo"  type="button">No</button> '+
                 '</div>',
 HORSEBOXELEMENT_TEMPLATE= '<script type="text/template" id="horseBoxElementTemplate">'+
-'<li draggable="true" class= "horseListElement" horseId = <%= id %> '+
-	' <div class = "horseBox" horseBoxId = <%= id %>' +
-		'<img class= "horsePic" horsePicId = <%= id %> src=<%=photo%> </img>' +
+'<li draggable="true" class= "horseListElement" horseId = <%= id %> > '+
+	' <div class = "horseBox" horseBoxId = <%= id %> ' +
+		'<img class= "horsePic" horsePicId = <%= id %> src=<%=photo%> </img> ' +
 		'<div class="horseName"> <%=name%> </div> '+
-		'<button class="horseDateButton" type="button">horseDateButton </button> '+
-		'<button class="horseProfileButton" type="button">horseProfileButton </button> '+
+		'<div> <button class="horseDateButton" type="button">horseDateButton </button> </div> '+
+		'<div> <button class="horseProfileButton" type="button">horseProfileButton </button> </div> '+
 		'</div> '+
 '</li> ' +
 '</script> ',
