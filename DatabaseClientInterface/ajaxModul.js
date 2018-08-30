@@ -9,7 +9,8 @@ var DatabaseClientInterface = DatabaseClientInterface || {};
 DatabaseClientInterface.AJAXModul = function () {
 	"use strict";	 
 
-	let that = new EventTarget();
+	let that = new EventTarget(),
+		resultAction;
 
 
 	/**
@@ -22,8 +23,9 @@ DatabaseClientInterface.AJAXModul = function () {
 	* @param {object} data, data to send to the database
 	* @description makes the ajax request
 	*/ 	
-	function doAjaxRequest(url, type , data){
-		console.log("url, type, data", url, type, data);
+	function doAjaxRequest(action, url, type , data){
+		resultAction = action;
+		console.log("action, url, type, data",action, url, type, data);
 		$.ajax({
 	    	type: type,
 	    	url: url,
@@ -71,6 +73,7 @@ DatabaseClientInterface.AJAXModul = function () {
 		let event = new Event("onResult");
 		event.details = {};
 		event.details.result = requestResult;
+		event.details.resultAction = resultAction;
 		that.dispatchEvent(event);		
 	}
 

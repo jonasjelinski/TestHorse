@@ -57,7 +57,7 @@ DatabaseClientInterface.RequestModul = function () {
 	*/ 	
 	function askDataBase(url, action, data){
 		let requestData = createRequestDataObject(action, data);
-		requestModul.doAjaxRequest(url, Types.POST, requestData);
+		requestModul.doAjaxRequest(action, url, Types.POST, requestData);
 	}
 
 	/**
@@ -82,9 +82,11 @@ DatabaseClientInterface.RequestModul = function () {
 	*/ 
 	function sendResults(ev){
 		let requestResult = ev.details.result,
+			resultAction = ev.details.resultAction,
 		event = new Event("onResult");
 		event.details = {};
 		event.details.result = requestResult;
+		event.details.resultAction = resultAction;
 		that.dispatchEvent(event);		
 	}
 

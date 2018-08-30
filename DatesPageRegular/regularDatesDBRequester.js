@@ -62,12 +62,13 @@ RegularDatesPage.DBRequester = function(userID, horseID){
 	* @description sends the result of the db request to other moduls
 	*/
 	function handleResult(event){
-		if(!isDeletingDate && !isUpdating){
+		let action = event.details.resultAction;
+		if(action !== "deleteDateFromDB" && action !== "updateDate"){
 			let results = event.details.result;
 			sendEvent("onResult", results);		
 		}
-		if(isUpdating){
-
+		else{
+			requestDatesFromDB();
 		}
 	}
 
@@ -120,11 +121,17 @@ RegularDatesPage.DBRequester = function(userID, horseID){
 			let date = allDates[i];
 			date.dateID = date.id;
 			requester.updateDate(date);
-		}			
+		}
+		isUpdating = false;			
+	}
+
+	function stoppListening(){
+		requester.removeEventListener("onResult", handleResult);
 	}
 
 	that.init = init;
 	that.requestDatesFromDB = requestDatesFromDB;
+	that.stoppListening = stoppListening;
 	that.deleteDate = deleteDate;
 	that.updateAllDates = updateAllDates;
 	return that;

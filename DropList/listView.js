@@ -235,4 +235,21 @@ class ListView extends EventTarget{
 		}
 		return ids; 
 	}
+
+	cleanWrongTagsIds(wrongTag){
+		let listElements = this.unsortedList.children;
+		for(let i = 0; i < listElements.length; i++){
+		let li = listElements[i],
+				id = li.getAttribute(wrongTag);
+			if(id){
+				this.cleanTagId(li, wrongTag, id);
+			}
+
+		}
+	}
+
+	cleanTagId(li, wrongTag, id){
+		li.removeAttribute(wrongTag);
+		li.setAttribute(this.elementTagId, id);
+	}
 };

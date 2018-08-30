@@ -93,7 +93,7 @@ DatesPageAll.DBRequester = function(userID, horseID){
 	* @description request all dates of the horse with the id horseID from the database
 	*/
 	function requestDatesFromDB(){
-		requester.getAllDatesOfHorse(38);
+		requester.getAllDatesOfHorse(horseID);
 	}
 
 	function updateAllDates(allDates){

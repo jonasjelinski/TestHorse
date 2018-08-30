@@ -71,6 +71,7 @@ DatesPageAll = function(userID){
 	* @description starts a database request to get the dates of the horse
 	*/
 	function requestDatesFromDB(){
+		console.log("requestDatesFromDB");
 		dbInterface.requestDatesFromDB();
 	}
 
@@ -207,7 +208,6 @@ DatesPageAll = function(userID){
 	* @description sends event of type "type" and data
 	*/
 	function sendEvent(type){
-		console.log("event", type);
 			let event = new Event(type);
 			event.details = {};
 			event.details.attributes = {};
@@ -297,7 +297,6 @@ DatesPageAll = function(userID){
 	* @description sends event of type type and the id
 	*/
 	function sendEvent(type, id){
-		console.log(type);
 		let event = new Event(type);
 		event.details = {};
 		event.details.horseID = id;

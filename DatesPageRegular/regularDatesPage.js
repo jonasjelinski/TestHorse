@@ -32,8 +32,8 @@ RegularDatesPage = function(userID){
 		suggestionsListId = "regularDatesRecommendation",
 		regularDateTemplateString,
 		dateSuggestionTemplateString,
-		regularTagId = "regularDateId",
-		suggestionsTagId = "dateRecommendationId",
+		regularTagId = "regulardateid",
+		suggestionsTagId = "daterecommendationid",
 		deleteButtonClass = "regularDateDelete",
 		changeButtonClass = "regularDateChange",
 		backbuttonId= "backToDates",
@@ -54,8 +54,7 @@ RegularDatesPage = function(userID){
 	* @param {string} newHorseID
 	* @description Initialize this modul. starts the database request for the dates.
 	*/
-	function init(newHorseID){		
-		
+	function init(newHorseID){
 		setHorseIDAndTemplateString(newHorseID);
 		initDBInterface();
 		requestDatesFromDB();
@@ -113,7 +112,7 @@ RegularDatesPage = function(userID){
 	* @description inits the model with the results of the databse request
 	*/
 	function handleDBResult(event){
-		let allDatesAsStrings = event.details.allDates;		
+		let allDatesAsStrings = event.details.allDates;	
 		initModel(allDatesAsStrings);		
 	}
 
@@ -161,8 +160,7 @@ RegularDatesPage = function(userID){
 	*/
 	function initRegularDatesList(listElementsData){
 		regularDatesList = new DropList(datesListId, listElementsData, regularDateTemplateString, regularTagId);
-		regularDatesList.init();
-		
+		regularDatesList.init();		
 	}
 
 	function initDatesSuggestionList(listElementsData){
@@ -179,15 +177,15 @@ RegularDatesPage = function(userID){
 	function handleOnItemsReceived(event){
 		let listId = event.details.listID,
 			elementID = event.details.elementID;
-		console.log("listId",listId,"elementID",elementID);
-		updateBothDropLists();
+		regularDatesList.cleanWrongTagsIds(suggestionsTagId);
+		dateSuggestionsList.cleanWrongTagsIds(regularTagId);
+		updateBothListsInModel();
 	}
 
-	function updateBothDropLists(){
+	function updateBothListsInModel(){
 		let newElementIdsDates = regularDatesList.getCurrentElementIds(),
 			newElementIdsSuggestions = dateSuggestionsList.getCurrentElementIds();
-			console.log("newElementIdsDates", newElementIdsDates);
-			console.log("newElementIdsSuggestions", newElementIdsSuggestions);
+		model.updateDatesAndSuggestionsByIds(newElementIdsDates, newElementIdsSuggestions);
 	}
 
 
@@ -313,6 +311,7 @@ RegularDatesPage = function(userID){
 			horseID: horseID,
 		};
 		updateDatesAndSuggestions();
+		closePage();
 		sendEvent("showAllDates", id);
 	}
 
@@ -350,10 +349,8 @@ RegularDatesPage = function(userID){
 	}
 
 	function updateDatesAndSuggestions(){
-		let regularDates = regularDatesList.getElements(),
-			suggestions = dateSuggestionsList.getElements(),
-			allDates;
-		model.updateAllDates(regularDates, suggestions);
+		let allDates;
+		updateBothListsInModel();
 		allDates = model.getAllDates();
 		dbInterface.updateAllDates(allDates);
 	}	
@@ -434,6 +431,10 @@ RegularDatesPage = function(userID){
 	function handleLogoutOption(){
 		updateDatesAndSuggestions();
 		sendEvent("logoutUser","");
+	}
+
+	function closePage(){
+		dbInterface.stoppListening();
 	}
 
 	that.init = init;
