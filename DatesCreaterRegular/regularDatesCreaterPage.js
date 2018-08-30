@@ -93,7 +93,6 @@ RegulardatesCreatorPage = function(userID){
 	* @description sends event of type "type"
 	*/
 	function sendEvent(type) {
-		console.log("type",type);
 		let event = new Event(type);
 		that.dispatchEvent(event);
 	}

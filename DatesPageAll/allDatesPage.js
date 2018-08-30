@@ -18,7 +18,8 @@ DatesPageAll = function(userID){
 		BURGER_OPTION_START = "burgerOptionAllDatesStart",
 		BURGER_OPTION_PROFILE = "burgerOptionAllDatesProfile",
 		BURGER_OPTION_HELP = "burgerOptionAllDatesHelp",
-		BURGER_OPTION_LOGOUT = "burgerOptionAllDatesLogout";	
+		BURGER_OPTION_LOGOUT = "burgerOptionAllDatesLogout";
+		DATE_TEMPLATE_ID= "ulElementTemplate";	
 
 	let that = new EventTarget(),
 		dropList,
@@ -41,7 +42,7 @@ DatesPageAll = function(userID){
 	*/
 	function init(newHorseID){
 		horseID = newHorseID || 38;
-		elementTemplateString = document.getElementById("ul-element").innerHTML;
+		elementTemplateString = document.getElementById(DATE_TEMPLATE_ID).innerHTML;
 		initDBInterface();		
 		requestDatesFromDB();
 		initControlls();
@@ -163,11 +164,9 @@ DatesPageAll = function(userID){
 	function initControlls(){
 		let regularDatesButton = document.getElementById("manageRegularDates"),
 			singleDatesButton = document.getElementById("manageSingleDates"),
-			cancelButton = document.getElementById("cancelDatesPage"),
 		domElements = {
 			regularDatesButton: regularDatesButton,
 			singleDatesButton: singleDatesButton,
-			cancelButton : cancelButton,
 		}
 		controlls = DatesPageAll.DatesPageControll(domElements);
 		controlls.init();
@@ -184,7 +183,6 @@ DatesPageAll = function(userID){
 	function addControllListeners(){
 		controlls.addEventListener("onRegularClicked", handleRegularClick);
 		controlls.addEventListener("onSingleClicked", handleSingleClick);
-		controlls.addEventListener("onCancelDatesPage", handleCancelClick);
 	}
 
 	/**
@@ -226,17 +224,6 @@ DatesPageAll = function(userID){
 	*/
 	function handleSingleClick(){
 		sendEvent("showCreateSingleDate");
-	}
-
-	/**
-	* @function handleCancelClick
-	* @private
-	* @memberof! DatesPageAll
-	* @instance
-	* @description sends an event of the type "onCancel"
-	*/
-	function handleCancelClick() {
-		sendEvent("onCancel");
 	}
 
 	function updateList(){

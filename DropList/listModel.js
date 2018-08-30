@@ -87,10 +87,15 @@ DropList.ListModel = (function(listElementsData, nameOfId){
 		return elements;
 	}
 
+	function setElements(newElements){
+		elements = newElements;
+	}
+
 	that.init = init;
 	that.addNewElement = addNewElement;
 	that.removeElementById = removeElementById;
 	that.updateElementOrder = updateElementOrder;
-	that.getElements = getElements;	
+	that.getElements = getElements;
+	that.setElements = setElements;	
 	return that;
 });

@@ -128,6 +128,10 @@ DropList = (function(domElementId, listElementsData, elementTemplateString, elem
 	* @description Updates the order of the list-elements in the model of this modul.
 	*/
 	function handleOnInserted(){
+		updateElements();
+	}
+
+	function updateElements(){
 		let currentOrder = listView.getCurrentOrder();
 		listModel.updateElementOrder(currentOrder);
 	}
@@ -155,10 +159,20 @@ DropList = (function(domElementId, listElementsData, elementTemplateString, elem
 		addNewElement(elementData);
 	}
 
+	function setElements(newElements){
+		listModel.setElements(newElements);
+	}
+
+	function getCurrentElementIds(){
+		return  listView.getCurrentOrder();
+	}
+
 	dropList.init = init;
 	dropList.addNewElement = addNewElement;
 	dropList.removeElementById = removeElementById;
 	dropList.updateElementById = updateElementById;
 	dropList.getElements = getElements;
+	dropList.setElements = setElements;
+	dropList.getCurrentElementIds = getCurrentElementIds;
 	return dropList;
 });

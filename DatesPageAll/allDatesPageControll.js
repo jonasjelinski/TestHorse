@@ -24,7 +24,6 @@ DatesPageAll.DatesPageControll = function(domElements){
 	function init(){
 		regularDatesButton = domElements.regularDatesButton;
 		singleDatesButton = domElements.singleDatesButton;
-		cancelButton = domElements.cancelButton;
 		addEventListeners();
 	}
 
@@ -38,7 +37,6 @@ DatesPageAll.DatesPageControll = function(domElements){
 	function addEventListeners(){
 		regularDatesButton.addEventListener("click", handleRegularClick);
 		singleDatesButton.addEventListener("click", handleSingleClick);
-		cancelButton.addEventListener("click", handleCancelClick);
 	}
 
 	/**
@@ -75,17 +73,6 @@ DatesPageAll.DatesPageControll = function(domElements){
 	*/
 	function handleSingleClick(){
 		sendEvent("onSingleClicked");
-	}
-
-	/**
-	* @function handleCancelClick
-	* @private
-	* @memberof! DatesPageAll.DatesPageControll
-	* @instance
-	* @description sends event of type "onCancelDatesPage"
-	*/
-	function handleCancelClick() {
-		sendEvent("onCancelDatesPage");
 	}
 
 	that.init = init;
