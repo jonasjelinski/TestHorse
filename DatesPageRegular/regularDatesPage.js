@@ -168,8 +168,15 @@ RegularDatesPage = function(userID){
 	}
 
 	function initInterListCommunication(){
-		innerListCommunication = SortableLists(datesListId, suggestionsListId);
+		innerListCommunication = SortableLists(datesListId, suggestionsListId, regularTagId, suggestionsTagId);
 		innerListCommunication.init();
+		innerListCommunication.addEventListener("onItemReceived", handleOnItemsReceived);
+	}
+
+	function handleOnItemsReceived(event){
+		let listId = event.details.listID,
+			elementID = event.details.elementID;
+		console.log("listId",listId,"elementID",elementID);
 	}
 
 	/**

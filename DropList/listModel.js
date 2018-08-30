@@ -20,7 +20,7 @@ DropList.ListModel = (function(listElementsData, nameOfId){
 	* @instance
 	* @description Initialize this model. Saves the array data of the listElementsData in the variable elements.
 	*/ 	
-	function init(){		
+	function init(){	
 		elements = listElementsData;
 		elementTagId = nameOfId;
 	}

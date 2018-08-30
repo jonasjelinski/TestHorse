@@ -1,8 +1,7 @@
 var SortableLists = SortableLists || {};
 
 
-SortableLists = function(firstListID, secondListID){
-	"use strict";
+SortableLists = function(firstListID, secondListID, firstIDTag= "id", secondIDTag = "id"){
 	
 	let that = new EventTarget(),
 		firstList,
@@ -23,7 +22,8 @@ SortableLists = function(firstListID, secondListID){
 		  $("#"+firstListID).sortable({
 			connectWith: "#"+secondListID,
 			receive: function(event, ui){
-				var id = $(ui.item).attr("id");
+				var id = $(ui.item).attr(secondIDTag);
+				console.log(id);
 				sendEvent("onItemReceived", firstListID, id);
 			}
 		});
@@ -41,7 +41,7 @@ SortableLists = function(firstListID, secondListID){
 		$("#"+secondListID).sortable({
 			connectWith: "#"+firstListID,
 			receive: function(event, ui){
-				var id = $(ui.item).attr("id");
+				var id = $(ui.item).attr(firstIDTag);
 				sendEvent("onItemReceived", secondListID, id);
 			}
 		});
