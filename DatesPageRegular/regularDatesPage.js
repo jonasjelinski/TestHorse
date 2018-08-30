@@ -24,6 +24,7 @@ RegularDatesPage = function(userID){
 
 	let that = new EventTarget(),
 		regularDatesList,
+		datesSuggestor,
 		dateSuggestionsList,
 		dbInterface,
 		model,
@@ -56,8 +57,9 @@ RegularDatesPage = function(userID){
 	*/
 	function init(newHorseID){
 		setHorseIDAndTemplateString(newHorseID);
+		initModel();
 		initDBInterface();
-		requestDatesFromDB();
+		requestDataFromDB();
 		initPopup();
 		initControlls();
 		initHamburgerMenu();
@@ -75,7 +77,7 @@ RegularDatesPage = function(userID){
 		horseID = newHorseID || 38;
 		regularDateTemplateString = document.getElementById(DATE_TEMPLATE_ID).innerHTML;
 		dateSuggestionTemplateString = document.getElementById(SUGGESTION_TEMPLATE_ID).innerHTML;
-	}
+	}	
 
 	/**
 	* @function initDBInterface
@@ -88,18 +90,19 @@ RegularDatesPage = function(userID){
 	function initDBInterface(){
 		dbInterface = RegularDatesPage.DBRequester(userID,horseID);
 		dbInterface.init();
-		dbInterface.addEventListener("onResult", handleDBResult);
+		dbInterface.addEventListener("onDates", handleDatesResult);
+		dbInterface.addEventListener("onHorse", handleHorseResult);
 	}
 
 	/**
-	* @function requestDatesFromDB
+	* @function requestDataFromDB
 	* @private
 	* @memberof! RegularDatesPage
 	* @instance
-	* @description starts a database request to get the dates of the horse
+	* @description starts a database request to get the dates of the horse and horse
 	*/
-	function requestDatesFromDB(){
-		dbInterface.requestDatesFromDB();
+	function requestDataFromDB(){
+		dbInterface.requestDatesFromDB();		
 	}
 
 
@@ -111,9 +114,16 @@ RegularDatesPage = function(userID){
 	* @param {event} event
 	* @description inits the model with the results of the databse request
 	*/
-	function handleDBResult(event){
-		let allDatesAsStrings = event.details.allDates;	
-		initModel(allDatesAsStrings);		
+	function handleDatesResult(event){
+		let allDatesAsStrings = event.details.results;	
+		model.setNewDatesAsStrings(allDatesAsStrings);		
+		dbInterface.requestHorseFromDB();
+	}
+
+	function handleHorseResult(event){
+		let horse = event.details.results;
+		model.setNewHorseAsStrings(horse);
+		model.checkIfReadyForSendingData();
 	}
 
 	/**
@@ -124,10 +134,10 @@ RegularDatesPage = function(userID){
 	* @param {string} allDatesAsStrings
 	* @description inits the model with the dates as a string
 	*/
-	function initModel(allDatesAsStrings){
+	function initModel(){
 		model = new RegularDatesPage.Model(horseID);
 		model.addEventListener("onDataConverted", handleOnDataConverted);
-		model.init(allDatesAsStrings);	
+		model.init();	
 	}
 
 	/**

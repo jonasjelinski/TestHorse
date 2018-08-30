@@ -62,10 +62,16 @@ RegularDatesPage.DBRequester = function(userID, horseID){
 	* @description sends the result of the db request to other moduls
 	*/
 	function handleResult(event){
-		let action = event.details.resultAction;
-		if(action !== "deleteDateFromDB" && action !== "updateDate"){
-			let results = event.details.result;
-			sendEvent("onResult", results);		
+		let action = event.details.resultAction,
+			results;
+			console.log("action", action);
+		if(action === "getAllHorseDates" ){
+			results = event.details.result;
+			sendEvent("onDates", results);		
+		}
+		else if(action === "getHorse"){
+			results = event.details.result;
+			sendEvent("onHorse", results);
 		}
 		else{
 			requestDatesFromDB();
@@ -84,7 +90,7 @@ RegularDatesPage.DBRequester = function(userID, horseID){
 	function sendEvent(type, data){
 		let event = new Event(type);
 		event.details = {};
-		event.details.allDates = data;
+		event.details.results = data;
 		that.dispatchEvent(event);
 	}
 
@@ -102,7 +108,20 @@ RegularDatesPage.DBRequester = function(userID, horseID){
 	}
 
 	/**
-	* @function requestDatesFromDB
+	* @function requestHorseFromDB
+	* @public
+	* @memberof! RegularDatesPage.DBRequester
+	* @instance
+	* @description request all dates of the horse with the id horseID from the database
+	* and sets isDeleting false
+	*/
+	function requestHorseFromDB(){
+		console.log("horseID", horseID);
+		requester.getHorse(105);
+	}
+
+	/**
+	* @function deleteDate
 	* @public
 	* @memberof! RegularDatesPage.DBRequester
 	* @instance
@@ -129,8 +148,11 @@ RegularDatesPage.DBRequester = function(userID, horseID){
 		requester.removeEventListener("onResult", handleResult);
 	}
 
+
+
 	that.init = init;
 	that.requestDatesFromDB = requestDatesFromDB;
+	that.requestHorseFromDB = requestHorseFromDB;
 	that.stoppListening = stoppListening;
 	that.deleteDate = deleteDate;
 	that.updateAllDates = updateAllDates;

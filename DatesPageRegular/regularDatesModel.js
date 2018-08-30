@@ -16,10 +16,14 @@ RegularDatesPage.Model = function(horseID){
 		DATE_SUGGESTION_TIME = "666-666-666";
 
 	let that = new EventTarget(),	
-		allDates,	
+		allDates,
+		horseDateSuggestions,	
 		regularDates = [],
 		dateSuggestions =[],
-		delteId;
+		delteId,
+		datesSuggestor,
+		hasNewHorse = false,
+		hasAllDatesAndSuggestions = false;
 
 	/**
 	* @function init
@@ -30,21 +34,37 @@ RegularDatesPage.Model = function(horseID){
 	* @description Initialize this model. Transform regularDatesAsStrings to an array
 	* and tells the other moduls trough an event that regularDatesAsStrings has been converted
 	*/ 	
-	function init(allDatesAsStrings){
-		if(isParsable(allDatesAsStrings)){
-			let parsedDates = JSON.parse(allDatesAsStrings),
-				allDatesCopy;
-			if(isArray(parsedDates)){
-				allDates = parsedDates;
-				allDatesCopy = allDates.slice(0),
-				regularDatesAndSuggestions = removeSingleDates(allDatesCopy);
-				filterDatesAndSuggestions(regularDatesAndSuggestions);
-				convertData(regularDates, REGULAR_POSTION_CODE);	
-				convertData(dateSuggestions, DATE_SUGGESTION_DATE);	
-				sendOnDataConverted();
+	function init(){
+	
+	}
+
+	function setNewHorseAsStrings(newHorseAsString){
+		if(isParsable(newHorseAsString)){
+			let parsedHorse = JSON.parse(newHorseAsString),
+				newHorse;
+			if(isArray(parsedHorse)){
+				newHorse = parsedHorse[0];
+				newHorse = convertPropertyNames(newHorse);
+				initDatesSuggestor(newHorse);
+				getHorseSuggestions();				
 			}
-			
 		}
+		hasNewHorse = true;
+	}
+
+	function convertPropertyNames(newHorse){
+		newHorse.dateOfBirth = newHorse.dateOfBirth || newHorse.date_of_birth;		
+		return newHorse;
+	}
+
+	function initDatesSuggestor(newHorse){
+		datesSuggestor = new DatesSuggestor();
+		datesSuggestor.init(newHorse);
+	}
+
+	function getHorseSuggestions(){
+		horseDateSuggestions = datesSuggestor.getDateSuggestions();
+		console.log("getHorseSuggestions",horseDateSuggestions);
 	}
 
 	function isParsable(string) {
@@ -60,6 +80,23 @@ RegularDatesPage.Model = function(horseID){
 		return Array.isArray(parsedDates);
 	}
 
+	function setNewDatesAsStrings(allDatesAsStrings){
+		if(isParsable(allDatesAsStrings)){
+			let parsedDates = JSON.parse(allDatesAsStrings),
+				allDatesCopy;
+			if(isArray(parsedDates)){
+				allDates = parsedDates;
+				allDatesCopy = allDates.slice(0),
+				regularDatesAndSuggestions = removeSingleDates(allDatesCopy);
+				filterDatesAndSuggestions(regularDatesAndSuggestions);
+				convertData(regularDates, REGULAR_POSTION_CODE);	
+				convertData(dateSuggestions, DATE_SUGGESTION_DATE);	
+				hasAllDatesAndSuggestions = true;
+			}
+			
+		}
+	}
+
 	function filterDatesAndSuggestions(regularDatesAndSuggestions){
 		for(let i = 0; i < regularDatesAndSuggestions.length; i++){
 			let date = regularDatesAndSuggestions[i];
@@ -70,8 +107,6 @@ RegularDatesPage.Model = function(horseID){
 				regularDates.push(date);
 			}			
 		}
-		let TESTDATE = {id: "testid"};
-		dateSuggestions.push(TESTDATE);
 	}
 
 	function isDateSuggestion(date){
@@ -382,6 +417,20 @@ RegularDatesPage.Model = function(horseID){
 		}
 	}
 
+	function checkIfReadyForSendingData(){
+		if(hasAllDatesAndSuggestions && hasNewHorse){
+			combineSuggestionsEndAndSendData();
+		}
+
+	}
+
+	function combineSuggestionsEndAndSendData(){
+		console.log("combineSuggestionsEndAndSendData", horseDateSuggestions);
+		dateSuggestions = dateSuggestions.concat(horseDateSuggestions);
+		console.log("combineSuggestionsEndAndSendData", dateSuggestions);
+		sendOnDataConverted();
+	}
+
 	
 	that.init = init;
 	that.setDelteId = setDelteId;
@@ -395,5 +444,8 @@ RegularDatesPage.Model = function(horseID){
 	that.getAllDates = getAllDates;
 	that.getHorseID = getHorseID;
 	that.updateDatesAndSuggestionsByIds = updateDatesAndSuggestionsByIds;
+	that.setNewHorseAsStrings = setNewHorseAsStrings;
+	that.setNewDatesAsStrings = setNewDatesAsStrings;
+	that.checkIfReadyForSendingData = checkIfReadyForSendingData;
 	return that;
 }

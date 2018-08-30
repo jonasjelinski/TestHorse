@@ -12,11 +12,11 @@ DatesSuggestor = function(){
 	}
 
 	function getDateSuggestions(){
-		model.getDateSuggestions();
+		return model.getDateSuggestions();
 	}
 
 
 	that.getDateSuggestions = getDateSuggestions;
-	that. init = init;
+	that.init = init;
 	return that;	
 }

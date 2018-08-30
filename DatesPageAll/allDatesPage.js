@@ -71,7 +71,6 @@ DatesPageAll = function(userID){
 	* @description starts a database request to get the dates of the horse
 	*/
 	function requestDatesFromDB(){
-		console.log("requestDatesFromDB");
 		dbInterface.requestDatesFromDB();
 	}
 
