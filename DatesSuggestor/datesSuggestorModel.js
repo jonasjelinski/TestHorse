@@ -21,9 +21,7 @@ DatesSuggestor.Model = function(){
 	}
 
 	function calulcateSuggestions(){
-		let suggestions,	
-			type = horse.type;
-			console.log("type",type);
+		let suggestions;
 		if(horse.type === RACE){
 			let tetanus = dates.INJECTIONS.TETANUS.ONE_YEAR,
 				influenca = dates.INJECTIONS.INFLUENCA.HALF_YEAR,

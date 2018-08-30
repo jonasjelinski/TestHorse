@@ -15,7 +15,6 @@ DatesSuggestor = function(){
 		return model.getDateSuggestions();
 	}
 
-
 	that.getDateSuggestions = getDateSuggestions;
 	that.init = init;
 	return that;	

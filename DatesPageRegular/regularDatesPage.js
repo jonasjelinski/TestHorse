@@ -187,6 +187,7 @@ RegularDatesPage = function(userID){
 	function handleOnItemsReceived(event){
 		let listId = event.details.listID,
 			elementID = event.details.elementID;
+			console.log("listID", listId, "elementID", elementID);
 		regularDatesList.cleanWrongTagsIds(suggestionsTagId);
 		dateSuggestionsList.cleanWrongTagsIds(regularTagId);
 		updateBothListsInModel();

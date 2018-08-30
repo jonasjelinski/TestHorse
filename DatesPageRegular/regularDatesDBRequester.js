@@ -64,7 +64,6 @@ RegularDatesPage.DBRequester = function(userID, horseID){
 	function handleResult(event){
 		let action = event.details.resultAction,
 			results;
-			console.log("action", action);
 		if(action === "getAllHorseDates" ){
 			results = event.details.result;
 			sendEvent("onDates", results);		

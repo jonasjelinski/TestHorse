@@ -64,7 +64,6 @@ RegularDatesPage.Model = function(horseID){
 
 	function getHorseSuggestions(){
 		horseDateSuggestions = datesSuggestor.getDateSuggestions();
-		console.log("getHorseSuggestions",horseDateSuggestions);
 	}
 
 	function isParsable(string) {
@@ -425,9 +424,7 @@ RegularDatesPage.Model = function(horseID){
 	}
 
 	function combineSuggestionsEndAndSendData(){
-		console.log("combineSuggestionsEndAndSendData", horseDateSuggestions);
 		dateSuggestions = dateSuggestions.concat(horseDateSuggestions);
-		console.log("combineSuggestionsEndAndSendData", dateSuggestions);
 		sendOnDataConverted();
 	}
 

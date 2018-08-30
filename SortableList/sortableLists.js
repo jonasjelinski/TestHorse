@@ -22,7 +22,7 @@ SortableLists = function(firstListID, secondListID, firstIDTag= "id", secondIDTa
 		  $("#"+firstListID).sortable({
 			connectWith: "#"+secondListID,
 			receive: function(event, ui){
-				var id = $(ui.item).find("li").attr(firstIDTag);
+				var id = ui.item.attr(secondIDTag);
 				sendEvent("onItemReceived", firstListID, id);
 			}
 		});
@@ -40,7 +40,7 @@ SortableLists = function(firstListID, secondListID, firstIDTag= "id", secondIDTa
 		$("#"+secondListID).sortable({
 			connectWith: "#"+firstListID,
 			receive: function(event, ui){
-				var id = $(ui.item).attr(secondIDTag);
+				var id = ui.item.attr(firstIDTag);
 				sendEvent("onItemReceived", secondListID, id);
 			}
 		});
