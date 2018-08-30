@@ -201,7 +201,11 @@ Pages = function(){
 	function addListenersToHorseProfilePage(){
 		horseProfilPage.addEventListener("onChangeHorseProfile", changeHorse);
 		horseProfilPage.addEventListener("onOkayHorseProfile", showStartPage);
-		horseProfilPage.addEventListener("onDeleteHorseProfile", showStartPage);		
+		horseProfilPage.addEventListener("onDeleteHorseProfile", showStartPage);
+		horseProfilPage.addEventListener("showStartPage", showStartPage);		
+		horseProfilPage.addEventListener("showProfilePage", showUserProfilPage);		
+		horseProfilPage.addEventListener("showHelpPage", showHelpPage);		
+		horseProfilPage.addEventListener("logoutUser", logoutUser);			
 	}
 
 	function addListenersToHorseProfileSaver(){

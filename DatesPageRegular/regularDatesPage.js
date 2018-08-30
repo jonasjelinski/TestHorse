@@ -9,6 +9,17 @@ var RegularDatesPage = RegularDatesPage || {};
  */
 
 RegularDatesPage = function(userID){
+	"use strict";
+
+	const BURGER_CLICK_BOX_ID = "burger",
+		BURGER_LIST_ID = "burgerListRegularDates",
+		inVisibleClass = "",
+		visibleClass = "",
+		BURGER_OPTION_PROFILE = "burgerOptionRegularDatesProfile",
+		BURGER_OPTION_HELP = "burgerOptionRegularDatesHelp",
+		BURGER_OPTION_START = "burgerOptionRegularDatesStart",
+		BURGER_OPTION_LOGOUT = "burgerOptionRegularDatesLogout";
+
 	let that = new EventTarget(),
 		regularDatesList,
 		dateSuggestionsList,
@@ -27,17 +38,11 @@ RegularDatesPage = function(userID){
 		newDateButtonId = "createNewDate",
 		newSuggestionButtonId = "createNewRecommendation",
 		innerListCommunication,
+		hamburgerMenu,
 		popup,
 		changeId,
-		horseID,
-		BURGER_CLICK_BOX_ID = "burger",
-		BURGER_LIST_ID = "burgerListRegularDates",
-		inVisibleClass = "",
-		visibleClass = "",
-		BURGER_OPTION_PROFILE = "burgerOptionRegularDatesProfile",
-		BURGER_OPTION_HELP = "burgerOptionRegularDatesHelp",
-		BURGER_OPTION_START = "burgerOptionRegularDatesStart",
-		BURGER_OPTION_LOGOUT = "burgerOptionRegularDatesLogout";
+		horseID;
+		
 
 	/**
 	* @function init
@@ -386,23 +391,6 @@ RegularDatesPage = function(userID){
 	function handleProfileOption(){
 		updateDatesAndSuggestions();
 		sendEvent("showProfilePage","");
-	}
-
-	/**
-	* @function sendEvent
-	* @private
-	* @memberof! Slideshow.ViewControll  
-	* @instance
-	* @param {string}, type event type
-	* @param {string}, id of the horse
-	* @description sends event of type type and the id
-	*/
-	function sendEvent(type, id){
-		console.log(type);
-		let event = new Event(type);
-		event.details = {};
-		event.details.horseID = id;
-		that.dispatchEvent(event);	
 	}
 
 	/**
