@@ -51,47 +51,47 @@ Pages.PageContent = function (){
           '</ul>'  +
         '</nav>' ,
 
-        USER_PROFILE_TEMPLATE = '<script type="text/template" id="userProfileTemplate">'+
-  '<div id= "userProfileName">Name <%= name %></div> '+
-  '<div id= "userProfileBirth">Geburtsdatum <%= dateOfBirth %></div> '+
-  '<div id= "userProfileMail">Email <%= email %></div> '+
-  '<div id= "userProfilePassword">Password <%= password %></div> '+
+        USER_PROFILE_TEMPLATE = '<script type="text/template" id="userProfileTemplate"> '+
+  '<div id= "userProfileName">Name <%= name %> </div> '+
+  '<div id= "userProfileBirth">Geburtsdatum <%= dateOfBirth %> </div> '+
+  '<div id= "userProfileMail">Email <%= email %> </div> '+
+  '<div id= "userProfilePassword">Password <%= password %> </div> '+
 '</script> ',
 
-        HORSE_PROFILE_TEMPLATE = '<script type="text/template" id="horseProfileTemplate">'+
+        HORSE_PROFILE_TEMPLATE = '<script type="text/template" id="horseProfileTemplate"> '+
 
-  '<div id= "horseProfileName">Name: <%= name %></div> '+
-  '<div id= "horseProfileBirth">Geburtsdatum: <%= dateOfBirth %></div> '+
-  '<div id= "horseProfileRace">Rasse: <%= race %></div> '+
-	'<div id= "horseProfileType">Schlachtpferd: <%= type %></div> '+
-  '<div id= "horseProfileOwner">Besitzer: <%= owner %></div> '+
-  '<div id= "horseProfileSex">Geschlecht: <%= sex %></div> '+
-  '<div id= "horseProfileHeight">Höhe: <%= height %></div> '+
-  '<div id= "horseProfileGrower">Züchter: <%= grower %></div> '+
+  '<div id= "horseProfileName">Name: <%= name %> </div> '+
+  '<div id= "horseProfileBirth">Geburtsdatum: <%= dateOfBirth %> </div> '+
+  '<div id= "horseProfileRace">Rasse: <%= race %> </div> '+
+	'<div id= "horseProfileType">Schlachtpferd: <%= type %> </div> '+
+  '<div id= "horseProfileOwner">Besitzer: <%= owner %> </div> '+
+  '<div id= "horseProfileSex">Geschlecht: <%= sex %> </div> '+
+  '<div id= "horseProfileHeight">Höhe: <%= height %> </div> '+
+  '<div id= "horseProfileGrower">Züchter: <%= grower %> </div> '+
 '</script> ' ,
 
   DATE_RECOMMENDATION_TEMPLATE =
   '<script type="text/template" id="dateRecommendationTemplate">'+
   '<li draggable="true" dateRecommendationId = <%= id %>'+
-  ' <button class= "dateRecommendationDelete" type="button">löschen</button> '+
-' <button class= "dateRecommandationChange" type="button">ändern</button> '+
-  '</li>'+
+  ' <button class= "dateRecommendationDelete" type="button">löschen </button> '+
+' <button class= "dateRecommandationChange" type="button">ändern </button> '+
+  '</li> '+
 	'</script> ',
 
         POPUP = '<div id="popup">' +
-                    '<p id="popupText"></p>'+
+                    '<p id="popupText"> </p> '+
                     '<button id="popupTextYes" type="button">Yes</button> '+
                     '<button id="popupTextNo"  type="button">No</button> '+
                 '</div>',
 HORSEBOXELEMENT_TEMPLATE= '<script type="text/template" id="horseBoxElementTemplate">'+
 '<li draggable="true" class= "horseListElement" horseId = <%= id %> '+
-	' <div class = "horseBox" horseBoxId = <%= id  %>' +
-		'<img class= "horsePic" horsePicId = <%=id%> src=<%=photo%> </img>' +
-		'<div class="horseName"> <%=name%></div>'+
-		'<button class="horseDateButton" type="button">horseDateButton</button> '+
-		'<button class="horseProfileButton" type="button">horseProfileButton</button> '+
-		'</div>'+
-'</li>' +
+	' <div class = "horseBox" horseBoxId = <%= id %>' +
+		'<img class= "horsePic" horsePicId = <%= id %> src=<%=photo%> </img>' +
+		'<div class="horseName"> <%=name%> </div> '+
+		'<button class="horseDateButton" type="button">horseDateButton </button> '+
+		'<button class="horseProfileButton" type="button">horseProfileButton </button> '+
+		'</div> '+
+'</li> ' +
 '</script> ',
 	START_PAGE =  ' <content>'+
 						'<div id= "mainpage">' +
@@ -141,9 +141,9 @@ HORSEBOXELEMENT_TEMPLATE= '<script type="text/template" id="horseBoxElementTempl
     USER_PROFILE_TEMPLATE,
 
 LIST_ELEMENT_TEMPLATE = '<script type="text/template" id="ulElementTemplate">'+
-'<li draggable="true" dateId = <%= id %>>'+
-	'<p ><%= title %></p>'+
-'</li>'+
+'<li draggable="true" dateId = <%= id %> '+
+	'<p > <%= title %> </p> '+
+'</li> '+
 '</script> ',
 
   DATES_PAGE =' <content>'+
@@ -173,13 +173,17 @@ LIST_ELEMENT_TEMPLATE = '<script type="text/template" id="ulElementTemplate">'+
 		LIST_ELEMENT_TEMPLATE,
 
 DATE_LIST_TEMPLATE  = '<script type="text/template" id="dateListTemplate">'+
-'<li draggable="true" regularDateId = <%= id %>'+
+'<li draggable="true" regularDateId = <%= id %> > '+
+'<div>'+
 	'<button class= "regularDateDelete" type="button">löschen</button> '+
+	'</div>'+
+	'<div>'+
 	'<button class= "regularDateChange" type="button">ändern</button> '+
-	'<p class="regularDateTitle"><%= title %></p>'+
-	'<p class="regularDateDay"><%= date %></p>'+
-	'<p class="regularDateTime"><%= time %></p>'+
-'</li></script>' ,
+	'</div>'+
+	'<p class="regularDateTitle"> <%= title %> </p> '+
+	'<p class="regularDateDay"> <%= date %> </p> '+
+	'<p class="regularDateTime"> <%= time %> </p> '+
+'</li> </script>' ,
 
   REGULAR_DATES_PAGE = 	  	'<content>'+
 	'<input id="burger" type="checkbox" />' +
