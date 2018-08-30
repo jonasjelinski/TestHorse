@@ -352,6 +352,7 @@ RegularDatesPage = function(userID){
 		let allDates;
 		updateBothListsInModel();
 		allDates = model.getAllDates();
+		console.log("update allDates", allDates)
 		dbInterface.updateAllDates(allDates);
 	}	
 

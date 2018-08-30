@@ -11,6 +11,7 @@ var RegularDatesPage = RegularDatesPage || {};
 RegularDatesPage.Model = function(horseID){
 	const REGULAR_POSTION_CODE = "RD",
 		DATE_SUGGESTIONS_CODE = "DS",
+		RESET_CODE = "0",
 		DATE_SUGGESTION_DATE = "666-666-666",
 		DATE_SUGGESTION_TIME = "666-666-666";
 
@@ -74,7 +75,16 @@ RegularDatesPage.Model = function(horseID){
 	}
 
 	function isDateSuggestion(date){
-		return date.date === DATE_SUGGESTION_DATE;
+		let regex = RegExp(REGULAR_POSTION_CODE+"\\d*"),
+			positionCode = date.order_position,
+			match = positionCode.match(regex),
+			code = match[0],			
+			datePos = code.replace( /^\D+/g, '');
+		if(datePos === RESET_CODE){
+			return true;
+		}
+
+		return false;
 	}		
 
 	function convertData(dates, posCode){
@@ -149,16 +159,17 @@ RegularDatesPage.Model = function(horseID){
 	}
 
 	function getPositionFromPositionCode(positionString, posCode, numberOfDates){
-		let position,
+		let position = numberOfDates,
+			regex,
+			match,
 			code;
-		if(positionString === ""){
-			position = numberOfDates.length;
-		}
-		else{
-			regex = new RegExp(posCode+"\\d*")
-			code = positionString.match(regex),
-			position = code.replace( /^\D+/g, '');
-		}
+			
+			regex = new RegExp(posCode+"\\d*"),
+			match = positionString.match(regex);
+			if(match){
+				code = match[0];
+				position = code.replace( /^\D+/g, '');
+			}			
 		return position;
 	}
 
@@ -264,26 +275,47 @@ RegularDatesPage.Model = function(horseID){
 
 	function updateRegularOrder(){
 		for(let position = 0; position < regularDates.length; position++){
-			let date = regularDates[position];
-				updateOrderPosition(REGULAR_POSTION_CODE ,date, position);
+			let date = regularDates[position],
+				newPos = position +1;
+				updateOrderPosition(DATE_SUGGESTIONS_CODE ,date, RESET_CODE);
+				updateOrderPosition(REGULAR_POSTION_CODE ,date, newPos);
 		}
 	}
 
 	function convertDatesToSuggestionsAndUpdateOrder(){
 		for(let position = 0; position < dateSuggestions.length; position++){
-			let suggestion =  dateSuggestions[position];
-			suggestion = convertDateToSuggestion(suggestion);
-			updateOrderPosition(DATE_SUGGESTIONS_CODE ,suggestion, position);
+			let suggestion =  dateSuggestions[position],
+				newPos = position +1;
+			updateOrderPosition(REGULAR_POSTION_CODE ,suggestion, RESET_CODE);
+			updateOrderPosition(DATE_SUGGESTIONS_CODE ,suggestion, newPos);
 		}
 	}
 
 	function updateOrderPosition(positonCode, date, position){
-		 let regex = new RegExp(positonCode+"\\d*"),
-		 	newPosition = positonCode+position+1,
-			oldPositionString = date.orderPosition,
-			code = oldPositionString.match(regex),
-			newCode = oldPositionString.replace(code, newPosition);
-			date.orderPosition = newCode;
+		let newCode,
+			regex,
+			newPosition,
+			oldPositionString,
+			match,
+			code;
+		if(date.orderPosition == ""){
+			newCode = positonCode+position; 
+		}
+		else{
+			regex = new RegExp(positonCode+"\\d*");
+		 	newPosition = positonCode+position;
+			oldPositionString = date.orderPosition;
+			match = oldPositionString.match(regex);
+			if(match){
+				code = match[0];
+				newCode = oldPositionString.replace(code, newPosition);	
+			}
+			else{
+				newCode = oldPositionString + positonCode+position;
+			}
+					
+		}
+		date.orderPosition = newCode;		 
 	}
 
 	function getRegularDates(){
@@ -311,6 +343,8 @@ RegularDatesPage.Model = function(horseID){
 	function updateDatesAndSuggestionsByIds(dateIds, suggestionIds){		
 		updateRegularDatesByIds(dateIds);
 		updateSuggestionsByIds(suggestionIds);
+		updateRegularOrder();
+		convertDatesToSuggestionsAndUpdateOrder();
 	}
 
 	function updateRegularDatesByIds(dateIds){

@@ -472,7 +472,7 @@ DatabaseClientInterface = function(){
 			return true;
 		}
 		else{
-			console.log("updateUserIntoDB failed");
+			console.log("updateDateIntoDB failed");
 			return false;				
 		}			
 	}
