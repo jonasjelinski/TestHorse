@@ -8,11 +8,21 @@ var HorseProfilePage = HorseProfilePage || {};
  */
 HorseProfilePage = function(){
 	"user strict";
+
+	const BURGER_CLICK_BOX_ID = "burger",
+		BURGER_LIST_ID = "burgerMenuHorseProfile",
+		inVisibleClass = "",
+		visibleClass = "",
+		BURGER_OPTION_START = "optionHProfileStart",
+		BURGER_OPTION_HELP = "optionHProfileHelp",
+		BURGER_OPTION_PROFILE = "optionHProfileUserProfile",
+		BURGER_OPTION_LOGOUT = "optionHProfileLogout";
 	
 	let that = new EventTarget(),
 		profil = {},
 		potrait,
 		model,
+		hamburgerMenu,
 		dbRquester;	
 
 	/**
@@ -28,7 +38,8 @@ HorseProfilePage = function(){
 		initPotrait(newAttributes);
 		initModel(newAttributes);
 		initDBRequester();
-		addEventListeners();		
+		addEventListeners();
+		initHamburgerMenu();		
 	}
 
 	/**
@@ -146,6 +157,80 @@ HorseProfilePage = function(){
 		dbRquester.delteHorseFromDB(id);
 		sendEvent("onDeleteHorseProfile", "");
 	}
+
+	/**
+	* @function initHamburgerMenu
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @description initts the hamburger menu
+	*/
+	function initHamburgerMenu(){
+		hamburgerMenu = new HamburgerMenu(BURGER_CLICK_BOX_ID, BURGER_LIST_ID, inVisibleClass, visibleClass);
+		hamburgerMenu.init();
+		hamburgerMenu.addEventListener("onOption", handleHamburgerClick);
+	}
+
+	/**
+	* @function handleHamburgerClick
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @param{event}, event, contains the option of the burger menu, which has been clicked by the user
+	* @description handles the click of the options of the burgermenu
+	*/
+	function handleHamburgerClick(event){
+		let option = event.details.option;
+		switch(option){
+			case BURGER_OPTION_START : handleStartOption();
+				break;
+			case BURGER_OPTION_PROFILE : handleProfileOption();
+				break;
+			case BURGER_OPTION_HELP : handleHelpOption();
+				break;
+			case BURGER_OPTION_LOGOUT : handleLogoutOption();
+				break;
+			default: break;
+		}
+	}
+
+	function handleStartOption(){
+		sendEvent("showStartPage","");
+	}
+
+	/**
+	* @function handleProfileOption
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @description sends event "showProfilePage" 
+	*/
+	function handleProfileOption(){
+		sendEvent("showProfilePage","");
+	}
+
+	/**
+	* @function handleProfileOption
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @description sends event "showHelpPage" 
+	*/
+	function handleHelpOption(){
+		sendEvent("showHelpPage","");	
+	}
+
+	/**
+	* @function handleProfileOption
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @description sends event "logoutUser" 
+	*/
+	function handleLogoutOption(){
+		sendEvent("logoutUser","");
+	}
+
 
 	that.init = init;
 	return that;

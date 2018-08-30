@@ -216,6 +216,12 @@ RegularDatesPage.Model = function(horseID){
 		return delteId;
 	}
 
+	function updateAllDates(newDates, newSuggestions){
+		updateRegularDates(newDates);
+		updateDateSuggestions(newSuggestions);
+		allDates = regularDates.concat(regularDates);
+	}
+
 	function updateRegularDates(newDates){
 		regularDates = newDates;
 		updateRegularOrder();
@@ -306,6 +312,7 @@ RegularDatesPage.Model = function(horseID){
 	that.init = init;
 	that.setDelteId = setDelteId;
 	that.getDeleteId = getDeleteId;
+	that.updateAllDates = updateAllDates;
 	that.updateRegularDates = updateRegularDates;
 	that.updateDateSuggestions = updateDateSuggestions;
 	that.getDateAttributesById = getDateAttributesById;

@@ -8,6 +8,10 @@ var StartPage = StartPage || {};
  * the startpage constis of a hamburgermenu and a list with the horses of the user
  */
 StartPage = function(userID){
+
+	const BURGER_CLICK_BOX_ID = "burger",
+			BURGER_LIST_ID = "burgerListStartPage";		
+
 	let that = new EventTarget(),
 		dbInterface, 
 		hamburgerMenu,
@@ -211,7 +215,7 @@ StartPage = function(userID){
 	* @description initts the hamburger menu
 	*/
 	function initHamburgerMenu(){
-		hamburgerMenu = new HamburgerMenu(clickBoxId, burgerList, inVisibleClass, visibleClass);
+		hamburgerMenu = new HamburgerMenu(BURGER_CLICK_BOX_ID, BURGER_LIST_ID, inVisibleClass, visibleClass);
 		hamburgerMenu.init();
 		hamburgerMenu.addEventListener("onOption", handleHamburgerClick);
 	}

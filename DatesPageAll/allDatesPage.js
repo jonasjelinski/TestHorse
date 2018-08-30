@@ -8,10 +8,23 @@ var DatesPageAll = DatesPageAll || {};
  */
 
 DatesPageAll = function(userID){
+
+	"user strict";
+
+	const BURGER_CLICK_BOX_ID = "burger",
+		BURGER_LIST_ID = "burgerListAllDates",
+		inVisibleClass = "",
+		visibleClass = "",
+		BURGER_OPTION_START = "burgerOptionAllDatesStart",
+		BURGER_OPTION_PROFILE = "burgerOptionAllDatesProfile",
+		BURGER_OPTION_HELP = "burgerOptionAllDatesHelp",
+		BURGER_OPTION_LOGOUT = "burgerOptionAllDatesLogout";	
+
 	let that = new EventTarget(),
 		dropList,
 		dbInterface,
 		model,
+		hamburgerMenu,
 		controlls,
 		ulDomElementId = "allDates",
 		elementTemplateString,
@@ -29,9 +42,10 @@ DatesPageAll = function(userID){
 	function init(newHorseID){
 		horseID = newHorseID || 38;
 		elementTemplateString = document.getElementById("ul-element").innerHTML;
-		initDBInterface();
+		initDBInterface();		
 		requestDatesFromDB();
-		initControlls();	
+		initControlls();
+		initHamburgerMenu();	
 	}
 
 	/**
@@ -195,6 +209,7 @@ DatesPageAll = function(userID){
 	* @description sends event of type "type" and data
 	*/
 	function sendEvent(type){
+		console.log("event", type);
 			let event = new Event(type);
 			event.details = {};
 			event.details.attributes = {};
@@ -231,6 +246,101 @@ DatesPageAll = function(userID){
 		allDates = model.getDatesData();
 		dbInterface.updateAllDates(allDates);
 	}
+
+	/**
+	* @function initHamburgerMenu
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @description initts the hamburger menu
+	*/
+	function initHamburgerMenu(){
+		hamburgerMenu = new HamburgerMenu(BURGER_CLICK_BOX_ID, BURGER_LIST_ID, inVisibleClass, visibleClass);
+		hamburgerMenu.init();
+		hamburgerMenu.addEventListener("onOption", handleHamburgerClick);
+	}
+
+	/**
+	* @function handleHamburgerClick
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @param{event}, event, contains the option of the burger menu, which has been clicked by the user
+	* @description handles the click of the options of the burgermenu
+	*/
+	function handleHamburgerClick(event){
+		let option = event.details.option;
+		switch(option){
+			case BURGER_OPTION_START : handleStartOption();
+				break;
+			case BURGER_OPTION_PROFILE : handleProfileOption();
+				break;
+			case BURGER_OPTION_HELP : handleHelpOption();
+				break;
+			case BURGER_OPTION_LOGOUT : handleLogoutOption();
+				break;
+			default: break;
+		}
+	}
+
+	function handleStartOption(){
+		updateList();
+		sendEvent("showStartPage","");
+	}
+
+	/**
+	* @function handleProfileOption
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @description sends event "showProfilePage" 
+	*/
+	function handleProfileOption(){
+		updateList();
+		sendEvent("showProfilePage","");
+	}
+
+	/**
+	* @function sendEvent
+	* @private
+	* @memberof! Slideshow.ViewControll  
+	* @instance
+	* @param {string}, type event type
+	* @param {string}, id of the horse
+	* @description sends event of type type and the id
+	*/
+	function sendEvent(type, id){
+		console.log(type);
+		let event = new Event(type);
+		event.details = {};
+		event.details.horseID = id;
+		that.dispatchEvent(event);	
+	}
+
+	/**
+	* @function handleProfileOption
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @description sends event "showHelpPage" 
+	*/
+	function handleHelpOption(){
+		updateList();
+		sendEvent("showHelpPage","");	
+	}
+
+	/**
+	* @function handleProfileOption
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @description sends event "logoutUser" 
+	*/
+	function handleLogoutOption(){
+		updateList();
+		sendEvent("logoutUser","");
+	}
+
 	that.init = init;
 	return that;
 }
