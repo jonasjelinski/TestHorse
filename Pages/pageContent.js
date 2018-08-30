@@ -140,9 +140,17 @@ HORSEBOXELEMENT_TEMPLATE= '<script type="text/template" id="horseBoxElementTempl
                '</content>'+
     USER_PROFILE_TEMPLATE,
 
-LIST_ELEMENT_TEMPLATE = '<script type="text/template" id="ulElementTemplate">'+
-'<li draggable="true" dateId = <%= id %> '+
-	'<p > <%= title %> </p> '+
+LIST_ELEMENT_TEMPLATE = '<script type="text/template" id="ulElementTemplate"> '+
+'<li draggable="true" dateId = <%= id %> > '+
+'<div> '+
+	'<button class= "singleDateDelete" type="button">löschen</button> '+
+	'</div> '+
+	'<div> '+
+	'<button class= "singleDateChange" type="button">ändern</button> '+
+	'</div> '+
+	'<p class="singleDateTitle"> <%= title %> </p> '+
+	'<p class="singleDateDay"> <%= date %> </p> '+
+	'<p class="singleDateTime"> <%= time %> </p> '+
 '</li> '+
 '</script> ',
 
@@ -174,12 +182,12 @@ LIST_ELEMENT_TEMPLATE = '<script type="text/template" id="ulElementTemplate">'+
 
 DATE_LIST_TEMPLATE  = '<script type="text/template" id="dateListTemplate">'+
 '<li draggable="true" regularDateId = <%= id %> > '+
-'<div>'+
+'<div> '+
 	'<button class= "regularDateDelete" type="button">löschen</button> '+
-	'</div>'+
-	'<div>'+
+	'</div> '+
+	'<div> '+
 	'<button class= "regularDateChange" type="button">ändern</button> '+
-	'</div>'+
+	'</div> '+
 	'<p class="regularDateTitle"> <%= title %> </p> '+
 	'<p class="regularDateDay"> <%= date %> </p> '+
 	'<p class="regularDateTime"> <%= time %> </p> '+
