@@ -272,7 +272,6 @@ DatesCreator = function(dateClass, reminderClass, containerElementId, titleInput
 	* wants to cancel the creation
 	*/
 	function handleCancle() {
-		console.log("handleCancle");
 		sendEvent("onCancel");	
 	}
 
