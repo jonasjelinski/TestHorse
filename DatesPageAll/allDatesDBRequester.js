@@ -59,8 +59,10 @@ DatesPageAll.DBRequester = function(userID, horseID){
 	* @description sends the result of the db request to other moduls
 	*/
 	function handleResult(event){		
-		let results = event.details.result;
-		if(!isUpdating){
+		let results = event.details.result,
+			action = event.details.resultAction;
+		if(action==="getAllHorseDates"){
+			console.log("getAllHorseDates", results);
 			sendEvent("onResult", results);
 		}
 		else{

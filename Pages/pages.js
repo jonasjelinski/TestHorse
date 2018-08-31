@@ -185,9 +185,7 @@ Pages = function(){
 	function addListenersToDatesCreatorPageRegular(){
 		datesCreatorPageRegular.addEventListener("onDataSaved", showRegularDates);
 		datesCreatorPageRegular.addEventListener("onCancel", showRegularDates);
-		datesCreatorPageRegular.addEventListener("onCancel", showRegularDates);
-		datesChangerPageRegular.addEventListener("onDataSaved", showRegularDates);			
-		datesChangerPageRegular.addEventListener("onCancel", showRegularDates);			
+		datesChangerPageRegular.addEventListener("onDataSaved", showRegularDates);						
 	}	
 
 	function addListenersForHorse() {
@@ -302,9 +300,11 @@ Pages = function(){
 	* @instance
 	* @description shows all regular dates to the user
 	*/ 
-	function showRegularDates(){;
+	function showRegularDates(event){;
+		let horseID = event.details.horseID;
+		console.log("details", event.details);
 		pageChanger.switchPage("REGULAR_DATES_PAGE");
-		datesPageRegular.init();
+		datesPageRegular.init(horseID);
 	}
 
 	function showCreateRegularDate(event) {

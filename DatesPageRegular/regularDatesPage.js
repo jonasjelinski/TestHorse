@@ -344,12 +344,13 @@ RegularDatesPage = function(userID){
 	* @description Sends an event "showAllDates" that he user wants to see all dates
 	*/ 
 	function handleBackClick(){
-		let id = {
-			horseID: horseID,
+		let id = horseID,
+			data = {
+			horseID: id,
 		};
 		updateDatesAndSuggestions();
 		closePage();
-		sendEvent("showAllDates", id);
+		sendEvent("showAllDates", data);
 	}
 
 	function handleNewDate(){

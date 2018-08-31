@@ -19,7 +19,9 @@ DatesPageAll = function(userID){
 		BURGER_OPTION_PROFILE = "burgerOptionAllDatesProfile",
 		BURGER_OPTION_HELP = "burgerOptionAllDatesHelp",
 		BURGER_OPTION_LOGOUT = "burgerOptionAllDatesLogout";
-		DATE_TEMPLATE_ID= "ulElementTemplate";	
+		DATE_TEMPLATE_ID= "ulElementTemplate",
+		DELETE_BUTTON_CLASS = "singleDateDelete",
+		CHANGE_BUTTON_CLASS = "singleDateChange";	
 
 	let that = new EventTarget(),
 		dropList,
@@ -43,9 +45,9 @@ DatesPageAll = function(userID){
 	function init(newHorseID){
 		horseID = newHorseID;
 		elementTemplateString = document.getElementById(DATE_TEMPLATE_ID).innerHTML;
-		initDBInterface();		
-		requestDatesFromDB();
-		initControlls();
+		initDBInterface();	
+		initControlls();	
+		requestDatesFromDB();	
 		initHamburgerMenu();	
 	}
 
@@ -85,6 +87,7 @@ DatesPageAll = function(userID){
 	function handleDBResult(event){
 		let allDatesAsStrings = event.details.allDates;		
 		initModel(allDatesAsStrings);		
+		controlls.initListControlls();
 	}
 
 	/**
@@ -168,7 +171,7 @@ DatesPageAll = function(userID){
 			regularDatesButton: regularDatesButton,
 			singleDatesButton: singleDatesButton,
 		}
-		controlls = DatesPageAll.DatesPageControll(domElements);
+		controlls = DatesPageAll.DatesPageControll(domElements,  DELETE_BUTTON_CLASS, CHANGE_BUTTON_CLASS);
 		controlls.init();
 		addControllListeners();
 	}
@@ -195,24 +198,7 @@ DatesPageAll = function(userID){
 	function handleRegularClick(){
 		updateList();
 		closePage();
-		sendEvent("showRegularDates");		
-	}
-
-
-	/**
-	* @function sendEvent
-	* @public
-	* @memberof! DatesPageAll
-	* @instance
-	* @param {string} type,type of event
-	* @description sends event of type "type" and data
-	*/
-	function sendEvent(type){
-			let event = new Event(type);
-			event.details = {};
-			event.details.attributes = {};
-			event.details.attributes.horseID = horseID;
-			that.dispatchEvent(event);
+		sendEvent("showRegularDates", horseID);		
 	}
 
 	/**

@@ -16,7 +16,7 @@ RegularDatesPage.Model = function(horseID){
 		DATE_SUGGESTION_TIME = "666-666-666";
 
 	let that = new EventTarget(),	
-		allDates,
+		allDates = [],
 		horseDateSuggestions,	
 		regularDates = [],
 		dateSuggestions =[],

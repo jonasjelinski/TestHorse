@@ -120,7 +120,7 @@ RegularDatesPage.DBRequester = function(userID, horseID){
 	*/
 	function requestHorseFromDB(){
 		console.log("horseID", horseID);
-		requester.getHorse(105);
+		requester.getHorse(horseID);
 	}
 
 	/**

@@ -23,7 +23,6 @@ SingleDatesCreatorPage = function(userID){
 	* @description Initialize this modul.
 	*/		
 	function init(newHorseID) {
- 		newHorseID = newHorseID;
 		horseID = newHorseID;
 		initModuls();
 		addListeners();
@@ -93,6 +92,8 @@ SingleDatesCreatorPage = function(userID){
 	*/
 	function sendEvent(type) {
 		let event = new Event(type);
+		event.details = {};
+		event.details.horseID = id;
 		that.dispatchEvent(event);
 	}
 

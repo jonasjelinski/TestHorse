@@ -157,6 +157,8 @@ DatesChangerPageSingle = function(userID){
 	*/
 	function sendEvent(type) {
 		let event = new Event(type);
+		event.details = {};
+		event.details.horseID = id;
 		that.dispatchEvent(event);
 	}
 

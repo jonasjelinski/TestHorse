@@ -22,6 +22,7 @@ SingleDatesCreatorPage.DBRequester = function(userID, horseID){
 	* @description inits this modul.
 	*/ 
 	function init(newDate) {
+		console.log("horseID", horseID);
 		singleDate = newDate;
 		isSavingDate = true;
 		initRequester();
