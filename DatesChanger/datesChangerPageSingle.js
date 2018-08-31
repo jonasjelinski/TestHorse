@@ -34,8 +34,9 @@ DatesChangerPageSingle = function(userID){
 	* @description Initialize this modul.
 	*/	
 	function init(attributes){
-		initModuls();
+		initModuls(attributes);
 		addAttributesAndInitPage(attributes);
+		addListeners();
 		dbInterface.init();		
 	}
 
@@ -47,11 +48,11 @@ DatesChangerPageSingle = function(userID){
 	* @instance
 	* @description creats the instances of the modles of this modul.
 	*/	
-	function initModuls() {
+	function initModuls(attributes) {
 		horseID = attributes.horseID;
 		standardPage = new SingleDatesCreatorPage.Standard(userID,horseID);
 		dbInterface = new DatesChangerPage.DBRequester(userID, horseID);
-		model = new DatesChangerPageSingle.Model();
+		model = new DatesChangerPage.Model();
 	}
 
 	/**
@@ -112,8 +113,9 @@ DatesChangerPageSingle = function(userID){
 	* after that it saved the changed date
 	*/
 	function handleSave(event) {
+		console.log("handleSave");
 		let updatedDate = prepareDataForDBRequest(event);
-		saveDateIntoDB(changedDate);
+		saveDateIntoDB(updatedDate);
 		sendEvent("onDataSaved");
 	}
 
@@ -158,7 +160,7 @@ DatesChangerPageSingle = function(userID){
 	function sendEvent(type) {
 		let event = new Event(type);
 		event.details = {};
-		event.details.horseID = id;
+		event.details.horseID = horseID;
 		that.dispatchEvent(event);
 	}
 
@@ -171,6 +173,7 @@ DatesChangerPageSingle = function(userID){
 	* to signal other moduls that the user doesnt want to save the changes in the databse
 	*/
 	function handleCancel() {
+		console.log("onCancel");
 		sendEvent("onCancel");
 	}
 

@@ -139,6 +139,7 @@ DatesCreator = function(dateClass, reminderClass, containerElementId, titleInput
 	function handleFinaleSave(event){
 		let data = event.details.data;
 		sendEvent("onSave", data);
+		console.log("creaotr save");
 	}
 
 	/**
@@ -271,6 +272,7 @@ DatesCreator = function(dateClass, reminderClass, containerElementId, titleInput
 	* wants to cancel the creation
 	*/
 	function handleCancle() {
+		console.log("handleCancle");
 		sendEvent("onCancel");	
 	}
 

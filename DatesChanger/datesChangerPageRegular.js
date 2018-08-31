@@ -185,6 +185,7 @@ DatesChangerPageRegular = function(userID){
 	* to signal other moduls that the user doesnt want to save the changes in the databse
 	*/
 	function handleCancel() {
+		console.log("handleCancel");
 		sendEvent("onCancel");
 	}
 	

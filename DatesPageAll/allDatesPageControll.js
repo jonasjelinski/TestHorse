@@ -130,7 +130,7 @@ DatesPageAll.DatesPageControll = function(domElements, deleteButtonClass, change
 	function getIdFromEvent(event) {
 		let target = event.target,
 			li = target.closest("li"),
-			id = li.getAttribute("regulardateid");
+			id = li.getAttribute("dateid");
 		return id;
 	}
 
@@ -162,6 +162,7 @@ DatesPageAll.DatesPageControll = function(domElements, deleteButtonClass, change
 	*/
 	function handleChange(event){
 		let id = getIdFromEvent(event);
+		console.log("getIdFromEvent", id);
 		sendEvent("onChangeClick", id);
 	}
 

@@ -78,6 +78,7 @@ DatesCreator.Model = function(){
 	* @description Checks if the user forgot one value and sends the according message
 	*/ 
 	function checkInputAndSendResultMessage(input, correctEvent, oldValues){
+		console.log("checkInputAndSendResultMessage", input);
 		if(oneInputIsUndefinedOrEmpty(input)){
 			sendWrongInputMessages(input);
 			return false;		

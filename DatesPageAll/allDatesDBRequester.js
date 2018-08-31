@@ -65,7 +65,7 @@ DatesPageAll.DBRequester = function(userID, horseID){
 			sendEvent("onResult", results);
 		}
 		else{
-			console.log("handleResult", results, isUpdating);
+			console.log("handleResult", results);
 		}
 		
 	}
@@ -108,11 +108,16 @@ DatesPageAll.DBRequester = function(userID, horseID){
 
 	function stoppListening(){
 		requester.removeEventListener("onResult", handleResult);
-	}		
+	}
+
+	function deleteDate(id) {
+       requester.deleteDateFromDB(id);
+    }		
 
 	that.init = init;
 	that.requestDatesFromDB = requestDatesFromDB;
 	that.updateAllDates = updateAllDates;
 	that.stoppListening = stoppListening;
+	that.deleteDate = deleteDate;
 	return that;
 }

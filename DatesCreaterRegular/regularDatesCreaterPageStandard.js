@@ -111,6 +111,7 @@ RegulardatesCreatorPage.Standard = function(userID){
 	* that the user wants to cancel the creation of the date
 	*/
 	function handleCancel() {
+		console.log("handleCancel");
 		sendEvent("onCancel");
 	}
 

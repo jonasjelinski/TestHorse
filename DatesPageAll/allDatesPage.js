@@ -87,7 +87,6 @@ DatesPageAll = function(userID){
 	function handleDBResult(event){
 		let allDatesAsStrings = event.details.allDates;		
 		initModel(allDatesAsStrings);		
-		controlls.initListControlls();
 	}
 
 	/**
@@ -130,6 +129,7 @@ DatesPageAll = function(userID){
 		dropList = DropList(ulDomElementId, listElementsData, elementTemplateString, elementTagId);
 		dropList.init();
 		addDropListListeners();
+		controlls.initListControlls();
 	}
 
 	/**
@@ -186,6 +186,8 @@ DatesPageAll = function(userID){
 	function addControllListeners(){
 		controlls.addEventListener("onRegularClicked", handleRegularClick);
 		controlls.addEventListener("onSingleClicked", handleSingleClick);
+		controlls.addEventListener("onChangeClick", handleChangeClick);
+		controlls.addEventListener("onDeleteClick", handleDeleteClick);
 	}
 
 	/**
@@ -319,6 +321,42 @@ DatesPageAll = function(userID){
 	function closePage(){
 		updateList();
 		dbInterface.stoppListening();
+	}
+
+	/**
+	* @function handleDeleteClick
+	* @private
+	* @memberof! RegularDatesPage
+	* @instance
+	* @description shows the popup to as the user if he wants to delte
+	* the date and saves the id of the date in the model
+	*/
+	function handleDeleteClick(event){
+		let id = event.details.id;
+		dbInterface.deleteDate(id);
+	}
+
+	/**
+	* @function handleChangeClick
+	* @private
+	* @memberof! RegularDatesPage
+	* @instance
+	* @description Sends an event that he user wants to change the date
+	* an send the attributes of the date with the event
+	*/ 
+	function handleChangeClick(event){
+		let id = event.details.id,
+			attributes = model.getDateAttributesById(id);
+		sendChangeEvent(attributes);
+	}
+
+	function sendChangeEvent(attributes){
+		let event = new Event("onChangeDate");
+		if(attributes){
+			event.details = {}
+			event.details.attributes = attributes;
+		}
+		that.dispatchEvent(event);
 	}
 
 	that.init = init;

@@ -26,14 +26,16 @@ DatesPageAll.DatesPageModel = function(){
 	* and tells the other moduls trough an event that allDatesAsStrings has been converted
 	*/ 	
 	function init(allDatesAsStrings){
-			if(isParsable(allDatesAsStrings)){
-				allDates = JSON.parse(allDatesAsStrings);
-				convertData(allDates);
-				sendOnDataConverted();   			
-			}
-			else{
-				sendNoDataEvent();
-			}			
+		allDates = [];
+		if(isParsable(allDatesAsStrings)){
+			let parsedDates = JSON.parse(allDatesAsStrings);
+			sortSingleDates(parsedDates);
+			convertData(allDates);
+			sendOnDataConverted();   			
+		}
+		else{
+			sendNoDataEvent();
+		}			
 	}
 
 	function isParsable(string) {
@@ -43,6 +45,22 @@ DatesPageAll.DatesPageModel = function(){
 			return false;
 		}
 		return true;
+	}
+
+	function sortSingleDates(parsedDates){
+		for(let i = 0; i < parsedDates.length; i++){
+			let date = parsedDates[i];
+			if(isSingleDate(date)){
+				allDates.push(date);
+			}
+		}
+	}
+
+	function isSingleDate(date){
+		if(date.unit_regular === "" || date.unit_regular === "isSingleDate"){
+				return true;
+		}
+		return false;
 	}		
 
 	function convertData(allDates){
@@ -230,11 +248,43 @@ DatesPageAll.DatesPageModel = function(){
 		}
 		date.orderPosition = newCode;		 
 	}
+
+	/**
+	* @function getDateAttributesById
+	* @public
+	* @memberof! DatesPageAll.DatesPageModel 
+	* @instance
+	* @param {string} id, id of the date
+	* @description returns the date with the id "id"
+	*/
+	function getDateAttributesById(id){
+		let searchedDate = getSearchedDate(id);
+		return searchedDate; 
+	}
+
+
+	/**
+	* @function getSearchedDate
+	* @public
+	* @memberof! DatesPageAll.DatesPageModel 
+	* @instance
+	* @param {string} id, id of the date
+	* @description returns date with the id "id"
+	*/
+	function getSearchedDate(id){
+		for(let i = 0; i < allDates.length; i++){
+			let date = allDates[i];
+			if(date.id === id){
+				return date;
+			}
+		}
+	}
 	
 	that.init = init;
 	that.setDelteId = setDelteId;
 	that.getDeleteId = getDeleteId;
 	that.getDatesData = getDatesData;
 	that.updateDates = updateDates;
+	that.getDateAttributesById = getDateAttributesById;
 	return that;
 }

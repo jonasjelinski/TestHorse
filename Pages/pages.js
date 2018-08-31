@@ -151,6 +151,8 @@ Pages = function(){
 		addListenersToDatesPageRegular();
 		addListenersToDatesCreatorPageSingle();				
 		addListenersToDatesCreatorPageRegular();
+		addListenersToDatesChangerPageSingle();
+		addListenersToDatesChangerPageRegular();
 		
 	}
 
@@ -162,6 +164,7 @@ Pages = function(){
 		datesPage.addEventListener("showProfilePage", showUserProfilPage);		
 		datesPage.addEventListener("showHelpPage", showHelpPage);		
 		datesPage.addEventListener("logoutUser", logoutUser);		
+		datesPage.addEventListener("onChangeDate", changeSingleDate);		
 	}
 
 	function addListenersToDatesPageRegular(){
@@ -182,9 +185,20 @@ Pages = function(){
 		datesCreatorPageSingle.addEventListener("onChangeClick", changeSingleDate);
 	}
 
+	function addListenersToDatesChangerPageSingle(){
+		datesChangerPageSingle.addEventListener("onDataSaved", showAllDates);				
+		datesChangerPageSingle.addEventListener("onCancel", showAllDates);			
+	}
+
+
 	function addListenersToDatesCreatorPageRegular(){
 		datesCreatorPageRegular.addEventListener("onDataSaved", showRegularDates);
 		datesCreatorPageRegular.addEventListener("onCancel", showRegularDates);						
+	}
+
+	function addListenersToDatesChangerPageRegular(){
+		datesChangerPageRegular.addEventListener("onDataSaved", showRegularDates);				
+		datesChangerPageRegular.addEventListener("onCancel", showRegularDates);			
 	}	
 
 	function addListenersForHorse() {
@@ -312,8 +326,9 @@ Pages = function(){
 	}
 
 	function changeSingleDate(event){
+		console.log("changeSingleDate");
 		let attributes = event.details.attributes;		
-		pageChanger.switchPage("CREATE_SINGLE_DATE");
+		pageChanger.switchPage("SINGLE_DATE_CREATER_PAGE");
 		datesChangerPageSingle.init(attributes);
 	}
 
