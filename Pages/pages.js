@@ -177,15 +177,14 @@ Pages = function(){
 	}
 
 	function addListenersToDatesCreatorPageSingle(){
-		datesCreatorPageSingle.addEventListener("onDataSaved", showStartPage);				
-		datesCreatorPageSingle.addEventListener("onCancel", showStartPage);			
+		datesCreatorPageSingle.addEventListener("onDataSaved", showAllDates);				
+		datesCreatorPageSingle.addEventListener("onCancel", showAllDates);			
 		datesCreatorPageSingle.addEventListener("onChangeClick", changeSingleDate);
 	}
 
 	function addListenersToDatesCreatorPageRegular(){
 		datesCreatorPageRegular.addEventListener("onDataSaved", showRegularDates);
-		datesCreatorPageRegular.addEventListener("onCancel", showRegularDates);
-		datesChangerPageRegular.addEventListener("onDataSaved", showRegularDates);						
+		datesCreatorPageRegular.addEventListener("onCancel", showRegularDates);						
 	}	
 
 	function addListenersForHorse() {
@@ -288,7 +287,7 @@ Pages = function(){
 		let horseID;
 		if(event) {
 			horseID = event.details.horseID
-			console.log("showAllDates", horseID, event.details)	;	}
+		}
 		pageChanger.switchPage("DATES");
 		datesPage.init(horseID);
 	}
@@ -302,13 +301,12 @@ Pages = function(){
 	*/ 
 	function showRegularDates(event){;
 		let horseID = event.details.horseID;
-		console.log("details", event.details);
 		pageChanger.switchPage("REGULAR_DATES_PAGE");
 		datesPageRegular.init(horseID);
 	}
 
 	function showCreateRegularDate(event) {
-		let attributes = event.details.attributes;
+		let attributes = event.details.horseID;
 		pageChanger.switchPage("REGULAR_DATES_CREATER_PAGE");		
 		datesCreatorPageRegular.init(attributes);
 	}
@@ -322,7 +320,6 @@ Pages = function(){
 	function showCreateSingleDate(event){
 		let horseID = event.details.horseID;
 		pageChanger.switchPage("SINGLE_DATE_CREATER_PAGE");
-		console.log("showCreateSingleDate", horseID);
 		datesCreatorPageSingle.init(horseID);
 	}
 
@@ -479,7 +476,6 @@ Pages = function(){
 	}
 
 	function handleChangeProfileDelete(){
-		console.log("isUserLoggedIn",isUserLoggedIn);
 		if(isUserLoggedIn){
 			showStartPage();
 		}

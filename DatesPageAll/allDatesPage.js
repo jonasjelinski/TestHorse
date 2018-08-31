@@ -44,7 +44,6 @@ DatesPageAll = function(userID){
 	*/
 	function init(newHorseID){
 		horseID = newHorseID;
-		console.log("horseID", horseID);
 		elementTemplateString = document.getElementById(DATE_TEMPLATE_ID).innerHTML;
 		initDBInterface();	
 		initControlls();	

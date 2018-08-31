@@ -16,14 +16,14 @@ RegularDatesPage.Model = function(horseID){
 		DATE_SUGGESTION_TIME = "666-666-666";
 
 	let that = new EventTarget(),	
-		allDates = [],
+		allDates,
 		horseDateSuggestions,	
-		regularDates = [],
-		dateSuggestions =[],
+		regularDates,
+		dateSuggestions,
 		delteId,
 		datesSuggestor,
-		hasNewHorse = false,
-		hasAllDatesAndSuggestions = false,
+		hasNewHorse,
+		hasAllDatesAndSuggestions,
 		newDateId;
 
 	/**
@@ -36,7 +36,11 @@ RegularDatesPage.Model = function(horseID){
 	* and tells the other moduls trough an event that regularDatesAsStrings has been converted
 	*/ 	
 	function init(){
-	
+		allDates = [];
+		regularDates = [];
+		dateSuggestions =[];
+		hasNewHorse = false;
+		hasAllDatesAndSuggestions = false;
 	}
 
 	function setNewHorseAsStrings(newHorseAsString){
@@ -47,9 +51,10 @@ RegularDatesPage.Model = function(horseID){
 				newHorse = parsedHorse[0];
 				newHorse = convertPropertyNames(newHorse);
 				initDatesSuggestor(newHorse);
-				getHorseSuggestions();				
+				combineSuggestions();				
 			}
 		}
+		sendHOrseSetted();
 		hasNewHorse = true;
 	}
 
@@ -63,9 +68,14 @@ RegularDatesPage.Model = function(horseID){
 		datesSuggestor.init(newHorse);
 	}
 
-	function getHorseSuggestions(){
+	function combineSuggestions(){
 		horseDateSuggestions = datesSuggestor.getDateSuggestions();
 		allDates = allDates.concat(horseDateSuggestions);
+	}
+
+	function sendHOrseSetted(){
+		let event = new Event("onHorseSetted");
+		that.dispatchEvent(event);
 	}
 
 	function isParsable(string) {
@@ -82,7 +92,7 @@ RegularDatesPage.Model = function(horseID){
 	}
 
 	function setNewDatesAsStrings(allDatesAsStrings){
-		if(isParsable(allDatesAsStrings)){
+		if(isParsable(allDatesAsStrings) && ! hasAllDatesAndSuggestions){
 			let parsedDates = JSON.parse(allDatesAsStrings),
 				allDatesCopy;
 			if(isArray(parsedDates)){

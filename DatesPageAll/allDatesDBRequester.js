@@ -62,7 +62,6 @@ DatesPageAll.DBRequester = function(userID, horseID){
 		let results = event.details.result,
 			action = event.details.resultAction;
 		if(action==="getAllHorseDates"){
-			console.log("getAllHorseDates", results);
 			sendEvent("onResult", results);
 		}
 		else{

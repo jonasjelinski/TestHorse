@@ -102,7 +102,7 @@ RegularDatesPage = function(userID){
 	* @description starts a database request to get the dates of the horse and horse
 	*/
 	function requestDataFromDB(){
-		dbInterface.requestDatesFromDB();		
+		dbInterface.requestHorseFromDB();		
 	}
 
 
@@ -117,13 +117,16 @@ RegularDatesPage = function(userID){
 	function handleDatesResult(event){
 		let allDatesAsStrings = event.details.results;	
 		model.setNewDatesAsStrings(allDatesAsStrings);		
-		dbInterface.requestHorseFromDB();
+		model.checkIfReadyForSendingData();
 	}
 
 	function handleHorseResult(event){
 		let horse = event.details.results;
-		model.setNewHorseAsStrings(horse);
-		model.checkIfReadyForSendingData();
+		model.setNewHorseAsStrings(horse);				
+	}
+
+	function handleHorseSetted(event){
+		dbInterface.requestDatesFromDB();
 	}
 
 	/**
@@ -137,6 +140,7 @@ RegularDatesPage = function(userID){
 	function initModel(){
 		model = new RegularDatesPage.Model(horseID);
 		model.addEventListener("onDataConverted", handleOnDataConverted);
+		model.addEventListener("onHorseSetted", handleHorseSetted);
 		model.init();	
 	}
 
@@ -354,10 +358,8 @@ RegularDatesPage = function(userID){
 	}
 
 	function handleNewDate(){
-		let data = {
-			attributes : {},
-		};
-		data.attributes.horseID = horseID;
+		let data = {}; 
+			data.horseID = horseID;
 		sendEvent("showCreateRegularDate", data);
 	}
 

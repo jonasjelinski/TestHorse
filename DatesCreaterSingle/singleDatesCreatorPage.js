@@ -24,7 +24,6 @@ SingleDatesCreatorPage = function(userID){
 	*/		
 	function init(newHorseID) {		
 		horseID = newHorseID;
-		console.log("newHorseID", horseID);
 		initModuls();
 		addListeners();
 	}

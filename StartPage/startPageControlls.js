@@ -9,7 +9,7 @@ var StartPage = StartPage || {};
  * of the horseBoxes and handles the events
  */
 
- StartPage.Controlls = function(dateButtonClass, profileButtonClass){
+ StartPage.Controlls = function(dateButtonClass, profileButtonClass, lastBoxId){
 	"user strict";
 
 	let that = new EventTarget(),

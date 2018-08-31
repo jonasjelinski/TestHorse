@@ -11,7 +11,7 @@ var RegulardatesCreatorPage = RegulardatesCreatorPage || {};
 RegulardatesCreatorPage.DBRequester = function(userID, horseID){
 	"user strict";
 
-	let that = {},
+	let that = new EventTarget(),
 		regularDate,
 		isSavingDate = true, //distincts between creating a date and a reminder
 		dateData,
@@ -69,15 +69,23 @@ RegulardatesCreatorPage.DBRequester = function(userID, horseID){
 	* Then the reminder is saved into the database
 	*/
 	function handleResult(event){
-		if(!isSavingDate){
+		let result = event.details.result,
+			action = event.details.resultAction,
+			dateID,
+			reminderData;
+		if(action === "setDateIntoDB"){
 			let result = event.details.result,
 				dateID = getOnlyNumbers(result),
 				reminderData = createReminderData(dateID);
 			saveRegularReminderIntoDB(reminderData);
 		}
+		else if(action === "updateReminderRegular"){
+			tellModulItCanChangeToOtherSide();
+		}
 		else{
 			console.log(event.details.result);
 		}
+		
 	}
 
 	/**
@@ -191,6 +199,11 @@ RegulardatesCreatorPage.DBRequester = function(userID, horseID){
 	function saveRegularReminderIntoDB(reminderData){
 		requester.updateRegularReminder(reminderData);
 		isSavingDate = true;
+	}
+
+	function tellModulItCanChangeToOtherSide(){
+		let event = new Event("onDataSaved");
+		that.dispatchEvent(event);
 	}
 
 	that.init = init;

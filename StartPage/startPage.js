@@ -321,7 +321,7 @@ StartPage = function(userID){
 	* @description inits the buttonControlls
 	*/
 	function initButtonControlls(){
-		buttonControlls = StartPage.Controlls(dateButtonClass, profileButtonClass);
+		buttonControlls = StartPage.Controlls(dateButtonClass, profileButtonClass, lastBoxId);
 		buttonControlls.init();
 	}
 
@@ -347,7 +347,9 @@ StartPage = function(userID){
 	*/
 	function handleDateClick(event){
 		let horseId = event.details.id;
-		sendEvent("showHorseDates",horseId);
+		if(horseId !== lastBoxId){
+			sendEvent("showHorseDates",horseId);
+		}		
 	}
 
 	/**
@@ -360,8 +362,11 @@ StartPage = function(userID){
 	*/
 	function handleProfileClick(ev){
 		let horseId = ev.details.id,
-		horseAttributes = getHorseById(horseId);
-		sendShowHorseEvent(horseAttributes);
+		horseAttributes;
+		if(horseID !== lastBoxId){
+			horseAttributes = getHorseById(horseId);
+			sendShowHorseEvent(horseAttributes);
+		}		
 	}
 
 	/**
