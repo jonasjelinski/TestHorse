@@ -42,6 +42,7 @@ DatabaseClientInterface = function(){
 		UPDATE_SINGLE_REMINDER : "updateReminderNotification",
 		UPDATE_REGULAR_REMINDER: "updateReminderRegular",
 		UPLOAD_HORSE_PICTURE: "updateHorsePicture",
+		REQUEST_PW: "updateForgotPassword",
 	}
 
 	let that = new EventTarget(),
@@ -532,6 +533,19 @@ DatabaseClientInterface = function(){
 		}
 	}
 
+	function requestPassword(email){
+		let data = {};
+		if(email){
+			data.email = email;
+			requestModul.updateDataInDB(ACTIONS.REQUEST_PW, data);
+			return true;
+		}
+		else{
+			console.log("requestPassword failed", email);
+			return false;				
+		}		
+	}
+
 	that.init = init;
 	that.tryLogin = tryLogin;
 	that.logoutUser = logoutUser;
@@ -557,5 +571,6 @@ DatabaseClientInterface = function(){
 	that.updateSingleReminder = updateSingleReminder;
 	that.updateRegularReminder = updateRegularReminder;
 	that.uploadHorsePicture = uploadHorsePicture;
+	that.requestPassword = requestPassword;
 	return that;
 }

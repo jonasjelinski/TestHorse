@@ -55,11 +55,16 @@ LoginPage.DBRequester = function(){
 		* a succesful loggin
 		*/ 	
 		function handleResult(event){
-			if(isLogginTry){
+			let action = event.details.resultAction;
+			console.log("action",action);
+			if(action === "tryLogin"){
 				handleLogginResult(event);
 			}
-			else{
+			else if(action === "getUserId"){
 				handleIDResult(event);
+			}
+			else{
+				handleNewPassword();
 			}
 			
 		}
@@ -160,6 +165,10 @@ LoginPage.DBRequester = function(){
 			loginModel.dispatchEvent(event);
 		}
 
+		function handleNewPassword(){
+			sendEvent("onNewPassword", "");
+		}
+
 		/**
 		* @function tryLogin
 		* @public
@@ -182,7 +191,12 @@ LoginPage.DBRequester = function(){
 
 		}
 
+		function requestPassword(email){
+			dbRequester.requestPassword(email);
+		}
+
 		loginModel.init = init;
 		loginModel.tryLogin = tryLogin;
+		loginModel.requestPassword = requestPassword;
 		return loginModel;
 }

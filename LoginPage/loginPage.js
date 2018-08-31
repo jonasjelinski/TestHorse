@@ -22,7 +22,10 @@ LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBack
 		 STAY_LOGGED_INBOX_ID = "stayLoggedInBox", 
 		 FEEDBACK_BOX_ID = "loginFailedText",
 		 NAME_INPUT_ID =  "userNameInput",
-		 PASSWORD_INPUT_ID =  "passwordInput";
+		 PASSWORD_INPUT_ID =  "passwordInput",
+		 FORGOT_PW_CONTAINER = "popupPassword",
+		 FORGOT_PW_INPUT_ID = "forgotPasswordInput",
+	 	 FORGOT_PW_BUTTON_ID = "passwordButton";
 
 	let loginPage = new EventTarget(),
 		loginView,
@@ -31,7 +34,10 @@ LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBack
 		newUserButton,
 		stayLoggedInBox,
 		feedBackBox,
-		negativeFeedbackClass;
+		negativeFeedbackClass,
+		forgotPasswordContainer,
+		forgotPasswordInput,
+		forgotPasswordButton;
 
 		/**
 		* @function init
@@ -61,6 +67,9 @@ LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBack
 			feedBackBox = document.getElementById(FEEDBACK_BOX_ID);
 			userNameInput = document.getElementById(NAME_INPUT_ID);
 			passwordInput = document.getElementById(PASSWORD_INPUT_ID);
+			forgotPasswordContainer = document.getElementById(FORGOT_PW_CONTAINER);
+			forgotPasswordInput = document.getElementById(FORGOT_PW_INPUT_ID);
+			forgotPasswordButton = document.getElementById(FORGOT_PW_BUTTON_ID);
 		}
 
 		/**
@@ -78,6 +87,9 @@ LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBack
 				feedBackBox : feedBackBox,
 				userNameInput: userNameInput,
 				passwordInput: passwordInput,
+				forgotPasswordContainer: forgotPasswordContainer,
+				forgotPasswordInput: forgotPasswordInput,
+				forgotPasswordButton: forgotPasswordButton,
 			};
 			loginView = new LoginPage.LoginView(options);
 			loginView.init();	
@@ -105,8 +117,10 @@ LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBack
 		function addListeners(){
 			dbRequester.addEventListener("isValid", handleIsValid);			
 			dbRequester.addEventListener("isInvalid", handleIsInvalid);
+			dbRequester.addEventListener("onNewPassword", handleOnNewPassword);
 			loginView.addEventListener("tryLogin", handleLoginTry);
 			loginView.addEventListener("newUser", handleNewUser);	
+			loginView.addEventListener("onPWRequest", handlePWRequest);	
 		}
 
 
@@ -173,6 +187,15 @@ LoginPage = function(loginButtonId, newUserButtonId, stayLoggedInBoxId, feedBack
 		function handleNewUser(){
 			let event = new Event("createNewUser");
 			loginPage.dispatchEvent(event);
+		}
+
+		function handlePWRequest(event){
+			let email = event.details.email;
+			dbRequester.requestPassword(email);
+		}
+
+		function handleOnNewPassword(){
+			loginView.showNewPasswordCreatedMessage();
 		}
 
 		loginPage.init = init;
