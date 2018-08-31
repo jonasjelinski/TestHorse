@@ -27,7 +27,9 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 		POPUP_ELEMENT_ID = "createDatePopup",
 		HAS_TWO_BUTTONS = false,
 		POPUP_TEXT_ID = "createDatePopupText",
-		YES_BUTTON_ID = "createDatePopupClose";
+		YES_BUTTON_ID = "createDatePopupClose",
+		CREATE_DATE_MAIN_WITHOUT_BUTTONS = "createDate",
+		CREATE_DATE_MAIN_WITH_BUTTONS = "createDateReminder";
 
 	let that = new EventTarget(),
 		containerElement,
@@ -149,8 +151,7 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 	* of a reminder and the creator of a date
 	*/ 
 	function showReminderAndDateButtons(){
-		dateButton.style.opacity = VISIBLE;
-		reminderButton.style.opacity = VISIBLE;		
+		containerElement.className = CREATE_DATE_MAIN_WITH_BUTTONS;
 	}
 
 	/**
@@ -272,8 +273,8 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 	* and fills it with the data
 	*/ 
 	function showDateCreater(data){
-		changeViewToDateView();
-		//containerElement.setClass = dateClass;
+		//changeViewToDateView();
+		containerElement.className = CREATE_DATE_MAIN_WITHOUT_BUTTONS;
 		fillDateCreatorWithValues(data);
 
 	}
@@ -337,9 +338,9 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 	* and fills it with the data
 	*/ 
 	function showReminderCreater(data){
-		changeViewToReminderView();
+		//changeViewToReminderView();
 		fillDateCreatorWithValues(data);
-		//containerElement.setClass = reminderClass;
+		containerElement.className = reminderClass;
 	}
 
 	/**

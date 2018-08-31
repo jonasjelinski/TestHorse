@@ -290,7 +290,6 @@ RegularDatesPage = function(userID){
 		controlls.addEventListener("onChangeClick", handleChangeClick);
 		controlls.addEventListener("onBackButtonClicked", handleBackClick);
 		controlls.addEventListener("onNewDate", handleNewDate);
-		controlls.addEventListener("onNewSuggestion", handleNewSuggestion);
 	}
 
 	/**
@@ -367,11 +366,11 @@ RegularDatesPage = function(userID){
 	}
 
 	function handleNewDate(){
-		sendEvent("showCreateRegularDate");
-	}
-
-	function handleNewSuggestion(){
-		sendEvent("showCreateDateSuggestion");
+		let data = {
+			attributes : {},
+		};
+		data.attributes.horseID = horseID;
+		sendEvent("showCreateRegularDate", data);
 	}
 
 	/**

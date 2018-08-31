@@ -13,7 +13,7 @@ var RegulardatesCreatorPage = RegulardatesCreatorPage || {};
 RegulardatesCreatorPage.Standard = function(userID){
 
 	const DATE_CLASS = "", 
-		REMINDER_CLASS = "", 
+		REMINDER_CLASS = "reminderRegularDate", 
 		CONTAINER_ELEMENT_ID = "dateCreater",
 		TITLE_INPUT_ID = "dateTitleInput",
 		DATE_INPUT_ID = "dateDateInput",

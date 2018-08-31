@@ -11,7 +11,7 @@ var SingleDatesCreatorPage = SingleDatesCreatorPage || {};
 
 SingleDatesCreatorPage.Standard = function(userID){
 	const DATE_CLASS = "", 
-		REMINDER_CLASS = "", 
+		REMINDER_CLASS = "reminderSingleDate", 
 		CONTAINER_ELEMENT_ID = "dateCreater",
 		TITLE_INPUT_ID = "dateTitleInput",
 		DATE_INPUT_ID = "dateDateInput",
