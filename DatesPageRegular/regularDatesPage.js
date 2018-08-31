@@ -198,14 +198,14 @@ RegularDatesPage = function(userID){
 		let data = {};
 		if(listIsDateList(listId) && isDateSuggestion(elementID)){
 				data.attributes = model.getDateAttributesById(elementID);
-				data.horseID = horseID;
+				data.attributes.horseID = horseID;
 				if(isNewSuggestion(data.attributes)){
-					model.setNewDateId(elementID);
-					dbInterface.requestDateIdFromDB(data.attributes);
+					data.attributes.isDateSuggestion = true;
 				}	
 				else{
-					sendEvent("onChangeDate", data);
-				}				
+					data.attributes.isDateSuggestion = false;					
+				}
+				sendEvent("onChangeDate", data);				
 		}
 	}
 

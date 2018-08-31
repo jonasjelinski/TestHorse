@@ -38,7 +38,7 @@ DatesChangerPageRegular = function(userID){
 	*/
 	function init(attributes){
 		horseID = attributes.horseID;
-		initModuls(horseID);		
+		initModuls(horseID, attributes);		
 		addAttributesAndInitPage(attributes);
 		addListeners();		
 	}
@@ -50,10 +50,19 @@ DatesChangerPageRegular = function(userID){
 	* @instance
 	* @description creats the instances of the modles of this modul.
 	*/
-	function initModuls(horseID){
-		standardPage = new RegulardatesCreatorPage.Standard (userID);
-		dbInterface = new DatesChangerPage.DBRequester(userID, horseID);
+	function initModuls(horseID, attributes){
+		standardPage = new RegulardatesCreatorPage.Standard(userID);
+		if(isNewDateSuggestion(attributes)){
+			dbInterface = new  RegulardatesCreatorPage.DBRequester(userID, horseID);
+		}
+		else{
+			dbInterface = new DatesChangerPage.DBRequester(userID, horseID);
+		}
 		model = new DatesChangerPage.Model();
+	}
+
+	function isNewDateSuggestion(attributes){
+		return attributes.isDateSuggestion;
 	}
 
 	/**
@@ -119,7 +128,6 @@ DatesChangerPageRegular = function(userID){
 		let updatedData = prepareDataForDBRequest(event);	
 		saveDateIntoDB(updatedData);
 		sendEvent("onDataSaved");
-		console.log("onDataSaved");
 	}
 
 	/**

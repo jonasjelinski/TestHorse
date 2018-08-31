@@ -59,7 +59,7 @@ DatesChangerPage.DBRequester = function(userID, horseID){
 	*/
 	function handleResult(event){
 		let result = event.details.result;	
-		console.log("updateResult", result);	
+		console.log("handleResult", result);	
 	}
 	
 	/**
@@ -102,7 +102,6 @@ DatesChangerPage.DBRequester = function(userID, horseID){
 	function updateDate(changedDate){
 		let dataToSave = {};
 		dataToSave = getDateObjectForDBRequest(changedDate);
-		console.log("changedDate", changedDate, "dataToSave", dataToSave);
 		hadCorrectParameter = requester.updateDate(dataToSave);
 		handleParameterFeedBack(hadCorrectParameter);
 	}
