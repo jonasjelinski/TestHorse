@@ -363,7 +363,7 @@ StartPage = function(userID){
 	function handleProfileClick(ev){
 		let horseId = ev.details.id,
 		horseAttributes;
-		if(horseID !== lastBoxId){
+		if(horseId !== lastBoxId){
 			horseAttributes = getHorseById(horseId);
 			sendShowHorseEvent(horseAttributes);
 		}		
