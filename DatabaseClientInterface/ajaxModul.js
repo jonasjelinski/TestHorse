@@ -27,6 +27,7 @@ DatabaseClientInterface.AJAXModul = function () {
 		resultAction = action;
 		console.log("action, url, type, data",action, url, type, data);
 		$.ajax({
+			context: this,
 	    	type: type,
 	    	url: url,
 	   		data: data,
@@ -49,6 +50,7 @@ DatabaseClientInterface.AJAXModul = function () {
 	function doAjaxUpload(url, type , data){
 		console.log("url, type, data", url, type, data);
 		$.ajax({
+			context: this,
 	    	type: type,
 	    	url: url,
 	   		data: data,

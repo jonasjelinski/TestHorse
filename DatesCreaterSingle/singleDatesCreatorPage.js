@@ -23,7 +23,7 @@ SingleDatesCreatorPage = function(userID){
 	* @description Initialize this modul.
 	*/		
 	function init(newHorseID) {
- 		newHorseID = newHorseID || 38;
+ 		newHorseID = newHorseID;
 		horseID = newHorseID;
 		initModuls();
 		addListeners();

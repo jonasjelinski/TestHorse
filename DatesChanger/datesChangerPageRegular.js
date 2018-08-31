@@ -96,8 +96,9 @@ DatesChangerPageRegular = function(userID){
 	function addAttributes(attributes){
 		let newDate = attributes,	//atrributes besitzt noch keinen reminder und duration value unit
 				reminder = attributes.reminder,
-				newDurationValue = attributes.durationValue,
-				newDurationUnit = attributes.unit;
+				newDurationValue = attributes.valueRegular,
+				newDurationUnit = attributes.unitRegular;
+				console.log("attributes", attributes);
 			standardPage.updateCreator(newDate, reminder, newDurationValue, newDurationUnit);
 	}
 

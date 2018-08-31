@@ -41,7 +41,7 @@ DatesPageAll = function(userID){
 	* @description Initialize this modul. starts the database request for the dates.
 	*/
 	function init(newHorseID){
-		horseID = newHorseID || 38;
+		horseID = newHorseID;
 		elementTemplateString = document.getElementById(DATE_TEMPLATE_ID).innerHTML;
 		initDBInterface();		
 		requestDatesFromDB();
@@ -193,8 +193,9 @@ DatesPageAll = function(userID){
 	* @description sends an event of the type "showRegularDates"
 	*/
 	function handleRegularClick(){
-		sendEvent("showRegularDates");
 		updateList();
+		closePage();
+		sendEvent("showRegularDates");		
 	}
 
 
@@ -226,11 +227,13 @@ DatesPageAll = function(userID){
 	}
 
 	function updateList(){
-		let elements = dropList.getElements(),
+		if(dropList){
+			let elements = dropList.getElements(),
 			allDates;
-		model.updateDates(elements);
-		allDates = model.getDatesData();
-		dbInterface.updateAllDates(allDates);
+			model.updateDates(elements);
+			allDates = model.getDatesData();
+			dbInterface.updateAllDates(allDates);
+		}		
 	}
 
 	/**
@@ -270,6 +273,7 @@ DatesPageAll = function(userID){
 	}
 
 	function handleStartOption(){
+		closePage();
 		updateList();
 		sendEvent("showStartPage","");
 	}
@@ -282,7 +286,7 @@ DatesPageAll = function(userID){
 	* @description sends event "showProfilePage" 
 	*/
 	function handleProfileOption(){
-		updateList();
+		closePage();
 		sendEvent("showProfilePage","");
 	}
 
@@ -310,7 +314,7 @@ DatesPageAll = function(userID){
 	* @description sends event "showHelpPage" 
 	*/
 	function handleHelpOption(){
-		updateList();
+		closePage();
 		sendEvent("showHelpPage","");	
 	}
 
@@ -322,8 +326,13 @@ DatesPageAll = function(userID){
 	* @description sends event "logoutUser" 
 	*/
 	function handleLogoutOption(){
-		updateList();
+		closePage();		
 		sendEvent("logoutUser","");
+	}
+
+	function closePage(){
+		updateList();
+		dbInterface.stoppListening();
 	}
 
 	that.init = init;

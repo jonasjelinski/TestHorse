@@ -302,7 +302,6 @@ RegularDatesPage.Model = function(horseID){
 	* @description returns date with the id "id"
 	*/
 	function getSearchedDate(id){
-		console.log(allDates);
 		for(let i = 0; i < allDates.length; i++){
 			let date = allDates[i];
 			if(date.id === id){

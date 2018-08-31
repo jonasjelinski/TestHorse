@@ -91,10 +91,11 @@ RegulardatesCreater = function(dateClass, reminderClass, containerElementId, tit
 	* sends new data to other moduls
 	*/
 	function handleSave(event) {
-		console.log("handleSave of RegCreater");
+		
 		let regularDateData = event.details.data,
 			duration = view.getUnitAndValue(),
 			data = Object.assign(regularDateData, duration);
+			console.log("handleSave of RegCreater", data);
 			sendEvent("onSave", data);
 	}
 
@@ -136,6 +137,7 @@ RegulardatesCreater = function(dateClass, reminderClass, containerElementId, tit
 	* is useful, because this functions allows to use this modul to use it as a modul to change a regular date
 	*/
 	function updateCreator(newDate, newReminder, newDurationValue, newDurationUnit){
+		console.log("newDate, newReminder, newDurationValue, newDurationUnit", newDate, newReminder, newDurationValue, newDurationUnit);
 		singleDatesCreator.updateCreator(newDate, newReminder);
 		updateDurationValue(newDurationValue);
 		updateDurationUnit(newDurationUnit);

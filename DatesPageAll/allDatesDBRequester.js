@@ -103,10 +103,15 @@ DatesPageAll.DBRequester = function(userID, horseID){
 			date.dateID = date.id;
 			requester.updateDate(date);
 		}			
+	}
+
+	function stoppListening(){
+		requester.removeEventListener("onResult", handleResult);
 	}		
 
 	that.init = init;
 	that.requestDatesFromDB = requestDatesFromDB;
 	that.updateAllDates = updateAllDates;
+	that.stoppListening = stoppListening;
 	return that;
 }

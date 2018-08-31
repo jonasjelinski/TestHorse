@@ -74,7 +74,7 @@ RegularDatesPage = function(userID){
 	* @description sets the horseId and the templateString
 	*/
 	function setHorseIDAndTemplateString(newHorseID){
-		horseID = newHorseID || 38;
+		horseID = newHorseID;
 		regularDateTemplateString = document.getElementById(DATE_TEMPLATE_ID).innerHTML;
 		dateSuggestionTemplateString = document.getElementById(SUGGESTION_TEMPLATE_ID).innerHTML;
 	}	
@@ -92,7 +92,6 @@ RegularDatesPage = function(userID){
 		dbInterface.init();
 		dbInterface.addEventListener("onDates", handleDatesResult);
 		dbInterface.addEventListener("onHorse", handleHorseResult);
-		dbInterface.addEventListener("onDateId", handleNewDateId);
 	}
 
 	/**
@@ -207,18 +206,6 @@ RegularDatesPage = function(userID){
 				}
 				sendEvent("onChangeDate", data);				
 		}
-	}
-
-	function handleNewDateId(event){
-		let newDateId = event.details.results,
-			data = {},
-		attributes = model.getNewDate();
-		attributes.id = newDateId;
-		attributes.horseID = horseID;
-		data = {
-			attributes: attributes,
-		};
-		sendEvent("onChangeDate", data);
 	}
 
 	function isNewSuggestion(attributes){

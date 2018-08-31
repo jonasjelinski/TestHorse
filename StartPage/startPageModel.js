@@ -105,6 +105,7 @@ StartPage.Model = function(){
 	}
 
 	function sortHorses(allHorses){
+		console.log("allHorses",allHorses);
 		allHorses.sort(function(horse1,horse2){
 			let position1 = getPositionFromPositionCode(horse1.order_position),
 				position2 = getPositionFromPositionCode(horse2.order_position);
