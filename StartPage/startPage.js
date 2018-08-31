@@ -74,7 +74,7 @@ StartPage = function(userID){
 		}				
 	}
 
-	
+
 	/**
 	* @function initDropListListener
 	* @private

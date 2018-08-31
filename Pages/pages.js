@@ -287,8 +287,8 @@ Pages = function(){
 	function showAllDates(event){
 		let horseID;
 		if(event) {
-			horseID= event.details.horseID;
-		}
+			horseID = event.details.horseID
+			console.log("showAllDates", horseID, event.details)	;	}
 		pageChanger.switchPage("DATES");
 		datesPage.init(horseID);
 	}
@@ -319,9 +319,11 @@ Pages = function(){
 		datesChangerPageSingle.init(attributes);
 	}
 
-	function showCreateSingleDate(){
+	function showCreateSingleDate(event){
+		let horseID = event.details.horseID;
 		pageChanger.switchPage("SINGLE_DATE_CREATER_PAGE");
-		datesCreatorPageSingle.init();
+		console.log("showCreateSingleDate", horseID);
+		datesCreatorPageSingle.init(horseID);
 	}
 
 

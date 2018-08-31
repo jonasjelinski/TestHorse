@@ -22,8 +22,9 @@ SingleDatesCreatorPage = function(userID){
 	* @param {string} newHorseID, id of the horse. the dates are in a relation in the database with the horseID.
 	* @description Initialize this modul.
 	*/		
-	function init(newHorseID) {
+	function init(newHorseID) {		
 		horseID = newHorseID;
+		console.log("newHorseID", horseID);
 		initModuls();
 		addListeners();
 	}
@@ -93,7 +94,7 @@ SingleDatesCreatorPage = function(userID){
 	function sendEvent(type) {
 		let event = new Event(type);
 		event.details = {};
-		event.details.horseID = id;
+		event.details.horseID = horseID;
 		that.dispatchEvent(event);
 	}
 

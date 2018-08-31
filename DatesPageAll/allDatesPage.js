@@ -44,6 +44,7 @@ DatesPageAll = function(userID){
 	*/
 	function init(newHorseID){
 		horseID = newHorseID;
+		console.log("horseID", horseID);
 		elementTemplateString = document.getElementById(DATE_TEMPLATE_ID).innerHTML;
 		initDBInterface();	
 		initControlls();	
@@ -198,7 +199,7 @@ DatesPageAll = function(userID){
 	function handleRegularClick(){
 		updateList();
 		closePage();
-		sendEvent("showRegularDates", horseID);		
+		sendEvent("showRegularDates");		
 	}
 
 	/**
@@ -285,10 +286,10 @@ DatesPageAll = function(userID){
 	* @param {string}, id of the horse
 	* @description sends event of type type and the id
 	*/
-	function sendEvent(type, id){
+	function sendEvent(type){
 		let event = new Event(type);
 		event.details = {};
-		event.details.horseID = id;
+		event.details.horseID = horseID;
 		that.dispatchEvent(event);	
 	}
 
