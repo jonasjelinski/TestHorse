@@ -215,6 +215,7 @@ RegularDatesPage = function(userID){
 	function sendDate(dateId){
 		let data = {},
 			date = model.getDateAttributesById(dateId) || {};
+			console.log("sendData", dateId, "date", date);
 			data.attributes = {};		 
 		data.attributes.date = date;
 		data.attributes.horseID = horseID;

@@ -52,11 +52,20 @@ RegularDatesPage.Model = function(horseID){
 				newHorse = parsedHorse[0];
 				newHorse = convertPropertyNames(newHorse);
 				initDatesSuggestor(newHorse);
-				combineSuggestions();				
+				getDataFromSuggestorAndSaveThemIntoHorseDateSuggestions();				
 			}
 		}
-		sendHOrseSetted();
+		sendHorseSetted();
 		hasNewHorse = true;
+	}
+
+	function isParsable(string) {
+		try {
+			JSON.parse(string);
+		} catch (e) {
+			return false;
+		}
+		return true;
 	}
 
 	function convertPropertyNames(newHorse){
@@ -69,51 +78,39 @@ RegularDatesPage.Model = function(horseID){
 		datesSuggestor.init(newHorse);
 	}
 
-	function combineSuggestions(){
+	function getDataFromSuggestorAndSaveThemIntoHorseDateSuggestions(){
 		horseDateSuggestions = datesSuggestor.getDateSuggestions();
-		allDates = allDates.concat(horseDateSuggestions);
 	}
 
-	function sendHOrseSetted(){
+	function sendHorseSetted(){
 		let event = new Event("onHorseSetted");
 		that.dispatchEvent(event);
-	}
-
-	function isParsable(string) {
-		try {
-			JSON.parse(string);
-		} catch (e) {
-			return false;
-		}
-		return true;
-	}
-
-	function isArray(parsedDates){
-		return Array.isArray(parsedDates);
-	}
+	}	
 
 	function setNewDatesAsStrings(allDatesAsStrings){
 		if(isParsable(allDatesAsStrings) && ! hasAllDatesAndSuggestions){
 			let parsedDates = JSON.parse(allDatesAsStrings),
 				allDatesCopy;
 			if(isArray(parsedDates)){
-				allDates = parsedDates;
-				allDatesCopy = allDates.slice(0),
-				filterDatesAndSuggestions(allDatesCopy);
-				convertData(regularDates, REGULAR_POSTION_CODE);	
-				convertData(dateSuggestions, DATE_SUGGESTION_DATE);	
+				allDatesCopy = parsedDates.slice(0),
+				savesDatesAndSuggestionsIntoArrays(allDatesCopy);
+				convertRegularDates();
+				convertSuggestionsData();					
 				hasAllDatesAndSuggestions = true;
-			}
-			
+			}			
 		}
 	}
 
-	function filterDatesAndSuggestions(allDatesCopy){
+	function isArray(parsedDates){
+		return Array.isArray(parsedDates);
+	}
+
+	function savesDatesAndSuggestionsIntoArrays(allDatesCopy){
 		for(let i = 0; i < allDatesCopy.length; i++){
 			let date = allDatesCopy[i];
 			if(!isSingleDate(date)){
 				if(isDateSuggestion(date)){
-				dateSuggestions.push(date);
+					dateSuggestions.push(date);
 				}
 				else{
 					regularDates.push(date);
@@ -141,6 +138,14 @@ RegularDatesPage.Model = function(horseID){
 		}
 
 		return false;
+	}
+
+	function convertRegularDates(){
+		convertData(regularDates, REGULAR_POSTION_CODE);
+	}
+
+	function convertSuggestionsData(){
+		convertData(dateSuggestions, DATE_SUGGESTION_DATE);
 	}		
 
 	function convertData(dates, posCode){
@@ -150,8 +155,8 @@ RegularDatesPage.Model = function(horseID){
 	}
 
 
-	function changePropertyNames(regularDates){
-		for(let i = 0; i < regularDates.length; i++){
+	function changePropertyNames(dates){
+		for(let i = 0; i < dates.length; i++){
 			let date = regularDates[i];
 			date.horseID = date.horse_id;
 			date.dateFuture = date.date_future_date;
@@ -305,10 +310,11 @@ RegularDatesPage.Model = function(horseID){
 	* @description returns date with the id "id"
 	*/
 	function getSearchedDate(id){
+		console.log("getSearchedDate id",id, allDates);
 		for(let i = 0; i < allDates.length; i++){
 			let date = allDates[i];
 			if(date.id === id){
-				console.log("getSearchedDate", date.id, date, allDates);
+				console.log("getSearchedDate", date.id, date);
 				return date;
 			}
 		}
@@ -424,13 +430,13 @@ RegularDatesPage.Model = function(horseID){
 
 	function checkIfReadyForSendingData(){
 		if(hasAllDatesAndSuggestions && hasNewHorse){
-			combineSuggestionsEndAndSendData();
+			combineAllDatesAndSendData();
 		}
-
 	}
 
-	function combineSuggestionsEndAndSendData(){
+	function combineAllDatesAndSendData(){
 		dateSuggestions = dateSuggestions.concat(horseDateSuggestions);
+		allDates = regularDates.concat(dateSuggestions);
 		sendOnDataConverted();
 	}
 
