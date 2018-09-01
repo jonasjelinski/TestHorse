@@ -25,7 +25,9 @@ RegulardatesCreatorPage.Standard = function(userID){
 		SAVE_BUTTON_ID = "dateCreaterSaveButton",
 		CANCLE_BUTTON_ID = "dateCreaterCancelButton",
 		UNIT_INPUT_ID = "createRegularDate",
-		VALUE_INPUT_ID = "regularDatesValue";
+		VALUE_INPUT_ID = "regularDatesValue",
+		NAME_INPUT_ID = "regularDateName",
+		PHONE_INPUT_ID = "regularDatePhone";
 
 	let that = new EventTarget(),
 	regularDatesCreater;
@@ -54,7 +56,7 @@ RegulardatesCreatorPage.Standard = function(userID){
 		regularDatesCreater = new RegulardatesCreater(DATE_CLASS, REMINDER_CLASS, CONTAINER_ELEMENT_ID, TITLE_INPUT_ID, 
 	DATE_INPUT_ID, TIME_INPUT_ID, LOCATION_INPUT_ID, CHECKBOX_ID, 
 	DATE_BUTTON_ID, REMINDER_BUTTON_ID,
-	SAVE_BUTTON_ID, CANCLE_BUTTON_ID, UNIT_INPUT_ID, VALUE_INPUT_ID);
+	SAVE_BUTTON_ID, CANCLE_BUTTON_ID, UNIT_INPUT_ID, VALUE_INPUT_ID, NAME_INPUT_ID, PHONE_INPUT_ID);
 		regularDatesCreater.init();
 	}
 
@@ -111,7 +113,6 @@ RegulardatesCreatorPage.Standard = function(userID){
 	* that the user wants to cancel the creation of the date
 	*/
 	function handleCancel() {
-		console.log("handleCancel");
 		sendEvent("onCancel");
 	}
 

@@ -22,7 +22,7 @@ var RegulardatesCreater = RegulardatesCreater || {};
 
 RegulardatesCreater = function(dateClass, reminderClass, containerElementId, titleInputId, 
 	dateInputId, timeInputId, locationInputId, wantsReminderCheckboxId, dateButtonId, reminderButtonId,
-	saveButtonId, cancelButtonId,dropDownMenuId, unitInputId){
+	saveButtonId, cancelButtonId, unitInputId, valueInputId, nameInputId, phoneInputId){
 	
 	let that = new EventTarget(),
 		singleDatesCreator, 
@@ -64,7 +64,7 @@ RegulardatesCreater = function(dateClass, reminderClass, containerElementId, tit
 	* @description inits the view
 	*/
 	function initView() {
-		view = RegulardatesCreater.View(dropDownMenuId, unitInputId);
+		view = RegulardatesCreater.View(unitInputId, valueInputId, nameInputId, phoneInputId);
 		view.init();
 	}
 
@@ -89,11 +89,10 @@ RegulardatesCreater = function(dateClass, reminderClass, containerElementId, tit
 	* adds the reularDateData and the durationData to the data of the event
 	* sends new data to other moduls
 	*/
-	function handleSave(event) {
-		
+	function handleSave(event) {		
 		let regularDateData = event.details.data,
-			duration = view.getUnitAndValue(),
-			data = Object.assign(regularDateData, duration);
+			values = view.getValues(),
+			data = Object.assign(regularDateData, values);
 			sendEvent("onSave", data);
 	}
 
@@ -138,6 +137,10 @@ RegulardatesCreater = function(dateClass, reminderClass, containerElementId, tit
 		singleDatesCreator.updateCreator(newDate, newReminder);
 		updateDurationValue(newDurationValue);
 		updateDurationUnit(newDurationUnit);
+		if(newReminder){
+			updateName(newReminder.name);
+			updatePhone(newReminder.number);
+		}		
 	}
 
 	/**
@@ -162,6 +165,14 @@ RegulardatesCreater = function(dateClass, reminderClass, containerElementId, tit
 	*/	
 	function updateDurationUnit(unit) {
 		view.setDurationUnit(unit);
+	}
+
+	function updateName(name){
+
+	}
+
+	function updatPhone(phone){
+
 	}
 
 	that.init = init;

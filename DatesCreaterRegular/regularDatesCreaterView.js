@@ -9,11 +9,13 @@ var RegulardatesCreater = RegulardatesCreater || {};
  * it contains a domELement to select the unit od the regular date and one for the value of the duration
  * e.g. "1" && week"
  */
-RegulardatesCreater.View = function(unitInputId, valueInputId){
+RegulardatesCreater.View = function(unitInputId, valueInputId, nameInputId, phoneInputId){
 	
 	let that= {},
 		valueInput,
-		unitInput;
+		unitInput,
+		phoneInput,
+		nameInput;
 
 	/**
 	* @function init
@@ -25,6 +27,8 @@ RegulardatesCreater.View = function(unitInputId, valueInputId){
 	function init(){
 		unitInput = document.getElementsByTagName("select")[0];
 		valueInput = document.getElementById(valueInputId);
+		phoneInput = document.getElementById(phoneInputId);
+		nameInput = document.getElementById(nameInputId);
 	}
 
 	/**
@@ -51,6 +55,16 @@ RegulardatesCreater.View = function(unitInputId, valueInputId){
 		return unit;
 	}
 
+	function getName(){
+		let name = nameInput.value;
+		return name;
+	}
+
+	function getPhoneNumber(){
+		let phone = phoneInput.value;
+		return phone;
+	}
+
 	/**
 	* @function getUnitAndValue
 	* @public
@@ -58,12 +72,16 @@ RegulardatesCreater.View = function(unitInputId, valueInputId){
 	* @instance
 	* @description returns the unit e.g. "week" and the value e.g. "1"
 	*/	
-	function getUnitAndValue() {
+	function getValues() {
 		let value = getDurationValue(),
 			unit = getDurationUnit(),
+			name = getName(),
+			number = getPhoneNumber(),
 			data = {
 				value: value,
 				unit: unit,
+				name: name,
+				number, number,
 			};
 		return data;
 	}
@@ -91,11 +109,21 @@ RegulardatesCreater.View = function(unitInputId, valueInputId){
 	function setDurationValue(value) {
 		valueInput.value = value;
 	}
+
+	function setNameValue(value){
+		nameInput.value = value;
+	}
+
+	function setPhoneValue(value){
+		phoneInput.value = value;
+	}
 	
 
 	that.init = init;
-	that.getUnitAndValue = getUnitAndValue;
+	that.getValues = getValues;
 	that.setDurationValue = setDurationValue;
 	that.setDurationUnit = setDurationUnit;
+	that.setNameValue = setNameValue;
+	that.setPhoneValue = setPhoneValue;
 	return that;
 }
