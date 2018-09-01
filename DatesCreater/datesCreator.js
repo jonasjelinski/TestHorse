@@ -316,8 +316,8 @@ DatesCreator = function(dateClass, reminderClass, containerElementId, titleInput
 		if(newReminder){
 			setReminder(newReminder);
 			view.setReminderTrue();	
-		}	
-		view.showDateCreater(newDate);
+		}
+		view.updateView(newDate);
 	}
 
 	that.init = init;

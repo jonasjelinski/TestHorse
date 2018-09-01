@@ -100,7 +100,8 @@ SingleDatesCreatorPage.DBRequester = function(userID, horseID){
 			tellModulItCanChangeToOtherSide();
 		}
 		else{
-			console.log(event.details.result);
+			tellModulItCanChangeToOtherSide();
+			console.log(event.details.result, action);
 		}		
 	}
 

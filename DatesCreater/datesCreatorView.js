@@ -56,7 +56,8 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 		addEventListeners();	
 		disableDateButton();
 		disableReminderButton();
-		hideReminderAndDateButtons();	
+		hideReminderAndDateButtons();
+		console.log("init");	
 	}
 
 	function initPopup(){
@@ -166,6 +167,7 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 	*/ 
 	function enableDateButton() {
 		dateButton.disabled = false;
+		console.log("enableDateButton");
 	}
 
 	/**
@@ -177,19 +179,23 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 	*/ 
 	function disableDateButton() {
 		dateButton.disabled = true;
+		console.log("disableDateButton");
 	}
 
 	function enableReminderButton(){
 		reminderButton.disabled = false;
+		console.log("enableReminderButton");
 	}
 
 	function disableReminderButton(){
 		reminderButton.disabled = true;
+		console.log("disableReminderButton");
 	}
 
 	function toggleButtons(){
 		dateButton.disabled = !dateButton.disabled;
 		reminderButton.disabled = !dateButton.disabled; 
+		console.log("disableReminderButton");
 	}
 
 	/**
@@ -304,7 +310,6 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 		saveButton.disabled = false;
 		containerElement.className = CREATE_DATE_MAIN_WITHOUT_BUTTONS;
 		fillDateCreatorWithValues(data);
-
 	}
 
 	/**
@@ -470,6 +475,13 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 	function setReminderTrue(){
 		wantsReminderCheckBox.checked = true;
 		showReminderAndDateButtons();
+		disableDateButton();
+		enableReminderButton();
+		console.log("init");
+	}
+
+	function updateView(data){
+		fillDateCreatorWithValues(data);
 	}
 
 	that.init = init;
@@ -481,6 +493,7 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 	that.giveNoTimeFeedback = giveNoTimeFeedback;
 	that.giveNoLocationFeedback = giveNoLocationFeedback;
 	that.setReminderTrue = setReminderTrue;
+	that.updateView = updateView;
 	that.wantsReminderCheckBox = wantsReminderCheckBox;
 	return that;
 

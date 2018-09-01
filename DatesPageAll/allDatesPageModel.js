@@ -14,6 +14,7 @@ DatesPageAll.DatesPageModel = function(){
 	let that = new EventTarget(),
 		dbRequester,		
 		allDates,
+		dateToSend,
 		delteId;
 
 	/**
@@ -73,18 +74,23 @@ DatesPageAll.DatesPageModel = function(){
 	function changePropertyNames(allDates){
 		for(let i = 0; i < allDates.length; i++){
 			let date = allDates[i];
-			date.horseID = date.horse_id;
-			date.dateFuture = date.date_future_date;
-			date.timeFuture = date.time_future_date;
-			date.valueRegular = date.value_regular;
-			date.unitRegular = date.unit_regular;
-			date.orderPosition = date.order_position;
+			date = changePropertNamesOfDate(date);			
+		}
+	}
+
+	function changePropertNamesOfDate(date){
+			date.horseID =  date.horseID ||date.horse_id;
+			date.dateFuture =  date.dateFuture || date.date_future_date;
+			date.timeFuture = date.timeFuture || date.time_future_date;
+			date.valueRegular = date.valueRegular || date.value_regular;
+			date.unitRegular = date.unitRegular || date.unit_regular;
+			date.orderPosition = date.orderPosition || date.order_position;
 			delete date.date_future_date;
 			delete date.time_future_date;
 			delete date.value_regular;
 			delete date.unit_regular;
 			delete date.order_position;
-		}
+		return date;
 	}
 
 	function removeNullsAndUndefined(allDates){
@@ -280,6 +286,59 @@ DatesPageAll.DatesPageModel = function(){
 			}
 		}
 	}
+
+	function setDateToSend(id){
+		let date = getSearchedDate(id);
+		console.log("setDateToSend", setDateToSend, id);
+		dateToSend = changePropertNamesOfDate(date);
+	}
+
+	function checkReminderAndSendChangeMessage(reminderAsString){
+		let reminder = getReminderFromArrayString(reminderAsString);
+		if(isNoReminder(reminder)){
+			sendReadyForChangeEvent();
+		}
+		else{
+			changeReminderProperties(reminder);
+			sendReadyForChangeEvent(reminder);
+		}
+	}
+
+	
+	function getReminderFromArrayString(arrayString){
+		let reminderArray,
+			reminder = {};
+		if(isParsable(arrayString)){
+			reminderArray = JSON.parse(arrayString);
+			if(Array.isArray(reminderArray)){
+				reminder = reminderArray[0];
+			}
+		}
+		return reminder;
+	}
+
+	function isNoReminder(reminder){
+		console.log("isNoReminder",reminder);
+		return reminder.date === null || reminder.date === undefined;
+	}
+
+	function changeReminderProperties(reminder){
+		reminder.dateID = reminder.dateID || reminder.dates_id;
+	}
+
+
+	function sendReadyForChangeEvent(reminder){
+		let event = new Event("onReadyForChange");
+		event.details = {};
+		event.details.dateAndReminder = {};
+		event.details.dateAndReminder.date = dateToSend;
+		if(reminder){			
+			event.details.dateAndReminder.reminder = reminder;
+		}
+		that.dispatchEvent(event);
+	}
+
+
 	
 	that.init = init;
 	that.setDelteId = setDelteId;
@@ -287,5 +346,7 @@ DatesPageAll.DatesPageModel = function(){
 	that.getDatesData = getDatesData;
 	that.updateDates = updateDates;
 	that.getDateAttributesById = getDateAttributesById;
+	that.setDateToSend = setDateToSend;
+	that.checkReminderAndSendChangeMessage = checkReminderAndSendChangeMessage;
 	return that;
 }

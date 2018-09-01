@@ -26,6 +26,15 @@
           pages.init();
           pages.initAfterLogin();
           pages.showStartPage();
+
+          let db = new DatabaseClientInterface();
+          db.addEventListener("onResult", function(event){
+            console.log("result", event.details.result);
+            console.log("action", event.details.resultAction);
+          })
+          db.init();
+          db.getSingleReminder("");
+
       }
       let scriptLoader = new ScriptLoader();
       scriptLoader.addEventListener("onLoaded", showPage);

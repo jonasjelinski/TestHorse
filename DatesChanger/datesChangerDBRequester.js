@@ -224,7 +224,7 @@ DatesChangerPage.DBRequester = function(userID, horseID){
 		let date = updatedData.date,
 			reminder = updatedData.reminder;
 		let reminderData = {
-			dateID: date.dateID || dateID,
+			dateID: date.dateID,
 			date: reminder.date,
 			time: reminder.time,
 		};

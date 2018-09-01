@@ -62,7 +62,8 @@ DatesPageAll = function(userID){
 	function initDBInterface(){
 		dbInterface = DatesPageAll.DBRequester(userID,horseID);
 		dbInterface.init();
-		dbInterface.addEventListener("onResult", handleDBResult);
+		dbInterface.addEventListener("onAllDates", handleDatesResult);
+		dbInterface.addEventListener("onReminder", handleReminderResult);
 	}
 
 	/**
@@ -84,9 +85,14 @@ DatesPageAll = function(userID){
 	* @param {event} event
 	* @description inits the model with the results of the databse request
 	*/
-	function handleDBResult(event){
-		let allDatesAsStrings = event.details.allDates;		
+	function handleDatesResult(event){
+		let allDatesAsStrings = event.details.results;		
 		initModel(allDatesAsStrings);		
+	}
+
+	function handleReminderResult(event){
+		let reminder = event.details.results;
+		model.checkReminderAndSendChangeMessage(reminder);
 	}
 
 	/**
@@ -100,6 +106,7 @@ DatesPageAll = function(userID){
 	function initModel(allDatesAsStrings){
 		model = new DatesPageAll.DatesPageModel();
 		model.addEventListener("onDataConverted", handleOnDataConverted);
+		model.addEventListener("onReadyForChange", handleOnReadyForChange);
 		model.init(allDatesAsStrings);	
 	}
 
@@ -115,6 +122,21 @@ DatesPageAll = function(userID){
 	function handleOnDataConverted(event){
 		let convertedDates = event.details.allDates;
 		initDropList(convertedDates);
+	}
+
+	function handleOnReadyForChange(event){
+		let dateAndReminder = event.details.dateAndReminder;
+		sendChangeEvent(dateAndReminder);
+	}
+
+	function sendChangeEvent(attributes){
+		let event = new Event("onChangeDate");
+		if(attributes){
+			event.details = {}
+			event.details.attributes = attributes;
+			event.details.attributes.horseID = horseID;
+		}
+		that.dispatchEvent(event);
 	}
 
 	/**
@@ -332,7 +354,7 @@ DatesPageAll = function(userID){
 	* the date and saves the id of the date in the model
 	*/
 	function handleDeleteClick(event){
-		let id = event.details.id;
+		let id = event.details.id;		
 		dbInterface.deleteDate(id);
 	}
 
@@ -345,22 +367,12 @@ DatesPageAll = function(userID){
 	* an send the attributes of the date with the event
 	*/ 
 	function handleChangeClick(event){
-		let id = event.details.id,
-			data = {},
-			attributes = model.getDateAttributesById(id);
-			data.date = attributes;
-			sendChangeEvent(data);
+		let id = event.details.id;
+		model.setDateToSend(id);
+		dbInterface.requestReminderFromDB(id);
 	}
 
-	function sendChangeEvent(attributes){
-		let event = new Event("onChangeDate");
-		if(attributes){
-			event.details = {}
-			event.details.attributes = attributes;
-			event.details.attributes.horseID = horseID;
-		}
-		that.dispatchEvent(event);
-	}
+	
 
 	that.init = init;
 	return that;
