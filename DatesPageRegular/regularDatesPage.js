@@ -234,9 +234,11 @@ RegularDatesPage = function(userID){
 	
 
 	function updateBothListsInModel(){
-		let newElementIdsDates = regularDatesList.getCurrentElementIds(),
+		if(regularDatesList && dateSuggestionsList){
+			let newElementIdsDates = regularDatesList.getCurrentElementIds(),
 			newElementIdsSuggestions = dateSuggestionsList.getCurrentElementIds();
-		model.updateDatesAndSuggestionsByIds(newElementIdsDates, newElementIdsSuggestions);
+			model.updateDatesAndSuggestionsByIds(newElementIdsDates, newElementIdsSuggestions);
+		}		
 	}
 
 
