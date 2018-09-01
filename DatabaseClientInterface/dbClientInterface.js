@@ -325,7 +325,7 @@ DatabaseClientInterface = function(){
 	* @description sets the newDate into the database
 	*/ 
 	function setDateIntoDB(newDate){
-			necessaryAttributes = ["title", "date", "time", "location", "dateFuture","timeFuture", "valueRegular", "unitRegular"];
+			necessaryAttributes = ["title", "date", "time", "location", "dateFuture","timeFuture", "valueRegular", "unitRegular","orderPosition"];
 		if(allNecessaryDataHaveBeenParsed(necessaryAttributes, newDate)){
 			requestModul.setDataIntoDB(ACTIONS.SET_DATE, newDate);
 			return true;

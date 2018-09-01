@@ -25,7 +25,7 @@ DatabaseClientInterface.AJAXModul = function () {
 	*/ 	
 	function doAjaxRequest(action, url, type , data){
 		resultAction = action;
-		console.log("action, url, type, data",action, url, type, data);
+		console.log("action, url, type, data",action, url, type, JSON.stringify(data));
 		$.ajax({
 			context: this,
 	    	type: type,

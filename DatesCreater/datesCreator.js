@@ -169,7 +169,6 @@ DatesCreator = function(dateClass, reminderClass, containerElementId, titleInput
 	*/
 	function handleShowDateOkay(event){
 		let dateData = event.details.data;
-		console.log("handleShowDateOkay", dateData);
 		view.showDateCreater(dateData);
 	}
 
@@ -183,7 +182,6 @@ DatesCreator = function(dateClass, reminderClass, containerElementId, titleInput
 	*/
 	function handleShowReminderOkay(event) {
 		let reminderData =  event.details.data;
-		console.log("handleShowReminderOkay", reminderData);
 		view.showReminderCreater(reminderData);
 	}
 

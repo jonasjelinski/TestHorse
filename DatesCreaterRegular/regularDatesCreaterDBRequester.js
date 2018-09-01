@@ -77,17 +77,31 @@ RegulardatesCreatorPage.DBRequester = function(userID, horseID){
 			reminderData;
 		if(action === "setDateIntoDB"){
 			let result = event.details.result,
-				dateID = getOnlyNumbers(result),
-				reminderData = createReminderData(dateID);
-			saveRegularReminderIntoDB(reminderData);
+				dateID = getOnlyNumbers(result);
+				if(isIDAndNoWarningFeedbackFromDB(dateID)&&userWantsReminder()){
+					reminderData = createReminderData(dateID);
+					saveRegularReminderIntoDB(reminderData);
+				}
+				else{
+					console.log("handleResult", result);
+					tellModulItCanChangeToOtherSide();
+				}
 		}
 		else if(action === "updateReminderRegular"){
 			tellModulItCanChangeToOtherSide();
 		}
 		else{
 			console.log(event.details.result);
-		}
-		
+		}		
+	}
+
+	function isIDAndNoWarningFeedbackFromDB(dateID){
+		 return /\d/.test(dateID);
+	}
+
+	function userWantsReminder(){
+		let noReminderValue = "noReminder";
+		return dateData.reminder.date !== noReminderValue;
 	}
 
 	/**
@@ -99,10 +113,9 @@ RegulardatesCreatorPage.DBRequester = function(userID, horseID){
 	* @description prepares data for the request and saves the data in the database
 	*/
 	function saveDateIntoDB(data){
-		let	dataToSave = getDateObjectForDBRequest(data);
-			regularDate = dataToSave;
+		let	regularDate = getDateObjectForDBRequest(data);
 			dateData = data;			
-		hadCorrectParameter = requester.setDateIntoDB(dataToSave);
+		hadCorrectParameter = requester.setDateIntoDB(regularDate);
 		handleParameterFeedBack(hadCorrectParameter, dateData);
 		isSavingDate = false;
 	}
@@ -116,19 +129,19 @@ RegulardatesCreatorPage.DBRequester = function(userID, horseID){
 	* @description prepares data for the request and returns them
 	*/
 	function getDateObjectForDBRequest(data) {
-		let noValue = "0",
+		let noValue = "00-00-00",
 			dataToSave= {
 			userID: userID,
 			horseID: horseID,
-			title: data.date.title,
+			title: "",
 			date: data.date.date,
 			time: data.date.time,
 			location: data.date.location,
 			dateFuture: noValue,
 			timeFuture: noValue,
-			valueRegular: data.value,
-			unitRegular: data.unit,
-			orderPostion: REG_DATE_START_POS,
+			valueRegular: data.date.value,
+			unitRegular: data.date.unit,
+			orderPosition: REG_DATE_START_POS,
 		};
 		return dataToSave;
 	}
@@ -177,9 +190,9 @@ RegulardatesCreatorPage.DBRequester = function(userID, horseID){
 	function createReminderData(dateID){
 		let reminderData = {},
 			date = dateData.reminder.date,
-			time = dateData.reminder.time,
-			name = "",
-			number = "";
+			time = changeValueIfNotSaveableIntoDatabase(dateData.reminder.time),
+			name = changeValueIfNotSaveableIntoDatabase(dateData.reminder.name),
+			number = changeValueIfNotSaveableIntoDatabase(dateData.reminder.number);
 
 		reminderData = {
 			dateID: dateID,
@@ -189,6 +202,18 @@ RegulardatesCreatorPage.DBRequester = function(userID, horseID){
 			number: number,
 		};
 		return reminderData;
+	}
+
+	function changeValueIfNotSaveableIntoDatabase(value){
+		let defaultValue = "00-00-00";
+		if(isNoValueWhichDatabaseExpects(value)){
+			return defaultValue;
+		}
+		return value;
+	}
+
+	function isNoValueWhichDatabaseExpects(value){
+		return value === undefined;
 	}
 
 	/**
