@@ -536,6 +536,38 @@ RegularDatesPage.Model = function(horseID){
 		that.dispatchEvent(event);
 	}
 
+	function deleteDateAndUpdateModel(dateId){
+		deleteDateFromAllDates(dateId);
+		deleteDateFromRegularDates(dateId);
+		deleteDateFromSuggestions(dateId);
+	}
+
+	function deleteDateFromAllDates(dateId){
+		for(let i = 0 ; i < allDates.length; i++){
+			let date = allDates[i];
+			if(dateId = date.id){
+				allDates.splice(i,1);
+			}
+		}
+	}
+
+	function deleteDateFromRegularDates(dateId){
+		for(let i = 0 ; i < regularDates.length; i++){
+			let date = regularDates[i];
+			if(dateId = date.id){
+				regularDates.splice(i,1);
+			}
+		}
+	}
+
+	function deleteDateFromSuggestions(dateId){
+		for(let i = 0 ; i < dateSuggestions.length; i++){
+			let date = dateSuggestions[i];
+			if(dateId = date.id){
+				dateSuggestions.splice(i,1);
+			}
+		}
+	}
 	
 	that.init = init;
 	that.setDelteId = setDelteId;
@@ -558,5 +590,6 @@ RegularDatesPage.Model = function(horseID){
 	that.getNewDate = getNewDate;
 	that.setDateToSend =setDateToSend;
 	that.checkReminderAndSendChangeMessage = checkReminderAndSendChangeMessage;
+	that.deleteDateAndUpdateModel = that.deleteDateAndUpdateModel;
 	return that;
 }

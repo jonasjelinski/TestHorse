@@ -62,6 +62,7 @@ StartPage.DBRequester = function(userID){
 		let results = event.details.result,
 			action = event.details.resultAction;
 		if(action === "getAllHorsesOfUser"){
+			console.log(action, results);
 			sendEvent("onResult", results);
 		}
 		else{

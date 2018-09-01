@@ -131,8 +131,9 @@ RegularDatesPage.DBRequester = function(userID, horseID){
 	*/
 
 	function deleteDate(id) {
-		isDeletingDate = true;
-       requester.deleteDateFromDB(id);
+		if(id){
+			requester.deleteDateFromDB(id);
+		}       
     }
 
     function updateAllDates(allDates){

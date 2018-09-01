@@ -327,6 +327,7 @@ RegularDatesPage = function(userID){
 	function handleDeleteClick(event){
 		showPopup();
 		let id = event.details.id;
+		console.log("delte id", id);
 		model.setDelteId(id);
 	}
 
@@ -416,7 +417,11 @@ RegularDatesPage = function(userID){
 	*/ 
 	function handleYes(){
 		let id = model.getDeleteId();
-		dbInterface.deleteDate(id);
+		if(id){
+			dbInterface.deleteDate(id);
+			regularDatesList.removeElementById(id);	
+			dateSuggestionsList.removeElementById(id);
+		}		
 	}
 
 	function updateDatesAndSuggestions(){

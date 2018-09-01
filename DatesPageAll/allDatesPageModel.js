@@ -338,6 +338,15 @@ DatesPageAll.DatesPageModel = function(){
 		that.dispatchEvent(event);
 	}
 
+	function deleteDateById(dateId){
+		for(let i = 0 ; i < allDates.length; i++){
+			let date = allDates[i];
+			if(dateId = date.id){
+				allDates.splice(i,1);
+			}
+		}
+	}
+
 
 	
 	that.init = init;
@@ -348,5 +357,6 @@ DatesPageAll.DatesPageModel = function(){
 	that.getDateAttributesById = getDateAttributesById;
 	that.setDateToSend = setDateToSend;
 	that.checkReminderAndSendChangeMessage = checkReminderAndSendChangeMessage;
+	that.deleteDateById = deleteDateById;
 	return that;
 }

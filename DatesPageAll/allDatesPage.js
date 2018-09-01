@@ -355,7 +355,10 @@ DatesPageAll = function(userID){
 	*/
 	function handleDeleteClick(event){
 		let id = event.details.id;		
-		dbInterface.deleteDate(id);
+		if(id){
+			dbInterface.deleteDate(id);
+			dropList.removeElementById(id);	
+		}	
 	}
 
 	/**
