@@ -54,7 +54,10 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 		console.log("initview");
 		initPopup();
 		getDomElements();
-		addEventListeners();		
+		addEventListeners();	
+		disableDateButton();
+		disableReminderButton();
+		hideReminderAndDateButtons();	
 	}
 
 	function initPopup(){
@@ -115,6 +118,7 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 		if(wantsReminder){
 			showReminderAndDateButtons();
 			disableDateButton();
+			enableReminderButton();
 			sendEvent("onWantsReminder");
 		}
 		else{
@@ -176,6 +180,14 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 		dateButton.disabled = true;
 	}
 
+	function enableReminderButton(){
+		reminderButton.disabled = false;
+	}
+
+	function disableReminderButton(){
+		reminderButton.disabled = true;
+	}
+
 	function toggleButtons(){
 		dateButton.disabled = !dateButton.disabled;
 		reminderButton.disabled = !dateButton.disabled; 
@@ -215,12 +227,12 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 	* @description gets the input data for the date
 	*/ 
 	function getDateInputData(){
-		let data = {};
-		data.title = titleInput.value;
-		data.date = dateInput.value;
-		data.time = timeInput.value;
-		data.location = locationInput.value;
-		return data;
+		let dateData = {};
+		dateData.title = titleInput.value;
+		dateData.date = dateInput.value;
+		dateData.time = timeInput.value;
+		dateData.location = locationInput.value;
+		return dateData;
 	}	
 
 	function showPopup(){
@@ -262,6 +274,7 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 		let data = {};
 		data.date = dateInput.value;
 		data.time = timeInput.value;
+		console.log("getReminderInputData gernealView", data);
 		return data;
 	}
 
@@ -289,6 +302,7 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 	*/ 
 	function showDateCreater(data){
 		toggleButtons();
+		saveButton.disabled = false;
 		containerElement.className = CREATE_DATE_MAIN_WITHOUT_BUTTONS;
 		fillDateCreatorWithValues(data);
 
@@ -354,6 +368,7 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 	*/ 
 	function showReminderCreater(data){
 		toggleButtons();
+		saveButton.disabled = true;
 		fillDateCreatorWithValues(data);
 		containerElement.className = reminderClass;
 	}

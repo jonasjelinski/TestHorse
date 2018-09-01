@@ -67,7 +67,8 @@ RegulardatesCreatorPage = function(userID){
 	*/
 	function handleSave(event) {
 		let data = event.details.data;
-		saveDateIntoDB(data);
+		console.log("handle save RegulardatesCreatorPage", data);
+		//saveDateIntoDB(data);
 	}
 
 	/**

@@ -6,6 +6,9 @@ var SingleDatesCreatorPage = SingleDatesCreatorPage || {};
  * @description <code>DBRequester</code> is the interface for database requests to create a single date.
  */
 SingleDatesCreatorPage.DBRequester = function(userID, horseID){
+
+	const SINGLE_DATE_START_POS = "SD99999999999";
+
 	let that = {},
 		attributes,
 		isSavingDate,
@@ -22,7 +25,6 @@ SingleDatesCreatorPage.DBRequester = function(userID, horseID){
 	* @description inits this modul.
 	*/ 
 	function init(newDate) {
-		console.log("horseID", horseID);
 		singleDate = newDate;
 		isSavingDate = true;
 		initRequester();
@@ -104,17 +106,19 @@ SingleDatesCreatorPage.DBRequester = function(userID, horseID){
 	* @description prepares data for the request and returns them
 	*/
 	function getDateObjectForDBRequest(data) {
-		let dataToSave= {
+		let noValue = "0",
+		dataToSave= {
 			userID: userID,
 			horseID: horseID,
 			title: data.date.title,
 			date: data.date.date,
 			time: data.date.time,
 			location: data.date.location,
-			dateFuture: "hasNoDate",
-			timeFuture: "hasNoDate",
-			valueRegular: "isSingleDate",
-			unitRegular: "isSingleDate",
+			dateFuture: noValue,
+			timeFuture: noValue,
+			valueRegular: noValue,
+			unitRegular: noValue,
+			orderPostion: SINGLE_DATE_START_POS,
 		};
 		return dataToSave;
 	}

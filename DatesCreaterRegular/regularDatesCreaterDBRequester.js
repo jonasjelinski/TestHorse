@@ -11,6 +11,8 @@ var RegulardatesCreatorPage = RegulardatesCreatorPage || {};
 RegulardatesCreatorPage.DBRequester = function(userID, horseID){
 	"user strict";
 
+	const REG_DATE_START_POS = "RD99999999999";
+
 	let that = new EventTarget(),
 		regularDate,
 		isSavingDate = true, //distincts between creating a date and a reminder
@@ -114,17 +116,19 @@ RegulardatesCreatorPage.DBRequester = function(userID, horseID){
 	* @description prepares data for the request and returns them
 	*/
 	function getDateObjectForDBRequest(data) {
-		let dataToSave= {
+		let noValue = "0",
+			dataToSave= {
 			userID: userID,
 			horseID: horseID,
 			title: data.date.title,
 			date: data.date.date,
 			time: data.date.time,
 			location: data.date.location,
-			dateFuture: "hasNoDate",
-			timeFuture: "hasNoDate",
+			dateFuture: noValue,
+			timeFuture: noValue,
 			valueRegular: data.value,
 			unitRegular: data.unit,
+			orderPostion: REG_DATE_START_POS,
 		};
 		return dataToSave;
 	}

@@ -64,7 +64,6 @@ SingleDatesCreatorPage.Standard = function(userID){
 	* @description adds event listener to datesCreator
 	*/
 	function addListeners() {
-		console.log("addListeners");
 		datesCreator.addEventListener("onSave", handleSave);
 		datesCreator.addEventListener("onCancel", handleCancel);
 	}
@@ -78,15 +77,15 @@ SingleDatesCreatorPage.Standard = function(userID){
 	* @description sends the data of the event to other moduls
 	*/
 	function handleSave(event) {
-		console.log("save standardpage");
 		let data = event.details.data;
 		data = prepareData(data);
 		sendEvent("onSave", data);
 	}
 
 	function prepareData(data){
-		data.valueRegular = data.valueRegular || "";
-		data.unitRegular = data.unitRegular || "";
+		let noValue = "0";
+		data.valueRegular = noValue;
+		data.unitRegular =  noValue;
 		return data;
 	}
 

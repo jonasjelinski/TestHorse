@@ -36,6 +36,7 @@ RegulardatesCreater = function(dateClass, reminderClass, containerElementId, tit
 	* @description Initialize this modul.
 	*/
 	function init() {
+		console.log("initRegDatesCreator");
 		initSingleDatesCreator();
 		initView();
 		addEventListeners();	
@@ -90,10 +91,23 @@ RegulardatesCreater = function(dateClass, reminderClass, containerElementId, tit
 	* sends new data to other moduls
 	*/
 	function handleSave(event) {		
-		let regularDateData = event.details.data,
-			values = view.getValues(),
-			data = Object.assign(regularDateData, values);
-			sendEvent("onSave", data);
+		let dateAndReminder = event.details.data,
+			nameNumberUnitValue = view.getValues(),
+			cleanDateAndReminder = perpareData(dateAndReminder, nameNumberUnitValue);			
+			sendEvent("onSave", cleanDateAndReminder);
+	}
+
+	function perpareData(dateAndReminder, nameNumberUnitValue){
+		let cleanDateAndReminder = {},
+		date = dateAndReminder.date,
+		reminder = dateAndReminder.reminder;
+		date.unit = nameNumberUnitValue.unit,
+		date.value = nameNumberUnitValue.value,
+		reminder.name = nameNumberUnitValue.name,
+		reminder.number = nameNumberUnitValue.name;
+		cleanDateAndReminder.date = date;
+		cleanDateAndReminder.reminder = reminder;
+		return cleanDateAndReminder;		
 	}
 
 	/**

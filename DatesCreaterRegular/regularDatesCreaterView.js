@@ -83,6 +83,7 @@ RegulardatesCreater.View = function(unitInputId, valueInputId, nameInputId, phon
 				name: name,
 				number, number,
 			};
+			console.log("getValues regularView data", JSON.parse(JSON.stringify(data)));
 		return data;
 	}
 
