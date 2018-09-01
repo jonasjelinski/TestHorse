@@ -9,7 +9,8 @@ var RegularDatesPage = RegularDatesPage || {};
  */
 
 RegularDatesPage.Model = function(horseID){
-	const REGULAR_POSTION_CODE = "RD",
+	const SINGLE_POSTION_CODE = "SD", 
+		REGULAR_POSTION_CODE = "RD",
 		DATE_SUGGESTIONS_CODE = "DS",
 		RESET_CODE = "0",
 		DATE_SUGGESTION_DATE = "666-666-666",
@@ -98,8 +99,7 @@ RegularDatesPage.Model = function(horseID){
 			if(isArray(parsedDates)){
 				allDates = parsedDates;
 				allDatesCopy = allDates.slice(0),
-				regularDatesAndSuggestions = removeSingleDates(allDatesCopy);
-				filterDatesAndSuggestions(regularDatesAndSuggestions);
+				filterDatesAndSuggestions(allDatesCopy);
 				convertData(regularDates, REGULAR_POSTION_CODE);	
 				convertData(dateSuggestions, DATE_SUGGESTION_DATE);	
 				hasAllDatesAndSuggestions = true;
@@ -108,17 +108,27 @@ RegularDatesPage.Model = function(horseID){
 		}
 	}
 
-	function filterDatesAndSuggestions(regularDatesAndSuggestions){
-		for(let i = 0; i < regularDatesAndSuggestions.length; i++){
-			let date = regularDatesAndSuggestions[i];
-			if(isDateSuggestion(date)){
+	function filterDatesAndSuggestions(allDatesCopy){
+		for(let i = 0; i < allDatesCopy.length; i++){
+			let date = allDatesCopy[i];
+			if(!isSingleDate(date)){
+				if(isDateSuggestion(date)){
 				dateSuggestions.push(date);
-			}
-			else{
-				regularDates.push(date);
-			}			
+				}
+				else{
+					regularDates.push(date);
+				}
+			}						
 		}
 	}
+
+	function isSingleDate(date){
+		let positionCode = date.order_position.substring(0,2);
+		if(positionCode === SINGLE_POSTION_CODE){
+				return true;
+		}
+		return false;
+	}	
 
 	function isDateSuggestion(date){
 		let regex = RegExp(REGULAR_POSTION_CODE+"\\d*"),
@@ -139,23 +149,6 @@ RegularDatesPage.Model = function(horseID){
 		sortDates(dates, posCode);
 	}
 
-	function removeSingleDates(allDates){
-		let regularDatesAndSuggestions = [];
-		for(let i = 0; i < allDates.length; i++){
-			let date = allDates[i];
-			if(!isSingleDate(date)){
-				regularDatesAndSuggestions.push(date);
-			}			
-		}
-		return regularDatesAndSuggestions;
-	}
-
-	function isSingleDate(date){
-		if(date.unit_regular === "" || date.unit_regular === "isSingleDate"){
-				return true;
-		}
-		return false;
-	}
 
 	function changePropertyNames(regularDates){
 		for(let i = 0; i < regularDates.length; i++){
@@ -315,6 +308,7 @@ RegularDatesPage.Model = function(horseID){
 		for(let i = 0; i < allDates.length; i++){
 			let date = allDates[i];
 			if(date.id === id){
+				console.log("getSearchedDate", date.id, date, allDates);
 				return date;
 			}
 		}

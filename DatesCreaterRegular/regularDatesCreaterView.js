@@ -78,12 +78,11 @@ RegulardatesCreater.View = function(unitInputId, valueInputId, nameInputId, phon
 			name = getName(),
 			number = getPhoneNumber(),
 			data = {
-				value: value,
-				unit: unit,
+				valueRegular: value,
+				unitRegular: unit,
 				name: name,
 				number, number,
 			};
-			console.log("getValues regularView data", JSON.parse(JSON.stringify(data)));
 		return data;
 	}
 

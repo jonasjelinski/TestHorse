@@ -36,7 +36,6 @@ SingleDatesCreatorPage.Standard = function(userID){
 	* @description Initialize this modul.
 	*/
 	function init() {
-		console.log("initStan");
 		initSingleDatesCreator();
 		addListeners();
 	}
@@ -117,7 +116,6 @@ SingleDatesCreatorPage.Standard = function(userID){
 	* that the user wants to cancel the creation of the date
 	*/
 	function handleCancel() {
-		console.log("handleCancel 2");
 		sendEvent("onCancel");
 	}
 

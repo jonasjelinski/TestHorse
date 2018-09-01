@@ -51,6 +51,7 @@ DatesChangerPageRegular = function(userID){
 	* @description creats the instances of the modles of this modul.
 	*/
 	function initModuls(horseID, attributes){
+		let dateId = attributes.date.id;
 		standardPage = new RegulardatesCreatorPage.Standard(userID);
 		if(isNewDateSuggestion(attributes)){
 			dbInterface = new  RegulardatesCreatorPage.DBRequester(userID, horseID);
@@ -94,11 +95,11 @@ DatesChangerPageRegular = function(userID){
 	* so the creator has those attributes and can show them to the user
 	*/
 	function addAttributes(attributes){
-		let newDate = attributes,	//atrributes besitzt noch keinen reminder und duration value unit
+		console.log("attributes", attributes);
+		let newDate = attributes.date,	//atrributes besitzt noch keinen reminder und duration value unit
 				reminder = attributes.reminder,
-				newDurationValue = attributes.valueRegular,
-				newDurationUnit = attributes.unitRegular;
-				console.log("attributes", attributes);
+				newDurationValue = newDate.valueRegular,
+				newDurationUnit = newDate.unitRegular;				
 			standardPage.updateCreator(newDate, reminder, newDurationValue, newDurationUnit);
 	}
 
@@ -143,8 +144,11 @@ DatesChangerPageRegular = function(userID){
 		let data = event.details.data,
 			changedDate = data.date,
 			updatedDate;
+		console.log("prepareDataForDBRequest data", JSON.stringify(data));
+		console.log("prepareDataForDBRequest changedDate", JSON.stringify(changedDate));
 		model.updateDate(changedDate);
-		updatedDate = model.getDate();
+		updatedDate = model.getDate();		
+		console.log("prepareDataForDBRequest", JSON.stringify(updatedDate));
 		data.date = updatedDate;
 		return data;
 	}
@@ -185,7 +189,6 @@ DatesChangerPageRegular = function(userID){
 	* to signal other moduls that the user doesnt want to save the changes in the databse
 	*/
 	function handleCancel() {
-		console.log("handleCancel");
 		sendEvent("onCancel");
 	}
 	

@@ -197,23 +197,11 @@ RegularDatesPage = function(userID){
 		updateBothListsInModel();
 	}
 
-	function isDroppingSuggestionOnDates(listId, elementID){
-		let data = {};
+	function isDroppingSuggestionOnDates(listId, elementID){		
 		if(listIsDateList(listId) && isDateSuggestion(elementID)){
-				data.attributes = model.getDateAttributesById(elementID);
-				data.attributes.horseID = horseID;
-				if(isNewSuggestion(data.attributes)){
-					data.attributes.isDateSuggestion = true;
-				}	
-				else{
-					data.attributes.isDateSuggestion = false;					
-				}
-				sendEvent("onChangeDate", data);				
+			updateDatesAndSuggestions();
+			sendDate(elementID);		
 		}
-	}
-
-	function isNewSuggestion(attributes){
-		return attributes.id < 0;
 	}
 
 	function listIsDateList(listId){
@@ -223,6 +211,26 @@ RegularDatesPage = function(userID){
 	function isDateSuggestion(elementID){
 		return model.isDateSuggestion(elementID);
 	}
+
+	function sendDate(dateId){
+		let data = {},
+			date = model.getDateAttributesById(dateId) || {};
+			data.attributes = {};		 
+		data.attributes.date = date;
+		data.attributes.horseID = horseID;
+		if(isNewSuggestion(date)){
+			data.attributes.isDateSuggestion = true;
+		}	
+		else{
+			data.attributes.isDateSuggestion = false;					
+		}
+		sendEvent("onChangeDate", data);	
+	}
+
+	function isNewSuggestion(date){
+		return date.id < 0;
+	}
+	
 
 	function updateBothListsInModel(){
 		let newElementIdsDates = regularDatesList.getCurrentElementIds(),
@@ -332,12 +340,9 @@ RegularDatesPage = function(userID){
 	* an send the attributes of the date with the event
 	*/ 
 	function handleChangeClick(event){
-		let id = event.details.id,
-			attributes = model.getDateAttributesById(id),
-			data = {
-				attributes: attributes,
-			}
-		sendEvent("onChangeDate", data);
+		let dateId = event.details.id;
+			updateDatesAndSuggestions();
+			sendDate(dateId);
 	}
 
 	/**

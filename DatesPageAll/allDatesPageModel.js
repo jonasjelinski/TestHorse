@@ -9,7 +9,7 @@ var DatesPageAll = DatesPageAll || {};
  */
 
 DatesPageAll.DatesPageModel = function(){
-	const POSTION_CODE = "AD";
+	const POSTION_CODE = "SD";
 
 	let that = new EventTarget(),
 		dbRequester,		
@@ -57,7 +57,8 @@ DatesPageAll.DatesPageModel = function(){
 	}
 
 	function isSingleDate(date){
-		if(date.unit_regular === "" || date.unit_regular === "isSingleDate"){
+		let positionCode = date.order_position.substring(0,2);
+		if(positionCode === POSTION_CODE){
 				return true;
 		}
 		return false;

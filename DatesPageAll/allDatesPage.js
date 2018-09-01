@@ -346,8 +346,10 @@ DatesPageAll = function(userID){
 	*/ 
 	function handleChangeClick(event){
 		let id = event.details.id,
+			data = {},
 			attributes = model.getDateAttributesById(id);
-		sendChangeEvent(attributes);
+			data.date = attributes;
+			sendChangeEvent(data);
 	}
 
 	function sendChangeEvent(attributes){
@@ -355,6 +357,7 @@ DatesPageAll = function(userID){
 		if(attributes){
 			event.details = {}
 			event.details.attributes = attributes;
+			event.details.attributes.horseID = horseID;
 		}
 		that.dispatchEvent(event);
 	}

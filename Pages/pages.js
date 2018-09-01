@@ -325,9 +325,9 @@ Pages = function(){
 		datesCreatorPageRegular.init(attributes);
 	}
 
-	function changeSingleDate(event){
-		console.log("changeSingleDate");
-		let attributes = event.details.attributes;		
+	function changeSingleDate(event){		
+		let attributes = event.details.attributes;	
+		console.log("changeSingleDate", attributes);	
 		pageChanger.switchPage("SINGLE_DATE_CREATER_PAGE");
 		datesChangerPageSingle.init(attributes);
 	}

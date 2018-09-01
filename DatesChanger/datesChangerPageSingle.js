@@ -173,7 +173,7 @@ DatesChangerPageSingle = function(userID){
 	* to signal other moduls that the user doesnt want to save the changes in the databse
 	*/
 	function handleCancel() {
-		console.log("onCancel");
+		console.log("onCancel", horseID);
 		sendEvent("onCancel");
 	}
 

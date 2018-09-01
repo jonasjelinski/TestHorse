@@ -84,7 +84,7 @@ DatesChangerPage.DBRequester = function(userID, horseID){
 	}
 
 	function hasReminder(updatedData){
-		if (updatedData.reminder === undefined){
+		if (updatedData.reminder.date === "noReminder" || updatedData.reminder.date === undefined){
 			return false;
 		}
 		return true;
@@ -115,8 +115,9 @@ DatesChangerPage.DBRequester = function(userID, horseID){
 	* @description prepares data so it can be send to the database
 	*/
 	function getDateObjectForDBRequest(changedDate) {
+		console.log("getDateObjectForDBRequest", JSON.stringify(changedDate));
 		let dataToSave= {
-			dateID: changedDate.id,
+			dateID: changedDate.id || dateID,
 			horseID: changedDate.horse_id || changedDate.horseID,
 			title: changedDate.title,
 			date: changedDate.date,
@@ -126,6 +127,7 @@ DatesChangerPage.DBRequester = function(userID, horseID){
 			timeFuture: changedDate.time_future_time || changedDate.timeFuture,
 			valueRegular: changedDate.valueRegular,
 			unitRegular: changedDate.unitRegular,
+			orderPosition: changedDate.orderPosition,
 		};
 		return dataToSave;
 	}
@@ -169,7 +171,8 @@ DatesChangerPage.DBRequester = function(userID, horseID){
 	}
 
 	function isSingleReminder(updatedData){
-		return false;
+		let reminder = updatedData.reminder;
+		return reminder.number === undefined;
 	}
 
 
@@ -183,17 +186,16 @@ DatesChangerPage.DBRequester = function(userID, horseID){
 	* @description creates the data for the db request of the reminder update
 	*/
 	function createRegularReminderData(updatedData, dateID){
-		let date = updatedData.date,
-			reminder = updatedData.reminder,
-			name = "",
-			number = "";
+		let	reminder = updatedData.reminder;
+
 		let reminderData = {
-			dateID: date.dateID,
+			dateID: dateID,
 			date: reminder.date,
 			time: reminder.time,
-			name: name,
-			number: number,
+			name: reminder.name,
+			number: reminder.number,
 		};
+		console.log("createRegularReminderData", JSON.stringify(reminderData));
 		return reminderData;
 	}
 
@@ -206,6 +208,7 @@ DatesChangerPage.DBRequester = function(userID, horseID){
 	* @description updates the reminder with the reminderData
 	*/
 	function saveRegularReminderIntoDB(reminderData){
+		console.log("saveRegularReminderIntoDB", JSON.stringify(reminderData));
 		requester.updateRegularReminder(reminderData);
 	}
 
@@ -221,7 +224,7 @@ DatesChangerPage.DBRequester = function(userID, horseID){
 		let date = updatedData.date,
 			reminder = updatedData.reminder;
 		let reminderData = {
-			dateID: date.dateID,
+			dateID: date.dateID || dateID,
 			date: reminder.date,
 			time: reminder.time,
 		};

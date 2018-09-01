@@ -53,6 +53,7 @@ SingleDatesCreatorPage = function(userID){
 	function addListeners() {
 		standardPage.addEventListener("onSave", handleSave);
 		standardPage.addEventListener("onCancel", handleCancel);
+		dbInterface.addEventListener("onDataSaved", handleDataSaved);
 	}
 
 	/**
@@ -67,7 +68,6 @@ SingleDatesCreatorPage = function(userID){
 	function handleSave(event) {
 		let data = event.details.data;
 		saveDateIntoDB(data);
-		sendEvent("onDataSaved");
 	}
 
 	/**
@@ -109,6 +109,10 @@ SingleDatesCreatorPage = function(userID){
 	*/
 	function handleCancel() {
 		sendEvent("onCancel");
+	}
+
+	function handleDataSaved(){
+		sendEvent("onDataSaved");
 	}
 
 	that.init = init;

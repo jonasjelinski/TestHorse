@@ -51,7 +51,6 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 	* @description Initialize this modul. 
 	*/ 
 	function init(){
-		console.log("initview");
 		initPopup();
 		getDomElements();
 		addEventListeners();	
