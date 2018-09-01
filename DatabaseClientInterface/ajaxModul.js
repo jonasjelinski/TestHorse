@@ -72,7 +72,6 @@ DatabaseClientInterface.AJAXModul = function () {
 	* @description sends the data of the result with an event so toher moduls can use them
 	*/ 	
 	function sendDBAnswer(requestResult){
-		console.log("sendDBAnswer", requestResult);
 		let event = new Event("onResult");
 		event.details = {};
 		event.details.result = requestResult;

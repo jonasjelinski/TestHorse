@@ -48,22 +48,19 @@ RegularDatesPage.Model = function(horseID){
 	}
 
 	function setNewHorseAsStrings(newHorseAsString){
+		let parsedHorse,
+			newHorse;
 		if(isParsable(newHorseAsString)){
-			let parsedHorse = JSON.parse(newHorseAsString),
-				newHorse;
+			parsedHorse = JSON.parse(newHorseAsString);
 			if(isArray(parsedHorse)){
 				newHorse = parsedHorse[0];
 				newHorse = convertPropertyNames(newHorse);
 				initDatesSuggestor(newHorse);
 				getDataFromSuggestorAndSaveThemIntoHorseDateSuggestions();				
 			}
-			else{
-				newHorse = DEFAULT_HORSE;
-			}
-		}
-		else{
-			newHorse = DEFAULT_HORSE;
-			
+		}			
+		if(!newHorse){
+			newHorse = DEFAULT_HORSE;			
 		}
 		getDataFromSuggestorAndSaveThemIntoHorseDateSuggestions();	
 		sendHorseSetted();
@@ -109,10 +106,10 @@ RegularDatesPage.Model = function(horseID){
 					convertRegularDates();
 					convertSuggestionsData();					
 				}	
-			}
-			else{
+			}				
+		}
+		if(regularDates.length === 0){
 			regularDates.push(DEFAULT_DATE);
-			}					
 		}
 		hasAllDatesAndSuggestions = true;
 	}

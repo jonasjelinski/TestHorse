@@ -138,7 +138,6 @@ DatesCreator = function(dateClass, reminderClass, containerElementId, titleInput
 	*/
 	function handleFinaleSave(event){
 		let data = event.details.data;
-		console.log("handleFinaleSave", data);
 		sendEvent("onSave", data);
 	}
 

@@ -126,7 +126,7 @@ StartPage = function(userID){
 	* @description pushs the last box to the array of horses
 	*/ 
 	function appendLastBox(horseData){
-		let lastElement = {id:lastBoxId, photo: ""};
+		let lastElement = {name:"Neues Pferd erstellen", id:lastBoxId, photo: ""};
 		horseData.push(lastElement);	
 	}
 

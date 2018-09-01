@@ -9,7 +9,8 @@ var DatesPageAll = DatesPageAll || {};
  */
 
 DatesPageAll.DatesPageModel = function(){
-	const POSTION_CODE = "SD";
+	const POSTION_CODE = "SD",
+		DEFAULT_DATE = { id:"-1", title:"Füge einen Termin hinzu" , date: "00-00-00", time: "00:00:00", location:"Ort", dateFuture:"00-00-00", timeFuture: "00:00:00", orderPosition:POSTION_CODE +"-1"};
 
 	let that = new EventTarget(),
 		dbRequester,		
@@ -30,13 +31,15 @@ DatesPageAll.DatesPageModel = function(){
 		allDates = [];
 		if(isParsable(allDatesAsStrings)){
 			let parsedDates = JSON.parse(allDatesAsStrings);
-			sortSingleDates(parsedDates);
-			convertData(allDates);
-			sendOnDataConverted();   			
+			if(isArray(parsedDates)){
+				sortSingleDates(parsedDates);
+				convertData(allDates);				
+			}
 		}
-		else{
-			sendNoDataEvent();
-		}			
+		if(allDates.length === 0){
+			allDates.push(DEFAULT_DATE);
+		}
+		sendOnDataConverted(); 			
 	}
 
 	function isParsable(string) {
@@ -46,6 +49,10 @@ DatesPageAll.DatesPageModel = function(){
 			return false;
 		}
 		return true;
+	}
+
+	function isArray(parsedDates){
+		return Array.isArray(parsedDates);
 	}
 
 	function sortSingleDates(parsedDates){
