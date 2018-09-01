@@ -34,8 +34,6 @@ DatesChangerPage.Model = function(){
 	*/
 	function updateDate(newDate){
 		let keys = Object.keys(newDate);
-		console.log("updateDate keys", JSON.stringify(keys));
-		console.log("updateDate oldDate", JSON.stringify(oldDate));
 		keys.forEach(function(dateAttribute){
 			oldDate[dateAttribute] = newDate[dateAttribute];
 		});

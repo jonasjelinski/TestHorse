@@ -56,8 +56,7 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 		addEventListeners();	
 		disableDateButton();
 		disableReminderButton();
-		hideReminderAndDateButtons();
-		console.log("init");	
+		hideReminderAndDateButtons();	
 	}
 
 	function initPopup(){
@@ -167,7 +166,6 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 	*/ 
 	function enableDateButton() {
 		dateButton.disabled = false;
-		console.log("enableDateButton");
 	}
 
 	/**
@@ -179,23 +177,19 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 	*/ 
 	function disableDateButton() {
 		dateButton.disabled = true;
-		console.log("disableDateButton");
 	}
 
 	function enableReminderButton(){
 		reminderButton.disabled = false;
-		console.log("enableReminderButton");
 	}
 
 	function disableReminderButton(){
 		reminderButton.disabled = true;
-		console.log("disableReminderButton");
 	}
 
 	function toggleButtons(){
 		dateButton.disabled = !dateButton.disabled;
 		reminderButton.disabled = !dateButton.disabled; 
-		console.log("disableReminderButton");
 	}
 
 	/**
@@ -279,7 +273,6 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 		let data = {};
 		data.date = dateInput.value;
 		data.time = timeInput.value;
-		console.log("getReminderInputData gernealView", data);
 		return data;
 	}
 
@@ -477,7 +470,6 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 		showReminderAndDateButtons();
 		disableDateButton();
 		enableReminderButton();
-		console.log("init");
 	}
 
 	function updateView(data){

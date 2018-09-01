@@ -113,7 +113,6 @@ DatesChangerPageSingle = function(userID){
 	* after that it saved the changed date
 	*/
 	function handleSave(event) {
-		console.log("handleSave");
 		let updatedDate = prepareDataForDBRequest(event);
 		saveDateIntoDB(updatedDate);
 		sendEvent("onDataSaved");

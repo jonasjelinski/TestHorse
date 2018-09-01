@@ -70,6 +70,9 @@ RegularDatesPage.DBRequester = function(userID, horseID){
 		else if(action === "getHorse"){
 			sendEvent("onHorse", results);
 		}
+		if(action === "getReminderRegular"){
+			sendEvent("onReminder", results);
+		}
 	}
 
 	/**
@@ -99,6 +102,10 @@ RegularDatesPage.DBRequester = function(userID, horseID){
 	function requestDatesFromDB(){
 		isDeletingDate = false;
 		requester.getAllDatesOfHorse(horseID);
+	}
+
+	function requestReminderFromDB(dateId){
+		requester.getRegularReminder(dateId);
 	}
 
 	/**
@@ -147,6 +154,7 @@ RegularDatesPage.DBRequester = function(userID, horseID){
 	that.init = init;
 	that.requestDatesFromDB = requestDatesFromDB;
 	that.requestHorseFromDB = requestHorseFromDB;
+	that.requestReminderFromDB = requestReminderFromDB;
 	that.stoppListening = stoppListening;
 	that.deleteDate = deleteDate;
 	that.updateAllDates = updateAllDates;

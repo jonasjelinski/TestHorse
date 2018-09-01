@@ -82,16 +82,12 @@ RegulardatesCreatorPage.DBRequester = function(userID, horseID){
 				saveRegularReminderIntoDB(reminderData);
 			}
 			else{
-				console.log("handleResult", result);
 				tellModulItCanChangeToOtherSide();
 			}
 		}
 		else if(action === "updateReminderRegular"){
 			tellModulItCanChangeToOtherSide();
-		}
-		else{
-			console.log(result);
-		}		
+		}	
 	}
 
 	function isIDAndNoWarningFeedbackFromDB(dateID){
@@ -144,7 +140,6 @@ RegulardatesCreatorPage.DBRequester = function(userID, horseID){
 			unitRegular: date.unitRegular || defaultValue,
 			orderPosition: REG_DATE_START_POS,
 		};
-		console.log("getDateObjectForDBRequest", data);
 		return dataToSave;
 	}
 

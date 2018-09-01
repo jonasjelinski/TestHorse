@@ -95,8 +95,7 @@ DatesChangerPageRegular = function(userID){
 	* so the creator has those attributes and can show them to the user
 	*/
 	function addAttributes(attributes){
-		console.log("attributes", attributes);
-		let newDate = attributes.date,	//atrributes besitzt noch keinen reminder und duration value unit
+		let newDate = attributes.date,
 				reminder = attributes.reminder,
 				newDurationValue = newDate.valueRegular,
 				newDurationUnit = newDate.unitRegular;				
@@ -144,11 +143,8 @@ DatesChangerPageRegular = function(userID){
 		let data = event.details.data,
 			changedDate = data.date,
 			updatedDate;
-		console.log("prepareDataForDBRequest data", JSON.stringify(data));
-		console.log("prepareDataForDBRequest changedDate", JSON.stringify(changedDate));
 		model.updateDate(changedDate);
 		updatedDate = model.getDate();		
-		console.log("prepareDataForDBRequest", JSON.stringify(updatedDate));
 		data.date = updatedDate;
 		return data;
 	}

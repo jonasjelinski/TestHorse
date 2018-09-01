@@ -92,6 +92,7 @@ RegularDatesPage = function(userID){
 		dbInterface.init();
 		dbInterface.addEventListener("onDates", handleDatesResult);
 		dbInterface.addEventListener("onHorse", handleHorseResult);
+		dbInterface.addEventListener("onReminder", handleReminderResult);
 	}
 
 	/**
@@ -129,6 +130,11 @@ RegularDatesPage = function(userID){
 		dbInterface.requestDatesFromDB();
 	}
 
+	function handleReminderResult(event){
+		let reminder = event.details.results;
+		model.checkReminderAndSendChangeMessage(reminder);
+	}
+
 	/**
 	* @function initModel
 	* @private
@@ -141,6 +147,7 @@ RegularDatesPage = function(userID){
 		model = new RegularDatesPage.Model(horseID);
 		model.addEventListener("onDataConverted", handleOnDataConverted);
 		model.addEventListener("onHorseSetted", handleHorseSetted);
+		model.addEventListener("onReadyForChange", handleOnReadyForChange);
 		model.init();	
 	}
 
@@ -162,6 +169,21 @@ RegularDatesPage = function(userID){
 		addRegularDatesListListeners();
 		controlls.initListControlls();
 			
+	}
+
+	function handleOnReadyForChange(event){
+		let dateAndReminder = event.details.dateAndReminder;
+		sendChangeEvent(dateAndReminder);
+	}
+
+	function sendChangeEvent(attributes){
+		let event = new Event("onChangeDate");
+		if(attributes){
+			event.details = {}
+			event.details.attributes = attributes;
+			event.details.attributes.horseID = horseID;
+		}
+		that.dispatchEvent(event);
 	}
 
 	/**
@@ -343,10 +365,11 @@ RegularDatesPage = function(userID){
 	* an send the attributes of the date with the event
 	*/ 
 	function handleChangeClick(event){
-		let dateId = event.details.id;
-			updateDatesAndSuggestions();
-			sendDate(dateId);
+		let id = event.details.id;
+		model.setDateToSend(id);
+		dbInterface.requestReminderFromDB(id);
 	}
+
 
 	/**
 	* @function handleBackClick

@@ -24,6 +24,7 @@ RegularDatesPage.Model = function(horseID){
 		regularDates,
 		dateSuggestions,
 		delteId,
+		dateToSend,
 		datesSuggestor,
 		hasNewHorse,
 		hasAllDatesAndSuggestions,
@@ -90,7 +91,6 @@ RegularDatesPage.Model = function(horseID){
 
 	function getDataFromSuggestorAndSaveThemIntoHorseDateSuggestions(){
 		horseDateSuggestions = datesSuggestor.getDateSuggestions();
-		console.log("getDataFromSuggestorAndSaveThemIntoHorseDateSuggestions", horseDateSuggestions);
 	}
 
 	function sendHorseSetted(){
@@ -174,18 +174,23 @@ RegularDatesPage.Model = function(horseID){
 	function changePropertyNames(dates){
 		for(let i = 0; i < dates.length; i++){
 			let date = regularDates[i];
-			date.horseID = date.horse_id;
-			date.dateFuture = date.date_future_date;
-			date.timeFuture = date.time_future_date;
-			date.valueRegular = date.value_regular;
-			date.unitRegular = date.unit_regular;
-			date.orderPosition = date.order_position;
+			date = changePropertNamesOfDate(date);
+		}
+	}
+
+	function changePropertNamesOfDate(date){
+			date.horseID =  date.horseID ||date.horse_id;
+			date.dateFuture =  date.dateFuture || date.date_future_date;
+			date.timeFuture = date.timeFuture || date.time_future_time;
+			date.valueRegular = date.valueRegular || date.value_regular;
+			date.unitRegular = date.unitRegular || date.unit_regular;
+			date.orderPosition = date.orderPosition || date.order_position;
 			delete date.date_future_date;
 			delete date.time_future_date;
 			delete date.value_regular;
 			delete date.unit_regular;
 			delete date.order_position;
-		}
+		return date;
 	}
 
 	function removeNullsAndUndefined(regularDates){
@@ -325,11 +330,9 @@ RegularDatesPage.Model = function(horseID){
 	* @description returns date with the id "id"
 	*/
 	function getSearchedDate(id){
-		console.log("getSearchedDate id",id, allDates);
 		for(let i = 0; i < allDates.length; i++){
 			let date = allDates[i];
 			if(date.id === id){
-				console.log("getSearchedDate", date.id, date);
 				return date;
 			}
 		}
@@ -452,9 +455,6 @@ RegularDatesPage.Model = function(horseID){
 	function combineAllDatesAndSendData(){
 		dateSuggestions = dateSuggestions.concat(horseDateSuggestions);
 		allDates = regularDates.concat(dateSuggestions);
-		console.log("combineAllDatesAndSendData dateSuggestions", dateSuggestions);
-		console.log("combineAllDatesAndSendData allDates", allDates);
-		console.log("combineAllDatesAndSendData horseDateSuggestions", horseDateSuggestions);
 		sendOnDataConverted();
 	}
 
@@ -481,6 +481,61 @@ RegularDatesPage.Model = function(horseID){
 		return getDateAttributesById(newDateId);
 	}
 
+	function setDateToSend(id){
+		let date = getDateAttributesById(id);
+		dateToSend = changePropertNamesOfDate(date);
+	}
+
+	function checkReminderAndSendChangeMessage(reminderAsString){
+		let reminder = getReminderFromArrayString(reminderAsString);
+		if(isNoReminder(reminder)){
+			sendReadyForChangeEvent();
+		}
+		else{
+			reminder = changeReminderProperties(reminder);
+			sendReadyForChangeEvent(reminder);
+		}
+	}
+
+	
+	function getReminderFromArrayString(arrayString){
+		let reminderArray,
+			reminder = {};
+		if(isParsable(arrayString)){
+			reminderArray = JSON.parse(arrayString);
+			if(Array.isArray(reminderArray)){
+				reminder = reminderArray[0];
+			}
+		}
+		return reminder;
+	}
+
+	function isNoReminder(reminder){
+		return reminder.date === null || reminder.date === undefined;
+	}
+
+	function changeReminderProperties(reminder){
+		reminder.dateID = reminder.dateID || reminder.dates_id;
+		reminder.name = reminder.name || reminder.contact_name;
+		reminder.number = reminder.number || reminder.contact_number;
+		delete reminder.dates_id;
+		delete reminder.contact_name;
+		delete reminder.contact_number;
+		return reminder;
+	}
+
+
+	function sendReadyForChangeEvent(reminder){
+		let event = new Event("onReadyForChange");
+		event.details = {};
+		event.details.dateAndReminder = {};
+		event.details.dateAndReminder.date = dateToSend;
+		if(reminder){			
+			event.details.dateAndReminder.reminder = reminder;
+		}
+		that.dispatchEvent(event);
+	}
+
 	
 	that.init = init;
 	that.setDelteId = setDelteId;
@@ -501,5 +556,7 @@ RegularDatesPage.Model = function(horseID){
 	that.setNewDateId = setNewDateId;
 	that.getNewDateId = getNewDateId,
 	that.getNewDate = getNewDate;
+	that.setDateToSend =setDateToSend;
+	that.checkReminderAndSendChangeMessage = checkReminderAndSendChangeMessage;
 	return that;
 }

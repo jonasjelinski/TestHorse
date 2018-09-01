@@ -138,6 +138,7 @@ DatesCreator = function(dateClass, reminderClass, containerElementId, titleInput
 	*/
 	function handleFinaleSave(event){
 		let data = event.details.data;
+		console.log("handleFinaleSave", data);
 		sendEvent("onSave", data);
 	}
 
@@ -316,6 +317,7 @@ DatesCreator = function(dateClass, reminderClass, containerElementId, titleInput
 		if(newReminder){
 			setReminder(newReminder);
 			view.setReminderTrue();	
+			model.setWantsReminder(true);
 		}
 		view.updateView(newDate);
 	}

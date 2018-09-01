@@ -58,8 +58,7 @@ DatesChangerPage.DBRequester = function(userID, horseID){
 	* @description adds event listener
 	*/
 	function handleResult(event){
-		let result = event.details.result;	
-		console.log("handleResult", result);	
+		let result = event.details.result;		
 	}
 	
 	/**
@@ -71,15 +70,10 @@ DatesChangerPage.DBRequester = function(userID, horseID){
 	* @description saves the updated data into the database
 	*/
 	function saveDateIntoDB(updatedData){
-		let changedDate = updatedData.date,
-			unit = updatedData.unit,
-			value = updatedData.value,
-			dateID = changedDate.id;
-			changedDate.valueRegular = value;
-			changedDate.unitRegular = unit;
+		let changedDate = updatedData.date;
 		updateDate(changedDate);
 		if(hasReminder(updatedData)){
-			updateReminder(updatedData, dateID);
+			updateReminder(updatedData, changedDate.id);
 		}		
 	}
 
@@ -115,9 +109,8 @@ DatesChangerPage.DBRequester = function(userID, horseID){
 	* @description prepares data so it can be send to the database
 	*/
 	function getDateObjectForDBRequest(changedDate) {
-		console.log("getDateObjectForDBRequest", JSON.stringify(changedDate));
 		let dataToSave= {
-			dateID: changedDate.id || dateID,
+			dateID: changedDate.id || changedDate.dateID,
 			horseID: changedDate.horse_id || changedDate.horseID,
 			title: changedDate.title,
 			date: changedDate.date,
@@ -195,7 +188,6 @@ DatesChangerPage.DBRequester = function(userID, horseID){
 			name: reminder.name,
 			number: reminder.number,
 		};
-		console.log("createRegularReminderData", JSON.stringify(reminderData));
 		return reminderData;
 	}
 
@@ -208,7 +200,6 @@ DatesChangerPage.DBRequester = function(userID, horseID){
 	* @description updates the reminder with the reminderData
 	*/
 	function saveRegularReminderIntoDB(reminderData){
-		console.log("saveRegularReminderIntoDB", JSON.stringify(reminderData));
 		requester.updateRegularReminder(reminderData);
 	}
 

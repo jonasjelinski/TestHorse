@@ -36,7 +36,6 @@ RegulardatesCreater = function(dateClass, reminderClass, containerElementId, tit
 	* @description Initialize this modul.
 	*/
 	function init() {
-		console.log("initRegDatesCreator");
 		initSingleDatesCreator();
 		initView();
 		addEventListeners();	
@@ -177,16 +176,16 @@ RegulardatesCreater = function(dateClass, reminderClass, containerElementId, tit
 	* @param {string}, unit, the unit of the rminder, e.g. week, day or month
 	* @description updates the value of the unit
 	*/	
-	function updateDurationUnit(unit) {
+	function updateDurationUnit(unit) {;
 		view.setDurationUnit(unit);
 	}
 
 	function updateName(name){
-
+		view.setNameValue(name);
 	}
 
-	function updatPhone(phone){
-
+	function updatePhone(phone){
+		view.setPhoneValue(phone);
 	}
 
 	that.init = init;

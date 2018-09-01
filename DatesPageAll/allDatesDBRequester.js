@@ -64,11 +64,11 @@ DatesPageAll.DBRequester = function(userID, horseID){
 		if(action==="getAllHorseDates"){
 			sendEvent("onAllDates", results);
 		}
-		if(action === "getReminderNotification"){
+		else if(action === "getReminderNotification"){
 			sendEvent("onReminder", results);
 		}
 		else{
-			console.log("handleResult", results);
+			console.log("handleResult", action);
 		}
 		
 	}

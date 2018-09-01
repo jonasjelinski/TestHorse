@@ -81,7 +81,7 @@ DatesPageAll.DatesPageModel = function(){
 	function changePropertNamesOfDate(date){
 			date.horseID =  date.horseID ||date.horse_id;
 			date.dateFuture =  date.dateFuture || date.date_future_date;
-			date.timeFuture = date.timeFuture || date.time_future_date;
+			date.timeFuture = date.timeFuture || date.time_future_time;
 			date.valueRegular = date.valueRegular || date.value_regular;
 			date.unitRegular = date.unitRegular || date.unit_regular;
 			date.orderPosition = date.orderPosition || date.order_position;
