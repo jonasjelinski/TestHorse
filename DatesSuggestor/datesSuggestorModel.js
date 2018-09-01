@@ -11,7 +11,7 @@ DatesSuggestor.Model = function(){
 		horse;
 
 	function init(newHorse){
-		horse.init();
+		horse = newHorse;
 		dates = DatesSuggestor.Dates();
 	}
 
@@ -21,37 +21,19 @@ DatesSuggestor.Model = function(){
 	}
 
 	function calulcateSuggestions(){
-		let suggestions,	
-			horseAge = getHorseAge(),
-			type = horse.type;
+		let suggestions;
 		if(horse.type === RACE){
 			let tetanus = dates.INJECTIONS.TETANUS.ONE_YEAR,
 				influenca = dates.INJECTIONS.INFLUENCA.HALF_YEAR,
-				herpes = dates.INJECTIONS.INFLUENCA.HERPES;
+				herpes = dates.INJECTIONS.HERPES.ONE_YEAR;
 			suggestions = [tetanus, influenca, herpes];
 		}
-		if(horse.type === NOTHING){
+		else if(horse.type !== RACE){
 			let tetanus = dates.INJECTIONS.TETANUS.THREE_YEARS,
 				influenca = dates.INJECTIONS.INFLUENCA.ONE_YEAR;
 			suggestions = [tetanus, influenca];
 		}
 		return suggestions;
-	}
-
-	function getHorseAge(){
-		let dateOfBirth = horse.dateOfBirth,
-			yearOfBirth = getYear(dateOfBirth),
-			today = new Date(),
-			thisYear = today.getFullYear(),
-			birthAsInt = parseInt(yearOfBirth),
-			todayAsInt = parseInt(today);
-
-		return todayAsInt - birthAsInt;
-	}
-
-	function getYear(dateOfBirth){
-		let regex = "\b(19|20)\d{2}\b";
-		return dateOfBirth.match(regex);
 	}
 
 	that.init = init;

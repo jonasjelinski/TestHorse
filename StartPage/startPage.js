@@ -39,11 +39,116 @@ StartPage = function(userID){
 	* @instance
 	* @description Initialize this dbInterface. Sets the elementTemplateString, the hamburgerMenu and the dropList
 	*/ 
-	function init(){		
+	function init(){
+		getDomElements();	
+		initDropList();	
 		initDBInterface();
 		requestAllHorsesFromDB();
 		initHamburgerMenu();		
 	}
+
+
+	function getDomElements(){
+		elementTemplateString = document.getElementById(BOX_TEMPLATE_ID).innerHTML;
+		viewDomElement = document.getElementById("mainpage");
+	}
+
+	/**
+	* @function initDropList
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @param{array}, horseData
+	* @description Initialize this droplist with horseData, elementTemplateString and viewDomElement
+	* appends a last box to the list for creating new horses if there is no
+	*/ 
+	function initDropList(){
+		let horseData = [];
+		if(horseData){
+			if(!hasLastBox(horseData)){
+				appendLastBox(horseData);
+			}		
+			dropList = new DropList(dropListId, horseData, elementTemplateString, "horseid");
+			dropList.init();
+			initDropListListener();
+		}				
+	}
+
+
+	/**
+	* @function initDropListListener
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @description adds listener to the dropList
+	*/
+	function initDropListListener(){
+		dropList.addEventListener("onElementClick", handleHorseBoxClick);
+	}
+
+	/**
+	* @function handleHorseBoxClick
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @param{event}, event, contains id of the clicked horsebox
+	* @description sends an event that the user wants to create a new box
+	* if the lastBox has been clicked
+	*/
+	function handleHorseBoxClick(event){
+		let id = event.details.id;
+		if(lastBoxClicked(id)){
+			sendEvent("createNewHorse", "");			
+		}		
+	}
+
+	/**
+	* @function lastBoxClicked
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @param{string}, id, id of the clicked box
+	* @description retruns true if id is the id of the lastBox
+	*/
+	function lastBoxClicked(id){
+		if(id === lastBoxId){
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	* @function appendLastBox
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @param{array}, horseData
+	* @description pushs the last box to the array of horses
+	*/ 
+	function appendLastBox(horseData){
+		let lastElement = {name:"Neues Pferd erstellen", id:lastBoxId, photo: ""};
+		horseData.push(lastElement);	
+	}
+
+	/**
+	* @function hasLastBox
+	* @private
+	* @memberof! MainPage  
+	* @instance
+	* @param{array}, horseData
+	* @description returns true if the array horseData contains a last box
+	*/ 
+	function hasLastBox(horseData){		
+		for(let i = 0; i < horseData.length; i++){
+			let horse = horseData[i],
+				id = horse.id;
+			if(id === lastBoxId){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 
 	/**
 	* @function initDBInterface
@@ -107,106 +212,23 @@ StartPage = function(userID){
 	*/ 
 	function handleOnDataConverted(event){
 		let convertedHorseData = event.details.allHorses;
-		initDropList(convertedHorseData);
+		addHorsesToDropList(convertedHorseData);
 		initButtonControlls();		
 		addButtonControllsListeners();
 	}
 
-	/**
-	* @function initDropList
-	* @private
-	* @memberof! MainPage  
-	* @instance
-	* @param{array}, horseData
-	* @description Initialize this droplist with horseData, elementTemplateString and viewDomElement
-	* appends a last box to the list for creating new horses if there is no
-	*/ 
-	function initDropList(horseData){
-		elementTemplateString = document.getElementById(BOX_TEMPLATE_ID).innerHTML;
-		viewDomElement = document.getElementById("mainpage");
-		if(horseData){
-			if(!hasLastBox(horseData)){
-				appendLastBox(horseData);
-			}		
-			dropList = new DropList(dropListId, horseData, elementTemplateString, "horseid");
-			dropList.init();
-			initDropListListener();
-		}				
-	}
-
-	/**
-	* @function hasLastBox
-	* @private
-	* @memberof! MainPage  
-	* @instance
-	* @param{array}, horseData
-	* @description returns true if the array horseData contains a last box
-	*/ 
-	function hasLastBox(horseData){		
-		for(let i = 0; i < horseData.length; i++){
-			let horse = horseData[i],
-				id = horse.id;
-			if(id === lastBoxId){
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
-	* @function appendLastBox
-	* @private
-	* @memberof! MainPage  
-	* @instance
-	* @param{array}, horseData
-	* @description pushs the last box to the array of horses
-	*/ 
-	function appendLastBox(horseData){
-		let lastElement = {id:lastBoxId, photo: ""};
-		horseData.push(lastElement);	
-	}
 	
-	/**
-	* @function initDropListListener
-	* @private
-	* @memberof! MainPage  
-	* @instance
-	* @description adds listener to the dropList
-	*/
-	function initDropListListener(){
-		dropList.addEventListener("onElementClick", handleHorseBoxClick);
-	}
 
-	/**
-	* @function handleHorseBoxClick
-	* @private
-	* @memberof! MainPage  
-	* @instance
-	* @param{event}, event, contains id of the clicked horsebox
-	* @description sends an event that the user wants to create a new box
-	* if the lastBox has been clicked
-	*/
-	function handleHorseBoxClick(event){
-		let id = event.details.id;
-		if(lastBoxClicked(id)){
-			sendEvent("createNewHorse", "");			
-		}		
-	}
-
-	/**
-	* @function lastBoxClicked
-	* @private
-	* @memberof! MainPage  
-	* @instance
-	* @param{string}, id, id of the clicked box
-	* @description retruns true if id is the id of the lastBox
-	*/
-	function lastBoxClicked(id){
-		if(id === lastBoxId){
-			return true;
+	function addHorsesToDropList(horseData){
+		for(let i = 0; i < horseData.length; i++){
+			let element = horseData[i];
+			dropList.addNewElement(element);
 		}
-		return false;
 	}
+
+	
+
+	
 
 	/**
 	* @function initHamburgerMenu
@@ -299,7 +321,7 @@ StartPage = function(userID){
 	* @description inits the buttonControlls
 	*/
 	function initButtonControlls(){
-		buttonControlls = StartPage.Controlls(dateButtonClass, profileButtonClass);
+		buttonControlls = StartPage.Controlls(dateButtonClass, profileButtonClass, lastBoxId);
 		buttonControlls.init();
 	}
 
@@ -325,7 +347,9 @@ StartPage = function(userID){
 	*/
 	function handleDateClick(event){
 		let horseId = event.details.id;
-		sendEvent("showHorseDates",horseId);
+		if(horseId !== lastBoxId){
+			sendEvent("showHorseDates",horseId);
+		}		
 	}
 
 	/**
@@ -338,8 +362,11 @@ StartPage = function(userID){
 	*/
 	function handleProfileClick(ev){
 		let horseId = ev.details.id,
-		horseAttributes = getHorseById(horseId);
-		sendShowHorseEvent(horseAttributes);
+		horseAttributes;
+		if(horseId !== lastBoxId){
+			horseAttributes = getHorseById(horseId);
+			sendShowHorseEvent(horseAttributes);
+		}		
 	}
 
 	/**

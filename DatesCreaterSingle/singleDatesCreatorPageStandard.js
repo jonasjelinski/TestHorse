@@ -11,7 +11,7 @@ var SingleDatesCreatorPage = SingleDatesCreatorPage || {};
 
 SingleDatesCreatorPage.Standard = function(userID){
 	const DATE_CLASS = "", 
-		REMINDER_CLASS = "", 
+		REMINDER_CLASS = "reminderSingleDate", 
 		CONTAINER_ELEMENT_ID = "dateCreater",
 		TITLE_INPUT_ID = "dateTitleInput",
 		DATE_INPUT_ID = "dateDateInput",
@@ -77,7 +77,15 @@ SingleDatesCreatorPage.Standard = function(userID){
 	*/
 	function handleSave(event) {
 		let data = event.details.data;
+		data = prepareData(data);
 		sendEvent("onSave", data);
+	}
+
+	function prepareData(data){
+		let noValue = "0";
+		data.valueRegular = noValue;
+		data.unitRegular =  noValue;
+		return data;
 	}
 
 	/**

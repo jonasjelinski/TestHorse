@@ -20,8 +20,8 @@ DatesChangerPage.Model = function(){
 	* @param {object} date
 	* @description Initialize this modul.
 	*/
-	function init(date) {
-		oldDate = date;
+	function init(attributes) {
+		oldDate = attributes.date;
 	}
 
 	/**

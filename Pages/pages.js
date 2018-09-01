@@ -151,6 +151,8 @@ Pages = function(){
 		addListenersToDatesPageRegular();
 		addListenersToDatesCreatorPageSingle();				
 		addListenersToDatesCreatorPageRegular();
+		addListenersToDatesChangerPageSingle();
+		addListenersToDatesChangerPageRegular();
 		
 	}
 
@@ -162,6 +164,7 @@ Pages = function(){
 		datesPage.addEventListener("showProfilePage", showUserProfilPage);		
 		datesPage.addEventListener("showHelpPage", showHelpPage);		
 		datesPage.addEventListener("logoutUser", logoutUser);		
+		datesPage.addEventListener("onChangeDate", changeSingleDate);		
 	}
 
 	function addListenersToDatesPageRegular(){
@@ -177,16 +180,24 @@ Pages = function(){
 	}
 
 	function addListenersToDatesCreatorPageSingle(){
-		datesCreatorPageSingle.addEventListener("onDataSaved", showStartPage);				
-		datesCreatorPageSingle.addEventListener("onCancel", showStartPage);			
+		datesCreatorPageSingle.addEventListener("onDataSaved", showAllDates);				
+		datesCreatorPageSingle.addEventListener("onCancel", showAllDates);			
 		datesCreatorPageSingle.addEventListener("onChangeClick", changeSingleDate);
 	}
 
+	function addListenersToDatesChangerPageSingle(){
+		datesChangerPageSingle.addEventListener("onDataSaved", showAllDates);				
+		datesChangerPageSingle.addEventListener("onCancel", showAllDates);			
+	}
+
+
 	function addListenersToDatesCreatorPageRegular(){
 		datesCreatorPageRegular.addEventListener("onDataSaved", showRegularDates);
-		datesCreatorPageRegular.addEventListener("onCancel", showRegularDates);
-		datesCreatorPageRegular.addEventListener("onCancel", showRegularDates);
-		datesChangerPageRegular.addEventListener("onDataSaved", showRegularDates);			
+		datesCreatorPageRegular.addEventListener("onCancel", showRegularDates);						
+	}
+
+	function addListenersToDatesChangerPageRegular(){
+		datesChangerPageRegular.addEventListener("onDataSaved", showRegularDates);				
 		datesChangerPageRegular.addEventListener("onCancel", showRegularDates);			
 	}	
 
@@ -289,7 +300,7 @@ Pages = function(){
 	function showAllDates(event){
 		let horseID;
 		if(event) {
-			horseID= event.details.horseID;
+			horseID = event.details.horseID
 		}
 		pageChanger.switchPage("DATES");
 		datesPage.init(horseID);
@@ -302,26 +313,29 @@ Pages = function(){
 	* @instance
 	* @description shows all regular dates to the user
 	*/ 
-	function showRegularDates(){
-		console.log("showRegularDates");
+	function showRegularDates(event){;
+		let horseID = event.details.horseID;
 		pageChanger.switchPage("REGULAR_DATES_PAGE");
-		datesPageRegular.init();
+		datesPageRegular.init(horseID);
 	}
 
-	function showCreateRegularDate() {
+	function showCreateRegularDate(event) {
+		let attributes = event.details.horseID;
 		pageChanger.switchPage("REGULAR_DATES_CREATER_PAGE");		
-		datesCreatorPageRegular.init();
+		datesCreatorPageRegular.init(attributes);
 	}
 
-	function changeSingleDate(event){
-		let attributes = event.details.attributes;		
-		pageChanger.switchPage("CREATE_SINGLE_DATE");
+	function changeSingleDate(event){		
+		let attributes = event.details.attributes;	
+		console.log("changeSingleDate", attributes);	
+		pageChanger.switchPage("SINGLE_DATE_CREATER_PAGE");
 		datesChangerPageSingle.init(attributes);
 	}
 
-	function showCreateSingleDate(){
+	function showCreateSingleDate(event){
+		let horseID = event.details.horseID;
 		pageChanger.switchPage("SINGLE_DATE_CREATER_PAGE");
-		datesCreatorPageSingle.init();
+		datesCreatorPageSingle.init(horseID);
 	}
 
 
@@ -477,7 +491,6 @@ Pages = function(){
 	}
 
 	function handleChangeProfileDelete(){
-		console.log("isUserLoggedIn",isUserLoggedIn);
 		if(isUserLoggedIn){
 			showStartPage();
 		}

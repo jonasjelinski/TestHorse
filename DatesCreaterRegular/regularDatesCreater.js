@@ -22,7 +22,7 @@ var RegulardatesCreater = RegulardatesCreater || {};
 
 RegulardatesCreater = function(dateClass, reminderClass, containerElementId, titleInputId, 
 	dateInputId, timeInputId, locationInputId, wantsReminderCheckboxId, dateButtonId, reminderButtonId,
-	saveButtonId, cancelButtonId,dropDownMenuId, unitInputId){
+	saveButtonId, cancelButtonId, unitInputId, valueInputId, nameInputId, phoneInputId){
 	
 	let that = new EventTarget(),
 		singleDatesCreator, 
@@ -64,8 +64,7 @@ RegulardatesCreater = function(dateClass, reminderClass, containerElementId, tit
 	* @description inits the view
 	*/
 	function initView() {
-		console.log("dropDownMenuId", dropDownMenuId, "unitInputId", unitInputId);
-		view = RegulardatesCreater.View(dropDownMenuId, unitInputId);
+		view = RegulardatesCreater.View(unitInputId, valueInputId, nameInputId, phoneInputId);
 		view.init();
 	}
 
@@ -90,12 +89,24 @@ RegulardatesCreater = function(dateClass, reminderClass, containerElementId, tit
 	* adds the reularDateData and the durationData to the data of the event
 	* sends new data to other moduls
 	*/
-	function handleSave(event) {
-		console.log("handleSave of RegCreater");
-		let regularDateData = event.details.data,
-			duration = view.getUnitAndValue(),
-			data = Object.assign(regularDateData, duration);
-			sendEvent("onSave", data);
+	function handleSave(event) {		
+		let dateAndReminder = event.details.data,
+			nameNumberUnitValue = view.getValues(),
+			cleanDateAndReminder = perpareData(dateAndReminder, nameNumberUnitValue);			
+			sendEvent("onSave", cleanDateAndReminder);
+	}
+
+	function perpareData(dateAndReminder, nameNumberUnitValue){
+		let cleanDateAndReminder = {},
+		date = dateAndReminder.date,
+		reminder = dateAndReminder.reminder;
+		date.unitRegular = nameNumberUnitValue.unitRegular,
+		date.valueRegular = nameNumberUnitValue.valueRegular,
+		reminder.name = nameNumberUnitValue.name,
+		reminder.number = nameNumberUnitValue.name;
+		cleanDateAndReminder.date = date;
+		cleanDateAndReminder.reminder = reminder;
+		return cleanDateAndReminder;		
 	}
 
 	/**
@@ -139,6 +150,10 @@ RegulardatesCreater = function(dateClass, reminderClass, containerElementId, tit
 		singleDatesCreator.updateCreator(newDate, newReminder);
 		updateDurationValue(newDurationValue);
 		updateDurationUnit(newDurationUnit);
+		if(newReminder){
+			updateName(newReminder.name);
+			updatePhone(newReminder.number);
+		}		
 	}
 
 	/**
@@ -161,8 +176,16 @@ RegulardatesCreater = function(dateClass, reminderClass, containerElementId, tit
 	* @param {string}, unit, the unit of the rminder, e.g. week, day or month
 	* @description updates the value of the unit
 	*/	
-	function updateDurationUnit(unit) {
+	function updateDurationUnit(unit) {;
 		view.setDurationUnit(unit);
+	}
+
+	function updateName(name){
+		view.setNameValue(name);
+	}
+
+	function updatePhone(phone){
+		view.setPhoneValue(phone);
 	}
 
 	that.init = init;

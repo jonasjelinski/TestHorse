@@ -22,8 +22,7 @@ SingleDatesCreatorPage = function(userID){
 	* @param {string} newHorseID, id of the horse. the dates are in a relation in the database with the horseID.
 	* @description Initialize this modul.
 	*/		
-	function init(newHorseID) {
- 		newHorseID = newHorseID || 38;
+	function init(newHorseID) {		
 		horseID = newHorseID;
 		initModuls();
 		addListeners();
@@ -54,6 +53,7 @@ SingleDatesCreatorPage = function(userID){
 	function addListeners() {
 		standardPage.addEventListener("onSave", handleSave);
 		standardPage.addEventListener("onCancel", handleCancel);
+		dbInterface.addEventListener("onDataSaved", handleDataSaved);
 	}
 
 	/**
@@ -68,7 +68,6 @@ SingleDatesCreatorPage = function(userID){
 	function handleSave(event) {
 		let data = event.details.data;
 		saveDateIntoDB(data);
-		sendEvent("onDataSaved");
 	}
 
 	/**
@@ -93,6 +92,8 @@ SingleDatesCreatorPage = function(userID){
 	*/
 	function sendEvent(type) {
 		let event = new Event(type);
+		event.details = {};
+		event.details.horseID = horseID;
 		that.dispatchEvent(event);
 	}
 
@@ -108,6 +109,10 @@ SingleDatesCreatorPage = function(userID){
 	*/
 	function handleCancel() {
 		sendEvent("onCancel");
+	}
+
+	function handleDataSaved(){
+		sendEvent("onDataSaved");
 	}
 
 	that.init = init;

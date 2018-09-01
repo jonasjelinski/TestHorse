@@ -19,7 +19,9 @@ DatesPageAll = function(userID){
 		BURGER_OPTION_PROFILE = "burgerOptionAllDatesProfile",
 		BURGER_OPTION_HELP = "burgerOptionAllDatesHelp",
 		BURGER_OPTION_LOGOUT = "burgerOptionAllDatesLogout";
-		DATE_TEMPLATE_ID= "ulElementTemplate";	
+		DATE_TEMPLATE_ID= "ulElementTemplate",
+		DELETE_BUTTON_CLASS = "singleDateDelete",
+		CHANGE_BUTTON_CLASS = "singleDateChange";	
 
 	let that = new EventTarget(),
 		dropList,
@@ -41,11 +43,11 @@ DatesPageAll = function(userID){
 	* @description Initialize this modul. starts the database request for the dates.
 	*/
 	function init(newHorseID){
-		horseID = newHorseID || 38;
+		horseID = newHorseID;
 		elementTemplateString = document.getElementById(DATE_TEMPLATE_ID).innerHTML;
-		initDBInterface();		
-		requestDatesFromDB();
-		initControlls();
+		initDBInterface();	
+		initControlls();	
+		requestDatesFromDB();	
 		initHamburgerMenu();	
 	}
 
@@ -60,7 +62,8 @@ DatesPageAll = function(userID){
 	function initDBInterface(){
 		dbInterface = DatesPageAll.DBRequester(userID,horseID);
 		dbInterface.init();
-		dbInterface.addEventListener("onResult", handleDBResult);
+		dbInterface.addEventListener("onAllDates", handleDatesResult);
+		dbInterface.addEventListener("onReminder", handleReminderResult);
 	}
 
 	/**
@@ -71,7 +74,6 @@ DatesPageAll = function(userID){
 	* @description starts a database request to get the dates of the horse
 	*/
 	function requestDatesFromDB(){
-		console.log("requestDatesFromDB");
 		dbInterface.requestDatesFromDB();
 	}
 
@@ -83,9 +85,14 @@ DatesPageAll = function(userID){
 	* @param {event} event
 	* @description inits the model with the results of the databse request
 	*/
-	function handleDBResult(event){
-		let allDatesAsStrings = event.details.allDates;		
+	function handleDatesResult(event){
+		let allDatesAsStrings = event.details.results;		
 		initModel(allDatesAsStrings);		
+	}
+
+	function handleReminderResult(event){
+		let reminder = event.details.results;
+		model.checkReminderAndSendChangeMessage(reminder);
 	}
 
 	/**
@@ -99,6 +106,7 @@ DatesPageAll = function(userID){
 	function initModel(allDatesAsStrings){
 		model = new DatesPageAll.DatesPageModel();
 		model.addEventListener("onDataConverted", handleOnDataConverted);
+		model.addEventListener("onReadyForChange", handleOnReadyForChange);
 		model.init(allDatesAsStrings);	
 	}
 
@@ -116,6 +124,21 @@ DatesPageAll = function(userID){
 		initDropList(convertedDates);
 	}
 
+	function handleOnReadyForChange(event){
+		let dateAndReminder = event.details.dateAndReminder;
+		sendChangeEvent(dateAndReminder);
+	}
+
+	function sendChangeEvent(attributes){
+		let event = new Event("onChangeDate");
+		if(attributes){
+			event.details = {}
+			event.details.attributes = attributes;
+			event.details.attributes.horseID = horseID;
+		}
+		that.dispatchEvent(event);
+	}
+
 	/**
 	* @function initDropList
 	* @private
@@ -128,6 +151,7 @@ DatesPageAll = function(userID){
 		dropList = DropList(ulDomElementId, listElementsData, elementTemplateString, elementTagId);
 		dropList.init();
 		addDropListListeners();
+		controlls.initListControlls();
 	}
 
 	/**
@@ -169,7 +193,7 @@ DatesPageAll = function(userID){
 			regularDatesButton: regularDatesButton,
 			singleDatesButton: singleDatesButton,
 		}
-		controlls = DatesPageAll.DatesPageControll(domElements);
+		controlls = DatesPageAll.DatesPageControll(domElements,  DELETE_BUTTON_CLASS, CHANGE_BUTTON_CLASS);
 		controlls.init();
 		addControllListeners();
 	}
@@ -184,6 +208,8 @@ DatesPageAll = function(userID){
 	function addControllListeners(){
 		controlls.addEventListener("onRegularClicked", handleRegularClick);
 		controlls.addEventListener("onSingleClicked", handleSingleClick);
+		controlls.addEventListener("onChangeClick", handleChangeClick);
+		controlls.addEventListener("onDeleteClick", handleDeleteClick);
 	}
 
 	/**
@@ -194,25 +220,9 @@ DatesPageAll = function(userID){
 	* @description sends an event of the type "showRegularDates"
 	*/
 	function handleRegularClick(){
-		sendEvent("showRegularDates");
 		updateList();
-	}
-
-
-	/**
-	* @function sendEvent
-	* @public
-	* @memberof! DatesPageAll
-	* @instance
-	* @param {string} type,type of event
-	* @description sends event of type "type" and data
-	*/
-	function sendEvent(type){
-			let event = new Event(type);
-			event.details = {};
-			event.details.attributes = {};
-			event.details.attributes.horseID = horseID;
-			that.dispatchEvent(event);
+		closePage();
+		sendEvent("showRegularDates");		
 	}
 
 	/**
@@ -227,11 +237,13 @@ DatesPageAll = function(userID){
 	}
 
 	function updateList(){
-		let elements = dropList.getElements(),
+		if(dropList){
+			let elements = dropList.getElements(),
 			allDates;
-		model.updateDates(elements);
-		allDates = model.getDatesData();
-		dbInterface.updateAllDates(allDates);
+			model.updateDates(elements);
+			allDates = model.getDatesData();
+			dbInterface.updateAllDates(allDates);
+		}		
 	}
 
 	/**
@@ -271,6 +283,7 @@ DatesPageAll = function(userID){
 	}
 
 	function handleStartOption(){
+		closePage();
 		updateList();
 		sendEvent("showStartPage","");
 	}
@@ -283,7 +296,7 @@ DatesPageAll = function(userID){
 	* @description sends event "showProfilePage" 
 	*/
 	function handleProfileOption(){
-		updateList();
+		closePage();
 		sendEvent("showProfilePage","");
 	}
 
@@ -296,10 +309,10 @@ DatesPageAll = function(userID){
 	* @param {string}, id of the horse
 	* @description sends event of type type and the id
 	*/
-	function sendEvent(type, id){
+	function sendEvent(type){
 		let event = new Event(type);
 		event.details = {};
-		event.details.horseID = id;
+		event.details.horseID = horseID;
 		that.dispatchEvent(event);	
 	}
 
@@ -311,7 +324,7 @@ DatesPageAll = function(userID){
 	* @description sends event "showHelpPage" 
 	*/
 	function handleHelpOption(){
-		updateList();
+		closePage();
 		sendEvent("showHelpPage","");	
 	}
 
@@ -323,9 +336,46 @@ DatesPageAll = function(userID){
 	* @description sends event "logoutUser" 
 	*/
 	function handleLogoutOption(){
-		updateList();
+		closePage();		
 		sendEvent("logoutUser","");
 	}
+
+	function closePage(){
+		updateList();
+		dbInterface.stoppListening();
+	}
+
+	/**
+	* @function handleDeleteClick
+	* @private
+	* @memberof! RegularDatesPage
+	* @instance
+	* @description shows the popup to as the user if he wants to delte
+	* the date and saves the id of the date in the model
+	*/
+	function handleDeleteClick(event){
+		let id = event.details.id;		
+		if(id){
+			dbInterface.deleteDate(id);
+			dropList.removeElementById(id);	
+		}	
+	}
+
+	/**
+	* @function handleChangeClick
+	* @private
+	* @memberof! RegularDatesPage
+	* @instance
+	* @description Sends an event that he user wants to change the date
+	* an send the attributes of the date with the event
+	*/ 
+	function handleChangeClick(event){
+		let id = event.details.id;
+		model.setDateToSend(id);
+		dbInterface.requestReminderFromDB(id);
+	}
+
+	
 
 	that.init = init;
 	return that;

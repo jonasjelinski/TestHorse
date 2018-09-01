@@ -38,7 +38,7 @@ DatesChangerPageRegular = function(userID){
 	*/
 	function init(attributes){
 		horseID = attributes.horseID;
-		initModuls(horseID);		
+		initModuls(horseID, attributes);		
 		addAttributesAndInitPage(attributes);
 		addListeners();		
 	}
@@ -50,11 +50,20 @@ DatesChangerPageRegular = function(userID){
 	* @instance
 	* @description creats the instances of the modles of this modul.
 	*/
-	function initModuls(horseID){
-		console.log("initModuls");
-		standardPage = new RegulardatesCreatorPage.Standard (userID);
-		dbInterface = new DatesChangerPage.DBRequester(userID, horseID);
+	function initModuls(horseID, attributes){
+		let dateId = attributes.date.id;
+		standardPage = new RegulardatesCreatorPage.Standard(userID);
+		if(isNewDateSuggestion(attributes)){
+			dbInterface = new  RegulardatesCreatorPage.DBRequester(userID, horseID);
+		}
+		else{
+			dbInterface = new DatesChangerPage.DBRequester(userID, horseID);
+		}
 		model = new DatesChangerPage.Model();
+	}
+
+	function isNewDateSuggestion(attributes){
+		return attributes.isDateSuggestion;
 	}
 
 	/**
@@ -86,10 +95,10 @@ DatesChangerPageRegular = function(userID){
 	* so the creator has those attributes and can show them to the user
 	*/
 	function addAttributes(attributes){
-		let newDate = attributes,	//atrributes besitzt noch keinen reminder und duration value unit
+		let newDate = attributes.date,
 				reminder = attributes.reminder,
-				newDurationValue = attributes.durationValue,
-				newDurationUnit = attributes.unit;
+				newDurationValue = newDate.valueRegular,
+				newDurationUnit = newDate.unitRegular;				
 			standardPage.updateCreator(newDate, reminder, newDurationValue, newDurationUnit);
 	}
 
@@ -120,7 +129,6 @@ DatesChangerPageRegular = function(userID){
 		let updatedData = prepareDataForDBRequest(event);	
 		saveDateIntoDB(updatedData);
 		sendEvent("onDataSaved");
-		console.log("onDataSaved");
 	}
 
 	/**
@@ -136,7 +144,7 @@ DatesChangerPageRegular = function(userID){
 			changedDate = data.date,
 			updatedDate;
 		model.updateDate(changedDate);
-		updatedDate = model.getDate();
+		updatedDate = model.getDate();		
 		data.date = updatedDate;
 		return data;
 	}
@@ -163,6 +171,8 @@ DatesChangerPageRegular = function(userID){
 	*/
 	function sendEvent(type) {
 		let event = new Event(type);
+		event.details = {};
+		event.details.horseID = horseID;
 		that.dispatchEvent(event);
 	}
 
@@ -176,7 +186,6 @@ DatesChangerPageRegular = function(userID){
 	*/
 	function handleCancel() {
 		sendEvent("onCancel");
-		console.log("onCancel");
 	}
 	
 	that.init = init;

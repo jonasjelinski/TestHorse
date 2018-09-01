@@ -42,6 +42,7 @@ DatabaseClientInterface = function(){
 		UPDATE_SINGLE_REMINDER : "updateReminderNotification",
 		UPDATE_REGULAR_REMINDER: "updateReminderRegular",
 		UPLOAD_HORSE_PICTURE: "updateHorsePicture",
+		REQUEST_PW: "updateForgotPassword",
 	}
 
 	let that = new EventTarget(),
@@ -324,7 +325,7 @@ DatabaseClientInterface = function(){
 	* @description sets the newDate into the database
 	*/ 
 	function setDateIntoDB(newDate){
-			necessaryAttributes = ["title", "date", "time", "location", "dateFuture","timeFuture", "valueRegular", "unitRegular"];
+			necessaryAttributes = ["title", "date", "time", "location", "dateFuture","timeFuture", "valueRegular", "unitRegular","orderPosition"];
 		if(allNecessaryDataHaveBeenParsed(necessaryAttributes, newDate)){
 			requestModul.setDataIntoDB(ACTIONS.SET_DATE, newDate);
 			return true;
@@ -493,7 +494,7 @@ DatabaseClientInterface = function(){
 			return true;
 		}
 		else{
-			console.log("updateUserIntoDB failed");
+			console.log("updateSingleReminderIntoDB failed");
 			return false;				
 		}	
 	}
@@ -514,7 +515,7 @@ DatabaseClientInterface = function(){
 			return true;
 		}
 		else{
-			console.log("updateUserIntoDB failed");
+			console.log("updateRegularReminderIntoDB failed");
 			return false;				
 		}	
 	}
@@ -530,6 +531,19 @@ DatabaseClientInterface = function(){
 			console.log("uploadHorsePicture failed", file);
 			return false;				
 		}
+	}
+
+	function requestPassword(email){
+		let data = {};
+		if(email){
+			data.email = email;
+			requestModul.updateDataInDB(ACTIONS.REQUEST_PW, data);
+			return true;
+		}
+		else{
+			console.log("requestPassword failed", email);
+			return false;				
+		}		
 	}
 
 	that.init = init;
@@ -557,5 +571,6 @@ DatabaseClientInterface = function(){
 	that.updateSingleReminder = updateSingleReminder;
 	that.updateRegularReminder = updateRegularReminder;
 	that.uploadHorsePicture = uploadHorsePicture;
+	that.requestPassword = requestPassword;
 	return that;
 }

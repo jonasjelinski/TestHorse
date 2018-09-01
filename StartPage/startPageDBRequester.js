@@ -59,12 +59,13 @@ StartPage.DBRequester = function(userID){
 	* @description sends the result of the db request to other moduls
 	*/
 	function handleResult(event){		
-		let results = event.details.result;
-		if(!isUpdating){
+		let results = event.details.result,
+			action = event.details.resultAction;
+		if(action === "getAllHorsesOfUser"){
 			sendEvent("onResult", results);
 		}
 		else{
-			console.log("handleResult",results);
+			console.log("handleResult",action);
 		}		
 		
 	}
