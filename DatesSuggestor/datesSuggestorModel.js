@@ -25,7 +25,7 @@ DatesSuggestor.Model = function(){
 		if(horse.type === RACE){
 			let tetanus = dates.INJECTIONS.TETANUS.ONE_YEAR,
 				influenca = dates.INJECTIONS.INFLUENCA.HALF_YEAR,
-				herpes = dates.INJECTIONS.INFLUENCA.HERPES;
+				herpes = dates.INJECTIONS.HERPES.ONE_YEAR;
 			suggestions = [tetanus, influenca, herpes];
 		}
 		else if(horse.type !== RACE){
