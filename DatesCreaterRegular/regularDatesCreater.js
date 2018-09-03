@@ -103,7 +103,7 @@ RegulardatesCreater = function(dateClass, reminderClass, containerElementId, tit
 		date.unitRegular = nameNumberUnitValue.unitRegular,
 		date.valueRegular = nameNumberUnitValue.valueRegular,
 		reminder.name = nameNumberUnitValue.name,
-		reminder.number = nameNumberUnitValue.name;
+		reminder.number = nameNumberUnitValue.number;
 		cleanDateAndReminder.date = date;
 		cleanDateAndReminder.reminder = reminder;
 		return cleanDateAndReminder;		
