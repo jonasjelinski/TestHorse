@@ -4,6 +4,7 @@ var DatabaseClientInterface = DatabaseClientInterface || {};
  * @instance DatabaseClientInterface.RequestModul
  * @memberof! DatabaseClientInterface 
  * @description <code>RequestModul</code> contains the correct urls for the ajax requests
+ * uses those and the <code>DatabaseClientInterface.AJAXModul</code> to make requests
  */
 
 DatabaseClientInterface.RequestModul = function () {
@@ -48,7 +49,7 @@ DatabaseClientInterface.RequestModul = function () {
 	/**
 	* @function askDataBase
 	* @private
-	* @memberof! DatabaseClientInterface  
+	* @memberof! DatabaseClientInterface.RequestModul  
 	* @instance
 	* @param {string} url, url for the request
 	* @param {string} action, action so the php code know that to do with parameters in data
@@ -63,7 +64,7 @@ DatabaseClientInterface.RequestModul = function () {
 	/**
 	* @function showError
 	* @private
-	* @memberof! DatabaseClientInterface  
+	* @memberof! DatabaseClientInterface.RequestModul  
 	* @instance
 	* @description function which is called if the ajax request fails
 	*/ 
@@ -74,7 +75,7 @@ DatabaseClientInterface.RequestModul = function () {
 	/**
 	* @function sendResults
 	* @private
-	* @memberof! DatabaseClientInterface  
+	* @memberof! DatabaseClientInterface.RequestModul  
 	* @instance
 	* @param {event} ev, contains the result of the request
 	* @description function which is called if the ajax request is sucessfull
@@ -93,7 +94,7 @@ DatabaseClientInterface.RequestModul = function () {
 	/**
 	* @function createRequestDataObject
 	* @private
-	* @memberof! DatabaseClientInterface  
+	* @memberof! DatabaseClientInterface.RequestModul  
 	* @instance
 	* @param {string} action, action so the php code know that to do with parameters in data
 	* @param {object} data, contains the values for the database requests
@@ -110,7 +111,7 @@ DatabaseClientInterface.RequestModul = function () {
 	/**
 	* @function convertAllValuesToTypeString
 	* @private
-	* @memberof! DatabaseClientInterface  
+	* @memberof! DatabaseClientInterface.RequestModul  
 	* @instance
 	* @param {object} requestData, contains the values for the database requests
 	* @description converts all values in the object to strings. Prevents errors,
@@ -129,7 +130,7 @@ DatabaseClientInterface.RequestModul = function () {
 	/**
 	* @function tryLogin
 	* @public
-	* @memberof! DatabaseClientInterface  
+	* @memberof! DatabaseClientInterface.RequestModul  
 	* @instance
 	* @param {string} action, action so the php code know that to do with parameters in data
 	* @param {object} data, contains the values for the database requests
@@ -142,7 +143,7 @@ DatabaseClientInterface.RequestModul = function () {
 	/**
 	* @function tryLogout
 	* @public
-	* @memberof! DatabaseClientInterface  
+	* @memberof! DatabaseClientInterface.RequestModul  
 	* @instance
 	* @param {string} action, action so the php code know that to do with parameters in data
 	* @param {object} data, contains the values for the database requests
@@ -155,7 +156,7 @@ DatabaseClientInterface.RequestModul = function () {
 	/**
 	* @function getDataFromDB
 	* @public
-	* @memberof! DatabaseClientInterface  
+	* @memberof! DatabaseClientInterface.RequestModul  
 	* @instance
 	* @param {string} action, action so the php code know that to do with parameters in data
 	* @param {object} data, contains the values for the database requests
@@ -168,7 +169,7 @@ DatabaseClientInterface.RequestModul = function () {
 	/**
 	* @function setDataIntoDB
 	* @public
-	* @memberof! DatabaseClientInterface  
+	* @memberof! DatabaseClientInterface.RequestModul  
 	* @instance
 	* @param {string} action, action so the php code know that to do with parameters in data
 	* @param {object} data, contains the values for the database requests
@@ -181,7 +182,7 @@ DatabaseClientInterface.RequestModul = function () {
 	/**
 	* @function updateDataInDB
 	* @public
-	* @memberof! DatabaseClientInterface  
+	* @memberof! DatabaseClientInterface.RequestModul  
 	* @instance
 	* @param {string} action, action so the php code know that to do with parameters in data
 	* @param {object} data, contains the values for the database requests
@@ -195,7 +196,7 @@ DatabaseClientInterface.RequestModul = function () {
 	/**
 	* @function delteDataFromDB
 	* @public
-	* @memberof! DatabaseClientInterface  
+	* @memberof! DatabaseClientInterface.RequestModul  
 	* @instance
 	* @param {string} action, action so the php code know that to do with parameters in data
 	* @param {object} data, contains the values for the database requests
@@ -205,6 +206,14 @@ DatabaseClientInterface.RequestModul = function () {
 		askDataBase(URLS.DELETE, action, data);
 	}
 
+	/**
+	* @function uploadHorsePicture
+	* @public
+	* @memberof! DatabaseClientInterface.RequestModul  
+	* @instance
+	* @param {object} file, contains the picture and the id of the horse
+	* @description public function to allow other moduls to upload a picture of a horse
+	*/
 	function uploadHorsePicture(file){
 		requestModul.doAjaxUpload(URLS.UPLOAD, Types.POST, file);
 	}
