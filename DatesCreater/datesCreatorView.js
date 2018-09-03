@@ -48,7 +48,7 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 	* @public
 	* @memberof! DatesCreator.View  
 	* @instance
-	* @description Initialize this modul. 
+	* @description Initializes this modul. 
 	*/ 
 	function init(){
 		initPopup();
@@ -92,7 +92,7 @@ DatesCreator.View = function(dateClass, reminderClass, containerElementId, title
 	* @public
 	* @memberof! DatesCreator.View  
 	* @instance
-	* @description adds event listeners to the domElements
+	* @description adds eventlisteners to the domElements
 	*/
 	function addEventListeners(){
 		wantsReminderCheckBox.addEventListener("click", handleCheckboxInput)
