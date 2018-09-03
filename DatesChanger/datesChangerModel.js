@@ -4,8 +4,7 @@ var DatesChangerPage = DatesChangerPage || {};
  * @instance DatesChangerPageSingle
  * @description Modul <code>DatesChangerPageSingle.Model</code> is the model of DatesChangerPageSingle
  * @param {string} userID. Id of the user
- * @description receives new attributes at inititalisation. Those attributes are shown to
- * the user in a view so he can change them.
+ * @description contains the data of the DatesChangerPage.
  */
 
 DatesChangerPage.Model = function(){
@@ -30,7 +29,7 @@ DatesChangerPage.Model = function(){
 	* @memberof! DatesChangerPage.Model
 	* @instance
 	* @param {object} newDate
-	* @description Initialize this modul.
+	* @description updates date
 	*/
 	function updateDate(newDate){
 		let keys = Object.keys(newDate);
@@ -50,8 +49,26 @@ DatesChangerPage.Model = function(){
 		return oldDate;
 	}
 
+	/**
+	* @function prepareDataForDBRequest
+	* @public
+	* @memberof! DatesChangerPage.Model
+	* @instance
+	* @param {object} data, contains the data (date and reminder)
+	* @param {object} date, contains the date with new values
+	* @description prepares data so it can be safed into the database
+	*/
+	function prepareDataForDBRequest(data, date){
+		let updatedDate;
+		updateDate(date);
+		updatedDate = oldDate;		
+		data.date = updatedDate;
+		return data;
+	}
+
 	that.init = init;
 	that.updateDate = updateDate;
 	that.getDate = getDate;
+	that.prepareDataForDBRequest = prepareDataForDBRequest;
 	return that;
 }

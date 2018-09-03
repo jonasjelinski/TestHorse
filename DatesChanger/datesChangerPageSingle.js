@@ -70,7 +70,7 @@ DatesChangerPageSingle = function(userID){
 		if(standardPage){
 			standardPage.init();	
 			model.init(attributes);
-			addAttributesAndUpdateCreator(attributes);					
+			updateCreator(attributes);					
 		}
 	}
 
@@ -83,7 +83,7 @@ DatesChangerPageSingle = function(userID){
 	* @description updates the creator with attributes
 	* so the creator has those attributes and can show them to the user
 	*/
-	function addAttributesAndUpdateCreator(attributes){
+	function updateCreator(attributes){
 		let newDate = attributes.date,
 			reminder = attributes.reminder;
 		standardPage.updateCreator(newDate, reminder);

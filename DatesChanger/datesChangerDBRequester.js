@@ -2,10 +2,12 @@ var DatesChangerPage = DatesChangerPage || {};
 
 /**
  * @instance DatesChangerPage.DBRequester
- * @description Modul <code>DatesChangerPage.DBRequester</code> is used to change a regulat date
+ * @description Modul <code>DatesChangerPage.DBRequester</code> is used to change a date
  * @param {string} userID. Id of the user
  * @param {string} horseID. Id of the horse
  * @description this is a simpel datebase requester to update the dates of the horse with the id horseID
+ * it transforms the given data from the page so it can be written into the database
+ * it updates the reminder, too if there is a reminder 
  */
 
 DatesChangerPage.DBRequester = function(userID, horseID){
@@ -143,7 +145,7 @@ DatesChangerPage.DBRequester = function(userID, horseID){
 	}
 
 	/**
-	* @function isSingleReminder
+	* @function updateReminder
 	* @public
 	* @memberof! DatesChangerPage.DBRequester
 	* @instance
@@ -163,6 +165,14 @@ DatesChangerPage.DBRequester = function(userID, horseID){
 		}
 	}
 
+	/**
+	* @function isSingleReminder
+	* @public
+	* @memberof! DatesChangerPage.DBRequester
+	* @instance
+	* @param {object} updatedData
+	* @description return true if the reminder is a reminder for a singleDate
+	*/
 	function isSingleReminder(updatedData){
 		let reminder = updatedData.reminder;
 		return reminder.number === undefined;
@@ -228,7 +238,7 @@ DatesChangerPage.DBRequester = function(userID, horseID){
 	* @memberof! DatesChangerPage.DBRequester
 	* @instance
 	* @param {object} reminderData
-	* @description updates the reminder with the reminderData
+	* @description updates the reminder with the reminderData in the database
 	*/
 	function saveSingleReminderIntoDB(reminderData){
 		requester.updateSingleReminder(reminderData);
