@@ -53,7 +53,7 @@ DatabaseClientInterface = function(){
 	* @public
 	* @memberof! DatabaseClientInterface  
 	* @instance
-	* @description inits this modul. The Request modul makes the AJAX requests.
+	* @description inits this modul. The RequestModul makes the AJAX requests.
 	*/ 	
 	function init(){
 		requestModul = new DatabaseClientInterface.RequestModul();
@@ -522,6 +522,15 @@ DatabaseClientInterface = function(){
 
 	//Upload
 
+	/**
+	* @function uploadHorsePicture
+	* @public
+	* @memberof! DatabaseClientInterface  
+	* @instance
+	* @param {object} file, 
+	* @description updload a FormData contanining a picture and the id of the horse
+	* represented in the picture
+	*/
 	function uploadHorsePicture(file){
 		if(file instanceof FormData && file.get("horseID")!== undefined){
 			requestModul.uploadHorsePicture(file);
@@ -533,6 +542,15 @@ DatabaseClientInterface = function(){
 		}
 	}
 
+	/**
+	* @function requestPassword
+	* @public
+	* @memberof! DatabaseClientInterface  
+	* @instance
+	* @param {string} email, email of the user
+	* @description send a request to the database that the user
+	* needs a new password send to his emailaccount
+	*/
 	function requestPassword(email){
 		let data = {};
 		if(email){

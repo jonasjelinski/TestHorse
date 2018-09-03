@@ -2,6 +2,7 @@
  * @instance DatabaseClientInterface
  * @memberof! DatabaseClientInterface 
  * @description <code>AJAXModul</code> contains the function <code>doAjaxRequest</code> to make an ajax request
+ * and contains the function <code>doAjaxUpload</code> to upload a picture.
  */
 
 var DatabaseClientInterface = DatabaseClientInterface || {};
@@ -16,7 +17,7 @@ DatabaseClientInterface.AJAXModul = function () {
 	/**
 	* @function doAjaxRequest
 	* @public
-	* @memberof! DatabaseClientInterface  
+	* @memberof! AJAXModul  
 	* @instance
 	* @param {array} url, url of the request
 	* @param {object} type, type of the request e.g. POST
@@ -38,14 +39,17 @@ DatabaseClientInterface.AJAXModul = function () {
 	}
 
 	/**
-	* @function doAjaxRequest
+	* @function doAjaxUpload
 	* @public
-	* @memberof! DatabaseClientInterface  
+	* @memberof! AJAXModul  
 	* @instance
 	* @param {array} url, url of the request
 	* @param {object} type, type of the request e.g. POST
 	* @param {object} data, data to send to the database
-	* @description makes the ajax request
+	* @description uploads the data to the database
+	* has the setting contentType, cache and processData false
+	* to allow the upload.
+	* source: http://api.jquery.com/jquery.ajax/, 03.09.2018
 	*/ 	
 	function doAjaxUpload(url, type , data){
 		console.log("url, type, data", url, type, data);
@@ -66,10 +70,10 @@ DatabaseClientInterface.AJAXModul = function () {
 	/**
 	* @function sendDBAnswer
 	* @public
-	* @memberof! DatabaseClientInterface  
+	* @memberof! AJAXModul  
 	* @instance
 	* @param {object} requestResult, data from the databse request
-	* @description sends the data of the result with an event so toher moduls can use them
+	* @description sends the data of the result with an event so other moduls can use them
 	*/ 	
 	function sendDBAnswer(requestResult){
 		let event = new Event("onResult");
