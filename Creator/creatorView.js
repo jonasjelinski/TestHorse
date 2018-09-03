@@ -25,7 +25,7 @@ class CreatorView extends EventTarget{
 	/**
 	* @function init
 	* @public
-	* @memberof! ChangerPage
+	* @memberof! CreatorView
 	* @instance
 	* @description Initialize this.creator gets the domElements and its listener
 	*/ 	
@@ -37,7 +37,7 @@ class CreatorView extends EventTarget{
 	/**
 	* @function getDomElements
 	* @public
-	* @memberof! ChangerPage
+	* @memberof! CreatorView
 	* @instance
 	* @description gets the dom-Elements from the dom with the ids of the domElements
 	*/ 	
@@ -50,7 +50,7 @@ class CreatorView extends EventTarget{
 	/**
 	* @function addListeners
 	* @public
-	* @memberof! ChangerPage
+	* @memberof! CreatorView
 	* @instance
 	* @description adds an inputListener to input, so this class recognizes if the user
 	* uses the input
@@ -62,7 +62,7 @@ class CreatorView extends EventTarget{
 	/**
 	* @function changeValueBoxAfterInput
 	* @public
-	* @memberof! ChangerPage
+	* @memberof! CreatorView
 	* @instance
 	* @description sets the attribute of valueBox with the value of the input
 	* so entityCreator view can read it
@@ -73,6 +73,14 @@ class CreatorView extends EventTarget{
 		this.sendEvent("onInput");
 	}
 
+	/**
+	* @function sendEvent
+	* @public
+	* @memberof! CreatorView
+	* @instance
+	* @param{string} type, type of the event
+	* @description send the event of type "type"
+	*/ 	
 	sendEvent(type){
 		let event = new Event(type);
 		this.dispatchEvent(event);
@@ -81,7 +89,7 @@ class CreatorView extends EventTarget{
 	/**
 	* @function setInputValue
 	* @public
-	* @memberof! ChangerPage
+	* @memberof! CreatorView
 	* @instance
 	* @param {string} inputvalue, value of the input
 	* @description sets the value of the input this is useful to fill the input
@@ -94,7 +102,7 @@ class CreatorView extends EventTarget{
 	/**
 	* @function setValueBox
 	* @public
-	* @memberof! ChangerPage
+	* @memberof! CreatorView
 	* @instance
 	* @param {string} inputvalue, value of the valueBox
 	* @description sets the value of the input this is useful to fill the input
@@ -107,7 +115,7 @@ class CreatorView extends EventTarget{
 	/**
 	* @function getCurrentAttribute
 	* @public
-	* @memberof! ChangerPage
+	* @memberof! CreatorView
 	* @instance
 	* @description returns the "property" of the valueBox
 	*/

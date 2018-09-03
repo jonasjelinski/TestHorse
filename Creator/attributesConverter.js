@@ -16,7 +16,7 @@ class AttributesConverter{
 	/**
 	* @function addIsNecessaryToAttributes
 	* @public
-	* @memberof! ChangerPage
+	* @memberof! AttributesConverter
 	* @instance
 	* @param{object} attributes, attributes which have to be changed
 	* @description changes the attributes so the entityCreator can use them
@@ -34,7 +34,7 @@ class AttributesConverter{
 	/**
 	* @function createNewAttribute
 	* @public
-	* @memberof! ChangerPage
+	* @memberof! AttributesConverter
 	* @instance
 	* @param{object} attributes, attributes which have to be changed
 	* @param{string} name, attributes which have to be changed
@@ -55,7 +55,7 @@ class AttributesConverter{
 	/**
 	* @function removeIsNecessaryFromAttributes
 	* @public
-	* @memberof! ChangerPage
+	* @memberof! AttributesConverter
 	* @instance
 	* @param{object} attributes, attributes which have to be changed
 	* @description changes the attributes so the other moduls as entityCreator can use them
