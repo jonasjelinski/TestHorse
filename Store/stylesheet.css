@@ -1,6 +1,7 @@
 @import url("styleLogin.css");
 @import url("styleStartPage.css");
 @import url("styleDates.css");
+@import url("styleBurger.css");
 
 :root{
   --background: #17D27D;

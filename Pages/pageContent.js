@@ -106,17 +106,14 @@ HORSEBOXELEMENT_TEMPLATE= '<script type="text/template" id="horseBoxElementTempl
 '</script> ',
 	START_PAGE =  ' <content>'+
 						'<div id= "mainpage">' +
-            '<input id="burger" type="checkbox" />' +
-       			'<label for="burger">' +
-            '<span></span>' +
-            '<span></span>' +
-            '<span></span>' +
+            '<input class="burger" id="burger" type="checkbox" />' +
+       			'<label for="burger" class="burgerLabel">' +
         		'</label>' +
-        		'<nav>'    +
-          		'<ul id = "burgerListStartPage" >' +
-            		'<li><a  id="burgerOptionProfile" href="#">Profil</a></li>' +
-            		'<li ><a id="burgerOptionHelp" href="#">Hilfe</a></li>' +
-            		'<li ><a id= "burgerOptionLogout" href="#">Logout</a></li>' +
+        		'<nav class="navigation" id="burgerNavStartPage"> '   +
+          		'<ul class="burgerList" id="burgerListStartPage" >' +
+            		'<li class="burgerListItem"> <a class="burgerListContent" id="burgerOptionProfile" href="#">Profil</a> </li> ' +
+            		'<li class="burgerListItem"> <a class="burgerListContent" id="burgerOptionHelp" href="#">Hilfe</a> </li> ' +
+            		'<li class="burgerListItem"> <a class="burgerListContent" id= "burgerOptionLogout" href="#">Logout</a> </li> ' +
           		'</ul>'  +
         		'</nav>'  +
 						'<ul id="horseList" class="frames" >'+
@@ -128,17 +125,14 @@ HORSEBOXELEMENT_TEMPLATE= '<script type="text/template" id="horseBoxElementTempl
   USER_PAGE = ' <content>'+
   '<div id= "mainpage">' +
 
-	'<input id="burger" type="checkbox" />' +
-	'<label for="burger">' +
-	'<span></span>' +
-	'<span></span>' +
-	'<span></span>' +
-	'</label>' +
-	'<nav>'    +
-		'<ul id = "burgerListUserPage" >' +
-			'<li><a  id="burgerOptionUserStart" href="#">Startseite</a></li>' +
-			'<li ><a id="burgerOptionUserHelp" href="#">Hilfe</a></li>' +
-			'<li ><a id= "burgerOptionUserLogout" href="#">Logout</a></li>' +
+	'<input class="burger" id="burger" type="checkbox" /> ' +
+	'<label for="burger" class="burgerLabel"> ' +
+	'</label> ' +
+	'<nav class="navigation" id="burgerNavUserPage">'    +
+		'<ul class="burgerList" id="burgerListUserPage" >' +
+			'<li class="burgerListItem><a class="burgerListContent" id="burgerOptionUserStart" href="#">Startseite</a></li>' +
+			'<li class="burgerListItem><a class="burgerListContent" id="burgerOptionUserHelp" href="#">Hilfe</a></li>' +
+			'<li class="burgerListItem><a class="burgerListContent" id= "burgerOptionUserLogout" href="#">Logout</a></li>' +
 		'</ul>'  +
 	'</nav>'  +
 
@@ -167,18 +161,15 @@ LIST_ELEMENT_TEMPLATE = '<script type="text/template" id="ulElementTemplate"> '+
 
   DATES_PAGE =' <content>'+
  '<div id = "allDates" >' +
- '<input id="burger" type="checkbox" />' +
- '<label for="burger">' +
- '<span></span>' +
- '<span></span>' +
- '<span></span>' +
- '</label>' +
- '<nav>'    +
-	 '<ul id = "burgerListAllDates" >' +
-		 '<li><a  id="burgerOptionAllDatesProfile" href="#">Profil</a></li>' +
-		 '<li ><a id="burgerOptionAllDatesHelp" href="#">Hilfe</a></li>' +
-		  '<li ><a id="burgerOptionAllDatesStart" href="#">Startseite</a></li>' +
-		 '<li ><a id= "burgerOptionAllDatesLogout" href="#">Logout</a></li>' +
+ '<input class="burger" id="burger" type="checkbox" /> ' +
+ '<label for="burger" class="burgerLabel"> ' +
+ '</label> ' +
+ '<nav class="navigation" id="burgerNavDatePage">'    +
+	 '<ul class="burgerList" id = "burgerListAllDates" >' +
+		 '<li class="burgerListItem><a class="burgerListContent" id="burgerOptionAllDatesProfile" href="#">Profil</a></li>' +
+		 '<li class="burgerListItem><a class="burgerListContent" id="burgerOptionAllDatesHelp" href="#">Hilfe</a></li>' +
+		 '<li class="burgerListItem><a class="burgerListContent" id="burgerOptionAllDatesStart" href="#">Startseite</a></li>' +
+		 '<li class="burgerListItem><a class="burgerListContent" id= "burgerOptionAllDatesLogout" href="#">Logout</a></li>' +
 	 '</ul>'  +
  '</nav>'  +
   	'<ul id="allDatesList">'+
@@ -205,18 +196,15 @@ DATE_LIST_TEMPLATE  = '<script type="text/template" id="dateListTemplate">'+
 '</li> </script>' ,
 
   REGULAR_DATES_PAGE = 	  	'<content>'+
-	'<input id="burger" type="checkbox" />' +
-  '<label for="burger">' +
-  '<span></span>' +
-  '<span></span>' +
-  '<span></span>' +
+	'<input class="burger" id="burger" type="checkbox" /> ' +
+  '<label for="burger" class="burgerLabel"> ' +
   '</label>' +
-  '<nav>'    +
- 	 '<ul id = "burgerListRegularDates" >' +
- 		 '<li><a  id="burgerOptionRegularDatesProfile" href="#">Profil</a></li>' +
- 		 '<li ><a id="burgerOptionRegularDatesHelp" href="#">Hilfe</a></li>' +
- 		  '<li ><a id="burgerOptionRegularDatesStart" href="#">Startseite</a></li>' +
- 		 '<li ><a id= "burgerOptionRegularDatesLogout" href="#">Logout</a></li>' +
+  '<nav class="navigation" id="burgerNavRegularDatePage">'    +
+ 	 '<ul class="burgerList" id="burgerListRegularDates" >' +
+ 		 '<li class="burgerListItem><a class="burgerListContent" id="burgerOptionRegularDatesProfile" href="#">Profil</a></li>' +
+ 		 '<li class="burgerListItem><a class="burgerListContent" id="burgerOptionRegularDatesHelp" href="#">Hilfe</a></li>' +
+ 		 '<li class="burgerListItem><a class="burgerListContent" id="burgerOptionRegularDatesStart" href="#">Startseite</a></li>' +
+ 		 '<li class="burgerListItem><a class="burgerListContent" id= "burgerOptionRegularDatesLogout" href="#">Logout</a></li>' +
  	 '</ul>'  +
   '</nav>'  +
 
@@ -238,18 +226,15 @@ DATE_LIST_TEMPLATE
 
    HORSE_PROFIL = ' <content>'+
   '<div id= "horseProfile">' +
-	'<input id="burger" type="checkbox" />' +
-	'<label for="burger">' +
-	'<span></span>' +
-	'<span></span>' +
-	'<span></span>' +
+	'<input class="burger" id="burger" type="checkbox" /> ' +
+	'<label for="burger" class="burgerLabel"> ' +
 	'</label>' +
-	'<nav>'    +
-		'<ul id = "burgerMenuHorseProfile" >' +
-			'<li><a  id="optionHProfileStart" href="#">Start</a></li>' +
-			'<li ><a id="optionHProfileHelp" href="#">Hilfe</a></li>' +
-			'<li ><a id= "optionHProfileUserProfile" href="#">Nutzerprofil</a></li>' +
-			'<li ><a id= "optionHProfileLogout" href="#">Logout</a></li>' +
+	'<nav class="navigation" id="burgerNavHorseProfile">'    +
+		'<ul class="burgerList" id = "burgerMenuHorseProfile" >' +
+			'<li class="burgerListItem><a class="burgerListContent" id="optionHProfileStart" href="#">Start</a></li>' +
+			'<li class="burgerListItem><a class="burgerListContent" id="optionHProfileHelp" href="#">Hilfe</a></li>' +
+			'<li class="burgerListItem><a class="burgerListContent" id= "optionHProfileUserProfile" href="#">Nutzerprofil</a></li>' +
+			'<li class="burgerListItem><a class="burgerListContent" id= "optionHProfileLogout" href="#">Logout</a></li>' +
 		'</ul>'  +
 	'</nav>'  +
 	'<div id="horseProfileImgContainer">'+

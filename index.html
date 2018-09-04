@@ -15,10 +15,15 @@
     <p id="feedBackBox"> </p>
 
     </div>
+
+
     <script src="ScriptLoader/scriptLoader.js"></script>
     <script src="ScriptLoader/scripts.js"></script>
     <script src="./testPhotoUploader.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+
+
+
     <script >
 
     function showPage(){
@@ -26,11 +31,15 @@
           pages.init();
           pages.initAfterLogin();
           pages.showStartPage();
+
       }
       let scriptLoader = new ScriptLoader();
       scriptLoader.addEventListener("onLoaded", showPage);
       scriptLoader.loadScripts();
    </script>
+
+
+
     <script>
 
 

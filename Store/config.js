@@ -1,5 +1,4 @@
 
-
 const = ALL_RECOMMENDATIONS = {
   ["dateRecommendationSmith"]: "Schmied",
   	["dateRecommendationVet"]: "Tierarzt",
