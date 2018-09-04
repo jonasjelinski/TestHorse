@@ -71,8 +71,10 @@ class ListView extends EventTarget{
 	* @description Removes an li-element of this.unsortedList by its id
 	*/ 	
 	removeElementById(id){
-		let li = getLiElementyById(li);
-		li.remove(li);
+		let li = this.getLiElementyById(id);
+		if(li){
+			this.unsortedList.removeChild(li);
+		}		
 	}
 
 	/**

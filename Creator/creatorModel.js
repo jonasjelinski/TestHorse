@@ -15,7 +15,7 @@ var CreatorModel = function(newAttributes){
 	/**
 	* @function init
 	* @public
-	* @memberof! Creator
+	* @memberof! CreatorModel
 	* @instance
 	* @description Initialize this modul.
 	*/
@@ -28,7 +28,7 @@ var CreatorModel = function(newAttributes){
 	/**
 	* @function getAttributes
 	* @public
-	* @memberof! Creator
+	* @memberof! CreatorModel
 	* @instance
 	* @description returns attributes
 	*/
@@ -39,7 +39,7 @@ var CreatorModel = function(newAttributes){
 	/**
 	* @function setAttributes
 	* @public
-	* @memberof! Creator
+	* @memberof! CreatorModel
 	* @instance
 	* @param{object} attr, new attributes
 	* @description sets attributes
@@ -51,7 +51,7 @@ var CreatorModel = function(newAttributes){
 	/**
 	* @function getValueOfAttribute
 	* @public
-	* @memberof! Creator
+	* @memberof! CreatorModel
 	* @instance
 	* @param{string} attributeName, name of the attribute
 	* @description returns the value ofht attribute with the name attributeName
@@ -68,11 +68,11 @@ var CreatorModel = function(newAttributes){
 	/**
 	* @function setAttributeValue
 	* @public
-	* @memberof! Creator
+	* @memberof! CreatorModel
 	* @instance
 	* @param{string} attributeName, name of the attribute
 	* @param{string} value, 
-	* @description returns the value ofht attribute with the name attributeName
+	* @description sets the value ofht attribute with the name attributeName
 	*/
 	function setAttributeValue(attributeName, value){
 		let attribute = getAttribute(attributeName);
@@ -81,6 +81,14 @@ var CreatorModel = function(newAttributes){
 		}
 	}
 
+	/**
+	* @function getAttribute
+	* @public
+	* @memberof! CreatorModel
+	* @instance
+	* @param{string} attributeName, name of the attribute
+	* @description returns the value of the attribute with the name attributeName
+	*/
 	function getAttribute(attributeName){
 		let attribute;
 		if(attributes){

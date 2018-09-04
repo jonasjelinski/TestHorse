@@ -24,6 +24,7 @@ RegularDatesPage = function(userID){
 
 	let that = new EventTarget(),
 		regularDatesList,
+		datesSuggestor,
 		dateSuggestionsList,
 		dbInterface,
 		model,
@@ -56,8 +57,9 @@ RegularDatesPage = function(userID){
 	*/
 	function init(newHorseID){
 		setHorseIDAndTemplateString(newHorseID);
+		initModel();
 		initDBInterface();
-		requestDatesFromDB();
+		requestDataFromDB();
 		initPopup();
 		initControlls();
 		initHamburgerMenu();
@@ -72,10 +74,10 @@ RegularDatesPage = function(userID){
 	* @description sets the horseId and the templateString
 	*/
 	function setHorseIDAndTemplateString(newHorseID){
-		horseID = newHorseID || 38;
+		horseID = newHorseID;
 		regularDateTemplateString = document.getElementById(DATE_TEMPLATE_ID).innerHTML;
 		dateSuggestionTemplateString = document.getElementById(SUGGESTION_TEMPLATE_ID).innerHTML;
-	}
+	}	
 
 	/**
 	* @function initDBInterface
@@ -88,18 +90,20 @@ RegularDatesPage = function(userID){
 	function initDBInterface(){
 		dbInterface = RegularDatesPage.DBRequester(userID,horseID);
 		dbInterface.init();
-		dbInterface.addEventListener("onResult", handleDBResult);
+		dbInterface.addEventListener("onDates", handleDatesResult);
+		dbInterface.addEventListener("onHorse", handleHorseResult);
+		dbInterface.addEventListener("onReminder", handleReminderResult);
 	}
 
 	/**
-	* @function requestDatesFromDB
+	* @function requestDataFromDB
 	* @private
 	* @memberof! RegularDatesPage
 	* @instance
-	* @description starts a database request to get the dates of the horse
+	* @description starts a database request to get the dates of the horse and horse
 	*/
-	function requestDatesFromDB(){
-		dbInterface.requestDatesFromDB();
+	function requestDataFromDB(){
+		dbInterface.requestHorseFromDB();		
 	}
 
 
@@ -111,9 +115,24 @@ RegularDatesPage = function(userID){
 	* @param {event} event
 	* @description inits the model with the results of the databse request
 	*/
-	function handleDBResult(event){
-		let allDatesAsStrings = event.details.allDates;	
-		initModel(allDatesAsStrings);		
+	function handleDatesResult(event){
+		let allDatesAsStrings = event.details.results;	
+		model.setNewDatesAsStrings(allDatesAsStrings);		
+		model.checkIfReadyForSendingData();
+	}
+
+	function handleHorseResult(event){
+		let horse = event.details.results;
+		model.setNewHorseAsStrings(horse);				
+	}
+
+	function handleHorseSetted(event){
+		dbInterface.requestDatesFromDB();
+	}
+
+	function handleReminderResult(event){
+		let reminder = event.details.results;
+		model.checkReminderAndSendChangeMessage(reminder);
 	}
 
 	/**
@@ -124,10 +143,12 @@ RegularDatesPage = function(userID){
 	* @param {string} allDatesAsStrings
 	* @description inits the model with the dates as a string
 	*/
-	function initModel(allDatesAsStrings){
+	function initModel(){
 		model = new RegularDatesPage.Model(horseID);
 		model.addEventListener("onDataConverted", handleOnDataConverted);
-		model.init(allDatesAsStrings);	
+		model.addEventListener("onHorseSetted", handleHorseSetted);
+		model.addEventListener("onReadyForChange", handleOnReadyForChange);
+		model.init();	
 	}
 
 	/**
@@ -148,6 +169,21 @@ RegularDatesPage = function(userID){
 		addRegularDatesListListeners();
 		controlls.initListControlls();
 			
+	}
+
+	function handleOnReadyForChange(event){
+		let dateAndReminder = event.details.dateAndReminder;
+		sendChangeEvent(dateAndReminder);
+	}
+
+	function sendChangeEvent(attributes){
+		let event = new Event("onChangeDate");
+		if(attributes){
+			event.details = {}
+			event.details.attributes = attributes;
+			event.details.attributes.horseID = horseID;
+		}
+		that.dispatchEvent(event);
 	}
 
 	/**
@@ -177,15 +213,54 @@ RegularDatesPage = function(userID){
 	function handleOnItemsReceived(event){
 		let listId = event.details.listID,
 			elementID = event.details.elementID;
+			isDroppingSuggestionOnDates(listId, elementID);			
 		regularDatesList.cleanWrongTagsIds(suggestionsTagId);
 		dateSuggestionsList.cleanWrongTagsIds(regularTagId);
 		updateBothListsInModel();
 	}
 
+	function isDroppingSuggestionOnDates(listId, elementID){		
+		if(listIsDateList(listId) && isDateSuggestion(elementID)){
+			updateDatesAndSuggestions();
+			sendDate(elementID);		
+		}
+	}
+
+	function listIsDateList(listId){
+		return listId === datesListId;
+	}
+
+	function isDateSuggestion(elementID){
+		return model.isDateSuggestion(elementID);
+	}
+
+	function sendDate(dateId){
+		let data = {},
+			date = model.getDateAttributesById(dateId) || {};
+			console.log("sendData", dateId, "date", date);
+			data.attributes = {};		 
+		data.attributes.date = date;
+		data.attributes.horseID = horseID;
+		if(isNewSuggestion(date)){
+			data.attributes.isDateSuggestion = true;
+		}	
+		else{
+			data.attributes.isDateSuggestion = false;					
+		}
+		sendEvent("onChangeDate", data);	
+	}
+
+	function isNewSuggestion(date){
+		return date.id < 0;
+	}
+	
+
 	function updateBothListsInModel(){
-		let newElementIdsDates = regularDatesList.getCurrentElementIds(),
+		if(regularDatesList && dateSuggestionsList){
+			let newElementIdsDates = regularDatesList.getCurrentElementIds(),
 			newElementIdsSuggestions = dateSuggestionsList.getCurrentElementIds();
-		model.updateDatesAndSuggestionsByIds(newElementIdsDates, newElementIdsSuggestions);
+			model.updateDatesAndSuggestionsByIds(newElementIdsDates, newElementIdsSuggestions);
+		}		
 	}
 
 
@@ -239,7 +314,6 @@ RegularDatesPage = function(userID){
 		controlls.addEventListener("onChangeClick", handleChangeClick);
 		controlls.addEventListener("onBackButtonClicked", handleBackClick);
 		controlls.addEventListener("onNewDate", handleNewDate);
-		controlls.addEventListener("onNewSuggestion", handleNewSuggestion);
 	}
 
 	/**
@@ -253,6 +327,7 @@ RegularDatesPage = function(userID){
 	function handleDeleteClick(event){
 		showPopup();
 		let id = event.details.id;
+		console.log("delte id", id);
 		model.setDelteId(id);
 	}
 
@@ -291,13 +366,11 @@ RegularDatesPage = function(userID){
 	* an send the attributes of the date with the event
 	*/ 
 	function handleChangeClick(event){
-		let id = event.details.id,
-			attributes = model.getDateAttributesById(id),
-			data = {
-				attributes: attributes,
-			}
-		sendEvent("onChangeDate", data);
+		let id = event.details.id;
+		model.setDateToSend(id);
+		dbInterface.requestReminderFromDB(id);
 	}
+
 
 	/**
 	* @function handleBackClick
@@ -307,20 +380,19 @@ RegularDatesPage = function(userID){
 	* @description Sends an event "showAllDates" that he user wants to see all dates
 	*/ 
 	function handleBackClick(){
-		let id = {
-			horseID: horseID,
+		let id = horseID,
+			data = {
+			horseID: id,
 		};
 		updateDatesAndSuggestions();
 		closePage();
-		sendEvent("showAllDates", id);
+		sendEvent("showAllDates", data);
 	}
 
 	function handleNewDate(){
-		sendEvent("showCreateRegularDate");
-	}
-
-	function handleNewSuggestion(){
-		sendEvent("showCreateDateSuggestion");
+		let data = {}; 
+			data.horseID = horseID;
+		sendEvent("showCreateRegularDate", data);
 	}
 
 	/**
@@ -345,7 +417,11 @@ RegularDatesPage = function(userID){
 	*/ 
 	function handleYes(){
 		let id = model.getDeleteId();
-		dbInterface.deleteDate(id);
+		if(id){
+			dbInterface.deleteDate(id);
+			regularDatesList.removeElementById(id);	
+			dateSuggestionsList.removeElementById(id);
+		}		
 	}
 
 	function updateDatesAndSuggestions(){

@@ -42,6 +42,7 @@ DatabaseClientInterface = function(){
 		UPDATE_SINGLE_REMINDER : "updateReminderNotification",
 		UPDATE_REGULAR_REMINDER: "updateReminderRegular",
 		UPLOAD_HORSE_PICTURE: "updateHorsePicture",
+		REQUEST_PW: "updateForgotPassword",
 	}
 
 	let that = new EventTarget(),
@@ -52,7 +53,7 @@ DatabaseClientInterface = function(){
 	* @public
 	* @memberof! DatabaseClientInterface  
 	* @instance
-	* @description inits this modul. The Request modul makes the AJAX requests.
+	* @description inits this modul. The RequestModul makes the AJAX requests.
 	*/ 	
 	function init(){
 		requestModul = new DatabaseClientInterface.RequestModul();
@@ -324,7 +325,7 @@ DatabaseClientInterface = function(){
 	* @description sets the newDate into the database
 	*/ 
 	function setDateIntoDB(newDate){
-			necessaryAttributes = ["title", "date", "time", "location", "dateFuture","timeFuture", "valueRegular", "unitRegular"];
+			necessaryAttributes = ["title", "date", "time", "location", "dateFuture","timeFuture", "valueRegular", "unitRegular","orderPosition"];
 		if(allNecessaryDataHaveBeenParsed(necessaryAttributes, newDate)){
 			requestModul.setDataIntoDB(ACTIONS.SET_DATE, newDate);
 			return true;
@@ -493,7 +494,7 @@ DatabaseClientInterface = function(){
 			return true;
 		}
 		else{
-			console.log("updateUserIntoDB failed");
+			console.log("updateSingleReminderIntoDB failed");
 			return false;				
 		}	
 	}
@@ -514,13 +515,22 @@ DatabaseClientInterface = function(){
 			return true;
 		}
 		else{
-			console.log("updateUserIntoDB failed");
+			console.log("updateRegularReminderIntoDB failed");
 			return false;				
 		}	
 	}
 
 	//Upload
 
+	/**
+	* @function uploadHorsePicture
+	* @public
+	* @memberof! DatabaseClientInterface  
+	* @instance
+	* @param {object} file, 
+	* @description updload a FormData contanining a picture and the id of the horse
+	* represented in the picture
+	*/
 	function uploadHorsePicture(file){
 		if(file instanceof FormData && file.get("horseID")!== undefined){
 			requestModul.uploadHorsePicture(file);
@@ -530,6 +540,28 @@ DatabaseClientInterface = function(){
 			console.log("uploadHorsePicture failed", file);
 			return false;				
 		}
+	}
+
+	/**
+	* @function requestPassword
+	* @public
+	* @memberof! DatabaseClientInterface  
+	* @instance
+	* @param {string} email, email of the user
+	* @description send a request to the database that the user
+	* needs a new password send to his emailaccount
+	*/
+	function requestPassword(email){
+		let data = {};
+		if(email){
+			data.email = email;
+			requestModul.updateDataInDB(ACTIONS.REQUEST_PW, data);
+			return true;
+		}
+		else{
+			console.log("requestPassword failed", email);
+			return false;				
+		}		
 	}
 
 	that.init = init;
@@ -557,5 +589,6 @@ DatabaseClientInterface = function(){
 	that.updateSingleReminder = updateSingleReminder;
 	that.updateRegularReminder = updateRegularReminder;
 	that.uploadHorsePicture = uploadHorsePicture;
+	that.requestPassword = requestPassword;
 	return that;
 }

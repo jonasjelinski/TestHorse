@@ -138,7 +138,6 @@ DatesCreator = function(dateClass, reminderClass, containerElementId, titleInput
 	*/
 	function handleFinaleSave(event){
 		let data = event.details.data;
-		console.log("handleFinaleSave");
 		sendEvent("onSave", data);
 	}
 
@@ -233,8 +232,8 @@ DatesCreator = function(dateClass, reminderClass, containerElementId, titleInput
 	* the models uses the inputdata and checks if the user had put in the correct values
 	*/
 	function handleDateButtonClick(event) {
-		let inputData = event.details.input;
-		model.tryToShowDateCreator(inputData);
+		let reminderData = event.details.input;
+		model.tryToShowDateCreator(reminderData);
 	}
 
 	/**
@@ -259,7 +258,6 @@ DatesCreator = function(dateClass, reminderClass, containerElementId, titleInput
 	* model tests the data if they are correct
 	*/
 	function handleViewSave(event) {
-		console.log("handleViewSave");
 		let inputData = event.details.input;
 		model.tryToSaveAtTheEnd(inputData);
 	}
@@ -273,7 +271,6 @@ DatesCreator = function(dateClass, reminderClass, containerElementId, titleInput
 	* wants to cancel the creation
 	*/
 	function handleCancle() {
-		console.log("onCancel");
 		sendEvent("onCancel");	
 	}
 
@@ -319,8 +316,9 @@ DatesCreator = function(dateClass, reminderClass, containerElementId, titleInput
 		if(newReminder){
 			setReminder(newReminder);
 			view.setReminderTrue();	
-		}	
-		view.showDateCreater(newDate);
+			model.setWantsReminder(true);
+		}
+		view.updateView(newDate);
 	}
 
 	that.init = init;

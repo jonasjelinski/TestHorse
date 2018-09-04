@@ -16,7 +16,7 @@ class CreatorPage extends EventTarget{
 	/**
 	* @function init
 	* @public
-	* @memberof! ChangerPage
+	* @memberof! CreatorPage
 	* @instance
 	* @description Initialize this.creator
 	*/ 	
@@ -28,7 +28,7 @@ class CreatorPage extends EventTarget{
 	/**
 	* @function setCreator
 	* @public
-	* @memberof! ChangerPage
+	* @memberof! CreatorPage
 	* @instance
 	* @description sets the creator
 	*/ 	
@@ -39,7 +39,7 @@ class CreatorPage extends EventTarget{
 	/**
 	* @function changeAttributesAndSendThem
 	* @public
-	* @memberof! ChangerPage
+	* @memberof! CreatorPage
 	* @instance
 	* @param{event} event, event contains the attributes from this.creator 
 	* @description reds the attributes from this creator cleans them form the
@@ -55,7 +55,7 @@ class CreatorPage extends EventTarget{
 	/**
 	* @function sendAttributes
 	* @public
-	* @memberof! ChangerPage
+	* @memberof! CreatorPage
 	* @instance
 	* @param{object} attributes, attributes which will be send
 	* @description send the given attributes through an event
@@ -70,7 +70,7 @@ class CreatorPage extends EventTarget{
 	/**
 	* @function sendEvent
 	* @public
-	* @memberof! ChangerPage
+	* @memberof! CreatorPage
 	* @instance
 	* @param{string} type, type of the event
 	* @description send the event of type "type"
@@ -84,7 +84,7 @@ class CreatorPage extends EventTarget{
 	/**
 	* @function updateCreator
 	* @public
-	* @memberof! ChangerPage
+	* @memberof! CreatorPage
 	* @instance
 	* @param{object} attributes, attributes with wich the creator should be updated
 	* @description updates the creator with the given attributes. After that the model of

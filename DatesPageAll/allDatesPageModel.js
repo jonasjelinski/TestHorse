@@ -9,11 +9,13 @@ var DatesPageAll = DatesPageAll || {};
  */
 
 DatesPageAll.DatesPageModel = function(){
-	const POSTION_CODE = "AD";
+	const POSTION_CODE = "SD",
+		DEFAULT_DATE = { id:"-1", title:"Füge einen Termin hinzu" , date: "00-00-00", time: "00:00:00", location:"Ort", dateFuture:"00-00-00", timeFuture: "00:00:00", orderPosition:POSTION_CODE +"-1"};
 
 	let that = new EventTarget(),
 		dbRequester,		
 		allDates,
+		dateToSend,
 		delteId;
 
 	/**
@@ -26,14 +28,18 @@ DatesPageAll.DatesPageModel = function(){
 	* and tells the other moduls trough an event that allDatesAsStrings has been converted
 	*/ 	
 	function init(allDatesAsStrings){
-			if(isParsable(allDatesAsStrings)){
-				allDates = JSON.parse(allDatesAsStrings);
-				convertData(allDates);
-				sendOnDataConverted();   			
+		allDates = [];
+		if(isParsable(allDatesAsStrings)){
+			let parsedDates = JSON.parse(allDatesAsStrings);
+			if(isArray(parsedDates)){
+				sortSingleDates(parsedDates);
+				convertData(allDates);				
 			}
-			else{
-				sendNoDataEvent();
-			}			
+		}
+		if(allDates.length === 0){
+			allDates.push(DEFAULT_DATE);
+		}
+		sendOnDataConverted(); 			
 	}
 
 	function isParsable(string) {
@@ -43,6 +49,27 @@ DatesPageAll.DatesPageModel = function(){
 			return false;
 		}
 		return true;
+	}
+
+	function isArray(parsedDates){
+		return Array.isArray(parsedDates);
+	}
+
+	function sortSingleDates(parsedDates){
+		for(let i = 0; i < parsedDates.length; i++){
+			let date = parsedDates[i];
+			if(isSingleDate(date)){
+				allDates.push(date);
+			}
+		}
+	}
+
+	function isSingleDate(date){
+		let positionCode = date.order_position.substring(0,2);
+		if(positionCode === POSTION_CODE){
+				return true;
+		}
+		return false;
 	}		
 
 	function convertData(allDates){
@@ -54,18 +81,23 @@ DatesPageAll.DatesPageModel = function(){
 	function changePropertyNames(allDates){
 		for(let i = 0; i < allDates.length; i++){
 			let date = allDates[i];
-			date.horseID = date.horse_id;
-			date.dateFuture = date.date_future_date;
-			date.timeFuture = date.time_future_date;
-			date.valueRegular = date.value_regular;
-			date.unitRegular = date.unit_regular;
-			date.orderPosition = date.order_position;
+			date = changePropertNamesOfDate(date);			
+		}
+	}
+
+	function changePropertNamesOfDate(date){
+			date.horseID =  date.horseID ||date.horse_id;
+			date.dateFuture =  date.dateFuture || date.date_future_date;
+			date.timeFuture = date.timeFuture || date.time_future_time;
+			date.valueRegular = date.valueRegular || date.value_regular;
+			date.unitRegular = date.unitRegular || date.unit_regular;
+			date.orderPosition = date.orderPosition || date.order_position;
 			delete date.date_future_date;
 			delete date.time_future_date;
 			delete date.value_regular;
 			delete date.unit_regular;
 			delete date.order_position;
-		}
+		return date;
 	}
 
 	function removeNullsAndUndefined(allDates){
@@ -230,11 +262,108 @@ DatesPageAll.DatesPageModel = function(){
 		}
 		date.orderPosition = newCode;		 
 	}
+
+	/**
+	* @function getDateAttributesById
+	* @public
+	* @memberof! DatesPageAll.DatesPageModel 
+	* @instance
+	* @param {string} id, id of the date
+	* @description returns the date with the id "id"
+	*/
+	function getDateAttributesById(id){
+		let searchedDate = getSearchedDate(id);
+		return searchedDate; 
+	}
+
+
+	/**
+	* @function getSearchedDate
+	* @public
+	* @memberof! DatesPageAll.DatesPageModel 
+	* @instance
+	* @param {string} id, id of the date
+	* @description returns date with the id "id"
+	*/
+	function getSearchedDate(id){
+		for(let i = 0; i < allDates.length; i++){
+			let date = allDates[i];
+			if(date.id === id){
+				return date;
+			}
+		}
+	}
+
+	function setDateToSend(id){
+		let date = getSearchedDate(id);
+		console.log("setDateToSend", setDateToSend, id);
+		dateToSend = changePropertNamesOfDate(date);
+	}
+
+	function checkReminderAndSendChangeMessage(reminderAsString){
+		let reminder = getReminderFromArrayString(reminderAsString);
+		if(isNoReminder(reminder)){
+			sendReadyForChangeEvent();
+		}
+		else{
+			changeReminderProperties(reminder);
+			sendReadyForChangeEvent(reminder);
+		}
+	}
+
+	
+	function getReminderFromArrayString(arrayString){
+		let reminderArray,
+			reminder = {};
+		if(isParsable(arrayString)){
+			reminderArray = JSON.parse(arrayString);
+			if(Array.isArray(reminderArray)){
+				reminder = reminderArray[0];
+			}
+		}
+		return reminder;
+	}
+
+	function isNoReminder(reminder){
+		console.log("isNoReminder",reminder);
+		return reminder.date === null || reminder.date === undefined;
+	}
+
+	function changeReminderProperties(reminder){
+		reminder.dateID = reminder.dateID || reminder.dates_id;
+	}
+
+
+	function sendReadyForChangeEvent(reminder){
+		let event = new Event("onReadyForChange");
+		event.details = {};
+		event.details.dateAndReminder = {};
+		event.details.dateAndReminder.date = dateToSend;
+		if(reminder){			
+			event.details.dateAndReminder.reminder = reminder;
+		}
+		that.dispatchEvent(event);
+	}
+
+	function deleteDateById(dateId){
+		for(let i = 0 ; i < allDates.length; i++){
+			let date = allDates[i];
+			if(dateId = date.id){
+				allDates.splice(i,1);
+			}
+		}
+	}
+
+
 	
 	that.init = init;
 	that.setDelteId = setDelteId;
 	that.getDeleteId = getDeleteId;
 	that.getDatesData = getDatesData;
 	that.updateDates = updateDates;
+	that.getDateAttributesById = getDateAttributesById;
+	that.setDateToSend = setDateToSend;
+	that.checkReminderAndSendChangeMessage = checkReminderAndSendChangeMessage;
+	that.deleteDateById = deleteDateById;
 	return that;
 }

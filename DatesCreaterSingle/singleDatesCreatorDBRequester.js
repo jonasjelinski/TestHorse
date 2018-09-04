@@ -6,7 +6,10 @@ var SingleDatesCreatorPage = SingleDatesCreatorPage || {};
  * @description <code>DBRequester</code> is the interface for database requests to create a single date.
  */
 SingleDatesCreatorPage.DBRequester = function(userID, horseID){
-	let that = {},
+
+	const SINGLE_DATE_START_POS = "SD99999999999";
+
+	let that = new EventTarget(),
 		attributes,
 		isSavingDate,
 		singleDate,
@@ -77,6 +80,40 @@ SingleDatesCreatorPage.DBRequester = function(userID, horseID){
 		}
 	}
 
+	function handleResult(event){
+		let result = event.details.result,
+			action = event.details.resultAction,
+			dateID,
+			reminderData;
+		if(action === "setDateIntoDB"){
+			dateID = getOnlyNumbers(result);
+			if(isIDAndNoWarningFeedbackFromDB(dateID)&&userWantsReminder()){
+				reminderData = createReminderData(dateID);
+				saveSingleReminderIntoDB(reminderData);
+			}
+			else{
+				console.log("handleResult", result);
+				tellModulItCanChangeToOtherSide();
+			}
+		}
+		else if(action === "updateReminderRegular"){
+			tellModulItCanChangeToOtherSide();
+		}
+		else{
+			tellModulItCanChangeToOtherSide();
+			console.log(event.details.result, action);
+		}		
+	}
+
+	function isIDAndNoWarningFeedbackFromDB(dateID){
+		 return /\d/.test(dateID);
+	}
+
+	function userWantsReminder(){
+		let noReminderValue = "noReminder";
+		return dateData.reminder.date !== noReminderValue || dateData.reminder === undefined;
+	}
+
 
 	/**
 	* @function saveDateIntoDB
@@ -103,17 +140,19 @@ SingleDatesCreatorPage.DBRequester = function(userID, horseID){
 	* @description prepares data for the request and returns them
 	*/
 	function getDateObjectForDBRequest(data) {
-		let dataToSave= {
+		let noValue = "00-00-00",
+		dataToSave= {
 			userID: userID,
 			horseID: horseID,
 			title: data.date.title,
 			date: data.date.date,
 			time: data.date.time,
 			location: data.date.location,
-			dateFuture: "hasNoDate",
-			timeFuture: "hasNoDate",
-			valueRegular: "isSingleDate",
-			unitRegular: "isSingleDate",
+			dateFuture: noValue,
+			timeFuture: noValue,
+			valueRegular: noValue,
+			unitRegular: noValue,
+			orderPosition: SINGLE_DATE_START_POS,
 		};
 		return dataToSave;
 	}
@@ -198,6 +237,11 @@ SingleDatesCreatorPage.DBRequester = function(userID, horseID){
 	function saveSingleReminderIntoDB(reminderData){		
 		requester.updateSingleReminder(reminderData);
 		isSavingDate = true;
+	}
+
+	function tellModulItCanChangeToOtherSide(){
+		let event = new Event("onDataSaved");
+		that.dispatchEvent(event);
 	}
 
 	that.init = init;

@@ -37,7 +37,7 @@ DatesCreator.Model = function(){
 	* @description If the user wants to see the dateCreator
 	* this function test if the reminderValues contains enough
 	* atttibutes to create a new reminder before the user can see dateCreator
-	* this prevents falls input by the user
+	* this prevents false input by the user
 	*/ 
 	function tryToShowDateCreator(reminderValues){
 		let oldValues = date,
@@ -73,7 +73,7 @@ DatesCreator.Model = function(){
 	* @memberof! DatesCreator.Model  
 	* @instance
 	* @param{object} input
-	* @param{object} correctEvent
+	* @param{object} correctEvent, eventtype which will be send by sendCorrectInputMessage
 	* @param{object} oldValues
 	* @description Checks if the user forgot one value and sends the according message
 	*/ 

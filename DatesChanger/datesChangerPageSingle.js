@@ -34,8 +34,9 @@ DatesChangerPageSingle = function(userID){
 	* @description Initialize this modul.
 	*/	
 	function init(attributes){
-		initModuls();
+		initModuls(attributes);
 		addAttributesAndInitPage(attributes);
+		addListeners();
 		dbInterface.init();		
 	}
 
@@ -47,11 +48,11 @@ DatesChangerPageSingle = function(userID){
 	* @instance
 	* @description creats the instances of the modles of this modul.
 	*/	
-	function initModuls() {
+	function initModuls(attributes) {
 		horseID = attributes.horseID;
 		standardPage = new SingleDatesCreatorPage.Standard(userID,horseID);
 		dbInterface = new DatesChangerPage.DBRequester(userID, horseID);
-		model = new DatesChangerPageSingle.Model();
+		model = new DatesChangerPage.Model();
 	}
 
 	/**
@@ -69,7 +70,7 @@ DatesChangerPageSingle = function(userID){
 		if(standardPage){
 			standardPage.init();	
 			model.init(attributes);
-			addAttributesAndUpdateCreator(attributes);					
+			updateCreator(attributes);					
 		}
 	}
 
@@ -82,7 +83,7 @@ DatesChangerPageSingle = function(userID){
 	* @description updates the creator with attributes
 	* so the creator has those attributes and can show them to the user
 	*/
-	function addAttributesAndUpdateCreator(attributes){
+	function updateCreator(attributes){
 		let newDate = attributes.date,
 			reminder = attributes.reminder;
 		standardPage.updateCreator(newDate, reminder);
@@ -113,7 +114,7 @@ DatesChangerPageSingle = function(userID){
 	*/
 	function handleSave(event) {
 		let updatedDate = prepareDataForDBRequest(event);
-		saveDateIntoDB(changedDate);
+		saveDateIntoDB(updatedDate);
 		sendEvent("onDataSaved");
 	}
 
@@ -157,6 +158,8 @@ DatesChangerPageSingle = function(userID){
 	*/
 	function sendEvent(type) {
 		let event = new Event(type);
+		event.details = {};
+		event.details.horseID = horseID;
 		that.dispatchEvent(event);
 	}
 

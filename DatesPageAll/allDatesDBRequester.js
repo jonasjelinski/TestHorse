@@ -59,12 +59,16 @@ DatesPageAll.DBRequester = function(userID, horseID){
 	* @description sends the result of the db request to other moduls
 	*/
 	function handleResult(event){		
-		let results = event.details.result;
-		if(!isUpdating){
-			sendEvent("onResult", results);
+		let results = event.details.result,
+			action = event.details.resultAction;
+		if(action==="getAllHorseDates"){
+			sendEvent("onAllDates", results);
+		}
+		else if(action === "getReminderNotification"){
+			sendEvent("onReminder", results);
 		}
 		else{
-			console.log("handleResult", results, isUpdating);
+			console.log("handleResult", action);
 		}
 		
 	}
@@ -81,7 +85,7 @@ DatesPageAll.DBRequester = function(userID, horseID){
 	function sendEvent(type, data){
 		let event = new Event(type);
 		event.details = {};
-		event.details.allDates = data;
+		event.details.results = data;
 		that.dispatchEvent(event);
 	}
 
@@ -96,6 +100,10 @@ DatesPageAll.DBRequester = function(userID, horseID){
 		requester.getAllDatesOfHorse(horseID);
 	}
 
+	function requestReminderFromDB(dateId){
+		requester.getSingleReminder(dateId);
+	}
+
 	function updateAllDates(allDates){
 		isUpdating = true;
 		for(let i = 0; i < allDates.length; i++){
@@ -103,10 +111,21 @@ DatesPageAll.DBRequester = function(userID, horseID){
 			date.dateID = date.id;
 			requester.updateDate(date);
 		}			
-	}		
+	}
+
+	function stoppListening(){
+		requester.removeEventListener("onResult", handleResult);
+	}
+
+	function deleteDate(id) {
+       requester.deleteDateFromDB(id);
+    }		
 
 	that.init = init;
 	that.requestDatesFromDB = requestDatesFromDB;
+	that.requestReminderFromDB = requestReminderFromDB;
 	that.updateAllDates = updateAllDates;
+	that.stoppListening = stoppListening;
+	that.deleteDate = deleteDate;
 	return that;
 }

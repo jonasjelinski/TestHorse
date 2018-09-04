@@ -89,8 +89,8 @@ DropList = (function(domElementId, listElementsData, elementTemplateString, elem
 	* @description Adds a new li-element to the view of the unsorted list and save its data into the listModel
 	*/
 	function removeElementById(id){
-		listView.removeElementById(elementData);
-		listModel.removeElementById(elementData);
+		listView.removeElementById(id);
+		listModel.removeElementById(id);
 	}
 
 	/**

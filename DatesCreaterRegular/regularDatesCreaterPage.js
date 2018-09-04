@@ -23,8 +23,6 @@ RegulardatesCreatorPage = function(userID){
 	* @description Initialize this modul.
 	*/	
 	function init(newHorseID) {
-		console.log("init",init);
- 		newHorseID = newHorseID || 38;
 		horseID = newHorseID;
 		initModuls();
 		addListeners();
@@ -55,6 +53,7 @@ RegulardatesCreatorPage = function(userID){
 	function addListeners() {
 		standardPage.addEventListener("onSave", handleSave);
 		standardPage.addEventListener("onCancel", handleCancel);
+		dbInterface.addEventListener("onDataSaved", handleDataSaved);
 	}
 
 	/**
@@ -69,7 +68,6 @@ RegulardatesCreatorPage = function(userID){
 	function handleSave(event) {
 		let data = event.details.data;
 		saveDateIntoDB(data);
-		sendEvent("onDataSaved");
 	}
 
 	/**
@@ -94,6 +92,8 @@ RegulardatesCreatorPage = function(userID){
 	*/
 	function sendEvent(type) {
 		let event = new Event(type);
+		event.details = {};
+		event.details.horseID = horseID;
 		that.dispatchEvent(event);
 	}
 
@@ -108,6 +108,10 @@ RegulardatesCreatorPage = function(userID){
 	*/
 	function handleCancel() {
 		sendEvent("onCancel");
+	}
+
+	function handleDataSaved(){
+		sendEvent("onDataSaved");
 	}
 
 	that.init = init;

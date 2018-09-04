@@ -22,7 +22,8 @@ var LoginPage = LoginPage || {};
 
 LoginPage.LoginView = function(options){
 
-	const NEGATIVE_HINT = "Nutzername oder Passwort sind falsch";
+	const NEGATIVE_HINT = "Nutzername oder Passwort sind falsch",
+		NEW_PW_MESSAGE = "Ein neues Passwort wurde an deine Email versendet";
 
 	let loginView = new EventTarget(),
 		loginButton,
@@ -30,7 +31,10 @@ LoginPage.LoginView = function(options){
 		stayLoggedInBox,
 		feedBackBox,
 		userNameInputBox,
-		pwInputBox;
+		pwInputBox,
+		forgotPasswordContainer,
+		forgotPasswordInput,
+		forgotPasswordButton;
 
 	/**
 	* @function init
@@ -43,6 +47,7 @@ LoginPage.LoginView = function(options){
 		initViewElements();
 		initListeners();
 		hideNegativeFeedback();
+		hidePwForgottenContainer();
 	}
 
 	/**
@@ -59,6 +64,9 @@ LoginPage.LoginView = function(options){
 		feedBackBox = options.feedBackBox;
 		userNameInputBox = options.userNameInput;
 		pwInputBox = options.passwordInput;
+		forgotPasswordContainer = options.forgotPasswordContainer,
+		forgotPasswordInput = options.forgotPasswordInput,
+		forgotPasswordButton = options.forgotPasswordButton;
 	}
 
 	/**
@@ -71,7 +79,8 @@ LoginPage.LoginView = function(options){
 	function initListeners(){		
 		loginButton.addEventListener("click", handleLogin);
 		newUserButton.addEventListener("click", handleNewUser);
-		userNameInputBox.addEventListener("input", hideNegativeFeedback);		
+		userNameInputBox.addEventListener("input", hideNegativeFeedback);	
+		forgotPasswordButton.addEventListener("click", handlePWRequest)	
 	}
 
 	/**
@@ -130,6 +139,7 @@ LoginPage.LoginView = function(options){
 	function showNegativeFeedback(){
 		feedBackBox.style.visibility = "visible";
 		feedBackBox.innerHTML = NEGATIVE_HINT;
+		showPwForgottenContainer();
 	}
 
 	/**
@@ -143,7 +153,28 @@ LoginPage.LoginView = function(options){
 		feedBackBox.style.visibility = "hidden";
 	}
 
+	function hidePwForgottenContainer(){
+		forgotPasswordContainer.style.visibility = "hidden";
+	}
+
+	function showPwForgottenContainer(){
+		forgotPasswordContainer.style.visibility = "visible";
+	}
+
+	function showNewPasswordCreatedMessage(){
+		feedBackBox.innerHTML = NEW_PW_MESSAGE;
+	}
+
+	function handlePWRequest(){
+		let email = forgotPasswordInput.value,
+		event = new Event("onPWRequest");
+		event.details = {};
+		event.details.email = email;
+		loginView.dispatchEvent(event);
+	}  
+
 	loginView.init = init;
 	loginView.showNegativeFeedback = showNegativeFeedback;
+	loginView.showNewPasswordCreatedMessage = showNewPasswordCreatedMessage;
 	return loginView;
 }

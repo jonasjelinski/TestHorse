@@ -9,17 +9,26 @@ var RegularDatesPage = RegularDatesPage || {};
  */
 
 RegularDatesPage.Model = function(horseID){
-	const REGULAR_POSTION_CODE = "RD",
+	const SINGLE_POSTION_CODE = "SD", 
+		REGULAR_POSTION_CODE = "RD",
 		DATE_SUGGESTIONS_CODE = "DS",
 		RESET_CODE = "0",
 		DATE_SUGGESTION_DATE = "666-666-666",
-		DATE_SUGGESTION_TIME = "666-666-666";
+		DATE_SUGGESTION_TIME = "666-666-666",
+		DEFAULT_HORSE = {id: horseID, type:""},
+		DEFAULT_DATE = { id:"-1", title:"Füge einen Termin hinzu" , date: "00-00-00", time: "00:00:00", location:"Ort", dateFuture:"00-00-00", timeFuture: "00:00:00", valueRegular:"1", orderPosition:DATE_SUGGESTIONS_CODE +"-1", unitRegular: "Jahr"};
 
 	let that = new EventTarget(),	
-		allDates,	
-		regularDates = [],
-		dateSuggestions =[],
-		delteId;
+		allDates,
+		horseDateSuggestions,	
+		regularDates,
+		dateSuggestions,
+		delteId,
+		dateToSend,
+		datesSuggestor,
+		hasNewHorse,
+		hasAllDatesAndSuggestions,
+		newDateId;
 
 	/**
 	* @function init
@@ -30,21 +39,32 @@ RegularDatesPage.Model = function(horseID){
 	* @description Initialize this model. Transform regularDatesAsStrings to an array
 	* and tells the other moduls trough an event that regularDatesAsStrings has been converted
 	*/ 	
-	function init(allDatesAsStrings){
-		if(isParsable(allDatesAsStrings)){
-			let parsedDates = JSON.parse(allDatesAsStrings),
-				allDatesCopy;
-			if(isArray(parsedDates)){
-				allDates = parsedDates;
-				allDatesCopy = allDates.slice(0),
-				regularDatesAndSuggestions = removeSingleDates(allDatesCopy);
-				filterDatesAndSuggestions(regularDatesAndSuggestions);
-				convertData(regularDates, REGULAR_POSTION_CODE);	
-				convertData(dateSuggestions, DATE_SUGGESTION_DATE);	
-				sendOnDataConverted();
+	function init(){
+		allDates = [];
+		regularDates = [];
+		dateSuggestions =[];
+		hasNewHorse = false;
+		hasAllDatesAndSuggestions = false;
+	}
+
+	function setNewHorseAsStrings(newHorseAsString){
+		let parsedHorse,
+			newHorse;
+		if(isParsable(newHorseAsString)){
+			parsedHorse = JSON.parse(newHorseAsString);
+			if(isArray(parsedHorse)){
+				newHorse = parsedHorse[0];
+				newHorse = convertPropertyNames(newHorse);
+				initDatesSuggestor(newHorse);
+				getDataFromSuggestorAndSaveThemIntoHorseDateSuggestions();				
 			}
-			
+		}			
+		if(!newHorse){
+			newHorse = DEFAULT_HORSE;			
 		}
+		getDataFromSuggestorAndSaveThemIntoHorseDateSuggestions();	
+		sendHorseSetted();
+		hasNewHorse = true;
 	}
 
 	function isParsable(string) {
@@ -56,23 +76,69 @@ RegularDatesPage.Model = function(horseID){
 		return true;
 	}
 
+	function convertPropertyNames(newHorse){
+		newHorse.dateOfBirth = newHorse.dateOfBirth || newHorse.date_of_birth;		
+		return newHorse;
+	}
+
+	function initDatesSuggestor(newHorse){
+		datesSuggestor = new DatesSuggestor();
+		datesSuggestor.init(newHorse);
+	}
+
+	function getDataFromSuggestorAndSaveThemIntoHorseDateSuggestions(){
+		horseDateSuggestions = datesSuggestor.getDateSuggestions();
+	}
+
+	function sendHorseSetted(){
+		let event = new Event("onHorseSetted");
+		that.dispatchEvent(event);
+	}	
+
+	function setNewDatesAsStrings(allDatesAsStrings){
+		if(!hasAllDatesAndSuggestions){
+			if(isParsable(allDatesAsStrings)){
+				let parsedDates = JSON.parse(allDatesAsStrings),
+				allDatesCopy;
+				if(isArray(parsedDates)){
+					allDatesCopy = parsedDates.slice(0),
+					savesDatesAndSuggestionsIntoArrays(allDatesCopy);
+					convertRegularDates();
+					convertSuggestionsData();					
+				}	
+			}				
+		}
+		if(regularDates.length === 0){
+			regularDates.push(DEFAULT_DATE);
+		}
+		hasAllDatesAndSuggestions = true;
+	}
+
 	function isArray(parsedDates){
 		return Array.isArray(parsedDates);
 	}
 
-	function filterDatesAndSuggestions(regularDatesAndSuggestions){
-		for(let i = 0; i < regularDatesAndSuggestions.length; i++){
-			let date = regularDatesAndSuggestions[i];
-			if(isDateSuggestion(date)){
-				dateSuggestions.push(date);
-			}
-			else{
-				regularDates.push(date);
-			}			
+	function savesDatesAndSuggestionsIntoArrays(allDatesCopy){
+		for(let i = 0; i < allDatesCopy.length; i++){
+			let date = allDatesCopy[i];
+			if(!isSingleDate(date)){
+				if(isDateSuggestion(date)){
+					dateSuggestions.push(date);
+				}
+				else{
+					regularDates.push(date);
+				}
+			}						
 		}
-		let TESTDATE = {id: "testid"};
-		dateSuggestions.push(TESTDATE);
 	}
+
+	function isSingleDate(date){
+		let positionCode = date.order_position.substring(0,2);
+		if(positionCode === SINGLE_POSTION_CODE){
+				return true;
+		}
+		return false;
+	}	
 
 	function isDateSuggestion(date){
 		let regex = RegExp(REGULAR_POSTION_CODE+"\\d*"),
@@ -85,6 +151,14 @@ RegularDatesPage.Model = function(horseID){
 		}
 
 		return false;
+	}
+
+	function convertRegularDates(){
+		convertData(regularDates, REGULAR_POSTION_CODE);
+	}
+
+	function convertSuggestionsData(){
+		convertData(dateSuggestions, DATE_SUGGESTION_DATE);
 	}		
 
 	function convertData(dates, posCode){
@@ -93,46 +167,33 @@ RegularDatesPage.Model = function(horseID){
 		sortDates(dates, posCode);
 	}
 
-	function removeSingleDates(allDates){
-		let regularDatesAndSuggestions = [];
-		for(let i = 0; i < allDates.length; i++){
-			let date = allDates[i];
-			if(!isSingleDate(date)){
-				regularDatesAndSuggestions.push(date);
-			}			
-		}
-		return regularDatesAndSuggestions;
-	}
 
-	function isSingleDate(date){
-		if(date.unit_regular === "" || date.unit_regular === "isSingleDate"){
-				return true;
-		}
-		return false;
-	}
-
-	function changePropertyNames(regularDates){
-		for(let i = 0; i < regularDates.length; i++){
+	function changePropertyNames(dates){
+		for(let i = 0; i < dates.length; i++){
 			let date = regularDates[i];
-			date.horseID = date.horse_id;
-			date.dateFuture = date.date_future_date;
-			date.timeFuture = date.time_future_date;
-			date.valueRegular = date.value_regular;
-			date.unitRegular = date.unit_regular;
-			date.orderPosition = date.order_position;
+			date = changePropertNamesOfDate(date);
+		}
+	}
+
+	function changePropertNamesOfDate(date){
+			date.horseID =  date.horseID ||date.horse_id;
+			date.dateFuture =  date.dateFuture || date.date_future_date;
+			date.timeFuture = date.timeFuture || date.time_future_time;
+			date.valueRegular = date.valueRegular || date.value_regular;
+			date.unitRegular = date.unitRegular || date.unit_regular;
+			date.orderPosition = date.orderPosition || date.order_position;
 			delete date.date_future_date;
 			delete date.time_future_date;
 			delete date.value_regular;
 			delete date.unit_regular;
 			delete date.order_position;
-		}
+		return date;
 	}
 
 	function removeNullsAndUndefined(regularDates){
 		for(let i = 0; i < regularDates.length; i++){
 			let date = regularDates[i],
 				attributes = Object.keys(date);
-
 			attributes.forEach(function(attribute){
 				let  value = date[attribute];
 				if(value === undefined || value === null){
@@ -231,7 +292,7 @@ RegularDatesPage.Model = function(horseID){
 	function updateAllDates(newDates, newSuggestions){
 		updateRegularDates(newDates);
 		updateDateSuggestions(newSuggestions);
-		allDates = regularDates.concat(regularDates);
+		allDates = regularDates.concat(dateSuggestions);
 	}
 
 	function updateRegularDates(newDates){
@@ -382,6 +443,128 @@ RegularDatesPage.Model = function(horseID){
 		}
 	}
 
+	function checkIfReadyForSendingData(){
+		if(hasAllDatesAndSuggestions && hasNewHorse){
+			combineAllDatesAndSendData();
+		}
+	}
+
+	function combineAllDatesAndSendData(){
+		dateSuggestions = dateSuggestions.concat(horseDateSuggestions);
+		allDates = regularDates.concat(dateSuggestions);
+		sendOnDataConverted();
+	}
+
+	function isDateSuggestion(elementId){
+		for(let i = 0; i < dateSuggestions.length; i++){
+			let suggestion = dateSuggestions[i],
+				suggestionId = suggestion.id;
+			if(elementId === suggestionId){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	function setNewDateId(id){
+		newDateId = id;
+	}
+
+	function getNewDateId(){
+		return newDateId;
+	}
+
+	function getNewDate(){
+		return getDateAttributesById(newDateId);
+	}
+
+	function setDateToSend(id){
+		let date = getDateAttributesById(id);
+		dateToSend = changePropertNamesOfDate(date);
+	}
+
+	function checkReminderAndSendChangeMessage(reminderAsString){
+		let reminder = getReminderFromArrayString(reminderAsString);
+		if(isNoReminder(reminder)){
+			sendReadyForChangeEvent();
+		}
+		else{
+			reminder = changeReminderProperties(reminder);
+			sendReadyForChangeEvent(reminder);
+		}
+	}
+
+	
+	function getReminderFromArrayString(arrayString){
+		let reminderArray,
+			reminder = {};
+		if(isParsable(arrayString)){
+			reminderArray = JSON.parse(arrayString);
+			if(Array.isArray(reminderArray)){
+				reminder = reminderArray[0];
+			}
+		}
+		return reminder;
+	}
+
+	function isNoReminder(reminder){
+		return reminder.date === null || reminder.date === undefined;
+	}
+
+	function changeReminderProperties(reminder){
+		reminder.dateID = reminder.dateID || reminder.dates_id;
+		reminder.name = reminder.name || reminder.contact_name;
+		reminder.number = reminder.number || reminder.contact_number;
+		delete reminder.dates_id;
+		delete reminder.contact_name;
+		delete reminder.contact_number;
+		return reminder;
+	}
+
+
+	function sendReadyForChangeEvent(reminder){
+		let event = new Event("onReadyForChange");
+		event.details = {};
+		event.details.dateAndReminder = {};
+		event.details.dateAndReminder.date = dateToSend;
+		if(reminder){			
+			event.details.dateAndReminder.reminder = reminder;
+		}
+		that.dispatchEvent(event);
+	}
+
+	function deleteDateAndUpdateModel(dateId){
+		deleteDateFromAllDates(dateId);
+		deleteDateFromRegularDates(dateId);
+		deleteDateFromSuggestions(dateId);
+	}
+
+	function deleteDateFromAllDates(dateId){
+		for(let i = 0 ; i < allDates.length; i++){
+			let date = allDates[i];
+			if(dateId = date.id){
+				allDates.splice(i,1);
+			}
+		}
+	}
+
+	function deleteDateFromRegularDates(dateId){
+		for(let i = 0 ; i < regularDates.length; i++){
+			let date = regularDates[i];
+			if(dateId = date.id){
+				regularDates.splice(i,1);
+			}
+		}
+	}
+
+	function deleteDateFromSuggestions(dateId){
+		for(let i = 0 ; i < dateSuggestions.length; i++){
+			let date = dateSuggestions[i];
+			if(dateId = date.id){
+				dateSuggestions.splice(i,1);
+			}
+		}
+	}
 	
 	that.init = init;
 	that.setDelteId = setDelteId;
@@ -395,5 +578,15 @@ RegularDatesPage.Model = function(horseID){
 	that.getAllDates = getAllDates;
 	that.getHorseID = getHorseID;
 	that.updateDatesAndSuggestionsByIds = updateDatesAndSuggestionsByIds;
+	that.setNewHorseAsStrings = setNewHorseAsStrings;
+	that.setNewDatesAsStrings = setNewDatesAsStrings;
+	that.checkIfReadyForSendingData = checkIfReadyForSendingData;
+	that.isDateSuggestion = isDateSuggestion;
+	that.setNewDateId = setNewDateId;
+	that.getNewDateId = getNewDateId,
+	that.getNewDate = getNewDate;
+	that.setDateToSend =setDateToSend;
+	that.checkReminderAndSendChangeMessage = checkReminderAndSendChangeMessage;
+	that.deleteDateAndUpdateModel = that.deleteDateAndUpdateModel;
 	return that;
 }
