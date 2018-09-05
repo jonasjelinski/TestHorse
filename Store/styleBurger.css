@@ -1,12 +1,13 @@
 /* Quelle https://codepen.io/eduardoboucas/pen/BNyKwO */
 :root{
   --burgerThickness: 4px;
+  --buttons: #9E9D9D;
 }
 
 .burgerLabel {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: -140px;
+  right: 15px;
 	display: inline-block;
   border: 0;
 	background: none;
@@ -71,7 +72,10 @@
 }
 
 .navigation {
+  position: absolute;
   overflow: hidden;
+  top: -120px;
+  right: 15px;
   max-height: 0;
   transition: max-height 0.5s ease-in-out;
   text-align: right;
@@ -84,7 +88,6 @@
 }
 
 .burgerList{
-  padding-top: 20px;
   padding-right: 10px;
 }
 
