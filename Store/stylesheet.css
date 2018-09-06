@@ -2,9 +2,10 @@
 @import url("styleStartPage.css");
 @import url("styleDates.css");
 @import url("styleBurger.css");
+@import url("styleHorseCreator.css");
 
 :root{
-  --background: #17D27D;
+  --background: #00B543;
 }
 
 body{
@@ -23,7 +24,7 @@ body{
 #headline{
   position: absolute;
   left: 250px;
-  font-family: 'Delius Unicase', cursive;
+  font-family: 'Sedgwick Ave', cursive;
   font-size: 50px;
 }
 
@@ -38,6 +39,6 @@ body{
 #parentPage{
     position: absolute;
     top: 150px;
-    width: 100%;
+    width: 99%;
     height: auto;
 }

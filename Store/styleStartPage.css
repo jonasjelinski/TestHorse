@@ -1,4 +1,81 @@
-#burger{
-  position: absolute;
-  right: 2%;
+.horseListElement{
+  width: 400px;
+  list-style: none;
+  float: left;
+}
+
+.horseListElement:first-child{
+  height: 400px;
+  width: 500px;
+  margin-left: 100px;
+  background-image: url("pics/Boxleer.png");
+  background-repeat: no-repeat;
+  background-position: left;
+  background-size: 450px;
+  cursor: pointer;
+}
+
+.horseListElement:first-child .horseBox img{
+  opacity: 0;
+  pointer-events: none
+}
+
+.horseListElement:first-child .horseName{
+  color: white;
+  margin-top: 50px;
+  padding-left: 40px;
+  font-family: 'Sawarabi Mincho', sans-serif;
+  font-size: 18px;
+}
+
+.horseListElement:first-child .horseDateButton{
+  opacity: 0;
+  pointer-events: none
+}
+
+.horseListElement:first-child .horseProfileButton{
+  opacity: 0;
+  pointer-events: none
+}
+
+.horseListElement:not(:first-child){
+  height: 400px;
+  width: 300px;
+  background-image: url("pics/Box.png");
+  background-repeat: no-repeat;
+  background-position: left;
+  background-size: 300px;
+}
+
+.horseListElement:not(:first-child) .horseBox img{
+  width: 248px;
+  height: 210px;
+  margin-top: 22px;
+  margin-left: 25px;
+}
+
+.horseListElement:not(:first-child) .horseName{
+  padding-top: 0px;
+  padding-left: 50px;
+  font-family: 'Satisfy', cursive;
+  font-size: 20px;
+}
+
+.horseListElement:not(:first-child) .horseDateButton{
+  width: 120px;
+  height: 100px;
+  padding-top: 15px;
+  padding-left: 28px;
+  cursor: pointer;
+}
+
+.horseListElement:not(:first-child) .horseProfileButtonContainer{
+  margin-top: -105px;
+  margin-left: 152px;
+}
+
+.horseListElement:not(:first-child) .horseProfileButton{
+  width: 120px;
+  height: 100px;
+  cursor: pointer;
 }

@@ -1,10 +1,52 @@
 :root{
-  --warning: #801515
+  --warning: #801515;
+  --loginFrame: #00EA57;
+  --button: #008632;
+  --background: #00B543;
+}
+
+#loginFrame{
+  position: absolute;
+  width: 50%;
+  top: 25px;
+  left: 25%;
+  right: 50%;
+  background: var(--loginFrame);
+  -webkit-box-shadow: 10px 10px 38px -3px rgba(0,0,0,0.6);
+  -moz-box-shadow: 10px 10px 38px -3px rgba(0,0,0,0.6);
+  box-shadow: 10px 10px 38px -3px rgba(0,0,0,0.6);
 }
 
 #createNewAccount{
   position: absolute;
-  right: 0%;
+  top: 3px;
+  right: 3px;
+  height: 20px;
+  width: 150px;
+  background-color: var(--button);
+  -webkit-box-shadow: 10px 10px 38px -3px rgba(0,0,0,0.6);
+  -moz-box-shadow: 10px 10px 38px -3px rgba(0,0,0,0.6);
+  box-shadow: 10px 10px 38px -3px rgba(0,0,0,0.6);
+  background: -moz-linear-gradient(top, var(--button) 0%, var(--background) 38%, var(--button) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,var(--button)), color-stop(38%,var(--background) ), color-stop(100%, var(--button) ));
+  background: -webkit-linear-gradient(top, var(--button) 0%,var(--background) 38%,var(--button) 100%);
+  background: -o-linear-gradient(top, var(--button) 0%,var(--background) 38%,var(--button) 100%);
+  background: -ms-linear-gradient(top, var(--button) 0%,var(--background) 38%,var(--button) 100%);
+  background: linear-gradient(to bottom, var(--button) 0%,var(--background) 38%,var(--button) 100%);
+  border: none;
+  text-align:center;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#createNewAccount:hover{
+  height: 22px;
+  width: 152px;
+  -webkit-box-shadow: 10px 10px 38px 5px rgba(0,0,0,0.6);
+  -moz-box-shadow: 10px 10px 38px 5px rgba(0,0,0,0.6);
+  box-shadow: 10px 10px 38px 5px rgba(0,0,0,0.6);
 }
 
 .loginP{

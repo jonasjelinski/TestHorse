@@ -15,16 +15,18 @@ Pages.PageContent = function (){
 
 	LOGIN_PAGE = ' <content>'+
 						'<div id= "mainpage">' +
+						'<div id="loginFrame"> '+
 							'<button id= "createNewAccount" type="button">neues Konto erstellen</button> '+
 							'<p class="loginP" id="userNameTag">Email</p>'+
 							'<div class="loginDIV"><input id= "userNameInput" placeholder="Email eingeben"></input></div> '+
 							'<p class="loginP" id="passwordTag">Passwort</p>'+
-				 			'<div class="loginDIV"><input id= "passwordInput" placeholder="Passwort eingeben"></input></div> '+
+				 			'<div class="loginDIV"><input id= "passwordInput" type="password" placeholder="Passwort eingeben"></input></div> '+
 							'<div class="loginDIV" id= "loginFailedText">Anmeldung leider fehlgeschlagen. Bitte überprüfe deine Daten und probiere es noch einmal.</div> '+
 							'<div class="loginDIV"><button id= "loginButton" type="button">OK</button> </div>'+
 							'<div class="checkbox"><label id="stayLoggedInTag"><input id= "stayLoggedInBox" type="checkbox" value = "stayLoggedIn"/><span>dauerhaft angemeldet bleiben?</span></label></div> '+
 							'<p class="loginP" id="userHint">Hast du dein Passwort vergessen?</p>'+
 							PASSWORD_POPUP +
+							'</div> ' +
 						'</content>',
 
           DROPDOWN_MENU = '<div class="dropdown">'+
@@ -96,11 +98,11 @@ Pages.PageContent = function (){
                 '</div>',
 HORSEBOXELEMENT_TEMPLATE= '<script type="text/template" id="horseBoxElementTemplate">'+
 '<li draggable="true" class= "horseListElement" horseId = <%= id %> > '+
-	' <div class = "horseBox" horseBoxId = <%= id %> ' +
-		'<img class= "horsePic" horsePicId = <%= id %> src=<%=photo%> </img> ' +
+	' <div class = "horseBox" horseBoxId = <%= id %> > ' +
+		'<img class= "horsePic" horsePicId = <%= id %> src=<%=photo%> > </img> ' +
 		'<div class="horseName"> <%=name%> </div> '+
-		'<div> <button class="horseDateButton" type="button">horseDateButton </button> </div> '+
-		'<div> <button class="horseProfileButton" type="button">horseProfileButton </button> </div> '+
+		'<div class="horseDateButtonContainer"> <input class="horseDateButton" type="image" src="Store/pics/BoxenschildTermine.png"> </input> </div> '+
+		'<div class="horseProfileButtonContainer"> <input class="horseProfileButton" type="image" src="Store/pics/BoxenschildProfil.png"> </input> </div> '+
 		'</div> '+
 '</li> ' +
 '</script> ',
@@ -252,8 +254,8 @@ DATE_LIST_TEMPLATE
   CREATE_HORSEBOX = '<content>'+
   '<div id= "horseInteraction">' +
     '<div id= "horseInteractionInnerPage"></div>' +
-    ' <button id= "horseInteractionForward" type="button">Forward</button>' +
-    ' <button id= "horseInteractionBack" type="button">Backwards</button> '+
+    ' <input id= "horseInteractionBack" type="image" src="Store/pics/linkspfeil.png"></input> '+
+		' <input id= "horseInteractionForward" type="image" src="Store/pics/linkspfeil.png"></input>' +
     '<div id= "horseInteractionProgress"></div> '+
     ' <content>',
 
