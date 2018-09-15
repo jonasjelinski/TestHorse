@@ -5,8 +5,14 @@
     <link rel="stylesheet" href="./store/stylesheet.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consilium Equorum</title>
+    <link href="https://fonts.googleapis.com/css?family=Sedgwick+Ave|Sawarabi+Mincho|Satisfy" rel="stylesheet">
   </head>
   <body>
+    <header>
+      <img id="logo" src="./store/pics/logo.png" alt="SeitenLogo">
+      <h1 id="headline">Consilium Equorum</h1>
+      <img id="headlinePeter" src="./store/pics/Peter.png" alt="Peter">
+    </header>
     <div id = "parentPage">
 
       <!-- Dies ist der Input und der Button für das Script testPhotoUploader.js -->
@@ -15,10 +21,15 @@
     <p id="feedBackBox"> </p>
 
     </div>
+
+
     <script src="ScriptLoader/scriptLoader.js"></script>
     <script src="ScriptLoader/scripts.js"></script>
     <script src="./testPhotoUploader.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+
+
+
     <script >
 
     function showPage(){
@@ -27,10 +38,14 @@
           pages.initAfterLogin();
           pages.showStartPage();
       }
+
       let scriptLoader = new ScriptLoader();
       scriptLoader.addEventListener("onLoaded", showPage);
       scriptLoader.loadScripts();
    </script>
+
+
+
     <script>
 
 

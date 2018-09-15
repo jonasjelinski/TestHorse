@@ -1,0 +1,99 @@
+.peter{
+  position: absolute;
+  height: 500px;
+  width: auto;
+  top: 150px;
+}
+
+.petersWords{
+  position: absolute;
+  height: 350px;
+  width: 400px;
+  left: 450px;
+
+}
+
+.peterIsTalking{
+  position: absolute;
+  top: 90px;
+  left: 500px;
+  font-family: 'Sedgwick Ave', cursive;
+  font-size: 20px;
+}
+
+.horseInteractionInputContainer{
+  position: absolute;
+  left: 500px;
+  top: 450px;
+}
+
+#horseInteractionInput{
+  height: 35px;
+  font-family: 'Sawarabi Mincho', sans-serif;
+  font-size: 25px;
+}
+
+#horseInteractionFeedback{
+  position: absolute;
+  left: 500px;
+  top: 530px;
+}
+
+#horseInteractionBack{
+  position: absolute;
+  top: 200px;
+  left: 0%;
+  height: 80px;
+  width: 70px;
+  opacity: 0.7;
+}
+
+#horseInteractionForward{
+  position: absolute;
+  top: 200px;
+  right: 0%;
+  transform: rotate(180deg);
+  height: 80px;
+  width: 70px;
+  opacity: 0.7;
+}
+
+#horseInteractionProgress{
+  position: absolute;
+  left: 500px;
+  top: 500px;
+}
+
+#horseProfileSaverImgContainer{
+  width: 350px;
+  height: 300px;
+  cursor: move;
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+  background-image: url("pics/DragNDropHint.png");
+  background-repeat: no-repeat;
+  background-position: left;
+  background-size: 250px;
+}
+
+#horseProfileSaverImg{
+  width: 372px;
+  height: 315px;
+  text-align: center;
+  font-size: 12px;
+}
+
+#horseSaverOk{
+
+}
+
+#horseSaverChange{
+
+
+}
+
+#horseSaverDelete{
+
+
+}

@@ -1,10 +1,29 @@
 :root{
-  --warning: #801515
+  --warning: #801515;
+  --loginFrame: #00EA57;
+  --button: #008632;
+  --background: #00B543;
+}
+
+#loginFrame{
+  position: absolute;
+  width: 50%;
+  top: 25px;
+  left: 25%;
+  right: 50%;
+  background: var(--loginFrame);
+  -webkit-box-shadow: 10px 10px 38px -3px rgba(0,0,0,0.6);
+  -moz-box-shadow: 10px 10px 38px -3px rgba(0,0,0,0.6);
+  box-shadow: 10px 10px 38px -3px rgba(0,0,0,0.6);
 }
 
 #createNewAccount{
   position: absolute;
-  right: 0%;
+  bottom: 3px;
+  right: 3px;
+  width: 150px;
+  height: auto;
+  cursor: pointer;
 }
 
 .loginP{
@@ -69,4 +88,47 @@
 
 #userHint{
 
+}
+
+#popupPassword{
+  text-align: center;
+}
+
+#popupPasswordText{
+
+}
+
+
+#peterHelpLogin:hover{
+    animation-name: peterHelpsLogin;
+    animation-duration: 10s;
+}
+
+@keyframes peterHelpsLogin{
+  0%  {background-image: url("pics/Peter.png");
+      background-repeat: no-repeat;
+      background-position: right;
+      background-size: 250px;
+  }
+  10%  {background-image: url("pics/talkingPeterLogin.png");
+      background-repeat: no-repeat;
+      background-position: left;
+      background-size: 450px;
+      transform: rotate(0deg);
+      top: 75px;
+      left: -100px;
+  }
+  90%  {background-image: url("pics/talkingPeterLogin.png");
+      background-repeat: no-repeat;
+      background-position: left;
+      background-size: 450px;
+      transform: rotate(0deg);
+      top: 75px;
+      left: -100px;
+  }
+  100%{background-image: url("pics/Peter.png");
+      background-repeat: no-repeat;
+      background-position: right;
+      background-size: 250px;
+  }
 }

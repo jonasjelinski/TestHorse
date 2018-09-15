@@ -8,55 +8,87 @@ var HorseCreator = HorseCreator || {};
  */
 HorseCreator.SliderPages = function() {
 	const NAME =
-				'<div>Name des Pferdes:</div>'+
-				'<input id="horseInteractionInput"></input>'+
+				'<div class="PeterTheHorse">'+
+				'<img class="peter" src="Store/pics/Peter.png" alt="Peter the Horse">' +
+				'<img class="petersWords" src="Store/pics/Sprechblase.png" alt="Peter#s words">' +
+				'<div class="peterIsTalking">Bitte verate mir als Erstes <br>den Namen deines Pferdes!</div>'+
+				'<div class="horseInteractionInputContainer"> <input id="horseInteractionInput" placeholder="Pferdename"></input> </div> '+
 				'<div id=horseInteractionFeedback></div>'+
-				'<div id= "horseInteractionValueBox" property="name" value="" opacity = 0 ></div>',
+				'<div id= "horseInteractionValueBox" property="name" value="" opacity = 0 ></div>'+
+				'</div>',
 			OWNER =
-				'<div>Besitzer des Pferdes:</div>'+
-				'<input id="horseInteractionInput"></input>'+
+			'<div class="PeterTheHorse">'+
+			'<img class="peter" src="Store/pics/Peter.png" alt="Peter the Horse">' +
+			'<img class="petersWords" src="Store/pics/Sprechblase.png" alt="Peter#s words">' +
+				'<div class="peterIsTalking">Wer ist der Besitzer des Pferdes?</div>'+
+				'<div class="horseInteractionInputContainer"> <input id="horseInteractionInput" placeholder="Name des Besitzers"></input> </div> '+
 				'<div id=horseInteractionFeedback></div>'+
-				'<div id= "horseInteractionValueBox" property="owner" value="" opacity = 0 ></div>',
+				'<div id= "horseInteractionValueBox" property="owner" value="" opacity = 0 ></div>'+
+				'</div>',
 			RACE =
-				'<div>Rasse des Pferdes:</div>'+
-				'<input id="horseInteractionInput"></input>'+
+			'<div class="PeterTheHorse">'+
+			'<img class="peter" src="Store/pics/Peter.png" alt="Peter the Horse">' +
+			'<img class="petersWords" src="Store/pics/Sprechblase.png" alt="Peter#s words">' +
+				'<div class="peterIsTalking">Welche Rasse ist dein Pferd?</div>'+
+				'<div class="horseInteractionInputContainer"> <input id="horseInteractionInput" placeholder="Rasse"></input> </div> '+
 				'<div id=horseInteractionFeedback></div>'+
-				'<div id= "horseInteractionValueBox" property="race" value="" opacity = 0 ></div>',
+				'<div id= "horseInteractionValueBox" property="race" value="" opacity = 0 ></div>'+
+				'</div>',
 			DATE_OF_BIRTH =
-				'<div>Geburtsdatum des Pferdes:</div>'+
-				'<input type="date" id="horseInteractionInput"></input>'+
+			'<div class="PeterTheHorse">'+
+			'<img class="peter" src="Store/pics/Peter.png" alt="Peter the Horse">' +
+			'<img class="petersWords" src="Store/pics/Sprechblase.png" alt="Peter#s words">' +
+				'<div class="peterIsTalking">Wann wurde dein Pferd geboren?</div>'+
+				'<div class="horseInteractionInputContainer"> <input type="date" id="horseInteractionInput"></input> </div> '+
 				'<div id=horseInteractionFeedback></div>'+
-				'<div id= "horseInteractionValueBox" property="dateOfBirth" value="" opacity = 0 ></div>',
+				'<div id= "horseInteractionValueBox" property="dateOfBirth" value="" opacity = 0 ></div>'+
+				'</div>',
 			SEX =
-				'<div>Geschlecht des Pferdes:</div>'+
-				'<select id="horseInteractionInput">'+
+			'<div class="PeterTheHorse">'+
+			'<img class="peter" src="Store/pics/Peter.png" alt="Peter the Horse">' +
+			'<img class="petersWords" src="Store/pics/Sprechblase.png" alt="Peter#s words">' +
+				'<div class="peterIsTalking">Bitte wähle das Geschlecht<br>deines Pferde aus.</div>'+
+				'<div class="horseInteractionInputContainer"> <select id="horseInteractionInput"> '+
 				'<option value="horseInteractionPlaceholder"> </option>'+
 				'<option value="Hengst">Hengst</option>'+
 				'<option value="Wallach">Wallach</option>'+
 				'<option value="Stute">Stute</option>'+
-  			'</select>'+
+  			'</select> </div> '+
 				'<div id=horseInteractionFeedback></div>'+
-				'<div id= "horseInteractionValueBox" property="sex" value="" opacity = 0 ></div>',
+				'<div id= "horseInteractionValueBox" property="sex" value="" opacity = 0 ></div>'+
+				'</div>',
 			HEIGHT =
-				'<div>Höhe des Pferdes:</div>'+
-				'<input id="horseInteractionInput"></input>'+
+			'<div class="PeterTheHorse">'+
+			'<img class="peter" src="Store/pics/Peter.png" alt="Peter the Horse">' +
+			'<img class="petersWords" src="Store/pics/Sprechblase.png" alt="Peter#s words">' +
+				'<div class="peterIsTalking">Wie groß ist dein Pferd?</div>'+
+				'<div class="horseInteractionInputContainer"> <input id="horseInteractionInput" type="number" placeholder="Widerristhöhe"></input> </div> '+
 				'<div id=horseInteractionFeedback></div>'+
-				'<div id= "horseInteractionValueBox" property="height" value="" opacity = 0 ></div>',
+				'<div id= "horseInteractionValueBox" property="height" value="" opacity = 0 ></div>'+
+				'</div>',
 			GROWER =
-				'<div>Züchter des Pferdes:</div>'+
-				'<input id="horseInteractionInput"></input>'+
+			'<div class="PeterTheHorse">'+
+			'<img class="peter" src="Store/pics/Peter.png" alt="Peter the Horse">' +
+			'<img class="petersWords" src="Store/pics/Sprechblase.png" alt="Peter#s words">' +
+				'<div class="peterIsTalking">Bitte gib den Namen des Züchters ein.</div>'+
+				'<div class="horseInteractionInputContainer"> <input id="horseInteractionInput" placeholder="Name des Züchters"></input> </div> '+
 				'<div id=horseInteractionFeedback></div>'+
-				'<div id= "horseInteractionValueBox" property="grower" value="" opacity = 0 ></div>',
+				'<div id= "horseInteractionValueBox" property="grower" value="" opacity = 0 ></div>'+
+				'</div>',
 			TYPE =
-				'<div>Status des Pferdes?</div>'+
-				'<select id="horseInteractionInput">'+
-				'<option value="---">---</option>'+
+			'<div class="PeterTheHorse">'+
+			'<img class="peter" src="Store/pics/Peter.png" alt="Peter the Horse">' +
+			'<img class="petersWords" src="Store/pics/Sprechblase.png" alt="Peter#s words">' +
+				'<div class="peterIsTalking">Wie wird dein Pferd verwendet und<br>wie ist es im Pass eingetragen?<br>Bitte wähle eine Option.</div>'+
+				'<div class="horseInteractionInputContainer"> <select id="horseInteractionInput">'+
+				'<option value="---"></option>'+
 				'<option value="Turnierpferd">Turnierpferd</option>'+
 				'<option value="Schlachtpferd">Schlachtpferd</option>'+
 				'<option value="Freizeitpferd">Freizeitpferd</option>'+
-  			'</select>'+
+  			'</select> </div> '+
 				'<div id=horseInteractionFeedback></div>'+
-				'<div id= "horseInteractionValueBox" property="type" value="" opacity = 0 ></div>';
+				'<div id= "horseInteractionValueBox" property="type" value="" opacity = 0 ></div>'+
+				'</div>';
 
 	let pages = [NAME, OWNER, RACE, DATE_OF_BIRTH, SEX, HEIGHT, GROWER, TYPE];
 	return pages;

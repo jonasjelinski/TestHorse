@@ -1,0 +1,77 @@
+.peter{
+  position: absolute;
+  height: 500px;
+  width: auto;
+  top: 150px;
+}
+
+.petersWords{
+  position: absolute;
+  height: 350px;
+  width: 400px;
+  left: 450px;
+
+}
+
+.peterIsTalking{
+  position: absolute;
+  top: 90px;
+  left: 500px;
+  font-family: 'Sedgwick Ave', cursive;
+  font-size: 20px;
+}
+
+.userInteractionInputContainer{
+  position: absolute;
+  left: 500px;
+  top: 450px;
+}
+
+.userInteractionInputContainer2{
+  position: absolute;
+  left: 500px;
+  top: 400px;
+}
+
+#userInteractionInput{
+  height: 35px;
+  font-family: 'Sawarabi Mincho', sans-serif;
+  font-size: 25px;
+}
+
+#userInteractionInput2{
+  height: 35px;
+  font-family: 'Sawarabi Mincho', sans-serif;
+  font-size: 25px;
+}
+
+#userInteractionFeedback{
+  position: absolute;
+  left: 500px;
+  top: 530px;
+}
+
+#userInteractionBack{
+  position: absolute;
+  top: 200px;
+  left: 0%;
+  height: 80px;
+  width: 70px;
+  opacity: 0.7;
+}
+
+#userInteractionForward{
+  position: absolute;
+  top: 200px;
+  right: 0%;
+  transform: rotate(180deg);
+  height: 80px;
+  width: 70px;
+  opacity: 0.7;
+}
+
+#userInteractionProgress{
+  position: absolute;
+  left: 500px;
+  top: 500px;
+}
