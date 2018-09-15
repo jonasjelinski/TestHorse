@@ -79,3 +79,38 @@
   height: 100px;
   cursor: pointer;
 }
+
+
+#peterHelpStart:hover{
+    animation-name: peterHelpsStart;
+    animation-duration: 10s;
+}
+
+@keyframes peterHelpsStart{
+  0%  {background-image: url("pics/Peter.png");
+      background-repeat: no-repeat;
+      background-position: right;
+      background-size: 250px;
+  }
+  10%  {background-image: url("pics/talkingPeterStart.png");
+      background-repeat: no-repeat;
+      background-position: left;
+      background-size: 450px;
+      transform: rotate(0deg);
+      top: 75px;
+      left: -100px;
+  }
+  90%  {background-image: url("pics/talkingPeterStart.png");
+      background-repeat: no-repeat;
+      background-position: left;
+      background-size: 450px;
+      transform: rotate(0deg);
+      top: 75px;
+      left: -100px;
+  }
+  100%{background-image: url("pics/Peter.png");
+      background-repeat: no-repeat;
+      background-position: right;
+      background-size: 250px;
+  }
+}

@@ -8,6 +8,7 @@ var Pages = Pages || {};
 Pages.PageContent = function (){
 	let that = {};
 	const PASSWORD_POPUP = '<div id="popupPassword">' +
+		'<p class="loginP" id="userHint">Hast du dein Passwort vergessen?</p>'+
 	'<p id="popupPasswordText">Trage deine Mailadresse ein, mit der du dich registriert hast.</p>'+
 	'<div class="forgotPasswordContainer"><input id= "forgotPasswordInput" placeholder="Mailadresse eingeben"></input></div> '+
 	'<button id="passwordButton">neues Passwort generieren</button>'+
@@ -15,8 +16,9 @@ Pages.PageContent = function (){
 
 	LOGIN_PAGE = ' <content>'+
 						'<div id= "mainpage">' +
+						'<div class="peterHelpContainer" id="peterHelpLogin">  </div>'+
 						'<div id="loginFrame"> '+
-							'<button id= "createNewAccount" type="button">neues Konto erstellen</button> '+
+							'<input id= "createNewAccount" type="image" src="Store/pics/PferdSchild.png"> </input> '+
 							'<p class="loginP" id="userNameTag">Email</p>'+
 							'<div class="loginDIV"><input id= "userNameInput" placeholder="Email eingeben"></input></div> '+
 							'<p class="loginP" id="passwordTag">Passwort</p>'+
@@ -24,7 +26,7 @@ Pages.PageContent = function (){
 							'<div class="loginDIV" id= "loginFailedText">Anmeldung leider fehlgeschlagen. Bitte überprüfe deine Daten und probiere es noch einmal.</div> '+
 							'<div class="loginDIV"><button id= "loginButton" type="button">OK</button> </div>'+
 							'<div class="checkbox"><label id="stayLoggedInTag"><input id= "stayLoggedInBox" type="checkbox" value = "stayLoggedIn"/><span>dauerhaft angemeldet bleiben?</span></label></div> '+
-							'<p class="loginP" id="userHint">Hast du dein Passwort vergessen?</p>'+
+
 							PASSWORD_POPUP +
 							'</div> ' +
 						'</content>',
@@ -108,6 +110,7 @@ HORSEBOXELEMENT_TEMPLATE= '<script type="text/template" id="horseBoxElementTempl
 '</script> ',
 	START_PAGE =  ' <content>'+
 						'<div id= "mainpage">' +
+						'<div class="peterHelpContainer" id="peterHelpStart">  </div>'+
             '<input class="burger" id="burger" type="checkbox" />' +
        			'<label for="burger" class="burgerLabel">' +
         		'</label>' +
@@ -168,10 +171,10 @@ LIST_ELEMENT_TEMPLATE = '<script type="text/template" id="ulElementTemplate"> '+
  '</label> ' +
  '<nav class="navigation" id="burgerNavDatePage">'    +
 	 '<ul class="burgerList" id = "burgerListAllDates" >' +
-		 '<li class="burgerListItem><a class="burgerListContent" id="burgerOptionAllDatesProfile" href="#">Profil</a></li>' +
-		 '<li class="burgerListItem><a class="burgerListContent" id="burgerOptionAllDatesHelp" href="#">Hilfe</a></li>' +
-		 '<li class="burgerListItem><a class="burgerListContent" id="burgerOptionAllDatesStart" href="#">Startseite</a></li>' +
-		 '<li class="burgerListItem><a class="burgerListContent" id= "burgerOptionAllDatesLogout" href="#">Logout</a></li>' +
+		 '<li class="burgerListItem"> <a class="burgerListContent" id="burgerOptionAllDatesProfile" href="#">Profil</a></li>' +
+		 '<li class="burgerListItem"> <a class="burgerListContent" id="burgerOptionAllDatesHelp" href="#">Hilfe</a></li>' +
+		 '<li class="burgerListItem"> <a class="burgerListContent" id="burgerOptionAllDatesStart" href="#">Startseite</a></li>' +
+		 '<li class="burgerListItem"> <a class="burgerListContent" id= "burgerOptionAllDatesLogout" href="#">Logout</a></li>' +
 	 '</ul>'  +
  '</nav>'  +
   	'<ul id="allDatesList">'+
@@ -233,10 +236,10 @@ DATE_LIST_TEMPLATE
 	'</label>' +
 	'<nav class="navigation" id="burgerNavHorseProfile">'    +
 		'<ul class="burgerList" id = "burgerMenuHorseProfile" >' +
-			'<li class="burgerListItem><a class="burgerListContent" id="optionHProfileStart" href="#">Start</a></li>' +
-			'<li class="burgerListItem><a class="burgerListContent" id="optionHProfileHelp" href="#">Hilfe</a></li>' +
-			'<li class="burgerListItem><a class="burgerListContent" id= "optionHProfileUserProfile" href="#">Nutzerprofil</a></li>' +
-			'<li class="burgerListItem><a class="burgerListContent" id= "optionHProfileLogout" href="#">Logout</a></li>' +
+			'<li class="burgerListItem"> <a class="burgerListContent" id="optionHProfileStart" href="#">Start</a></li>' +
+			'<li class="burgerListItem"> <a class="burgerListContent" id="optionHProfileHelp" href="#">Hilfe</a></li>' +
+			'<li class="burgerListItem"> <a class="burgerListContent" id= "optionHProfileUserProfile" href="#">Nutzerprofil</a></li>' +
+			'<li class="burgerListItem"> <a class="burgerListContent" id= "optionHProfileLogout" href="#">Logout</a></li>' +
 		'</ul>'  +
 	'</nav>'  +
 	'<div id="horseProfileImgContainer">'+
@@ -267,7 +270,7 @@ DATE_LIST_TEMPLATE
     '<div id= "textBox">textBox</div> '+
     POPUP +
 		'<div id="horseProfileSaverImgContainer">'+
-		'<img id="horseProfileSaverImg" src="" alt="Profil Bild Pferd">'+
+		'<img id="horseProfileSaverImg" src="" alt="Foto bitte im Querformat">'+
 		'</div>'+
   '</div>'+
   '</content>'+
@@ -276,8 +279,8 @@ DATE_LIST_TEMPLATE
     CREATE_USER = '<content>'+
   '<div id= "userInteraction">' +
     '<div id= "userInteractionInnerPage"></div>' +
-    ' <button id= "userInteractionForward" type="button">Forward</button>' +
-    ' <button id= "userInteractionBack" type="button">Backwards</button> '+
+		' <input id= "userInteractionBack" type="image" src="Store/pics/linkspfeil.png"></input> '+
+		' <input id= "userInteractionForward" type="image" src="Store/pics/linkspfeil.png"></input>' +
     '<div id= "userInteractionProgress"></div> '+
 
     ' <content>' +

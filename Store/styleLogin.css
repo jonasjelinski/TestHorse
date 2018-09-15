@@ -19,34 +19,11 @@
 
 #createNewAccount{
   position: absolute;
-  top: 3px;
+  bottom: 3px;
   right: 3px;
-  height: 20px;
   width: 150px;
-  background-color: var(--button);
-  -webkit-box-shadow: 10px 10px 38px -3px rgba(0,0,0,0.6);
-  -moz-box-shadow: 10px 10px 38px -3px rgba(0,0,0,0.6);
-  box-shadow: 10px 10px 38px -3px rgba(0,0,0,0.6);
-  background: -moz-linear-gradient(top, var(--button) 0%, var(--background) 38%, var(--button) 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,var(--button)), color-stop(38%,var(--background) ), color-stop(100%, var(--button) ));
-  background: -webkit-linear-gradient(top, var(--button) 0%,var(--background) 38%,var(--button) 100%);
-  background: -o-linear-gradient(top, var(--button) 0%,var(--background) 38%,var(--button) 100%);
-  background: -ms-linear-gradient(top, var(--button) 0%,var(--background) 38%,var(--button) 100%);
-  background: linear-gradient(to bottom, var(--button) 0%,var(--background) 38%,var(--button) 100%);
-  border: none;
-  text-align:center;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-  border-radius: 4px;
+  height: auto;
   cursor: pointer;
-}
-
-#createNewAccount:hover{
-  height: 22px;
-  width: 152px;
-  -webkit-box-shadow: 10px 10px 38px 5px rgba(0,0,0,0.6);
-  -moz-box-shadow: 10px 10px 38px 5px rgba(0,0,0,0.6);
-  box-shadow: 10px 10px 38px 5px rgba(0,0,0,0.6);
 }
 
 .loginP{
@@ -111,4 +88,47 @@
 
 #userHint{
 
+}
+
+#popupPassword{
+  text-align: center;
+}
+
+#popupPasswordText{
+
+}
+
+
+#peterHelpLogin:hover{
+    animation-name: peterHelpsLogin;
+    animation-duration: 10s;
+}
+
+@keyframes peterHelpsLogin{
+  0%  {background-image: url("pics/Peter.png");
+      background-repeat: no-repeat;
+      background-position: right;
+      background-size: 250px;
+  }
+  10%  {background-image: url("pics/talkingPeterLogin.png");
+      background-repeat: no-repeat;
+      background-position: left;
+      background-size: 450px;
+      transform: rotate(0deg);
+      top: 75px;
+      left: -100px;
+  }
+  90%  {background-image: url("pics/talkingPeterLogin.png");
+      background-repeat: no-repeat;
+      background-position: left;
+      background-size: 450px;
+      transform: rotate(0deg);
+      top: 75px;
+      left: -100px;
+  }
+  100%{background-image: url("pics/Peter.png");
+      background-repeat: no-repeat;
+      background-position: right;
+      background-size: 250px;
+  }
 }

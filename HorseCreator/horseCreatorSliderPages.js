@@ -11,7 +11,7 @@ HorseCreator.SliderPages = function() {
 				'<div class="PeterTheHorse">'+
 				'<img class="peter" src="Store/pics/Peter.png" alt="Peter the Horse">' +
 				'<img class="petersWords" src="Store/pics/Sprechblase.png" alt="Peter#s words">' +
-				'<div class="peterIsTalking">Hallo,ich bin Peter.<br>Bitte verate mir als Erstes <br>den Namen deines Pferdes!</div>'+
+				'<div class="peterIsTalking">Bitte verate mir als Erstes <br>den Namen deines Pferdes!</div>'+
 				'<div class="horseInteractionInputContainer"> <input id="horseInteractionInput" placeholder="Pferdename"></input> </div> '+
 				'<div id=horseInteractionFeedback></div>'+
 				'<div id= "horseInteractionValueBox" property="name" value="" opacity = 0 ></div>'+
@@ -62,7 +62,7 @@ HorseCreator.SliderPages = function() {
 			'<img class="peter" src="Store/pics/Peter.png" alt="Peter the Horse">' +
 			'<img class="petersWords" src="Store/pics/Sprechblase.png" alt="Peter#s words">' +
 				'<div class="peterIsTalking">Wie groß ist dein Pferd?</div>'+
-				'<div class="horseInteractionInputContainer"> <input id="horseInteractionInput" type="value" placeholder="Widerristhöhe"></input> </div> '+
+				'<div class="horseInteractionInputContainer"> <input id="horseInteractionInput" type="number" placeholder="Widerristhöhe"></input> </div> '+
 				'<div id=horseInteractionFeedback></div>'+
 				'<div id= "horseInteractionValueBox" property="height" value="" opacity = 0 ></div>'+
 				'</div>',
